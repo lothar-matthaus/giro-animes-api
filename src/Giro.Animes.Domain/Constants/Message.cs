@@ -40,6 +40,12 @@
                 public const string INVALID_EXTENSION = "A extensão do arquivo de capa informado não é suportado.";
                 public const string INVALID_FILE_NAME_LENGHT = "O nome do arquivo de capa deve conter entre 3 e 100 caracteres";
             }
+
+            public static class User
+            {
+                public const string INVALID_NAME = "O nome de usuário pode conter apenas letras, números e símbolos permitidos (como !@#$%^&*(),._-).";
+                public const string INVALID_NAME_LENGHT = "O nome do usuário deve conter entre 3 e 20 caracteres";
+            }
         }
     }
 }
