@@ -2,24 +2,24 @@
 
 namespace Giro.Animes.Domain.Enums
 {
-    public class UserStatus : Enumeration
+    public class UserStatus : Enumeration<UserStatus, int>
     {
         /// <summary>
         /// Status do usuário ativo
         /// </summary>
-        public static UserStatus Active = new UserStatus(1, "Active");
+        public static UserStatus Active = new UserStatus(0, "Active");
         /// <summary>
         /// Status do usuário inativo
         /// </summary>
-        public static UserStatus Inactive = new UserStatus(2, "Inactive");
+        public static UserStatus Inactive = new UserStatus(1, "Inactive");
         /// <summary>
         /// Status do usuário bloqueado
         /// </summary>
-        public static UserStatus Blocked = new UserStatus(3, "Blocked");
+        public static UserStatus Blocked = new UserStatus(2, "Blocked");
         /// <summary>
         /// Status do usuário deletado
         /// </summary>
-        public static UserStatus Deleted = new UserStatus(4, "Deleted");
+        public static UserStatus Deleted = new UserStatus(3, "Deleted");
 
         /// <summary>
         /// Construtor padrão da classe UserStatus 
