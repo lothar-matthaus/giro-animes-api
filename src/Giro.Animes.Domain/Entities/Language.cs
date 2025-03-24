@@ -1,12 +1,7 @@
 ﻿using Giro.Animes.Domain.Constants;
 using Giro.Animes.Domain.Entities.Base;
 using Giro.Animes.Domain.ValueObjects;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 
 namespace Giro.Animes.Domain.Entities
 {
@@ -74,6 +69,11 @@ namespace Giro.Animes.Domain.Entities
                     ifValid: () => _name = value);
             }
         }
+
+        /// <summary>
+        /// Coleção de configurações do idioma 
+        /// </summary>
+        public virtual ICollection<Settings> Settings { get; private set; }
 
         /// <summary>
         /// Construtor privado com parâmetros. Garante a construção do objeto através do método Create

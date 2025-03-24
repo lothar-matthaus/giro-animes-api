@@ -1,5 +1,8 @@
-﻿using Giro.Animes.Domain.Entities.Base;
+﻿using Giro.Animes.Domain.Constants;
+using Giro.Animes.Domain.Entities.Base;
 using Giro.Animes.Domain.Enums;
+using Giro.Animes.Domain.ValueObjects;
+using System.Text.RegularExpressions;
 
 namespace Giro.Animes.Domain.Entities
 {
@@ -8,7 +11,30 @@ namespace Giro.Animes.Domain.Entities
         /// <summary>
         /// Nome do usuário 
         /// </summary>
-        public string UserName { get; private set; }
+        private string _name;
+
+        public string Name
+        {
+            get { return _name; }
+            set
+            {
+                Validate(
+                        isInvalidIf: string.IsNullOrWhiteSpace(value),
+                        ifInvalid: () => ValidationError.Create(GetType().Name, "Username", string.Format(Message.Validation.General.REQUIRED, "Username")),
+                        ifValid: () => _name = value);
+
+                Validate(
+                        isInvalidIf: !Regex.IsMatch(Patterns.User.NAME, value),
+                        ifInvalid: () => ValidationError.Create(GetType().Name, "Username", Message.Validation.User.INVALID_NAME),
+                        ifValid: () => _name = value);
+
+                Validate(
+                        isInvalidIf: !Regex.IsMatch(Patterns.User.NAME_LENGHT, value),
+                        ifInvalid: () => ValidationError.Create(GetType().Name, "Username", Message.Validation.User.INVALID_NAME_LENGHT),
+                        ifValid: () => _name = value);
+            }
+        }
+
 
         /// <summary>
         /// Status do usuário 
@@ -16,20 +42,39 @@ namespace Giro.Animes.Domain.Entities
         public UserStatus Status { get; private set; }
 
         /// <summary>
-        /// Identificador da conta do usuário
+        /// Papel do usuário 
         /// </summary>
-        public long AccountId { get; private set; }
+        public UserRole Role { get; private set; }
 
         /// <summary>
         /// Conta do usuário
         /// </summary>
         public Account Account { get; private set; }
 
-        private User(string userName, UserStatus status, Account account): base(DateTime.Now)
+        /// <summary>
+        /// Configurações do usuário 
+        /// </summary>
+        public Settings Settings { get; set; }
+
+        /// <summary>
+        /// Construtor padrão do objeto de entidade
+        /// </summary>
+        public User()
         {
-            UserName = userName;
+        }
+
+        /// <summary>
+        /// Construtor com parâmetros privados. Garante a construção do objeto através do método Create
+        /// </summary>
+        /// <param name="userName"></param>
+        /// <param name="status"></param>
+        /// <param name="account"></param>
+        private User(string userName, UserStatus status, Account account) : base(DateTime.Now)
+        {
+            Name = userName;
             Status = status;
             Account = account;
+            Role = UserRole.Guest;
         }
 
         /// <summary>

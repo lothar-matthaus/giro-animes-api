@@ -1,9 +1,4 @@
 ﻿using Giro.Animes.Domain.Entities.Base;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Giro.Animes.Domain.Entities
 {
@@ -23,13 +18,13 @@ namespace Giro.Animes.Domain.Entities
         /// </summary>
         public Language Language { get; set; }
 
-        
+
         /// <summary>
         /// Construtor padrão
         /// </summary>
         public Description()
         {
-            
+
         }
 
         /// <summary>

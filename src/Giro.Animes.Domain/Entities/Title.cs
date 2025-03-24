@@ -1,14 +1,7 @@
 ﻿using Giro.Animes.Domain.Constants;
 using Giro.Animes.Domain.Entities.Base;
 using Giro.Animes.Domain.ValueObjects;
-using Giro.Animes.Domain.ValueObjects.Base;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 
 namespace Giro.Animes.Domain.Entities
 {
@@ -28,13 +21,13 @@ namespace Giro.Animes.Domain.Entities
             private set
             {
                 Validate(
-                    isInvalidIf: string.IsNullOrEmpty(value), 
-                    ifInvalid: () => ValidationError.Create(this.GetType().Name, "Title", string.Format(Message.Validation.General.REQUIRED, "Title")), 
+                    isInvalidIf: string.IsNullOrEmpty(value),
+                    ifInvalid: () => ValidationError.Create(this.GetType().Name, "Title", string.Format(Message.Validation.General.REQUIRED, "Title")),
                     ifValid: () => _name = value);
 
                 Validate(
                     isInvalidIf: !Regex.IsMatch(Patterns.Anime.TITLE, value),
-                    ifInvalid: () => ValidationError.Create(this.GetType().Name, "Title", Message.Validation.General.TITLE_LENGHT),
+                    ifInvalid: () => ValidationError.Create(this.GetType().Name, "Title", Message.Validation.Anime.TITLE_LENGHT),
                     ifValid: () => _name = value);
             }
         }
@@ -55,7 +48,7 @@ namespace Giro.Animes.Domain.Entities
         /// <param name="name">Nome do título do anime</param>
         /// <param name="language">Idioma do título</param>
         /// <param name="creationDate">Data de criação do título</param>
-        private Title( string name, Language language, DateTime creationDate) : base(creationDate)
+        private Title(string name, Language language, DateTime creationDate) : base(creationDate)
         {
             Name = name;
             Language = language;

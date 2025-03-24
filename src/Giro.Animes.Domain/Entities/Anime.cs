@@ -1,10 +1,5 @@
 ﻿using Giro.Animes.Domain.Entities.Base;
 using Giro.Animes.Domain.Enums;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Giro.Animes.Domain.Entities
 {
@@ -37,7 +32,7 @@ namespace Giro.Animes.Domain.Entities
 
         public Anime()
         {
-            
+
         }
 
         /// <summary>
