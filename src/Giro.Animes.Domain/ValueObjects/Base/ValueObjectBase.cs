@@ -7,7 +7,7 @@ namespace Giro.Animes.Domain.ValueObjects.Base
         /// <summary>
         /// Lista de erros de validação do objeto de valor e suas propriedades
         /// </summary>
-        public IList<ValidationError> _errors { get; private set; }
+        private IList<ValidationError> _errors;
 
         /// <summary>
         /// Propriedade que indica se o objeto de valor é válido ou não

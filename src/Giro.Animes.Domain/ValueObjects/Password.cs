@@ -19,12 +19,12 @@ namespace Giro.Animes.Domain.ValueObjects
             {
                 Validate(
                     isInvalidIf: string.IsNullOrEmpty(value),
-                    ifInvalid: () => ValidationError.Create(this.GetType().Name, "Senha", string.Format(Message.Validation.REQUIRED, "Senha")),
+                    ifInvalid: () => ValidationError.Create(this.GetType().Name, "Senha", string.Format(Message.Validation.General.REQUIRED, "Senha")),
                     ifValid: () => _plainText = value);
 
                 Validate(
                     isInvalidIf: !Regex.IsMatch(Patterns.Account.PASSWORD, value),
-                    ifInvalid: () => ValidationError.Create(this.GetType().Name, "Senha", Message.Validation.INVALID_PASSWORD),
+                    ifInvalid: () => ValidationError.Create(this.GetType().Name, "Senha", Message.Validation.Account.INVALID_PASSWORD),
                     ifValid: () => _plainText = value);
 
             }
@@ -44,12 +44,12 @@ namespace Giro.Animes.Domain.ValueObjects
             {
                 Validate(
                     isInvalidIf: string.IsNullOrEmpty(value),
-                    ifInvalid: () => ValidationError.Create(this.GetType().Name, "Confirmar senha", string.Format(Message.Validation.INVALID_PASSWORD, "Confirmar senha")),
+                    ifInvalid: () => ValidationError.Create(this.GetType().Name, "Confirmar senha", string.Format(Message.Validation.Account.INVALID_PASSWORD, "Confirmar senha")),
                     ifValid: () => _plainTextConfirm = value);
 
                 Validate(
                     isInvalidIf: !string.Equals(value, _plainText),
-                    ifInvalid: () => ValidationError.Create(this.GetType().Name, "Confirmar senha", Message.Validation.INVALID_PASSWORD),
+                    ifInvalid: () => ValidationError.Create(this.GetType().Name, "Confirmar senha", Message.Validation.Account.INVALID_PASSWORD),
                     ifValid: () => _plainTextConfirm = value);
             }
         }
@@ -64,6 +64,13 @@ namespace Giro.Animes.Domain.ValueObjects
         /// Salt do hash da senha para armazenamento seguro no banco de dados
         /// </summary>
         public string Salt { get; init; }
+
+        /// <summary>
+        /// Construtor padrão do objeto de valor
+        /// </summary>
+        public Password()
+        {
+        }
 
         /// <summary>
         /// Construtor privado com parâmetros. Garante a construção do objeto através do método Create
