@@ -1,5 +1,4 @@
-﻿
-using Giro.Animes.Domain.Entities.Base;
+﻿using Giro.Animes.Domain.Entities.Base;
 using Giro.Animes.Domain.Enums;
 using Giro.Animes.Domain.ValueObjects;
 
@@ -20,19 +19,45 @@ namespace Giro.Animes.Domain.Entities
         /// </summary>
         public AccountStatus Status { get; private set; }
 
-        public ProfilePicture ProfilePicture { get; private set; }
+        /// <summary>
+        /// Identificador do plano do usuário 
+        /// </summary>
+        public AccountPlan Plan { get; set; }
+
+        /// <summary>
+        /// Identificador da imagem de perfil
+        /// </summary>
+        public Avatar Avatar { get; private set; }
+
+        /// <summary>
+        /// Identificador do usuário
+        /// </summary>
+
+        public long UserId { get; set; }
+        /// <summary>
+        /// Usuário atrelado a conta 
+        /// </summary>
+        public User User { get; private set; }
+
+        /// <summary>
+        /// Construtor padrão
+        /// </summary>
+        public Account()
+        {
+        }
 
         /// <summary>
         /// Construtor privado com parâmetros. Garante a construção do objeto através do método Create
         /// </summary>
         /// <param name="email"></param>
         /// <param name="password"></param>
-        private Account(Email email, Password password, ProfilePicture profilePicture)
+        private Account(Email email, Password password, Avatar avatar)
         {
             Email = email;
             Password = password;
-            ProfilePicture = profilePicture;
+            Avatar = avatar;
             Status = AccountStatus.EmailNotConfirmed;
+            Plan = AccountPlan.Bronze;
         }
 
         /// <summary>
@@ -41,6 +66,6 @@ namespace Giro.Animes.Domain.Entities
         /// <param name="email"></param>
         /// <param name="password"></param>
         /// <returns></returns>
-        public static Account Create(Email email, Password password, ProfilePicture profilePicture) => new Account(email, password, profilePicture);
+        public static Account Create(Email email, Password password, Avatar avatar) => new Account(email, password, avatar);
     }
 }
