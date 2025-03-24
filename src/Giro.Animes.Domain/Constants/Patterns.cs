@@ -34,10 +34,16 @@
             public const string PEN_NAME_LENGHT = @"^.{3,30}$";
         }
 
-        public static class  Cover
+        public static class Cover
         {
             public const string ALLOWED_EXTENSIONS = @"^.+\.(jpe?g|webp|avif|png)$";
             public const string FILE_NAME_LENGTH = @"^.{3,100}$";
+        }
+
+        public static class User
+        {
+            public const string NAME = @"^[a-zA-Z0-9!@#$%^&*(),.?"":{}|<>_-]+$";
+            public const string NAME_LENGHT = @"^.{3,20}$";
         }
     }
 }
