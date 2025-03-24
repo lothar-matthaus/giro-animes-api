@@ -1,3 +1,4 @@
+using Giro.Animes.Infra.Data.Configurations.IoC;
 using Microsoft.AspNetCore.Localization;
 using System.Globalization;
 
@@ -10,21 +11,12 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-
-// Configura o caminho dos recursos
-builder.Services.AddLocalization(options => options.ResourcesPath = "");
-
 // Configura os serviços da API (Controllers, etc.)
 builder.Services.AddControllers();
 
-// Configuração de cultura suportada e cultura padrão
-var supportedCultures = new[] { new CultureInfo("pt-BR"), new CultureInfo("en-US") };
-builder.Services.Configure<RequestLocalizationOptions>(options =>
-{
-    options.DefaultRequestCulture = new RequestCulture("pt-BR");
-    options.SupportedCultures = supportedCultures;
-    options.SupportedUICultures = supportedCultures;
-});
+#region Contexts
+builder.Services.AddGiroAnimesDbContext(builder.Configuration);
+#endregion
 
 var app = builder.Build();
 
