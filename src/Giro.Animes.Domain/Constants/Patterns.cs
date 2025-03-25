@@ -45,5 +45,11 @@
             public const string NAME = @"^[a-zA-Z0-9!@#$%^&*(),.?"":{}|<>_-]+$";
             public const string NAME_LENGHT = @"^.{3,20}$";
         }
+
+        public static class Studio
+        {
+            public const string NAME = @"^[A-Za-z0-9À-ÿ\s\-'&]+$";
+            public const string NAME_LENGHT = @"^.{3,30}$";
+        }
     }
 }
