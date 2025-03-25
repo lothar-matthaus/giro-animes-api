@@ -3,6 +3,7 @@ using System;
 using Giro.Animes.Infra.Data.Contexts;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Giro.Animes.Infra.Data.Migrations
 {
     [DbContext(typeof(GiroAnimesDbContext))]
-    partial class GiroAnimesDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250325034620_alteracao-relacao-authors-description-biography")]
+    partial class alteracaorelacaoauthorsdescriptionbiography
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -386,7 +389,7 @@ namespace Giro.Animes.Infra.Data.Migrations
 
                     b.HasIndex("LanguageId");
 
-                    b.ToTable("titles", "common");
+                    b.ToTable("titles", "content");
                 });
 
             modelBuilder.Entity("Giro.Animes.Domain.Entities.User", b =>
@@ -515,14 +518,12 @@ namespace Giro.Animes.Infra.Data.Migrations
                             b1.Property<string>("Salt")
                                 .IsRequired()
                                 .HasMaxLength(256)
-                                .HasColumnType("character varying(256)")
-                                .HasColumnName("Salt");
+                                .HasColumnType("character varying(256)");
 
                             b1.Property<string>("Value")
                                 .IsRequired()
                                 .HasMaxLength(256)
-                                .HasColumnType("character varying(256)")
-                                .HasColumnName("Password");
+                                .HasColumnType("character varying(256)");
 
                             b1.HasKey("AccountId");
 

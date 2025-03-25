@@ -3,6 +3,7 @@ using System;
 using Giro.Animes.Infra.Data.Contexts;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Giro.Animes.Infra.Data.Migrations
 {
     [DbContext(typeof(GiroAnimesDbContext))]
-    partial class GiroAnimesDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250325033204_adicao-genres-titles-e-descriptions")]
+    partial class adicaogenrestitlesedescriptions
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -27,14 +30,14 @@ namespace Giro.Animes.Infra.Data.Migrations
                     b.Property<long>("AuthorsId")
                         .HasColumnType("bigint");
 
-                    b.Property<long>("BiographiesId")
+                    b.Property<long>("BiographyId")
                         .HasColumnType("bigint");
 
-                    b.HasKey("AuthorsId", "BiographiesId");
+                    b.HasKey("AuthorsId", "BiographyId");
 
-                    b.HasIndex("BiographiesId");
+                    b.HasIndex("BiographyId");
 
-                    b.ToTable("biography_authors", "common");
+                    b.ToTable("description_authors", "common");
                 });
 
             modelBuilder.Entity("DescriptionGenre", b =>
@@ -386,7 +389,7 @@ namespace Giro.Animes.Infra.Data.Migrations
 
                     b.HasIndex("LanguageId");
 
-                    b.ToTable("titles", "common");
+                    b.ToTable("titles", "content");
                 });
 
             modelBuilder.Entity("Giro.Animes.Domain.Entities.User", b =>
@@ -439,7 +442,7 @@ namespace Giro.Animes.Infra.Data.Migrations
 
                     b.HasOne("Giro.Animes.Domain.Entities.Description", null)
                         .WithMany()
-                        .HasForeignKey("BiographiesId")
+                        .HasForeignKey("BiographyId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
@@ -515,14 +518,12 @@ namespace Giro.Animes.Infra.Data.Migrations
                             b1.Property<string>("Salt")
                                 .IsRequired()
                                 .HasMaxLength(256)
-                                .HasColumnType("character varying(256)")
-                                .HasColumnName("Salt");
+                                .HasColumnType("character varying(256)");
 
                             b1.Property<string>("Value")
                                 .IsRequired()
                                 .HasMaxLength(256)
-                                .HasColumnType("character varying(256)")
-                                .HasColumnName("Password");
+                                .HasColumnType("character varying(256)");
 
                             b1.HasKey("AccountId");
 
