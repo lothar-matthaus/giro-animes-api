@@ -3,11 +3,6 @@ using Giro.Animes.Infra.Data.Configurations.Types.Base;
 using Giro.Animes.Infra.Data.Constants;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Giro.Animes.Infra.Data.Configurations.Types
 {
@@ -19,6 +14,7 @@ namespace Giro.Animes.Infra.Data.Configurations.Types
             builder.ToTable(Tables.Common.LANGUAGES, Schemas.COMMON);
 
             builder.HasMany(language => language.Settings).WithOne(settings => settings.Language).IsRequired(true);
+            builder.HasMany(language => language.Titles).WithOne(title => title.Language);
 
             builder.Property(language => language.Name).IsRequired().HasMaxLength(20).HasColumnOrder(2);
             builder.Property(language => language.Code).IsRequired().HasMaxLength(5).HasColumnOrder(3);

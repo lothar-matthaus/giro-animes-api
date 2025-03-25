@@ -25,8 +25,8 @@ namespace Giro.Animes.Infra.Data.Configurations.Types
 
             builder.OwnsOne(account => account.Password, password =>
             {
-                password.Property(password => password.Value).IsRequired().HasMaxLength(256);
-                password.Property(password => password.Salt).IsRequired().HasMaxLength(256);
+                password.Property(password => password.Value).HasColumnName(nameof(Password)).IsRequired(true).HasMaxLength(256);
+                password.Property(password => password.Salt).HasColumnName(nameof(Password.Salt)).IsRequired(true).HasMaxLength(256);
                 password.Ignore(password => password.PlainTextConfirm);
                 password.Ignore(password => password.PlainText);
             });
