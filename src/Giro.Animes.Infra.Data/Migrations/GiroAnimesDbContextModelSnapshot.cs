@@ -22,36 +22,6 @@ namespace Giro.Animes.Infra.Data.Migrations
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
-            modelBuilder.Entity("AuthorDescription", b =>
-                {
-                    b.Property<long>("AuthorsId")
-                        .HasColumnType("bigint");
-
-                    b.Property<long>("BiographiesId")
-                        .HasColumnType("bigint");
-
-                    b.HasKey("AuthorsId", "BiographiesId");
-
-                    b.HasIndex("BiographiesId");
-
-                    b.ToTable("biography_authors", "common");
-                });
-
-            modelBuilder.Entity("DescriptionGenre", b =>
-                {
-                    b.Property<long>("DescriptionsId")
-                        .HasColumnType("bigint");
-
-                    b.Property<long>("GenresId")
-                        .HasColumnType("bigint");
-
-                    b.HasKey("DescriptionsId", "GenresId");
-
-                    b.HasIndex("GenresId");
-
-                    b.ToTable("description_genres", "common");
-                });
-
             modelBuilder.Entity("GenreTitle", b =>
                 {
                     b.Property<long>("GenresId")
@@ -64,7 +34,7 @@ namespace Giro.Animes.Infra.Data.Migrations
 
                     b.HasIndex("TitlesId");
 
-                    b.ToTable("title_genres", "common");
+                    b.ToTable("genre_titles", "common");
                 });
 
             modelBuilder.Entity("Giro.Animes.Domain.Entities.Account", b =>
@@ -179,6 +149,9 @@ namespace Giro.Animes.Infra.Data.Migrations
                         .HasMaxLength(20)
                         .HasColumnType("character varying(20)")
                         .HasColumnOrder(3);
+
+                    b.Property<string>("FileName")
+                        .HasColumnType("text");
 
                     b.Property<DateTime>("UpdateDate")
                         .ValueGeneratedOnAddOrUpdate()
@@ -429,34 +402,34 @@ namespace Giro.Animes.Infra.Data.Migrations
                     b.ToTable("users", "management");
                 });
 
-            modelBuilder.Entity("AuthorDescription", b =>
+            modelBuilder.Entity("biography_authors", b =>
                 {
-                    b.HasOne("Giro.Animes.Domain.Entities.Author", null)
-                        .WithMany()
-                        .HasForeignKey("AuthorsId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                    b.Property<long>("AuthorId")
+                        .HasColumnType("bigint");
 
-                    b.HasOne("Giro.Animes.Domain.Entities.Description", null)
-                        .WithMany()
-                        .HasForeignKey("BiographiesId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                    b.Property<long>("DescriptionId")
+                        .HasColumnType("bigint");
+
+                    b.HasKey("AuthorId", "DescriptionId");
+
+                    b.HasIndex("DescriptionId");
+
+                    b.ToTable("biography_authors", "common");
                 });
 
-            modelBuilder.Entity("DescriptionGenre", b =>
+            modelBuilder.Entity("genre_descriptions", b =>
                 {
-                    b.HasOne("Giro.Animes.Domain.Entities.Description", null)
-                        .WithMany()
-                        .HasForeignKey("DescriptionsId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                    b.Property<long>("DescriptionId")
+                        .HasColumnType("bigint");
 
-                    b.HasOne("Giro.Animes.Domain.Entities.Genre", null)
-                        .WithMany()
-                        .HasForeignKey("GenresId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                    b.Property<long>("GenreId")
+                        .HasColumnType("bigint");
+
+                    b.HasKey("DescriptionId", "GenreId");
+
+                    b.HasIndex("GenreId");
+
+                    b.ToTable("genre_descriptions", "common");
                 });
 
             modelBuilder.Entity("GenreTitle", b =>
@@ -587,6 +560,44 @@ namespace Giro.Animes.Infra.Data.Migrations
                         .IsRequired();
 
                     b.Navigation("Language");
+                });
+
+            modelBuilder.Entity("biography_authors", b =>
+                {
+                    b.HasOne("Giro.Animes.Domain.Entities.Author", "Author")
+                        .WithMany()
+                        .HasForeignKey("AuthorId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Giro.Animes.Domain.Entities.Description", "Description")
+                        .WithMany()
+                        .HasForeignKey("DescriptionId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Author");
+
+                    b.Navigation("Description");
+                });
+
+            modelBuilder.Entity("genre_descriptions", b =>
+                {
+                    b.HasOne("Giro.Animes.Domain.Entities.Description", "Description")
+                        .WithMany()
+                        .HasForeignKey("DescriptionId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Giro.Animes.Domain.Entities.Genre", "Genre")
+                        .WithMany()
+                        .HasForeignKey("GenreId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Description");
+
+                    b.Navigation("Genre");
                 });
 
             modelBuilder.Entity("Giro.Animes.Domain.Entities.Account", b =>
