@@ -2,21 +2,8 @@
 
 namespace Giro.Animes.Domain.Entities
 {
-    public class Avatar : EntityBase
+    public class Avatar : Media
     {
-        /// <summary>
-        /// Url da foto de perfil
-        /// </summary>
-        public string Url { get; private set; }
-
-        /// <summary>
-        /// Formato da foto de perfil
-        /// </summary>
-        public string Extension { get; private set; }
-
-        /// <summary>
-        /// Identificador da conta atrelada a foto de perfil
-        /// </summary>
         public long AccountId { get; set; }
 
         /// <summary>
@@ -36,18 +23,17 @@ namespace Giro.Animes.Domain.Entities
         /// </summary>
         /// <param name="value"></param>
         /// <param name="extension"></param>
-        private Avatar(string value, string extension)
+        private Avatar(string url, string fileName, string extension) : base(url, fileName, extension)
         {
-            Url = value;
-            Extension = extension;
         }
 
         /// <summary>
         /// Cria um objeto de valor ProfilePicture a partir do arquivo e do formato da foto 
         /// </summary>
-        /// <param name="value"></param>
+        /// <param name="url"></param>
         /// <param name="extension"></param>
+        /// <param name="fileName"
         /// <returns></returns>
-        public static Avatar Create(string value, string extension) => new Avatar(value, extension);
+        public static Avatar Create(string url, string fileName, string extension) => new Avatar(url, fileName, extension);
     }
 }

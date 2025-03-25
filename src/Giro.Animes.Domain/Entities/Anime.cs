@@ -11,6 +11,11 @@ namespace Giro.Animes.Domain.Entities
         public ICollection<Title> Titles { get; private set; }
 
         /// <summary>
+        /// Descrições do anime, em diferentes idiomas
+        /// </summary>
+        public ICollection<Description> Sinopses { get; private set; }
+
+        /// <summary>
         /// Lista de capas do anime 
         /// </summary>
         public ICollection<Cover> Covers { get; private set; }
@@ -19,11 +24,6 @@ namespace Giro.Animes.Domain.Entities
         /// Lista de autores do anime
         /// </summary>
         public ICollection<Author> Authors { get; private set; }
-
-        /// <summary>
-        /// Descrições do anime, em diferentes idiomas
-        /// </summary>
-        public ICollection<Description> Descriptions { get; private set; }
 
         /// <summary>
         /// Indica o status do anime 
@@ -41,15 +41,14 @@ namespace Giro.Animes.Domain.Entities
         /// <param name="titles"></param>
         /// <param name="covers"></param>
         /// <param name="authors"></param>
-        /// <param name="descriptions"></param>
+        /// <param name="sinopses"></param>
         /// <param name="status"></param>
-        /// <param name="creationDate"></param>
-        private Anime(ICollection<Title> titles, ICollection<Cover> covers, ICollection<Author> authors, ICollection<Description> descriptions, AnimeStatus status) : base(DateTime.Now)
+        private Anime(ICollection<Title> titles, ICollection<Cover> covers, ICollection<Author> authors, ICollection<Description> sinopses, AnimeStatus status)
         {
             Titles = titles;
             Covers = covers;
             Authors = authors;
-            Descriptions = descriptions;
+            Sinopses = sinopses;
             Status = status;
         }
 
@@ -59,10 +58,10 @@ namespace Giro.Animes.Domain.Entities
         /// <param name="titles"></param>
         /// <param name="covers"></param>
         /// <param name="authors"></param>
-        /// <param name="descriptions"></param>
+        /// <param name="sinopses"></param>
         /// <param name="status"></param>
         /// <returns></returns>
-        public static Anime Create(ICollection<Title> titles, ICollection<Cover> covers, ICollection<Author> authors, ICollection<Description> descriptions, AnimeStatus status) => new Anime(titles, covers, authors, descriptions, status);
+        public static Anime Create(ICollection<Title> titles, ICollection<Cover> covers, ICollection<Author> authors, ICollection<Description> sinopses, AnimeStatus status) => new Anime(titles, covers, authors, sinopses, status);
 
     }
 }

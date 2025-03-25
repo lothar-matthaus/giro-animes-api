@@ -69,7 +69,7 @@ namespace Giro.Animes.Domain.Entities
         /// <param name="userName"></param>
         /// <param name="status"></param>
         /// <param name="account"></param>
-        private User(string userName, UserStatus status, Account account) : base(DateTime.Now)
+        private User(string userName, UserStatus status, Account account)
         {
             Name = userName;
             Status = status;

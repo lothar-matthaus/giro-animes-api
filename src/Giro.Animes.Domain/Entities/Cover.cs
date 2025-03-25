@@ -5,69 +5,30 @@ using System.Text.RegularExpressions;
 
 namespace Giro.Animes.Domain.Entities
 {
-    public class Cover : EntityBase
+    public class Cover : Media
     {
-        public string Url { get; set; }
-
         /// <summary>
-        /// Nome do arquivo da capa
+        /// Identificador do cover a qual o anime pertence.
         /// </summary>
-        #region FileName
-        private string _fileName;
-        public string FileName
-        {
-            get { return _fileName; }
-            set
-            {
-                Validate(
-                    isInvalidIf: string.IsNullOrEmpty(value),
-                    ifInvalid: () => ValidationError.Create(GetType().Name, "FileName", string.Format(Message.Validation.General.REQUIRED, "FileName")),
-                    ifValid: () => _extension = value
-                );
-
-                Validate(
-                   isInvalidIf: !Regex.IsMatch(Patterns.Cover.FILE_NAME_LENGTH, value),
-                   ifInvalid: () => ValidationError.Create(GetType().Name, "FileName", Message.Validation.Cover.INVALID_FILE_NAME_LENGHT),
-                   ifValid: () => _extension = value
-               );
-            }
-        }
-        #endregion
+        public long AnimeId { get; private set; }
 
         /// <summary>
-        /// Extensão do arquivo da capa 
+        /// Anime a qual o cover pertence
         /// </summary>
-        #region Extension
-        private string _extension;
-        public string Extension
-        {
-            get { return _extension; }
-            set
-            {
-                Validate(
-                    isInvalidIf: string.IsNullOrEmpty(value),
-                    ifInvalid: () => ValidationError.Create(GetType().Name, "Extension", string.Format(Message.Validation.General.REQUIRED, "Extension")),
-                    ifValid: () => _extension = value
-                );
+        public Cover Anime { get; private set; }
 
-                Validate(
-                    isInvalidIf: !Regex.IsMatch(Patterns.Cover.ALLOWED_EXTENSIONS, value),
-                    ifInvalid: () => ValidationError.Create(GetType().Name, "Extension", Message.Validation.Cover.INVALID_EXTENSION),
-                    ifValid: () => _extension = value
-                );
-            }
-        }
-        #endregion
-
-        private Cover(string path, string fileName, string extension) : base(DateTime.Now)
+        /// <summary>
+        /// Construtor com parâmetros. Garanta a construção do objeto com o método Create
+        /// </summary>
+        /// <param name="path"></param>
+        /// <param name="fileName"></param>
+        /// <param name="extension"></param>
+        private Cover(string path, string fileName, string extension) : base()
         {
-            Url = path;
-            FileName = fileName;
-            Extension = extension;
         }
 
         /// <summary>
-        /// Cria uma nova capa de anime 
+        /// Método para a construção do objeto.
         /// </summary>
         /// <param name="path"></param>
         /// <param name="fileName"></param>

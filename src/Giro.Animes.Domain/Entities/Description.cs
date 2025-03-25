@@ -41,7 +41,7 @@ namespace Giro.Animes.Domain.Entities
         /// </summary>
         /// <param name="text"></param>
         /// <param name="language"></param>
-        private Description(string text, Language language) : base(DateTime.Now)
+        private Description(string text, Language language) 
         {
             Text = text;
             Language = language;

@@ -129,7 +129,7 @@ namespace Giro.Animes.Domain.Entities
         {
         }
 
-        private Author(string name, ICollection<Description> biography, string penName, DateTime? birthDate, DateTime? deathDate, string website, string twitter, string instagram) : base(DateTime.Now)
+        private Author(string name, ICollection<Description> biography, string penName, DateTime? birthDate, DateTime? deathDate, string website, string twitter, string instagram)
         {
             Name = name;
             Biographies = biography;

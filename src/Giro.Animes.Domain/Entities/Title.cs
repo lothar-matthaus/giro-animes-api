@@ -61,7 +61,7 @@ namespace Giro.Animes.Domain.Entities
         /// <param name="name">Nome do título do anime</param>
         /// <param name="language">Idioma do título</param>
         /// <param name="creationDate">Data de criação do título</param>
-        private Title(string name, Language language, DateTime creationDate) : base(creationDate)
+        private Title(string name, Language language, DateTime creationDate)
         {
             Name = name;
             Language = language;
