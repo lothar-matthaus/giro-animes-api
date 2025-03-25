@@ -24,7 +24,7 @@ namespace Giro.Animes.Domain.Enums
         /// Status da conta pendente de confirmação de email
         /// </summary>
         public static AccountStatus EmailNotConfirmed = new AccountStatus(4, "EmailNotConfirmed");
-    
+
         /// <summary>
         /// Construtor da classe AccountStatus que herda de Enumeration
         /// </summary>
