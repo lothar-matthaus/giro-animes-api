@@ -26,6 +26,11 @@ namespace Giro.Animes.Domain.Entities
         public ICollection<Author> Authors { get; private set; }
 
         /// <summary>
+        /// Studio que criou o anime
+        /// </summary>
+        public Studio Studio { get; private set; }
+
+        /// <summary>
         /// Indica o status do anime 
         /// </summary>
         public AnimeStatus Status { get; private set; }
