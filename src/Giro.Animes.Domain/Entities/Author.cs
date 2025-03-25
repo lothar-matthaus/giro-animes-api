@@ -35,7 +35,10 @@ namespace Giro.Animes.Domain.Entities
         }
         #endregion
 
-        public string Biography { get; private set; }
+        /// <summary>
+        /// Biografia do autor 
+        /// </summary>
+        public ICollection<Description> Biographies { get; private set; }
 
         /// <summary>
         /// Pseudonimo do autor
@@ -126,10 +129,10 @@ namespace Giro.Animes.Domain.Entities
         {
         }
 
-        private Author(string name, string biography, string penName, DateTime? birthDate, DateTime? deathDate, string website, string twitter, string instagram) : base(DateTime.Now)
+        private Author(string name, ICollection<Description> biography, string penName, DateTime? birthDate, DateTime? deathDate, string website, string twitter, string instagram) : base(DateTime.Now)
         {
             Name = name;
-            Biography = biography;
+            Biographies = biography;
             PenName = penName;
             BirthDate = birthDate;
             DeathDate = deathDate;
@@ -150,7 +153,7 @@ namespace Giro.Animes.Domain.Entities
         /// <param name="twitter"></param>
         /// <param name="instagram"></param>
         /// <returns></returns>
-        public static Author Create(string name, string biography, string penName, DateTime? birthDate, DateTime? deathDate, string website, string twitter, string instagram)
+        public static Author Create(string name, ICollection<Description> biography, string penName, DateTime? birthDate, DateTime? deathDate, string website, string twitter, string instagram)
             => new Author(name, biography, penName, birthDate, deathDate, website, twitter, instagram);
     }
 }

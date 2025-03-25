@@ -76,6 +76,16 @@ namespace Giro.Animes.Domain.Entities
         public virtual ICollection<Settings> Settings { get; private set; }
 
         /// <summary>
+        /// Coleção de descrições do idioma
+        /// </summary>
+        public virtual ICollection<Description> Descriptions { get; private set; }
+
+        /// <summary>
+        /// Coleção de títulos do idioma
+        /// </summary>
+        public virtual ICollection<Title> Titles { get; private set; }
+
+        /// <summary>
         /// Construtor privado com parâmetros. Garante a construção do objeto através do método Create
         /// </summary>
         /// <param name="name"></param>

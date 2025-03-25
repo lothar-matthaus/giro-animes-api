@@ -43,6 +43,19 @@ namespace Giro.Animes.Domain.Entities
         public Language Language { get; private set; }
 
         /// <summary>
+        /// Gêneros do título
+        /// </summary>
+        public ICollection<Genre> Genres { get; private set; }
+
+        /// <summary>
+        /// Construtor padrão para garantir a construção do objeto pelo EntityFramework
+        /// </summary>
+        public Title()
+        {
+
+        }
+
+        /// <summary>
         /// Construtor privado com parâmetros. Garante a construção do objeto através do método Create
         /// </summary>
         /// <param name="name">Nome do título do anime</param>

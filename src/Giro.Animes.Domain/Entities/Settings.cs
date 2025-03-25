@@ -1,14 +1,9 @@
 ﻿using Giro.Animes.Domain.Entities.Base;
 using Giro.Animes.Domain.Enums;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Giro.Animes.Domain.Entities
 {
-    public class Settings: EntityBase
+    public class Settings : EntityBase
     {
         /// <summary>
         /// Indica se as notificações estão habilitadas para o usuário 

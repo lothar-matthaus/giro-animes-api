@@ -1,5 +1,4 @@
 ﻿using Giro.Animes.Domain.Entities.Base;
-using Giro.Animes.Domain.ValueObjects.Base;
 
 namespace Giro.Animes.Domain.Entities
 {

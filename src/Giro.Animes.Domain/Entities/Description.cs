@@ -7,17 +7,26 @@ namespace Giro.Animes.Domain.Entities
         /// <summary>
         /// Texto da descrição  
         /// </summary>
-        public string Text { get; set; }
+        public string Text { get; private set; }
 
         /// <summary>
         /// Idetificaddr do idioma da descrição
         /// </summary>
-        public long? LanguageId { get; set; }
+        public long? LanguageId { get; private set; }
         /// <summary>
         /// Idioma da descrição
         /// </summary>
-        public Language Language { get; set; }
+        public Language Language { get; private set; }
 
+        /// <summary>
+        /// Autores que possuem essa descrição
+        /// </summary>
+        public ICollection<Author> Authors { get; private set; }
+
+        /// <summary>
+        /// Gêneros que possuem essa descrição
+        /// </summary>
+        public ICollection<Genre> Genres { get; private set; }
 
         /// <summary>
         /// Construtor padrão
