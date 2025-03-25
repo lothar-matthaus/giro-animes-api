@@ -1,6 +1,4 @@
 using Giro.Animes.Infra.Data.Configurations.IoC;
-using Microsoft.AspNetCore.Localization;
-using System.Globalization;
 
 var builder = WebApplication.CreateBuilder(args);
 
