@@ -13,9 +13,7 @@ namespace Giro.Animes.Infra.Data.Configurations.Types
             base.Configure(builder);
 
             builder.ToTable(Tables.Common.TITLES, Schemas.COMMON);
-            builder.HasMany(title => title.Genres).WithMany(genre => genre.Titles).UsingEntity(entity => entity.ToTable(Tables.Common.TITLE_GENRES, Schemas.COMMON));
             builder.HasOne(title => title.Language).WithMany(language => language.Titles).HasForeignKey(title => title.LanguageId).IsRequired(true);
-
         }
     }
 }

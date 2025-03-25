@@ -12,12 +12,7 @@ namespace Giro.Animes.Infra.Data.Configurations.Types
         {
             base.Configure(builder);
             builder.ToTable(Tables.Common.DESCRIPTIONS, Schemas.COMMON);
-
-            builder.HasMany(description => description.Authors).WithMany(author => author.Biographies).UsingEntity(entity => entity.ToTable(Tables.Common.BIOGRAPHY_AUTHORS, Schemas.COMMON));
-            builder.HasMany(description => description.Genres).WithMany(genre => genre.Descriptions).UsingEntity(entity => entity.ToTable(Tables.Common.DESCRIPTION_GENRES, Schemas.COMMON));
-
             builder.Property(description => description.Text).HasColumnType("VARCHAR(1000)").IsRequired();
-
         }
     }
 }

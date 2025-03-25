@@ -1,4 +1,5 @@
 ﻿using Giro.Animes.Domain.Entities;
+using Giro.Animes.Domain.Entities.Joint;
 using Giro.Animes.Infra.Data.Configurations.Types.Base;
 using Giro.Animes.Infra.Data.Constants;
 using Microsoft.EntityFrameworkCore;
@@ -21,9 +22,20 @@ namespace Giro.Animes.Infra.Data.Configurations.Types
             builder.Property(author => author.Twitter).IsRequired(false).HasDefaultValue(null);
             builder.Property(author => author.BirthDate).IsRequired(false).HasDefaultValue(null);
             builder.Property(author => author.DeathDate).IsRequired(false).HasDefaultValue(null);
-            builder.HasMany(author => author.Biographies).WithMany(description => description.Authors).UsingEntity(entity =>
+
+            builder.HasMany(author => author.Biographies).WithMany(description => description.Authors).UsingEntity<BiographyAuthors>(
+            Tables.Common.BIOGRAPHY_AUTHORS, // Nome da tabela de junção
+            join => join.HasOne(ba => ba.Description)
+                  .WithMany()
+                  .HasForeignKey(join => join.DescriptionId) // Nome da coluna FK para Description
+                  .OnDelete(DeleteBehavior.Cascade),
+            join => join.HasOne(ba => ba.Author)
+                  .WithMany()
+                  .HasForeignKey(join => join.AuthorId) // Nome da coluna FK para Genre
+                  .OnDelete(DeleteBehavior.Cascade),
+            join =>
             {
-                entity.ToTable(Tables.Common.BIOGRAPHY_AUTHORS, Schemas.COMMON);
+                join.ToTable(Tables.Common.BIOGRAPHY_AUTHORS, Schemas.COMMON);
             });
         }
     }
