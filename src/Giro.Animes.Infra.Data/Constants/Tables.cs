@@ -20,9 +20,9 @@
             public const string LANGUAGES = "languages";
             public const string DESCRIPTIONS = "descriptions";
             public const string BIOGRAPHY_AUTHORS = "biography_authors";
-            public const string DESCRIPTION_GENRES = "description_genres";
+            public const string GENRE_DESCRIPTIONS = "genre_descriptions";
             public const string GENRES = "genres";
-            public const string TITLE_GENRES = "title_genres";
+            public const string GENRE_TITLES = "genre_titles";
             public const string TITLES = "titles";
 
         }
