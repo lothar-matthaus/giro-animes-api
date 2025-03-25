@@ -44,17 +44,6 @@ namespace Giro.Animes.Domain.Entities.Base
         }
 
         /// <summary>
-        /// Construtor com parâmetros
-        /// </summary>
-        /// <param name="id">Identificador da entidade</param>
-        /// <param name="creationDate">Data de criação do registro</param>
-        /// <param name="updateDate">Data de atualização do registro</param>
-        protected EntityBase(DateTime creationDate)
-        {
-            CreationDate = creationDate;
-        }
-
-        /// <summary>
         /// Atualiza a data de exclusão do registro para a data e hora atuais
         /// </summary>
         public void Delete()
