@@ -32,10 +32,10 @@
         /// <summary>
         /// Construtor com parâmetros. Garanta a construção do objeto com o método Create.
         /// </summary>
-        /// <param name="path">Caminho do arquivo da capa.</param>
         /// <param name="fileName">Nome do arquivo da capa.</param>
         /// <param name="extension">Extensão do arquivo da capa.</param>
-        private Cover(string path, string fileName, string extension, Anime anime, Language language) : base(path, fileName, extension)
+        /// <param name="url">Caminho onde o arquivo está hospedado.</param>
+        private Cover(string url, string fileName, string extension, Anime anime, Language language) : base(url, fileName, extension)
         {
             Language = language;
             Anime = anime;
@@ -44,12 +44,11 @@
         /// <summary>
         /// Método para a construção do objeto.
         /// </summary>
-        /// <param name="path">Caminho do arquivo da capa.</param>
         /// <param name="fileName">Nome do arquivo da capa.</param>
         /// <param name="extension">Extensão do arquivo da capa.</param>
         /// <param name="language">Idioma da capa.</param>
         /// <param name="anime">Anime ao qual a capa pertence.</param>
         /// <returns>Uma nova instância de Cover.</returns>
-        public static Cover Create(string path, string fileName, string extension, Language language, Anime anime) => new Cover(path, fileName, extension, anime, language);
+        public static Cover Create(string url, string fileName, string extension, Language language, Anime anime) => new Cover(url, fileName, extension, anime, language);
     }
 }

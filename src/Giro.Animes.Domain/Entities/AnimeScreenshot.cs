@@ -29,7 +29,6 @@ namespace Giro.Animes.Domain.Entities
         /// <summary>
         /// Construtor com parâmetros. Garante a construção do objeto pelo método Create.
         /// </summary>
-        /// <param name="url">URL da captura de tela.</param>
         /// <param name="fileName">Nome do arquivo da captura de tela.</param>
         /// <param name="extension">Extensão do arquivo da captura de tela.</param>
         private AnimeScreenshot(string url, string fileName, string extension, Anime anime) : base(url, fileName, extension)
@@ -40,7 +39,6 @@ namespace Giro.Animes.Domain.Entities
         /// <summary>
         /// Método estático para criar um objeto AnimeScreenshot com validações de propriedades e retorno do objeto.
         /// </summary>
-        /// <param name="url">URL da captura de tela.</param>
         /// <param name="fileName">Nome do arquivo da captura de tela.</param>
         /// <param name="extension">Extensão do arquivo da captura de tela.</param>
         /// <param name="anime">Propriedade de navegação para o anime da captura de tela.</param>

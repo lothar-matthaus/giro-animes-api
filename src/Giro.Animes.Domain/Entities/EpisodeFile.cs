@@ -30,7 +30,6 @@ namespace Giro.Animes.Domain.Entities
         /// Construtor privado com parâmetros. Garante a construção do objeto através do método Create.
         /// </summary>
         /// <param name="episode">Episódio ao qual o arquivo pertence.</param>
-        /// <param name="url">URL do arquivo.</param>
         /// <param name="fileName">Nome do arquivo.</param>
         /// <param name="extension">Extensão do arquivo.</param>
         private EpisodeFile(Episode episode, string url, string fileName, string extension)
@@ -43,7 +42,6 @@ namespace Giro.Animes.Domain.Entities
         /// Método estático para criar um objeto EpisodeFile com validações de propriedades e retorno do objeto.
         /// </summary>
         /// <param name="episode">Episódio ao qual o arquivo pertence.</param>
-        /// <param name="url">URL do arquivo.</param>
         /// <param name="fileName">Nome do arquivo.</param>
         /// <param name="extension">Extensão do arquivo.</param>
         /// <returns>Uma nova instância de EpisodeFile.</returns>

@@ -129,7 +129,7 @@ namespace Giro.Animes.Domain.Entities
         /// <summary>
         /// Animes a qual o autor trabalhou ou criou
         /// </summary>
-        public ICollection<Anime> Animes { get; private set; }
+        public ICollection<Anime> Works { get; private set; }
         #endregion
 
         /// <summary>
@@ -139,7 +139,7 @@ namespace Giro.Animes.Domain.Entities
         {
         }
 
-        private Author(string name, ICollection<Biography> biography, string penName, DateTime? birthDate, DateTime? deathDate, string website, string twitter, string instagram)
+        private Author(string name, ICollection<Biography> biography, ICollection<Anime> works, string penName, DateTime? birthDate, DateTime? deathDate, string website, string twitter, string instagram)
         {
             Name = name;
             Biographies = biography;
@@ -149,6 +149,7 @@ namespace Giro.Animes.Domain.Entities
             Website = website;
             Twitter = twitter;
             Instagram = instagram;
+            Works = works;
         }
 
         /// <summary>
@@ -163,7 +164,7 @@ namespace Giro.Animes.Domain.Entities
         /// <param name="twitter"></param>
         /// <param name="instagram"></param>
         /// <returns></returns>
-        public static Author Create(string name, ICollection<Biography> biography, string penName, DateTime? birthDate, DateTime? deathDate, string website, string twitter, string instagram)
-            => new Author(name, biography, penName, birthDate, deathDate, website, twitter, instagram);
+        public static Author Create(string name, ICollection<Biography> biography, ICollection<Anime> works, string penName, DateTime? birthDate, DateTime? deathDate, string website, string twitter, string instagram)
+            => new Author(name, biography, works, penName, birthDate, deathDate, website, twitter, instagram);
     }
 }

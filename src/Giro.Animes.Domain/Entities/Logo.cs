@@ -20,7 +20,6 @@
         /// <summary>
         /// Construtor com parâmetros. Garanta a construção do objeto no método Create
         /// </summary>
-        /// <param name="url"></param>
         /// <param name="fileName"></param>
         /// <param name="extension"></param>
         private Logo(string url, string fileName, string extension) : base(url, fileName, extension)
@@ -30,7 +29,6 @@
         /// <summary>
         /// Métoddo que instancia um novo objeto do tipo Logo
         /// </summary>
-        /// <param name="url"></param>
         /// <param name="fileName"></param>
         /// <param name="extension"></param>
         /// <returns></returns>

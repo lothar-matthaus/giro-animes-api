@@ -52,6 +52,11 @@ namespace Giro.Animes.Domain.Entities
         public Account Account { get; private set; }
 
         /// <summary>
+        /// Notas que o usuário deu para um determinado anime
+        /// </summary>
+        public ICollection<Rating> Ratings { get; set; }
+
+        /// <summary>
         /// Construtor padrão do objeto de entidade
         /// </summary>
         public User()

@@ -37,6 +37,11 @@ namespace Giro.Animes.Domain.Entities
         public ICollection<Author> Authors { get; private set; }
 
         /// <summary>
+        /// Notas dos usuário recebidas neste anime
+        /// </summary>
+        public ICollection<Rating> Ratings { get; private set; }
+
+        /// <summary>
         /// Identificador do estúdio de animação
         /// </summary>
         public long StudioId { get; private set; }

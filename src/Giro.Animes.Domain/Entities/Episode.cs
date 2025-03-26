@@ -23,7 +23,7 @@ namespace Giro.Animes.Domain.Entities
         /// <summary>
         /// Arquivo de vídeo do episódio em questão
         /// </summary>
-        public EpisodeFile File { get; private set; }
+        public ICollection<EpisodeFile> Files { get; private set; }
 
         /// <summary>
         /// Identificador do anime a qual o episódio pertence
@@ -60,12 +60,12 @@ namespace Giro.Animes.Domain.Entities
         /// <param name="number">Número do episódio</param>
         /// <param name="duration">Duração do episódio em minutos</param>
         /// <param name="url">URL do episódio</param>
-        private Episode(EpisodeFile file, ICollection<EpisodeTitle> titles, int number, int duration, string url)
+        private Episode(ICollection<EpisodeFile> files, ICollection<EpisodeTitle> titles, int number, int duration, string url)
         {
             Titles = titles;
             Number = number;
             Duration = duration;
-            File = file;
+            Files = files;
         }
 
         /// <summary>
@@ -76,6 +76,6 @@ namespace Giro.Animes.Domain.Entities
         /// <param name="duration">Duração do episódio em minutos</param>
         /// <param name="url">URL do episódio</param>
         /// <returns>Uma nova instância de Episode</returns>
-        public static Episode Create(EpisodeFile file, ICollection<EpisodeTitle> titles, int number, int duration, string url) => new Episode(file, titles, number, duration, url);
+        public static Episode Create(ICollection<EpisodeFile> files, ICollection<EpisodeTitle> titles, int number, int duration, string url) => new Episode(files, titles, number, duration, url);
     }
 }
