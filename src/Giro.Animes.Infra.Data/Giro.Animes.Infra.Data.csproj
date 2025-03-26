@@ -27,6 +27,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Configurations\Types\Misc\" />
     <Folder Include="Migrations\" />
   </ItemGroup>
 
