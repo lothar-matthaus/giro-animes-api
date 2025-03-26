@@ -1,5 +1,4 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using System.Text;
 using System.Text.RegularExpressions;
 
 namespace Giro.Animes.Infra.Data.Extensions
