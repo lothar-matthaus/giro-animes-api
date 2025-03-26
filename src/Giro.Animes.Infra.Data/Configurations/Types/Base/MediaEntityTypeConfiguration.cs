@@ -15,9 +15,9 @@ namespace Giro.Animes.Infra.Data.Configurations.Types.Base
         {
             base.Configure(builder);
 
-            builder.Property(med => med.FileName).IsRequired(true);
-            builder.Property(med => med.Extension).IsRequired(true);
-            builder.Property(med => med.Url).IsRequired(true);
+            builder.Property(med => med.Url).IsRequired(true).HasColumnOrder(2);
+            builder.Property(med => med.FileName).IsRequired(true).HasColumnOrder(3);
+            builder.Property(med => med.Extension).IsRequired(true).HasColumnOrder(4);
         }
     }
 }

@@ -15,8 +15,7 @@ namespace Giro.Animes.Infra.Data.Configurations.Types.Base
         {
             base.Configure(builder);
 
-            builder.Property(des => des.Text).IsRequired(true).HasColumnName(nameof(Description));
-            builder.HasOne(des => des.Language).WithMany().HasForeignKey(des => des.LanguageId);
+            builder.Property(des => des.Text).IsRequired(true).HasColumnName(nameof(Description)).HasColumnOrder(2);
         }
     }
 }

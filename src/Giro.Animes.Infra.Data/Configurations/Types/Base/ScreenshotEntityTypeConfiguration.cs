@@ -9,16 +9,11 @@ using System.Threading.Tasks;
 
 namespace Giro.Animes.Infra.Data.Configurations.Types.Base
 {
-    internal class ScreenshotEntityTypeConfiguration<Derivate> : EntityBaseTypeConfiguration<Derivate> where Derivate : Screenshot
+    internal class ScreenshotEntityTypeConfiguration<Derivate> : MediaEntityTypeConfiguration<Derivate> where Derivate : Screenshot
     {
         public override void Configure(EntityTypeBuilder<Derivate> builder)
         {
-            base.Configure(builder);
-
-            builder.Property(scr => scr.FileName).IsRequired(true);
-            builder.Property(scr => scr.Extension).IsRequired(true);
-            builder.Property(scr => scr.Url).IsRequired(true);
-            
+            base.Configure(builder);         
         }
     }
 }
