@@ -7,8 +7,10 @@ namespace Giro.Animes.Domain.Entities
 {
     public abstract class Media : EntityBase
     {
+        /// <summary>
+        /// Url da mídia
+        /// </summary>
         public string Url { get; private set; }
-
         /// <summary>
         /// Nome do arquivo da capa
         /// </summary>
@@ -68,14 +70,13 @@ namespace Giro.Animes.Domain.Entities
         /// <summary>
         /// Construtor com parâmetros. Garanta a constução do objeto no método Create.
         /// </summary>
-        /// <param name="url"></param>
         /// <param name="fileName"></param>
         /// <param name="extension"></param>
         protected Media(string url, string fileName, string extension)
         {
-            Url = url;
             FileName = fileName;
             Extension = extension;
+            Url = url;
         }
     }
 }
