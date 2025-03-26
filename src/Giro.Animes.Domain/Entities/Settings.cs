@@ -33,12 +33,12 @@ namespace Giro.Animes.Domain.Entities
         /// <summary>
         /// Identificador do usuário ao qual as configurações pertencem
         /// </summary>
-        public long UserId { get; private set; }
+        public long AccountId { get; private set; }
 
         /// <summary>
         /// Propriedade de navegação para o usuário ao qual as configurações pertencem
         /// </summary>
-        public User User { get; private set; }
+        public Account Account { get; private set; }
 
         /// <summary>
         /// Construtor padrão para garantir a construção no EntityFramework

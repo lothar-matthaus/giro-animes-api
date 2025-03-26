@@ -38,7 +38,7 @@ namespace Giro.Animes.Domain.Entities
         /// <summary>
         /// Biografia do autor 
         /// </summary>
-        public ICollection<Description> Biographies { get; private set; }
+        public ICollection<Biography> Biographies { get; private set; }
 
         /// <summary>
         /// Pseudonimo do autor
@@ -51,12 +51,12 @@ namespace Giro.Animes.Domain.Entities
             set
             {
                 Validate(
-                    isInvalidIf: (!string.IsNullOrEmpty(value) && !Regex.IsMatch(Patterns.Author.PEN_NAME, value)),
+                    isInvalidIf: !string.IsNullOrEmpty(value) && !Regex.IsMatch(Patterns.Author.PEN_NAME, value),
                     ifInvalid: () => ValidationError.Create(GetType().Name, "PenName", Message.Validation.Author.INVALID_PEN_NAME),
                     ifValid: () => _penName = value);
 
                 Validate(
-                   isInvalidIf: (!string.IsNullOrEmpty(value) && !Regex.IsMatch(Patterns.Author.PEN_NAME_LENGHT, value)),
+                   isInvalidIf: !string.IsNullOrEmpty(value) && !Regex.IsMatch(Patterns.Author.PEN_NAME_LENGHT, value),
                    ifInvalid: () => ValidationError.Create(GetType().Name, "PenName", Message.Validation.Author.INVALID_PEN_NAME_LENGHT),
                    ifValid: () => _penName = value);
             }
@@ -80,7 +80,7 @@ namespace Giro.Animes.Domain.Entities
             set
             {
                 Validate(
-                    isInvalidIf: (!string.IsNullOrEmpty(value) && !Regex.IsMatch(Patterns.General.URL, value)),
+                    isInvalidIf: !string.IsNullOrEmpty(value) && !Regex.IsMatch(Patterns.General.URL, value),
                     ifInvalid: () => ValidationError.Create(GetType().Name, "Website", Message.Validation.General.INVALID_URL),
                     ifValid: () => _website = value);
             }
@@ -99,13 +99,16 @@ namespace Giro.Animes.Domain.Entities
             set
             {
                 Validate(
-                    isInvalidIf: (!string.IsNullOrEmpty(value) && !Regex.IsMatch(Patterns.General.URL_TWITTER, value)),
+                    isInvalidIf: !string.IsNullOrEmpty(value) && !Regex.IsMatch(Patterns.General.URL_TWITTER, value),
                     ifInvalid: () => ValidationError.Create(GetType().Name, "Twitter", Message.Validation.General.INVALID_URL),
                     ifValid: () => _twitter = value);
             }
         }
         #endregion
 
+        /// <summary>
+        /// Instagram do autor
+        /// </summary>
         #region Instagram
         private string _instagram;
 
@@ -115,11 +118,18 @@ namespace Giro.Animes.Domain.Entities
             set
             {
                 Validate(
-                    isInvalidIf: (!string.IsNullOrEmpty(value) && !Regex.IsMatch(Patterns.General.URL_INSTAGRAM, value)),
+                    isInvalidIf: !string.IsNullOrEmpty(value) && !Regex.IsMatch(Patterns.General.URL_INSTAGRAM, value),
                     ifInvalid: () => ValidationError.Create(GetType().Name, "Instagram", Message.Validation.General.INVALID_URL),
                     ifValid: () => _instagram = value);
             }
         }
+        #endregion
+
+        #region Navigation
+        /// <summary>
+        /// Animes a qual o autor trabalhou ou criou
+        /// </summary>
+        public ICollection<Anime> Animes { get; private set; }
         #endregion
 
         /// <summary>
@@ -129,7 +139,7 @@ namespace Giro.Animes.Domain.Entities
         {
         }
 
-        private Author(string name, ICollection<Description> biography, string penName, DateTime? birthDate, DateTime? deathDate, string website, string twitter, string instagram)
+        private Author(string name, ICollection<Biography> biography, string penName, DateTime? birthDate, DateTime? deathDate, string website, string twitter, string instagram)
         {
             Name = name;
             Biographies = biography;
@@ -153,7 +163,7 @@ namespace Giro.Animes.Domain.Entities
         /// <param name="twitter"></param>
         /// <param name="instagram"></param>
         /// <returns></returns>
-        public static Author Create(string name, ICollection<Description> biography, string penName, DateTime? birthDate, DateTime? deathDate, string website, string twitter, string instagram)
+        public static Author Create(string name, ICollection<Biography> biography, string penName, DateTime? birthDate, DateTime? deathDate, string website, string twitter, string instagram)
             => new Author(name, biography, penName, birthDate, deathDate, website, twitter, instagram);
     }
 }

@@ -7,90 +7,109 @@ namespace Giro.Animes.Domain.Entities
 {
     public class Language : EntityBase
     {
+        /// <summary>
+        /// Language name
+        /// </summary>
+        #region Name
         private string _name;
-
         public string Name
         {
             get { return _name; }
             set
             {
-                // Verifica se o nome do idioma é nulo ou vazio e retorna um erro de validação caso contrário
+                // Checks if the language name is null or empty and returns a validation error if so
                 Validate(
                     isInvalidIf: string.IsNullOrEmpty(value),
                     ifInvalid: () => ValidationError.Create(this.GetType().Name, "Name", string.Format(Message.Validation.General.REQUIRED, "Name")),
                     ifValid: () => _name = value);
 
-                // Verifica se o nome do idioma possui entre 3 e 20 caracteres e retorna um erro de validação caso contrário
+                // Checks if the language name has between 3 and 20 characters and returns a validation error if not
                 Validate(
                     isInvalidIf: !Regex.IsMatch(Patterns.Language.NAME, value),
                     ifInvalid: () => ValidationError.Create(GetType().Name, "Name", Message.Validation.Language.NAME_LENGHT),
                     ifValid: () => _name = value);
             }
         }
+        #endregion
 
+        /// <summary>
+        /// Language code
+        /// </summary>
+        #region Code
         private string _code;
-
         public string Code
         {
             get { return _code; }
             set
             {
-                // Verifica se o código do idioma é nulo ou vazio e retorna um erro de validação caso contrário
+                // Checks if the language code is null or empty and returns a validation error if so
                 Validate(
                     isInvalidIf: string.IsNullOrEmpty(value),
                     ifInvalid: () => ValidationError.Create(this.GetType().Name, "Code", string.Format(Message.Validation.General.REQUIRED, "Code")),
-                    ifValid: () => _name = value);
+                    ifValid: () => _code = value);
 
-                // Verifica se o código do idioma possui 5 caracteres e retorna um erro de validação caso contrário
+                // Checks if the language code has 5 characters and returns a validation error if not
                 Validate(
                     isInvalidIf: !Regex.IsMatch(Patterns.Language.CODE, value),
                     ifInvalid: () => ValidationError.Create(GetType().Name, "Code", Message.Validation.Language.CODE_FORMAT),
-                    ifValid: () => _name = value);
+                    ifValid: () => _code = value);
             }
         }
+        #endregion
 
+        /// <summary>
+        /// Native name of the language
+        /// </summary>
+        #region NativeName
+        /// <summary>
+        /// Native name of the language
+        /// </summary>
         private string _nativeName;
+
 
         public string NativeName
         {
             get { return _nativeName; }
             set
             {
-                // Verifica se o nome nativo do idioma é nulo ou vazio e retorna um erro de validação caso contrário
+                // Checks if the native name of the language is null or empty and returns a validation error if so
                 Validate(
                     isInvalidIf: string.IsNullOrEmpty(value),
                     ifInvalid: () => ValidationError.Create(this.GetType().Name, "NativeName", string.Format(Message.Validation.General.REQUIRED, "NativeName")),
-                    ifValid: () => _name = value);
+                    ifValid: () => _nativeName = value);
 
-                // Verifica se o nome nativo do idioma possui entre 3 e 20 caracteres e retorna um erro de validação caso contrário
+                // Checks if the native name of the language has between 3 and 20 characters and returns a validation error if not
                 Validate(
                     isInvalidIf: !Regex.IsMatch(Patterns.Language.NATIVE_NAME, value),
                     ifInvalid: () => ValidationError.Create(GetType().Name, "NativeName", Message.Validation.Language.NAME_LENGHT),
-                    ifValid: () => _name = value);
+                    ifValid: () => _nativeName = value);
             }
         }
+        #endregion
 
+        #region Navigation
         /// <summary>
-        /// Coleção de configurações do idioma 
+        /// Collection of language settings
         /// </summary>
-        public virtual ICollection<Settings> Settings { get; private set; }
+        public ICollection<Settings> Settings { get; private set; }
+        public ICollection<EpisodeTitle> EpisodeTitles { get; private set; }
+        public ICollection<GenreTitle> GenreTitles { get; private set; }
+        public ICollection<GenreDescription> GenreDescriptions { get; private set; }
+        public ICollection<Sinopse> Sinopses { get; private set; }
+        public ICollection<Cover> Covers { get; private set; }
+        /// <summary>
+        /// Collection of language descriptions
+        /// </summary>
+        // public ICollection<Description> Descriptions { get; private set; }
+        #endregion
 
+        #region Constructors
         /// <summary>
-        /// Coleção de descrições do idioma
+        /// Private constructor with parameters. Ensures object construction through the Create method
         /// </summary>
-        public virtual ICollection<Description> Descriptions { get; private set; }
-
-        /// <summary>
-        /// Coleção de títulos do idioma
-        /// </summary>
-        public virtual ICollection<Title> Titles { get; private set; }
-
-        /// <summary>
-        /// Construtor privado com parâmetros. Garante a construção do objeto através do método Create
-        /// </summary>
-        /// <param name="name"></param>
-        /// <param name="code"></param>
-        /// <param name="nativeName"></param>
+        /// <param name="name">Language name</param>
+        /// <param name="code">Language code</param>
+        /// <param name="nativeName">Native name of the language</param>
         private Language(string name, string code, string nativeName)
         {
             Name = name;
@@ -99,12 +118,13 @@ namespace Giro.Animes.Domain.Entities
         }
 
         /// <summary>
-        /// Método estático para criar um objeto Language com validações de propriedades e retorno do objeto
+        /// Static method to create a Language object with property validations and return the object
         /// </summary>
-        /// <param name="name"></param>
-        /// <param name="code"></param>
-        /// <param name="nativeName"></param>
-        /// <returns></returns>
+        /// <param name="name">Language name</param>
+        /// <param name="code">Language code</param>
+        /// <param name="nativeName">Native name of the language</param>
+        /// <returns>New instance of Language</returns>
         public static Language Create(string name, string code, string nativeName) => new Language(name, code, nativeName);
+        #endregion
     }
 }

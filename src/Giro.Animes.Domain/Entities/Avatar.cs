@@ -1,6 +1,4 @@
-﻿using Giro.Animes.Domain.Entities.Base;
-
-namespace Giro.Animes.Domain.Entities
+﻿namespace Giro.Animes.Domain.Entities
 {
     public class Avatar : Media
     {

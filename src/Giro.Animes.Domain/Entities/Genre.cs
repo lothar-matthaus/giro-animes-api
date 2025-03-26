@@ -7,12 +7,12 @@ namespace Giro.Animes.Domain.Entities
         /// <summary>
         /// Nome do gênero do anime 
         /// </summary>
-        public ICollection<Title> Titles { get; private set; }
+        public ICollection<GenreTitle> Titles { get; private set; }
 
         /// <summary>
         /// Descrição do gênero do anime 
         /// </summary>
-        public ICollection<Description> Descriptions { get; private set; }
+        public ICollection<GenreDescription> Descriptions { get; private set; }
 
         /// <summary>
         /// Construtor padrão 
@@ -26,7 +26,7 @@ namespace Giro.Animes.Domain.Entities
         /// </summary>
         /// <param name="name"></param>
         /// <param name="description"></param>
-        private Genre(ICollection<Title> names, ICollection<Description> descriptions)
+        private Genre(ICollection<GenreTitle> names, ICollection<GenreDescription> descriptions)
         {
             Titles = names;
             Descriptions = descriptions;
@@ -38,6 +38,6 @@ namespace Giro.Animes.Domain.Entities
         /// <param name="name"></param>
         /// <param name="description"></param>
         /// <returns></returns>
-        public static Genre Create(ICollection<Title> names, ICollection<Description> descriptions) => new Genre(names, descriptions);
+        public static Genre Create(ICollection<GenreTitle> names, ICollection<GenreDescription> descriptions) => new Genre(names, descriptions);
     }
 }

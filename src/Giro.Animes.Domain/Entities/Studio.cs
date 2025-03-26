@@ -1,12 +1,7 @@
 ﻿using Giro.Animes.Domain.Constants;
 using Giro.Animes.Domain.Entities.Base;
 using Giro.Animes.Domain.ValueObjects;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 
 namespace Giro.Animes.Domain.Entities
 {
@@ -14,6 +9,10 @@ namespace Giro.Animes.Domain.Entities
     {
         #region Name
         private string _name = string.Empty;
+
+        /// <summary>
+        /// Studio name
+        /// </summary>
         public string Name
         {
             get { return _name; }
@@ -37,12 +36,27 @@ namespace Giro.Animes.Domain.Entities
         }
         #endregion
 
+        /// <summary>
+        /// Studio's established date
+        /// </summary>
         public DateTime EstablishedDate { get; set; }
-        public string Country { get; set; }
-        public string City { get; set; }
-        #region WebSite
 
+        /// <summary>
+        /// Country where the studio is located
+        /// </summary>
+        public string Country { get; set; }
+
+        /// <summary>
+        /// City where the studio is located
+        /// </summary>
+        public string City { get; set; }
+
+        #region WebSite
         private string _website = string.Empty;
+
+        /// <summary>
+        /// Studio's website
+        /// </summary>
         public string Website
         {
             get { return _website; }
@@ -57,7 +71,7 @@ namespace Giro.Animes.Domain.Entities
         #endregion
 
         /// <summary>
-        /// Twitter do autor
+        /// Studio's Twitter
         /// </summary>
         #region Twitter
         private string _twitter;
@@ -75,6 +89,9 @@ namespace Giro.Animes.Domain.Entities
         }
         #endregion
 
+        /// <summary>
+        /// Studio's Instagram
+        /// </summary>
         #region Instagram
         private string _instagram;
 
@@ -92,21 +109,31 @@ namespace Giro.Animes.Domain.Entities
         #endregion
 
         /// <summary>
-        /// Construtor padrão 
+        /// Studio's logo
         /// </summary>
         public Logo Logo { get; set; }
 
+        #region Navigation
+        /// <summary>
+        /// Animes a qual um estúdio animou
+        /// </summary>
+        public ICollection<Anime> Animes { get; private set; }
+        #endregion
+
+        /// <summary>
+        /// Default constructor
+        /// </summary>
         public Studio() { }
 
         /// <summary>
-        /// Construtor com parâmetros. Garanta a construção do objeto no método Create
+        /// Constructor with parameters. Ensure object construction in the Create method
         /// </summary>
-        /// <param name="name"></param>
-        /// <param name="establishedDate"></param>
-        /// <param name="country"></param>
-        /// <param name="city"></param>
-        /// <param name="website"></param>
-        /// <param name="logo"></param>
+        /// <param name="name">Studio name</param>
+        /// <param name="establishedDate">Established date</param>
+        /// <param name="country">Country</param>
+        /// <param name="city">City</param>
+        /// <param name="website">Studio's website</param>
+        /// <param name="logo">Studio's logo</param>
         private Studio(string name, DateTime establishedDate, string country, string city, string website, Logo logo)
         {
             Name = name;
@@ -118,15 +145,15 @@ namespace Giro.Animes.Domain.Entities
         }
 
         /// <summary>
-        /// Cria uma nova instância de objeto do tipo Studio
+        /// Creates a new instance of Studio object
         /// </summary>
-        /// <param name="name"></param>
-        /// <param name="establishedDate"></param>
-        /// <param name="country"></param>
-        /// <param name="city"></param>
-        /// <param name="website"></param>
-        /// <param name="logo"></param>
-        /// <returns></returns>
+        /// <param name="name">Studio name</param>
+        /// <param name="establishedDate">Established date</param>
+        /// <param name="country">Country</param>
+        /// <param name="city">City</param>
+        /// <param name="website">Studio's website</param>
+        /// <param name="logo">Studio's logo</param>
+        /// <returns>New instance of Studio</returns>
         public static Studio Create(string name, DateTime establishedDate, string country, string city, string website, Logo logo) => new Studio(name, establishedDate, country, city, website, logo);
     }
 }

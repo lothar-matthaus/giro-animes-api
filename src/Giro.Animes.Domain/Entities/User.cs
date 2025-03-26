@@ -52,11 +52,6 @@ namespace Giro.Animes.Domain.Entities
         public Account Account { get; private set; }
 
         /// <summary>
-        /// Configurações do usuário 
-        /// </summary>
-        public Settings Settings { get; set; }
-
-        /// <summary>
         /// Construtor padrão do objeto de entidade
         /// </summary>
         public User()

@@ -22,7 +22,7 @@ namespace Giro.Animes.Domain.Entities
         /// <summary>
         /// Identificador do plano do usuário 
         /// </summary>
-        public AccountPlan Plan { get; set; }
+        public AccountPlan Plan { get; private set; }
 
         /// <summary>
         /// Identificador da imagem de perfil
@@ -30,10 +30,19 @@ namespace Giro.Animes.Domain.Entities
         public Avatar Avatar { get; private set; }
 
         /// <summary>
+        /// Configurações da conta do usuário
+        /// </summary>
+        public Settings Settings { get; private set; }
+
+        /// <summary>
+        /// Lista de favoritos para assistir.
+        /// </summary>
+        public ICollection<Anime> Watchlist { get; private set; }
+
+        /// <summary>
         /// Identificador do usuário
         /// </summary>
-
-        public long UserId { get; set; }
+        public long UserId { get; private set; }
         /// <summary>
         /// Usuário atrelado a conta 
         /// </summary>
