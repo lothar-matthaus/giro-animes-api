@@ -40,6 +40,24 @@ namespace Giro.Animes.Infra.Data.Configurations.Types.Content
             {
                 authorsAnimes.ToTable(Tables.Content.AUTHOR_WORKS, Schemas.CONTENT);
             });
+
+            builder.HasMany(ani => ani.Genres).WithMany(gen => gen.Animes).UsingEntity<AnimesGenres>(
+            Tables.Content.ANIMES_GENRES, // Nome da tabela de junção
+            animesGenres => animesGenres.HasOne(animesGenres => animesGenres.Genre)
+                  .WithMany()
+                  .HasForeignKey(animesGenres => animesGenres.GenreId) // Nome da coluna FK para Genre
+                  .IsRequired(true)
+                  .OnDelete(DeleteBehavior.Cascade),
+            animesGenres => animesGenres.HasOne(animesGenres => animesGenres.Anime)
+                  .WithMany()
+                  .HasForeignKey(animesGenres => animesGenres.AnimeId) // Nome da coluna FK para Description
+                  .IsRequired(true)
+                  .OnDelete(DeleteBehavior.Cascade),
+            authorsAnimes =>
+            {
+                authorsAnimes.ToTable(Tables.Content.ANIMES_GENRES, Schemas.CONTENT);
+            });
+
             builder.HasMany(ani => ani.Covers).WithOne(cover => cover.Anime).HasForeignKey(title => title.AnimeId).IsRequired(true);
             builder.HasMany(ani => ani.Episodes).WithOne(episode => episode.Anime).HasForeignKey(title => title.AnimeId).IsRequired(true);
             builder.HasMany(ani => ani.Accounts).WithMany(episode => episode.Watchlist);
