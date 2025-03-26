@@ -23,6 +23,7 @@
             public const string EPISODE_TITLES = "episode_titles";
             public const string GENRE_DESCRIPTIONS = "genre_descriptions";
             public const string GENRE_TITLES = "genre_titles";
+            public const string ANIMES_GENRES = "animes_genres";
             public const string LOGOS = "logos";
             public const string SINOPSES = "sinopses";
             public const string AUTHOR_WORKS = "author_works";
