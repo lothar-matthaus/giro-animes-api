@@ -27,6 +27,7 @@
             public const string SINOPSES = "sinopses";
             public const string AUTHOR_WORKS = "author_works";
             public const string WATCHLIST = "watchlist";
+            public const string RATINGS = "ratings";
         }
 
         public static class Management
