@@ -15,6 +15,11 @@ namespace Giro.Animes.Domain.Entities
         public ICollection<GenreDescription> Descriptions { get; private set; }
 
         /// <summary>
+        /// Animes a qual o gênero pertence
+        /// </summary>
+        public ICollection<Anime> Animes { get; private set; }
+
+        /// <summary>
         /// Construtor padrão 
         /// </summary>
         public Genre()
