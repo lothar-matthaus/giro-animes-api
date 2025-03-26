@@ -1,6 +1,7 @@
 ﻿using Giro.Animes.Domain.Entities;
-using Giro.Animes.Infra.Data.Configurations.Types;
-using Giro.Animes.Infra.Data.Extensions;
+using Giro.Animes.Infra.Data.Configurations.Types.Common;
+using Giro.Animes.Infra.Data.Configurations.Types.Content;
+using Giro.Animes.Infra.Data.Configurations.Types.Management;
 using Microsoft.EntityFrameworkCore;
 
 namespace Giro.Animes.Infra.Data.Contexts
@@ -12,8 +13,6 @@ namespace Giro.Animes.Infra.Data.Contexts
         public DbSet<Avatar> Avatars { get; set; }
         public DbSet<Settings> Settings { get; set; }
         public DbSet<Language> Languages { get; set; }
-        public DbSet<Title> Titles { get; set; }
-        public DbSet<Description> Descriptions { get; set; }
         public DbSet<Author> Authors { get; set; }
 
         public GiroAnimesDbContext(DbContextOptions<GiroAnimesDbContext> options) : base(options)
@@ -30,10 +29,22 @@ namespace Giro.Animes.Infra.Data.Contexts
             modelBuilder.ApplyConfiguration(new AvatarEntityTypeConfiguration());
             modelBuilder.ApplyConfiguration(new LanguageEntityTypeConfiguration());
             modelBuilder.ApplyConfiguration(new SettingsEntityTypeConfiguration());
-            modelBuilder.ApplyConfiguration(new DescriptionEntityTypeConfiguration());
             modelBuilder.ApplyConfiguration(new GenreEntityTypeConfiguration());
-            modelBuilder.ApplyConfiguration(new TitleEntityTypeConfiguration());
             modelBuilder.ApplyConfiguration(new AuthorEntityTypeConfiguration());
+            modelBuilder.ApplyConfiguration(new EpisodeEntityTypeConfiguration());
+            modelBuilder.ApplyConfiguration(new AnimeEntityTypeConfiguration());
+            modelBuilder.ApplyConfiguration(new StudioEntityTypeConfiguration());
+            modelBuilder.ApplyConfiguration(new AnimeScreenshotEntityTypeConfiguration());
+            modelBuilder.ApplyConfiguration(new StudioEntityTypeConfiguration());
+            modelBuilder.ApplyConfiguration(new AnimeTitleEntityTypeConfiguration());
+            modelBuilder.ApplyConfiguration(new CoverEntityTypeConfiguration());
+            modelBuilder.ApplyConfiguration(new BiographyEntityTypeConfiguration());
+            modelBuilder.ApplyConfiguration(new EpisodeFileEntityTypeConfiguration());
+            modelBuilder.ApplyConfiguration(new EpisodeTitleEntityTypeConfiguration());
+            modelBuilder.ApplyConfiguration(new GenreDescriptionEntityTypeConfiguration());
+            modelBuilder.ApplyConfiguration(new GenreTitleEntityTypeConfiguration());
+            modelBuilder.ApplyConfiguration(new LogoEntityTypeConfiguration());
+            modelBuilder.ApplyConfiguration(new SinopseEntityTypeConfiguration());
 
             // this.ToSnakeCase(modelBuilder);
         }
