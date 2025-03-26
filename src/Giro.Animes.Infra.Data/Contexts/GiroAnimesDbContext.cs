@@ -14,6 +14,7 @@ namespace Giro.Animes.Infra.Data.Contexts
         public DbSet<Settings> Settings { get; set; }
         public DbSet<Language> Languages { get; set; }
         public DbSet<Author> Authors { get; set; }
+        public DbSet<Rating> Ratings { get; set; }
 
         public GiroAnimesDbContext(DbContextOptions<GiroAnimesDbContext> options) : base(options)
         {
@@ -45,6 +46,8 @@ namespace Giro.Animes.Infra.Data.Contexts
             modelBuilder.ApplyConfiguration(new GenreTitleEntityTypeConfiguration());
             modelBuilder.ApplyConfiguration(new LogoEntityTypeConfiguration());
             modelBuilder.ApplyConfiguration(new SinopseEntityTypeConfiguration());
+            modelBuilder.ApplyConfiguration(new RatingEntityTypeConfiguration());
+
 
             // this.ToSnakeCase(modelBuilder);
         }
