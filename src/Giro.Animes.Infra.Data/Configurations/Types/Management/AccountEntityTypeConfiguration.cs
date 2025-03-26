@@ -15,6 +15,25 @@ namespace Giro.Animes.Infra.Data.Configurations.Types.Management
         {
             base.Configure(builder);
             builder.ToTable(Tables.Management.ACCOUNTS, Schemas.MANAGEMENT);
+
+            builder.OwnsOne(account => account.Email, email =>
+            {
+                email.Property(email => email.Value).HasColumnName(nameof(Account.Email)).HasMaxLength(100).IsRequired(true);
+                email.Property(email => email.IsConfirmed).HasColumnName(nameof(Account.Email.IsConfirmed)).IsRequired(true).HasDefaultValue(false);
+            });
+
+            builder.OwnsOne(account => account.Password, password =>
+            {
+                password.Property(password => password.Value).HasColumnName(nameof(Password)).IsRequired(true).HasMaxLength(256);
+                password.Property(password => password.Salt).HasColumnName(nameof(Password.Salt)).IsRequired(true).HasMaxLength(256);
+                password.Ignore(password => password.PlainTextConfirm);
+                password.Ignore(password => password.PlainText);
+            });
+
+            builder.Property(account => account.Plan).IsRequired(true).HasConversion(plan => plan.Value, value => AccountPlan.FromValue(value));
+            builder.Property(account => account.Status).IsRequired(true).HasConversion(status => status.Value, value => AccountStatus.FromValue(value));
+            builder.Navigation(account => account.Settings);
+
             builder.HasOne(account => account.User).WithOne(user => user.Account).IsRequired(true);
             builder.HasOne(account => account.Avatar).WithOne(avatar => avatar.Account).HasForeignKey<Avatar>(avatar => avatar.AccountId).IsRequired(true);
             builder.HasMany(account => account.Watchlist).WithMany(anime => anime.Accounts).UsingEntity<Watchlist>(
@@ -31,23 +50,6 @@ namespace Giro.Animes.Infra.Data.Configurations.Types.Management
             {
                 join.ToTable(Tables.Content.WATCHLIST, Schemas.CONTENT);
             });
-
-            builder.OwnsOne(account => account.Email, email =>
-            {
-                email.Property(email => email.Value).HasColumnName(nameof(Account.Email)).HasMaxLength(100).IsRequired(true);
-                email.Property(email => email.IsConfirmed).HasColumnName(nameof(Account.Email.IsConfirmed)).IsRequired(true).HasDefaultValue(false);
-            });
-
-            builder.OwnsOne(account => account.Password, password =>
-            {
-                password.Property(password => password.Value).HasColumnName(nameof(Password)).IsRequired(true).HasMaxLength(256);
-                password.Property(password => password.Salt).HasColumnName(nameof(Password.Salt)).IsRequired(true).HasMaxLength(256);
-                password.Ignore(password => password.PlainTextConfirm);
-                password.Ignore(password => password.PlainText);
-            });
-
-            builder.Property(account => account.Status).IsRequired(true).HasConversion(status => status.Value, value => AccountStatus.FromValue(value));
-            builder.Property(account => account.Plan).IsRequired(true).HasConversion(plan => plan.Value, value => AccountPlan.FromValue(value));
         }
     }
 }

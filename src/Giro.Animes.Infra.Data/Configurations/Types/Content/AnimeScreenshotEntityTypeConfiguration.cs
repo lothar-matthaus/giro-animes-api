@@ -19,6 +19,7 @@ namespace Giro.Animes.Infra.Data.Configurations.Types.Content
 
             builder.ToTable(Tables.Content.ANIME_SCREENSHOTS, Schemas.CONTENT);
             builder.HasOne(scr => scr.Anime).WithMany(ani => ani.Screenshots).HasForeignKey(scr => scr.AnimeId);
+            builder.Property(scr => scr.AnimeId).HasColumnOrder(4);
         }
     }
 }

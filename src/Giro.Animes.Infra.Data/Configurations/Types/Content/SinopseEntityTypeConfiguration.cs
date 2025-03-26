@@ -18,7 +18,9 @@ namespace Giro.Animes.Infra.Data.Configurations.Types.Content
             base.Configure(builder);
             builder.ToTable(Tables.Content.SINOPSES, Schemas.CONTENT);
             builder.HasOne(sin => sin.Anime).WithMany(ani => ani.Sinopses).HasForeignKey(sin => sin.AnimeId).IsRequired();
+            builder.Property(sin => sin.AnimeId).HasColumnOrder(3).IsRequired();
             builder.HasOne(sin => sin.Language).WithMany(lan => lan.Sinopses).HasForeignKey(sin => sin.LanguageId).IsRequired();
+            builder.Property(sin => sin.LanguageId).HasColumnOrder(4).IsRequired();
         }
     }
 }

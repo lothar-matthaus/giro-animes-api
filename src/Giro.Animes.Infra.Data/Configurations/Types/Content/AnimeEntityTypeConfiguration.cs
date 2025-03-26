@@ -24,7 +24,7 @@ namespace Giro.Animes.Infra.Data.Configurations.Types.Content
             builder.HasMany(ani => ani.Titles).WithOne(title => title.Anime).HasForeignKey(title => title.AnimeId).IsRequired(true);
             builder.HasMany(ani => ani.Sinopses).WithOne(sinopse => sinopse.Anime).HasForeignKey(title => title.AnimeId).IsRequired(true);
             builder.HasMany(ani => ani.Screenshots).WithOne(screenshot => screenshot.Anime).HasForeignKey(title => title.AnimeId).IsRequired(true);
-            builder.HasMany(ani => ani.Authors).WithMany(author => author.Animes).UsingEntity<Works>(
+            builder.HasMany(ani => ani.Authors).WithMany(author => author.Works).UsingEntity<Works>(
             Tables.Content.AUTHOR_WORKS, // Nome da tabela de junção
             authorsAnimes => authorsAnimes.HasOne(authorsAnimes => authorsAnimes.Author)
                   .WithMany()

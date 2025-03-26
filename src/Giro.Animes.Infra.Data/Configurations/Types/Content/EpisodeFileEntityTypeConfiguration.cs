@@ -17,7 +17,7 @@ namespace Giro.Animes.Infra.Data.Configurations.Types.Content
         {
             base.Configure(builder);
             builder.ToTable(Tables.Content.EPISODE_FILES, Schemas.CONTENT);
-            builder.HasOne(file => file.Episode).WithOne(ep => ep.File).HasForeignKey<EpisodeFile>(file => file.EpisodeId).IsRequired();
+            builder.HasOne(file => file.Episode).WithMany(ep => ep.Files).HasForeignKey(file => file.EpisodeId).IsRequired();
         }
     }
 }

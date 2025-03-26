@@ -14,14 +14,15 @@ namespace Giro.Animes.Infra.Data.Configurations.Types.Management
             base.Configure(builder);
 
             builder.ToTable(Tables.Management.SETTINGS, Schemas.MANAGEMENT);
-            builder.HasOne(settings => settings.Account).WithOne(acc => acc.Settings).HasForeignKey<Settings>(set => set.AccountId).IsRequired(true);
-            builder.HasOne(settings => settings.Language).WithMany(language => language.Settings).HasForeignKey(settings => settings.LanguageId).IsRequired(true);
-            builder.Navigation(settings => settings.Language);
-            builder.Navigation(settings => settings.Account);
 
             builder.Property(settings => settings.Theme).IsRequired(true).HasConversion(theme => theme.Value, value => UserTheme.FromValue(value)).HasDefaultValue(UserTheme.Light);
             builder.Property(settings => settings.EnableApplicationNotifications).IsRequired().HasDefaultValue(true).HasDefaultValue(true);
             builder.Property(settings => settings.EnableEmailNotifications).IsRequired().HasDefaultValue(false).HasDefaultValue(false);
+            
+            builder.HasOne(settings => settings.Account).WithOne(acc => acc.Settings).HasForeignKey<Settings>(set => set.AccountId).IsRequired(true);
+            builder.HasOne(settings => settings.Language).WithMany(language => language.Settings).HasForeignKey(settings => settings.LanguageId).IsRequired(true);
+            builder.Navigation(settings => settings.Language);
+            builder.Navigation(settings => settings.Account);
         }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using Giro.Animes.Domain.Entities;
 using Giro.Animes.Infra.Data.Configurations.Types.Base;
+using Giro.Animes.Infra.Data.Constants;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
@@ -10,6 +11,8 @@ namespace Giro.Animes.Infra.Data.Configurations.Types.Common
         public override void Configure(EntityTypeBuilder<Studio> builder)
         {
             base.Configure(builder);
+
+            builder.ToTable(Tables.Common.STUDIOS, Schemas.COMMON);
 
             builder.Property(stu => stu.Name).IsRequired(true);
             builder.Property(stu => stu.City).IsRequired(false).HasDefaultValue(null);

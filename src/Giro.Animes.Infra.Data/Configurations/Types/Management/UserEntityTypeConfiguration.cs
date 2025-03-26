@@ -12,14 +12,14 @@ namespace Giro.Animes.Infra.Data.Configurations.Types.Management
         public override void Configure(EntityTypeBuilder<User> builder)
         {
             base.Configure(builder);
-
             builder.ToTable(Tables.Management.USERS, Schemas.MANAGEMENT);
+
+            builder.Property(user => user.Name).IsRequired().HasMaxLength(20);
+            builder.Property(user => user.Status).IsRequired().HasConversion(status => status.Value, value => UserStatus.FromValue(value));
+            builder.Property(user => user.Role).IsRequired().HasConversion(role => role.Value, value => UserRole.FromValue(value));
+
             builder.HasOne(user => user.Account).WithOne(account => account.User).HasForeignKey<Account>(account => account.UserId).IsRequired(true);
             builder.Navigation(user => user.Account);
-
-            builder.Property(user => user.Name).IsRequired().HasMaxLength(20).HasColumnOrder(2);
-            builder.Property(user => user.Status).IsRequired().HasConversion(status => status.Value, value => UserStatus.FromValue(value)).HasColumnOrder(3);
-            builder.Property(user => user.Role).IsRequired().HasConversion(role => role.Value, value => UserRole.FromValue(value)).HasColumnOrder(4);
         }
     }
 }
