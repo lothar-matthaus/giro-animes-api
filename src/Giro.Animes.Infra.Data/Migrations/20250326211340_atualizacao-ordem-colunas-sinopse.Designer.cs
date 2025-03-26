@@ -3,6 +3,7 @@ using System;
 using Giro.Animes.Infra.Data.Contexts;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Giro.Animes.Infra.Data.Migrations
 {
     [DbContext(typeof(GiroAnimesDbContext))]
-    partial class GiroAnimesDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250326211340_atualizacao-ordem-colunas-sinopse")]
+    partial class atualizacaoordemcolunassinopse
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -34,12 +37,12 @@ namespace Giro.Animes.Infra.Data.Migrations
                     b.Property<DateTime>("CreationDate")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("TIMESTAMP")
-                        .HasColumnOrder(30)
+                        .HasColumnOrder(100)
                         .HasDefaultValueSql("CURRENT_TIMESTAMP");
 
                     b.Property<DateTime?>("DeletionDate")
                         .HasColumnType("TIMESTAMP")
-                        .HasColumnOrder(32);
+                        .HasColumnOrder(101);
 
                     b.Property<int>("Plan")
                         .HasColumnType("integer");
@@ -50,7 +53,7 @@ namespace Giro.Animes.Infra.Data.Migrations
                     b.Property<DateTime>("UpdateDate")
                         .ValueGeneratedOnAddOrUpdate()
                         .HasColumnType("TIMESTAMP")
-                        .HasColumnOrder(31)
+                        .HasColumnOrder(101)
                         .HasDefaultValueSql("CURRENT_TIMESTAMP");
 
                     b.Property<long>("UserId")
@@ -76,12 +79,12 @@ namespace Giro.Animes.Infra.Data.Migrations
                     b.Property<DateTime>("CreationDate")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("TIMESTAMP")
-                        .HasColumnOrder(30)
+                        .HasColumnOrder(100)
                         .HasDefaultValueSql("CURRENT_TIMESTAMP");
 
                     b.Property<DateTime?>("DeletionDate")
                         .HasColumnType("TIMESTAMP")
-                        .HasColumnOrder(32);
+                        .HasColumnOrder(101);
 
                     b.Property<int>("Status")
                         .ValueGeneratedOnAdd()
@@ -94,7 +97,7 @@ namespace Giro.Animes.Infra.Data.Migrations
                     b.Property<DateTime>("UpdateDate")
                         .ValueGeneratedOnAddOrUpdate()
                         .HasColumnType("TIMESTAMP")
-                        .HasColumnOrder(31)
+                        .HasColumnOrder(101)
                         .HasDefaultValueSql("CURRENT_TIMESTAMP");
 
                     b.HasKey("Id");
@@ -114,39 +117,35 @@ namespace Giro.Animes.Infra.Data.Migrations
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
 
                     b.Property<long>("AnimeId")
-                        .HasColumnType("bigint")
-                        .HasColumnOrder(4);
+                        .HasColumnType("bigint");
 
                     b.Property<DateTime>("CreationDate")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("TIMESTAMP")
-                        .HasColumnOrder(30)
+                        .HasColumnOrder(100)
                         .HasDefaultValueSql("CURRENT_TIMESTAMP");
 
                     b.Property<DateTime?>("DeletionDate")
                         .HasColumnType("TIMESTAMP")
-                        .HasColumnOrder(32);
+                        .HasColumnOrder(101);
 
                     b.Property<string>("Extension")
                         .IsRequired()
-                        .HasColumnType("text")
-                        .HasColumnOrder(4);
+                        .HasColumnType("text");
 
                     b.Property<string>("FileName")
                         .IsRequired()
-                        .HasColumnType("text")
-                        .HasColumnOrder(3);
+                        .HasColumnType("text");
 
                     b.Property<DateTime>("UpdateDate")
                         .ValueGeneratedOnAddOrUpdate()
                         .HasColumnType("TIMESTAMP")
-                        .HasColumnOrder(31)
+                        .HasColumnOrder(101)
                         .HasDefaultValueSql("CURRENT_TIMESTAMP");
 
                     b.Property<string>("Url")
                         .IsRequired()
-                        .HasColumnType("text")
-                        .HasColumnOrder(2);
+                        .HasColumnType("text");
 
                     b.HasKey("Id");
 
@@ -170,12 +169,12 @@ namespace Giro.Animes.Infra.Data.Migrations
                     b.Property<DateTime>("CreationDate")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("TIMESTAMP")
-                        .HasColumnOrder(30)
+                        .HasColumnOrder(100)
                         .HasDefaultValueSql("CURRENT_TIMESTAMP");
 
                     b.Property<DateTime?>("DeletionDate")
                         .HasColumnType("TIMESTAMP")
-                        .HasColumnOrder(32);
+                        .HasColumnOrder(101);
 
                     b.Property<long>("LanguageId")
                         .HasColumnType("bigint");
@@ -187,7 +186,7 @@ namespace Giro.Animes.Infra.Data.Migrations
                     b.Property<DateTime>("UpdateDate")
                         .ValueGeneratedOnAddOrUpdate()
                         .HasColumnType("TIMESTAMP")
-                        .HasColumnOrder(31)
+                        .HasColumnOrder(101)
                         .HasDefaultValueSql("CURRENT_TIMESTAMP");
 
                     b.HasKey("Id");
@@ -196,7 +195,7 @@ namespace Giro.Animes.Infra.Data.Migrations
 
                     b.HasIndex("LanguageId");
 
-                    b.ToTable("anime_titles", "content");
+                    b.ToTable("AnimeTitle");
                 });
 
             modelBuilder.Entity("Giro.Animes.Domain.Entities.Author", b =>
@@ -214,7 +213,7 @@ namespace Giro.Animes.Infra.Data.Migrations
                     b.Property<DateTime>("CreationDate")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("TIMESTAMP")
-                        .HasColumnOrder(30)
+                        .HasColumnOrder(100)
                         .HasDefaultValueSql("CURRENT_TIMESTAMP");
 
                     b.Property<DateTime?>("DeathDate")
@@ -222,7 +221,7 @@ namespace Giro.Animes.Infra.Data.Migrations
 
                     b.Property<DateTime?>("DeletionDate")
                         .HasColumnType("TIMESTAMP")
-                        .HasColumnOrder(32);
+                        .HasColumnOrder(101);
 
                     b.Property<string>("Instagram")
                         .HasColumnType("text");
@@ -242,7 +241,7 @@ namespace Giro.Animes.Infra.Data.Migrations
                     b.Property<DateTime>("UpdateDate")
                         .ValueGeneratedOnAddOrUpdate()
                         .HasColumnType("TIMESTAMP")
-                        .HasColumnOrder(31)
+                        .HasColumnOrder(101)
                         .HasDefaultValueSql("CURRENT_TIMESTAMP");
 
                     b.Property<string>("Website")
@@ -268,33 +267,30 @@ namespace Giro.Animes.Infra.Data.Migrations
                     b.Property<DateTime>("CreationDate")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("TIMESTAMP")
-                        .HasColumnOrder(30)
+                        .HasColumnOrder(100)
                         .HasDefaultValueSql("CURRENT_TIMESTAMP");
 
                     b.Property<DateTime?>("DeletionDate")
                         .HasColumnType("TIMESTAMP")
-                        .HasColumnOrder(32);
+                        .HasColumnOrder(101);
 
                     b.Property<string>("Extension")
                         .IsRequired()
-                        .HasColumnType("text")
-                        .HasColumnOrder(4);
+                        .HasColumnType("text");
 
                     b.Property<string>("FileName")
                         .IsRequired()
-                        .HasColumnType("text")
-                        .HasColumnOrder(3);
+                        .HasColumnType("text");
 
                     b.Property<DateTime>("UpdateDate")
                         .ValueGeneratedOnAddOrUpdate()
                         .HasColumnType("TIMESTAMP")
-                        .HasColumnOrder(31)
+                        .HasColumnOrder(101)
                         .HasDefaultValueSql("CURRENT_TIMESTAMP");
 
                     b.Property<string>("Url")
                         .IsRequired()
-                        .HasColumnType("text")
-                        .HasColumnOrder(2);
+                        .HasColumnType("text");
 
                     b.HasKey("Id");
 
@@ -319,15 +315,16 @@ namespace Giro.Animes.Infra.Data.Migrations
                     b.Property<DateTime>("CreationDate")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("TIMESTAMP")
-                        .HasColumnOrder(30)
+                        .HasColumnOrder(100)
                         .HasDefaultValueSql("CURRENT_TIMESTAMP");
 
                     b.Property<DateTime?>("DeletionDate")
                         .HasColumnType("TIMESTAMP")
-                        .HasColumnOrder(32);
+                        .HasColumnOrder(101);
 
                     b.Property<long?>("LanguageId")
-                        .HasColumnType("bigint");
+                        .HasColumnType("bigint")
+                        .HasColumnOrder(10);
 
                     b.Property<string>("Text")
                         .IsRequired()
@@ -338,7 +335,7 @@ namespace Giro.Animes.Infra.Data.Migrations
                     b.Property<DateTime>("UpdateDate")
                         .ValueGeneratedOnAddOrUpdate()
                         .HasColumnType("TIMESTAMP")
-                        .HasColumnOrder(31)
+                        .HasColumnOrder(101)
                         .HasDefaultValueSql("CURRENT_TIMESTAMP");
 
                     b.HasKey("Id");
@@ -365,22 +362,20 @@ namespace Giro.Animes.Infra.Data.Migrations
                     b.Property<DateTime>("CreationDate")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("TIMESTAMP")
-                        .HasColumnOrder(30)
+                        .HasColumnOrder(100)
                         .HasDefaultValueSql("CURRENT_TIMESTAMP");
 
                     b.Property<DateTime?>("DeletionDate")
                         .HasColumnType("TIMESTAMP")
-                        .HasColumnOrder(32);
+                        .HasColumnOrder(101);
 
                     b.Property<string>("Extension")
                         .IsRequired()
-                        .HasColumnType("text")
-                        .HasColumnOrder(4);
+                        .HasColumnType("text");
 
                     b.Property<string>("FileName")
                         .IsRequired()
-                        .HasColumnType("text")
-                        .HasColumnOrder(3);
+                        .HasColumnType("text");
 
                     b.Property<long>("LanguageId")
                         .HasColumnType("bigint");
@@ -388,13 +383,12 @@ namespace Giro.Animes.Infra.Data.Migrations
                     b.Property<DateTime>("UpdateDate")
                         .ValueGeneratedOnAddOrUpdate()
                         .HasColumnType("TIMESTAMP")
-                        .HasColumnOrder(31)
+                        .HasColumnOrder(101)
                         .HasDefaultValueSql("CURRENT_TIMESTAMP");
 
                     b.Property<string>("Url")
                         .IsRequired()
-                        .HasColumnType("text")
-                        .HasColumnOrder(2);
+                        .HasColumnType("text");
 
                     b.HasKey("Id");
 
@@ -420,12 +414,12 @@ namespace Giro.Animes.Infra.Data.Migrations
                     b.Property<DateTime>("CreationDate")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("TIMESTAMP")
-                        .HasColumnOrder(30)
+                        .HasColumnOrder(100)
                         .HasDefaultValueSql("CURRENT_TIMESTAMP");
 
                     b.Property<DateTime?>("DeletionDate")
                         .HasColumnType("TIMESTAMP")
-                        .HasColumnOrder(32);
+                        .HasColumnOrder(101);
 
                     b.Property<int>("Duration")
                         .ValueGeneratedOnAdd()
@@ -440,7 +434,7 @@ namespace Giro.Animes.Infra.Data.Migrations
                     b.Property<DateTime>("UpdateDate")
                         .ValueGeneratedOnAddOrUpdate()
                         .HasColumnType("TIMESTAMP")
-                        .HasColumnOrder(31)
+                        .HasColumnOrder(101)
                         .HasDefaultValueSql("CURRENT_TIMESTAMP");
 
                     b.HasKey("Id");
@@ -462,40 +456,38 @@ namespace Giro.Animes.Infra.Data.Migrations
                     b.Property<DateTime>("CreationDate")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("TIMESTAMP")
-                        .HasColumnOrder(30)
+                        .HasColumnOrder(100)
                         .HasDefaultValueSql("CURRENT_TIMESTAMP");
 
                     b.Property<DateTime?>("DeletionDate")
                         .HasColumnType("TIMESTAMP")
-                        .HasColumnOrder(32);
+                        .HasColumnOrder(101);
 
                     b.Property<long>("EpisodeId")
                         .HasColumnType("bigint");
 
                     b.Property<string>("Extension")
                         .IsRequired()
-                        .HasColumnType("text")
-                        .HasColumnOrder(4);
+                        .HasColumnType("text");
 
                     b.Property<string>("FileName")
                         .IsRequired()
-                        .HasColumnType("text")
-                        .HasColumnOrder(3);
+                        .HasColumnType("text");
 
                     b.Property<DateTime>("UpdateDate")
                         .ValueGeneratedOnAddOrUpdate()
                         .HasColumnType("TIMESTAMP")
-                        .HasColumnOrder(31)
+                        .HasColumnOrder(101)
                         .HasDefaultValueSql("CURRENT_TIMESTAMP");
 
                     b.Property<string>("Url")
                         .IsRequired()
-                        .HasColumnType("text")
-                        .HasColumnOrder(2);
+                        .HasColumnType("text");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("EpisodeId");
+                    b.HasIndex("EpisodeId")
+                        .IsUnique();
 
                     b.ToTable("episode_files", "content");
                 });
@@ -512,12 +504,12 @@ namespace Giro.Animes.Infra.Data.Migrations
                     b.Property<DateTime>("CreationDate")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("TIMESTAMP")
-                        .HasColumnOrder(30)
+                        .HasColumnOrder(100)
                         .HasDefaultValueSql("CURRENT_TIMESTAMP");
 
                     b.Property<DateTime?>("DeletionDate")
                         .HasColumnType("TIMESTAMP")
-                        .HasColumnOrder(32);
+                        .HasColumnOrder(101);
 
                     b.Property<long>("EpisodeId")
                         .HasColumnType("bigint");
@@ -532,7 +524,7 @@ namespace Giro.Animes.Infra.Data.Migrations
                     b.Property<DateTime>("UpdateDate")
                         .ValueGeneratedOnAddOrUpdate()
                         .HasColumnType("TIMESTAMP")
-                        .HasColumnOrder(31)
+                        .HasColumnOrder(101)
                         .HasDefaultValueSql("CURRENT_TIMESTAMP");
 
                     b.HasKey("Id");
@@ -556,17 +548,17 @@ namespace Giro.Animes.Infra.Data.Migrations
                     b.Property<DateTime>("CreationDate")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("TIMESTAMP")
-                        .HasColumnOrder(30)
+                        .HasColumnOrder(100)
                         .HasDefaultValueSql("CURRENT_TIMESTAMP");
 
                     b.Property<DateTime?>("DeletionDate")
                         .HasColumnType("TIMESTAMP")
-                        .HasColumnOrder(32);
+                        .HasColumnOrder(101);
 
                     b.Property<DateTime>("UpdateDate")
                         .ValueGeneratedOnAddOrUpdate()
                         .HasColumnType("TIMESTAMP")
-                        .HasColumnOrder(31)
+                        .HasColumnOrder(101)
                         .HasDefaultValueSql("CURRENT_TIMESTAMP");
 
                     b.HasKey("Id");
@@ -586,18 +578,19 @@ namespace Giro.Animes.Infra.Data.Migrations
                     b.Property<DateTime>("CreationDate")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("TIMESTAMP")
-                        .HasColumnOrder(30)
+                        .HasColumnOrder(100)
                         .HasDefaultValueSql("CURRENT_TIMESTAMP");
 
                     b.Property<DateTime?>("DeletionDate")
                         .HasColumnType("TIMESTAMP")
-                        .HasColumnOrder(32);
+                        .HasColumnOrder(101);
 
                     b.Property<long>("GenreId")
                         .HasColumnType("bigint");
 
                     b.Property<long>("LanguageId")
-                        .HasColumnType("bigint");
+                        .HasColumnType("bigint")
+                        .HasColumnOrder(10);
 
                     b.Property<string>("Text")
                         .IsRequired()
@@ -608,7 +601,7 @@ namespace Giro.Animes.Infra.Data.Migrations
                     b.Property<DateTime>("UpdateDate")
                         .ValueGeneratedOnAddOrUpdate()
                         .HasColumnType("TIMESTAMP")
-                        .HasColumnOrder(31)
+                        .HasColumnOrder(101)
                         .HasDefaultValueSql("CURRENT_TIMESTAMP");
 
                     b.HasKey("Id");
@@ -632,12 +625,12 @@ namespace Giro.Animes.Infra.Data.Migrations
                     b.Property<DateTime>("CreationDate")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("TIMESTAMP")
-                        .HasColumnOrder(30)
+                        .HasColumnOrder(100)
                         .HasDefaultValueSql("CURRENT_TIMESTAMP");
 
                     b.Property<DateTime?>("DeletionDate")
                         .HasColumnType("TIMESTAMP")
-                        .HasColumnOrder(32);
+                        .HasColumnOrder(101);
 
                     b.Property<long>("GenreId")
                         .HasColumnType("bigint");
@@ -652,7 +645,7 @@ namespace Giro.Animes.Infra.Data.Migrations
                     b.Property<DateTime>("UpdateDate")
                         .ValueGeneratedOnAddOrUpdate()
                         .HasColumnType("TIMESTAMP")
-                        .HasColumnOrder(31)
+                        .HasColumnOrder(101)
                         .HasDefaultValueSql("CURRENT_TIMESTAMP");
 
                     b.HasKey("Id");
@@ -682,12 +675,12 @@ namespace Giro.Animes.Infra.Data.Migrations
                     b.Property<DateTime>("CreationDate")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("TIMESTAMP")
-                        .HasColumnOrder(30)
+                        .HasColumnOrder(100)
                         .HasDefaultValueSql("CURRENT_TIMESTAMP");
 
                     b.Property<DateTime?>("DeletionDate")
                         .HasColumnType("TIMESTAMP")
-                        .HasColumnOrder(32);
+                        .HasColumnOrder(101);
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -704,7 +697,7 @@ namespace Giro.Animes.Infra.Data.Migrations
                     b.Property<DateTime>("UpdateDate")
                         .ValueGeneratedOnAddOrUpdate()
                         .HasColumnType("TIMESTAMP")
-                        .HasColumnOrder(31)
+                        .HasColumnOrder(101)
                         .HasDefaultValueSql("CURRENT_TIMESTAMP");
 
                     b.HasKey("Id");
@@ -724,22 +717,20 @@ namespace Giro.Animes.Infra.Data.Migrations
                     b.Property<DateTime>("CreationDate")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("TIMESTAMP")
-                        .HasColumnOrder(30)
+                        .HasColumnOrder(100)
                         .HasDefaultValueSql("CURRENT_TIMESTAMP");
 
                     b.Property<DateTime?>("DeletionDate")
                         .HasColumnType("TIMESTAMP")
-                        .HasColumnOrder(32);
+                        .HasColumnOrder(101);
 
                     b.Property<string>("Extension")
                         .IsRequired()
-                        .HasColumnType("text")
-                        .HasColumnOrder(4);
+                        .HasColumnType("text");
 
                     b.Property<string>("FileName")
                         .IsRequired()
-                        .HasColumnType("text")
-                        .HasColumnOrder(3);
+                        .HasColumnType("text");
 
                     b.Property<long>("StudioId")
                         .HasColumnType("bigint");
@@ -747,13 +738,12 @@ namespace Giro.Animes.Infra.Data.Migrations
                     b.Property<DateTime>("UpdateDate")
                         .ValueGeneratedOnAddOrUpdate()
                         .HasColumnType("TIMESTAMP")
-                        .HasColumnOrder(31)
+                        .HasColumnOrder(101)
                         .HasDefaultValueSql("CURRENT_TIMESTAMP");
 
                     b.Property<string>("Url")
                         .IsRequired()
-                        .HasColumnType("text")
-                        .HasColumnOrder(2);
+                        .HasColumnType("text");
 
                     b.HasKey("Id");
 
@@ -761,52 +751,6 @@ namespace Giro.Animes.Infra.Data.Migrations
                         .IsUnique();
 
                     b.ToTable("logos", "content");
-                });
-
-            modelBuilder.Entity("Giro.Animes.Domain.Entities.Rating", b =>
-                {
-                    b.Property<long>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint")
-                        .HasColumnOrder(1);
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
-
-                    b.Property<long>("AnimeId")
-                        .HasColumnType("bigint");
-
-                    b.Property<DateTime>("CreationDate")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("TIMESTAMP")
-                        .HasColumnOrder(30)
-                        .HasDefaultValueSql("CURRENT_TIMESTAMP");
-
-                    b.Property<DateTime?>("DeletionDate")
-                        .HasColumnType("TIMESTAMP")
-                        .HasColumnOrder(32);
-
-                    b.Property<float>("Rate")
-                        .HasMaxLength(5)
-                        .HasColumnType("real")
-                        .HasColumnOrder(2);
-
-                    b.Property<DateTime>("UpdateDate")
-                        .ValueGeneratedOnAddOrUpdate()
-                        .HasColumnType("TIMESTAMP")
-                        .HasColumnOrder(31)
-                        .HasDefaultValueSql("CURRENT_TIMESTAMP");
-
-                    b.Property<long>("UserId")
-                        .HasColumnType("bigint")
-                        .HasColumnOrder(4);
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("AnimeId");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("ratings", "content");
                 });
 
             modelBuilder.Entity("Giro.Animes.Domain.Entities.Settings", b =>
@@ -824,12 +768,12 @@ namespace Giro.Animes.Infra.Data.Migrations
                     b.Property<DateTime>("CreationDate")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("TIMESTAMP")
-                        .HasColumnOrder(30)
+                        .HasColumnOrder(100)
                         .HasDefaultValueSql("CURRENT_TIMESTAMP");
 
                     b.Property<DateTime?>("DeletionDate")
                         .HasColumnType("TIMESTAMP")
-                        .HasColumnOrder(32);
+                        .HasColumnOrder(101);
 
                     b.Property<bool>("EnableApplicationNotifications")
                         .ValueGeneratedOnAdd()
@@ -852,7 +796,7 @@ namespace Giro.Animes.Infra.Data.Migrations
                     b.Property<DateTime>("UpdateDate")
                         .ValueGeneratedOnAddOrUpdate()
                         .HasColumnType("TIMESTAMP")
-                        .HasColumnOrder(31)
+                        .HasColumnOrder(101)
                         .HasDefaultValueSql("CURRENT_TIMESTAMP");
 
                     b.HasKey("Id");
@@ -876,21 +820,24 @@ namespace Giro.Animes.Infra.Data.Migrations
 
                     b.Property<long>("AnimeId")
                         .HasColumnType("bigint")
-                        .HasColumnOrder(3);
+                        .HasColumnOrder(2);
 
                     b.Property<DateTime>("CreationDate")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("TIMESTAMP")
-                        .HasColumnOrder(30)
+                        .HasColumnOrder(100)
                         .HasDefaultValueSql("CURRENT_TIMESTAMP");
 
                     b.Property<DateTime?>("DeletionDate")
                         .HasColumnType("TIMESTAMP")
-                        .HasColumnOrder(32);
+                        .HasColumnOrder(101);
 
-                    b.Property<long>("LanguageId")
+                    b.Property<long?>("LanguageId")
                         .HasColumnType("bigint")
-                        .HasColumnOrder(4);
+                        .HasColumnOrder(10);
+
+                    b.Property<long?>("LanguageId1")
+                        .HasColumnType("bigint");
 
                     b.Property<string>("Text")
                         .IsRequired()
@@ -901,7 +848,7 @@ namespace Giro.Animes.Infra.Data.Migrations
                     b.Property<DateTime>("UpdateDate")
                         .ValueGeneratedOnAddOrUpdate()
                         .HasColumnType("TIMESTAMP")
-                        .HasColumnOrder(31)
+                        .HasColumnOrder(101)
                         .HasDefaultValueSql("CURRENT_TIMESTAMP");
 
                     b.HasKey("Id");
@@ -909,6 +856,8 @@ namespace Giro.Animes.Infra.Data.Migrations
                     b.HasIndex("AnimeId");
 
                     b.HasIndex("LanguageId");
+
+                    b.HasIndex("LanguageId1");
 
                     b.ToTable("sinopses", "content");
                 });
@@ -931,12 +880,12 @@ namespace Giro.Animes.Infra.Data.Migrations
                     b.Property<DateTime>("CreationDate")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("TIMESTAMP")
-                        .HasColumnOrder(30)
+                        .HasColumnOrder(100)
                         .HasDefaultValueSql("CURRENT_TIMESTAMP");
 
                     b.Property<DateTime?>("DeletionDate")
                         .HasColumnType("TIMESTAMP")
-                        .HasColumnOrder(32);
+                        .HasColumnOrder(101);
 
                     b.Property<DateTime>("EstablishedDate")
                         .HasColumnType("timestamp with time zone");
@@ -954,7 +903,7 @@ namespace Giro.Animes.Infra.Data.Migrations
                     b.Property<DateTime>("UpdateDate")
                         .ValueGeneratedOnAddOrUpdate()
                         .HasColumnType("TIMESTAMP")
-                        .HasColumnOrder(31)
+                        .HasColumnOrder(101)
                         .HasDefaultValueSql("CURRENT_TIMESTAMP");
 
                     b.Property<string>("Website")
@@ -962,7 +911,7 @@ namespace Giro.Animes.Infra.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("studios", "common");
+                    b.ToTable("Studio");
                 });
 
             modelBuilder.Entity("Giro.Animes.Domain.Entities.User", b =>
@@ -977,12 +926,12 @@ namespace Giro.Animes.Infra.Data.Migrations
                     b.Property<DateTime>("CreationDate")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("TIMESTAMP")
-                        .HasColumnOrder(30)
+                        .HasColumnOrder(100)
                         .HasDefaultValueSql("CURRENT_TIMESTAMP");
 
                     b.Property<DateTime?>("DeletionDate")
                         .HasColumnType("TIMESTAMP")
-                        .HasColumnOrder(32);
+                        .HasColumnOrder(101);
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -998,7 +947,7 @@ namespace Giro.Animes.Infra.Data.Migrations
                     b.Property<DateTime>("UpdateDate")
                         .ValueGeneratedOnAddOrUpdate()
                         .HasColumnType("TIMESTAMP")
-                        .HasColumnOrder(31)
+                        .HasColumnOrder(101)
                         .HasDefaultValueSql("CURRENT_TIMESTAMP");
 
                     b.HasKey("Id");
@@ -1221,8 +1170,8 @@ namespace Giro.Animes.Infra.Data.Migrations
             modelBuilder.Entity("Giro.Animes.Domain.Entities.EpisodeFile", b =>
                 {
                     b.HasOne("Giro.Animes.Domain.Entities.Episode", "Episode")
-                        .WithMany("Files")
-                        .HasForeignKey("EpisodeId")
+                        .WithOne("File")
+                        .HasForeignKey("Giro.Animes.Domain.Entities.EpisodeFile", "EpisodeId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -1297,25 +1246,6 @@ namespace Giro.Animes.Infra.Data.Migrations
                     b.Navigation("Studio");
                 });
 
-            modelBuilder.Entity("Giro.Animes.Domain.Entities.Rating", b =>
-                {
-                    b.HasOne("Giro.Animes.Domain.Entities.Anime", "Anime")
-                        .WithMany("Ratings")
-                        .HasForeignKey("AnimeId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Giro.Animes.Domain.Entities.User", "User")
-                        .WithMany("Ratings")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Anime");
-
-                    b.Navigation("User");
-                });
-
             modelBuilder.Entity("Giro.Animes.Domain.Entities.Settings", b =>
                 {
                     b.HasOne("Giro.Animes.Domain.Entities.Account", "Account")
@@ -1344,10 +1274,12 @@ namespace Giro.Animes.Infra.Data.Migrations
                         .IsRequired();
 
                     b.HasOne("Giro.Animes.Domain.Entities.Language", "Language")
+                        .WithMany()
+                        .HasForeignKey("LanguageId");
+
+                    b.HasOne("Giro.Animes.Domain.Entities.Language", null)
                         .WithMany("Sinopses")
-                        .HasForeignKey("LanguageId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("LanguageId1");
 
                     b.Navigation("Anime");
 
@@ -1405,8 +1337,6 @@ namespace Giro.Animes.Infra.Data.Migrations
 
                     b.Navigation("Episodes");
 
-                    b.Navigation("Ratings");
-
                     b.Navigation("Screenshots");
 
                     b.Navigation("Sinopses");
@@ -1421,7 +1351,7 @@ namespace Giro.Animes.Infra.Data.Migrations
 
             modelBuilder.Entity("Giro.Animes.Domain.Entities.Episode", b =>
                 {
-                    b.Navigation("Files");
+                    b.Navigation("File");
 
                     b.Navigation("Titles");
                 });
@@ -1458,8 +1388,6 @@ namespace Giro.Animes.Infra.Data.Migrations
             modelBuilder.Entity("Giro.Animes.Domain.Entities.User", b =>
                 {
                     b.Navigation("Account");
-
-                    b.Navigation("Ratings");
                 });
 #pragma warning restore 612, 618
         }
