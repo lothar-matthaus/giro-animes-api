@@ -1,5 +1,6 @@
 ﻿
 using Giro.Animes.Domain.Entities.Base;
+using System.Reflection;
 
 namespace Giro.Animes.Domain.Entities
 {
@@ -8,7 +9,12 @@ namespace Giro.Animes.Domain.Entities
         /// <summary>
         /// Coleção de títulos do episódio
         /// </summary>
-        public ICollection<EpisodeTitle> Titles { get; private set; }
+        public IEnumerable<EpisodeTitle> Titles { get; private set; }
+
+        /// <summary>
+        /// Sinopses do episódio
+        /// </summary>
+        public IEnumerable<EpisodeSinopse> Sinopses { get; private set; }
 
         /// <summary>
         /// Número do episódio
@@ -23,7 +29,7 @@ namespace Giro.Animes.Domain.Entities
         /// <summary>
         /// Arquivo de vídeo do episódio em questão
         /// </summary>
-        public ICollection<EpisodeFile> Files { get; private set; }
+        public IEnumerable<EpisodeFile> Files { get; private set; }
 
         /// <summary>
         /// Identificador do anime a qual o episódio pertence
@@ -38,19 +44,19 @@ namespace Giro.Animes.Domain.Entities
         ///// <summary>
         ///// Idiomas de áudio que o episódio possui
         ///// </summary>
-        //public ICollection<Language> AudioLanguages { get; private set; }
+        //public IEnumerable<Language> AudioLanguages { get; private set; }
 
         ///// <summary>
         ///// Idiomas de legendas que o episódio possui
         ///// </summary>
-        //public ICollection<Language> SubtitleLanguages { get; set; }
+        //public IEnumerable<Language> SubtitleLanguages { get; set; }
 
         /// <summary>
         /// Construtor padrão para garantir a construção do objeto no Entity Framework
         /// </summary>
         public Episode()
         {
-            
+
         }
 
         /// <summary>
@@ -60,12 +66,13 @@ namespace Giro.Animes.Domain.Entities
         /// <param name="number">Número do episódio</param>
         /// <param name="duration">Duração do episódio em minutos</param>
         /// <param name="url">URL do episódio</param>
-        private Episode(ICollection<EpisodeFile> files, ICollection<EpisodeTitle> titles, int number, int duration, string url)
+        private Episode(IEnumerable<EpisodeFile> files, IEnumerable<EpisodeTitle> titles, IEnumerable<EpisodeSinopse> sinopses, int number, int duration, string url)
         {
             Titles = titles;
             Number = number;
             Duration = duration;
             Files = files;
+            Sinopses = sinopses;
         }
 
         /// <summary>
@@ -76,6 +83,6 @@ namespace Giro.Animes.Domain.Entities
         /// <param name="duration">Duração do episódio em minutos</param>
         /// <param name="url">URL do episódio</param>
         /// <returns>Uma nova instância de Episode</returns>
-        public static Episode Create(ICollection<EpisodeFile> files, ICollection<EpisodeTitle> titles, int number, int duration, string url) => new Episode(files, titles, number, duration, url);
+        public static Episode Create(IEnumerable<EpisodeFile> files, IEnumerable<EpisodeTitle> titles, IEnumerable<EpisodeSinopse> sinopses, int number, int duration, string url) => new Episode(files, titles, sinopses, number, duration, url);
     }
 }

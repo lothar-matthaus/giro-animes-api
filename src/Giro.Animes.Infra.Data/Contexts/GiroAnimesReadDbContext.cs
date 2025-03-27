@@ -6,17 +6,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Giro.Animes.Infra.Data.Contexts
 {
-    public class GiroAnimesDbContext : DbContext
+    public class GiroAnimesReadDbContext : DbContext
     {
-        public DbSet<User> Users { get; set; }
-        public DbSet<Account> Accounts { get; set; }
-        public DbSet<Avatar> Avatars { get; set; }
-        public DbSet<Settings> Settings { get; set; }
-        public DbSet<Language> Languages { get; set; }
-        public DbSet<Author> Authors { get; set; }
-        public DbSet<Rating> Ratings { get; set; }
-
-        public GiroAnimesDbContext(DbContextOptions<GiroAnimesDbContext> options) : base(options)
+        public GiroAnimesReadDbContext(DbContextOptions<GiroAnimesReadDbContext> options) : base(options)
         {
 
         }
@@ -45,11 +37,16 @@ namespace Giro.Animes.Infra.Data.Contexts
             modelBuilder.ApplyConfiguration(new GenreDescriptionEntityTypeConfiguration());
             modelBuilder.ApplyConfiguration(new GenreTitleEntityTypeConfiguration());
             modelBuilder.ApplyConfiguration(new LogoEntityTypeConfiguration());
-            modelBuilder.ApplyConfiguration(new SinopseEntityTypeConfiguration());
+            modelBuilder.ApplyConfiguration(new AnimeSinopseEntityTypeConfiguration());
             modelBuilder.ApplyConfiguration(new RatingEntityTypeConfiguration());
-
-
+            modelBuilder.ApplyConfiguration(new EpisodeSinopseEntityTypeConfiguration());
             // this.ToSnakeCase(modelBuilder);
+        }
+
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            base.OnConfiguring(optionsBuilder);
+            optionsBuilder.UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking);
         }
     }
 }

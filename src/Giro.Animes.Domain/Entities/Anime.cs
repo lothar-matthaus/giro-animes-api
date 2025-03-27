@@ -14,7 +14,7 @@ namespace Giro.Animes.Domain.Entities
         /// <summary>
         /// Descrições do anime, em diferentes idiomas
         /// </summary>
-        public ICollection<Sinopse> Sinopses { get; private set; }
+        public ICollection<AnimeSinopse> Sinopses { get; private set; }
 
         /// <summary>
         /// Lista de capas do anime 
@@ -79,7 +79,7 @@ namespace Giro.Animes.Domain.Entities
         /// <param name="authors"></param>
         /// <param name="sinopses"></param>
         /// <param name="status"></param>
-        private Anime(ICollection<AnimeTitle> titles, ICollection<Cover> covers, ICollection<Author> authors, ICollection<Sinopse> sinopses, Studio studio, AnimeStatus status)
+        private Anime(ICollection<AnimeTitle> titles, ICollection<Cover> covers, ICollection<Author> authors, ICollection<AnimeSinopse> sinopses, ICollection<Genre> genres , Studio studio, AnimeStatus status)
         {
             Titles = titles;
             Covers = covers;
@@ -87,6 +87,7 @@ namespace Giro.Animes.Domain.Entities
             Sinopses = sinopses;
             Status = status;
             Studio = studio;
+            Genres = genres;
         }
 
         /// <summary>
@@ -98,8 +99,8 @@ namespace Giro.Animes.Domain.Entities
         /// <param name="sinopses"></param>
         /// <param name="status"></param>
         /// <returns></returns>
-        public static Anime Create(ICollection<AnimeTitle> titles, ICollection<Cover> covers, ICollection<Author> authors, ICollection<Sinopse> sinopses, Studio studio, AnimeStatus status)
-            => new Anime(titles, covers, authors, sinopses, studio, status);
+        public static Anime Create(ICollection<AnimeTitle> titles, ICollection<Cover> covers, ICollection<Author> authors, ICollection<AnimeSinopse> sinopses, ICollection<Genre> genres, Studio studio, AnimeStatus status)
+            => new Anime(titles, covers, authors, sinopses, genres, studio, status);
 
     }
 }

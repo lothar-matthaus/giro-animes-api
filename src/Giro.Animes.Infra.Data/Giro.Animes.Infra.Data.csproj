@@ -24,6 +24,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Giro.Animes.Domain\Giro.Animes.Domain.csproj" />
+    <ProjectReference Include="..\Giro.Animes.Infra\Giro.Animes.Infra.csproj" />
   </ItemGroup>
 
   <ItemGroup>

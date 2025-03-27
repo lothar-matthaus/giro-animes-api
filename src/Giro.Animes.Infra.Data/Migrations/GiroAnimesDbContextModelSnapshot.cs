@@ -10,7 +10,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace Giro.Animes.Infra.Data.Migrations
 {
-    [DbContext(typeof(GiroAnimesDbContext))]
+    [DbContext(typeof(GiroAnimesWriteDbContext))]
     partial class GiroAnimesDbContextModelSnapshot : ModelSnapshot
     {
         protected override void BuildModel(ModelBuilder modelBuilder)
@@ -153,6 +153,54 @@ namespace Giro.Animes.Infra.Data.Migrations
                     b.HasIndex("AnimeId");
 
                     b.ToTable("anime_screenshots", "content");
+                });
+
+            modelBuilder.Entity("Giro.Animes.Domain.Entities.AnimeSinopse", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint")
+                        .HasColumnOrder(1);
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
+
+                    b.Property<long>("AnimeId")
+                        .HasColumnType("bigint")
+                        .HasColumnOrder(3);
+
+                    b.Property<DateTime>("CreationDate")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("TIMESTAMP")
+                        .HasColumnOrder(30)
+                        .HasDefaultValueSql("CURRENT_TIMESTAMP");
+
+                    b.Property<DateTime?>("DeletionDate")
+                        .HasColumnType("TIMESTAMP")
+                        .HasColumnOrder(32);
+
+                    b.Property<long>("LanguageId")
+                        .HasColumnType("bigint")
+                        .HasColumnOrder(4);
+
+                    b.Property<string>("Text")
+                        .IsRequired()
+                        .HasColumnType("text")
+                        .HasColumnName("Description")
+                        .HasColumnOrder(2);
+
+                    b.Property<DateTime>("UpdateDate")
+                        .ValueGeneratedOnAddOrUpdate()
+                        .HasColumnType("TIMESTAMP")
+                        .HasColumnOrder(31)
+                        .HasDefaultValueSql("CURRENT_TIMESTAMP");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AnimeId");
+
+                    b.HasIndex("LanguageId");
+
+                    b.ToTable("sinopses", "content");
                 });
 
             modelBuilder.Entity("Giro.Animes.Domain.Entities.AnimeTitle", b =>
@@ -482,6 +530,9 @@ namespace Giro.Animes.Infra.Data.Migrations
                         .HasColumnType("text")
                         .HasColumnOrder(3);
 
+                    b.Property<long>("LanguageId")
+                        .HasColumnType("bigint");
+
                     b.Property<DateTime>("UpdateDate")
                         .ValueGeneratedOnAddOrUpdate()
                         .HasColumnType("TIMESTAMP")
@@ -497,7 +548,53 @@ namespace Giro.Animes.Infra.Data.Migrations
 
                     b.HasIndex("EpisodeId");
 
+                    b.HasIndex("LanguageId");
+
                     b.ToTable("episode_files", "content");
+                });
+
+            modelBuilder.Entity("Giro.Animes.Domain.Entities.EpisodeSinopse", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint")
+                        .HasColumnOrder(1);
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
+
+                    b.Property<DateTime>("CreationDate")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("TIMESTAMP")
+                        .HasColumnOrder(30)
+                        .HasDefaultValueSql("CURRENT_TIMESTAMP");
+
+                    b.Property<DateTime?>("DeletionDate")
+                        .HasColumnType("TIMESTAMP")
+                        .HasColumnOrder(32);
+
+                    b.Property<long>("EpisodeId")
+                        .HasColumnType("bigint");
+
+                    b.Property<long?>("LanguageId")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("Text")
+                        .IsRequired()
+                        .HasColumnType("text")
+                        .HasColumnName("Description")
+                        .HasColumnOrder(2);
+
+                    b.Property<DateTime>("UpdateDate")
+                        .ValueGeneratedOnAddOrUpdate()
+                        .HasColumnType("TIMESTAMP")
+                        .HasColumnOrder(31)
+                        .HasDefaultValueSql("CURRENT_TIMESTAMP");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("EpisodeId");
+
+                    b.ToTable("episode_sinopses", "content");
                 });
 
             modelBuilder.Entity("Giro.Animes.Domain.Entities.EpisodeTitle", b =>
@@ -785,9 +882,9 @@ namespace Giro.Animes.Infra.Data.Migrations
                         .HasColumnType("TIMESTAMP")
                         .HasColumnOrder(32);
 
-                    b.Property<float>("Rate")
+                    b.Property<double>("Rate")
                         .HasMaxLength(5)
-                        .HasColumnType("real")
+                        .HasColumnType("double precision")
                         .HasColumnOrder(2);
 
                     b.Property<DateTime>("UpdateDate")
@@ -863,54 +960,6 @@ namespace Giro.Animes.Infra.Data.Migrations
                     b.HasIndex("LanguageId");
 
                     b.ToTable("settings", "management");
-                });
-
-            modelBuilder.Entity("Giro.Animes.Domain.Entities.Sinopse", b =>
-                {
-                    b.Property<long>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint")
-                        .HasColumnOrder(1);
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
-
-                    b.Property<long>("AnimeId")
-                        .HasColumnType("bigint")
-                        .HasColumnOrder(3);
-
-                    b.Property<DateTime>("CreationDate")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("TIMESTAMP")
-                        .HasColumnOrder(30)
-                        .HasDefaultValueSql("CURRENT_TIMESTAMP");
-
-                    b.Property<DateTime?>("DeletionDate")
-                        .HasColumnType("TIMESTAMP")
-                        .HasColumnOrder(32);
-
-                    b.Property<long>("LanguageId")
-                        .HasColumnType("bigint")
-                        .HasColumnOrder(4);
-
-                    b.Property<string>("Text")
-                        .IsRequired()
-                        .HasColumnType("text")
-                        .HasColumnName("Description")
-                        .HasColumnOrder(2);
-
-                    b.Property<DateTime>("UpdateDate")
-                        .ValueGeneratedOnAddOrUpdate()
-                        .HasColumnType("TIMESTAMP")
-                        .HasColumnOrder(31)
-                        .HasDefaultValueSql("CURRENT_TIMESTAMP");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("AnimeId");
-
-                    b.HasIndex("LanguageId");
-
-                    b.ToTable("sinopses", "content");
                 });
 
             modelBuilder.Entity("Giro.Animes.Domain.Entities.Studio", b =>
@@ -1165,6 +1214,25 @@ namespace Giro.Animes.Infra.Data.Migrations
                     b.Navigation("Anime");
                 });
 
+            modelBuilder.Entity("Giro.Animes.Domain.Entities.AnimeSinopse", b =>
+                {
+                    b.HasOne("Giro.Animes.Domain.Entities.Anime", "Anime")
+                        .WithMany("Sinopses")
+                        .HasForeignKey("AnimeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Giro.Animes.Domain.Entities.Language", "Language")
+                        .WithMany("AnimeSinopses")
+                        .HasForeignKey("LanguageId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Anime");
+
+                    b.Navigation("Language");
+                });
+
             modelBuilder.Entity("Giro.Animes.Domain.Entities.AnimeTitle", b =>
                 {
                     b.HasOne("Giro.Animes.Domain.Entities.Anime", "Anime")
@@ -1250,7 +1318,34 @@ namespace Giro.Animes.Infra.Data.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("Giro.Animes.Domain.Entities.Language", "Language")
+                        .WithMany()
+                        .HasForeignKey("LanguageId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.Navigation("Episode");
+
+                    b.Navigation("Language");
+                });
+
+            modelBuilder.Entity("Giro.Animes.Domain.Entities.EpisodeSinopse", b =>
+                {
+                    b.HasOne("Giro.Animes.Domain.Entities.Episode", "Episode")
+                        .WithMany("Sinopses")
+                        .HasForeignKey("EpisodeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Giro.Animes.Domain.Entities.Language", "Language")
+                        .WithMany("EpisodeSinopses")
+                        .HasForeignKey("EpisodeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Episode");
+
+                    b.Navigation("Language");
                 });
 
             modelBuilder.Entity("Giro.Animes.Domain.Entities.EpisodeTitle", b =>
@@ -1359,25 +1454,6 @@ namespace Giro.Animes.Infra.Data.Migrations
                     b.Navigation("Language");
                 });
 
-            modelBuilder.Entity("Giro.Animes.Domain.Entities.Sinopse", b =>
-                {
-                    b.HasOne("Giro.Animes.Domain.Entities.Anime", "Anime")
-                        .WithMany("Sinopses")
-                        .HasForeignKey("AnimeId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Giro.Animes.Domain.Entities.Language", "Language")
-                        .WithMany("Sinopses")
-                        .HasForeignKey("LanguageId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Anime");
-
-                    b.Navigation("Language");
-                });
-
             modelBuilder.Entity("animes_genres", b =>
                 {
                     b.HasOne("Giro.Animes.Domain.Entities.Anime", "Anime")
@@ -1466,6 +1542,8 @@ namespace Giro.Animes.Infra.Data.Migrations
                 {
                     b.Navigation("Files");
 
+                    b.Navigation("Sinopses");
+
                     b.Navigation("Titles");
                 });
 
@@ -1478,7 +1556,11 @@ namespace Giro.Animes.Infra.Data.Migrations
 
             modelBuilder.Entity("Giro.Animes.Domain.Entities.Language", b =>
                 {
+                    b.Navigation("AnimeSinopses");
+
                     b.Navigation("Covers");
+
+                    b.Navigation("EpisodeSinopses");
 
                     b.Navigation("EpisodeTitles");
 
@@ -1487,8 +1569,6 @@ namespace Giro.Animes.Infra.Data.Migrations
                     b.Navigation("GenreTitles");
 
                     b.Navigation("Settings");
-
-                    b.Navigation("Sinopses");
                 });
 
             modelBuilder.Entity("Giro.Animes.Domain.Entities.Studio", b =>

@@ -11,15 +11,15 @@ using System.Threading.Tasks;
 
 namespace Giro.Animes.Infra.Data.Configurations.Types.Content
 {
-    internal class SinopseEntityTypeConfiguration : DescriptionEntityTypeConfiguration<Sinopse>
+    internal class AnimeSinopseEntityTypeConfiguration : DescriptionEntityTypeConfiguration<AnimeSinopse>
     {
-        public override void Configure(EntityTypeBuilder<Sinopse> builder)
+        public override void Configure(EntityTypeBuilder<AnimeSinopse> builder)
         {
             base.Configure(builder);
             builder.ToTable(Tables.Content.SINOPSES, Schemas.CONTENT);
             builder.HasOne(sin => sin.Anime).WithMany(ani => ani.Sinopses).HasForeignKey(sin => sin.AnimeId).IsRequired();
             builder.Property(sin => sin.AnimeId).HasColumnOrder(3).IsRequired();
-            builder.HasOne(sin => sin.Language).WithMany(lan => lan.Sinopses).HasForeignKey(sin => sin.LanguageId).IsRequired();
+            builder.HasOne(sin => sin.Language).WithMany(lan => lan.AnimeSinopses).HasForeignKey(sin => sin.LanguageId).IsRequired();
             builder.Property(sin => sin.LanguageId).HasColumnOrder(4).IsRequired();
         }
     }

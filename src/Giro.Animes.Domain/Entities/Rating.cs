@@ -16,7 +16,7 @@ namespace Giro.Animes.Domain.Entities
         /// <summary>
         /// Nota dada pelo usuário.
         /// </summary>
-        public float Rate { get; private set; }
+        public double Rate { get; private set; }
 
         /// <summary>
         /// Identificador do usuário que fez a avaliação.
@@ -49,7 +49,7 @@ namespace Giro.Animes.Domain.Entities
         /// <param name="rate"></param>
         /// <param name="user"></param>
         /// <param name="anime"></param>
-        public Rating(float rate, User user, Anime anime)
+        public Rating(double rate, User user, Anime anime)
         {
             Rate = rate;
             User = user;

@@ -1,8 +1,8 @@
 ﻿namespace Giro.Animes.Domain.Constants
 {
-    public static class Message
+    internal static class Message
     {
-        public static class Validation
+        internal static class Validation
         {
             public static class General
             {

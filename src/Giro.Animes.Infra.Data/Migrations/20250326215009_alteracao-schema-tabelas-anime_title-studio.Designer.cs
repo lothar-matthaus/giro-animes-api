@@ -11,7 +11,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace Giro.Animes.Infra.Data.Migrations
 {
-    [DbContext(typeof(GiroAnimesDbContext))]
+    [DbContext(typeof(GiroAnimesWriteDbContext))]
     [Migration("20250326215009_alteracao-schema-tabelas-anime_title-studio")]
     partial class alteracaoschematabelasanime_titlestudio
     {

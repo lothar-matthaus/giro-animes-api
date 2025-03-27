@@ -12,13 +12,15 @@ namespace Giro.Animes.Infra.Data.Configurations.Types.Content
         {
             base.Configure(builder);
             builder.ToTable(Tables.Content.EPISODES, Schemas.CONTENT);
-            builder.HasMany(ep => ep.Titles).WithOne(title => title.Episode).HasForeignKey(ept => ept.EpisodeId).IsRequired(true);
-            builder.HasMany(ep => ep.Files).WithOne(file => file.Episode).HasForeignKey(file => file.EpisodeId);
-            builder.Navigation(ep => ep.Titles);
-            builder.Navigation(ep => ep.Files);
 
             builder.Property(ep => ep.Number).IsRequired(true).HasDefaultValue(0);
             builder.Property(ep => ep.Duration).IsRequired(true).HasDefaultValue(0);
+
+            builder.HasMany(ep => ep.Titles).WithOne(title => title.Episode).HasForeignKey(ept => ept.EpisodeId).IsRequired(true);
+            builder.HasMany(ep => ep.Files).WithOne(file => file.Episode).HasForeignKey(file => file.EpisodeId);
+            builder.HasMany(ep => ep.Sinopses).WithOne(sinopses => sinopses.Episode).HasForeignKey(sinopse => sinopse.EpisodeId).IsRequired(true);
+            builder.Navigation(ep => ep.Titles);
+            builder.Navigation(ep => ep.Files);
         }
     }
 }

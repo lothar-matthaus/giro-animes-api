@@ -95,13 +95,20 @@ namespace Giro.Animes.Domain.Entities
         public ICollection<EpisodeTitle> EpisodeTitles { get; private set; }
         public ICollection<GenreTitle> GenreTitles { get; private set; }
         public ICollection<GenreDescription> GenreDescriptions { get; private set; }
-        public ICollection<Sinopse> Sinopses { get; private set; }
+        public ICollection<AnimeSinopse> AnimeSinopses { get; private set; }
         public ICollection<Cover> Covers { get; private set; }
+        public ICollection<EpisodeSinopse> EpisodeSinopses { get; private set; }
+
         /// <summary>
         /// Collection of language descriptions
         /// </summary>
         // public ICollection<Description> Descriptions { get; private set; }
         #endregion
+
+        public Language()
+        {
+            
+        }
 
         #region Constructors
         /// <summary>

@@ -1,6 +1,6 @@
 ﻿namespace Giro.Animes.Domain.Constants
 {
-    public static class Patterns
+    internal static class Patterns
     {
         public static class General
         {

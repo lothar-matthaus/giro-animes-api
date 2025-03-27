@@ -9,7 +9,7 @@ namespace Giro.Animes.Domain.Entities
     /// <summary>
     /// Representa a descrição de um anime
     /// </summary>
-    public class Sinopse : Description
+    public class AnimeSinopse : Description
     {
         /// <summary>
         /// Identificador do anime ao qual a descrição pertence
@@ -24,7 +24,7 @@ namespace Giro.Animes.Domain.Entities
         /// <summary>
         /// Construtor padrão para garantir a construção do objeto pelo EntityFramework
         /// </summary>
-        public Sinopse() { }
+        public AnimeSinopse() { }
 
         /// <summary>
         /// Construtor privado com parâmetros. Garante a construção do objeto através do método Create
@@ -32,7 +32,7 @@ namespace Giro.Animes.Domain.Entities
         /// <param name="text">Texto da descrição do anime</param>
         /// <param name="language">Idioma da descrição</param>
         /// <param name="anime">Anime ao qual a descrição pertence</param>
-        private Sinopse(string text, Language language, Anime anime) : base(text, language)
+        private AnimeSinopse(string text, Language language, Anime anime) : base(text, language)
         {
             Anime = anime;
         }
@@ -44,6 +44,6 @@ namespace Giro.Animes.Domain.Entities
         /// <param name="language">Idioma da descrição</param>
         /// <param name="anime">Anime ao qual a descrição pertence</param>
         /// <returns>Uma nova instância de Sinopse</returns>
-        public static Sinopse Create(string text, Language language, Anime anime) => new Sinopse(text, language, anime);
+        public static AnimeSinopse Create(string text, Language language, Anime anime) => new AnimeSinopse(text, language, anime);
     }
 }

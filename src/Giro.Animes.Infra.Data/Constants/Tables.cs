@@ -21,6 +21,7 @@
             public const string EPISODES = "episodes";
             public const string EPISODE_FILES = "episode_files";
             public const string EPISODE_TITLES = "episode_titles";
+            public const string EPISODE_SINOPSES = "episode_sinopses";
             public const string GENRE_DESCRIPTIONS = "genre_descriptions";
             public const string GENRE_TITLES = "genre_titles";
             public const string ANIMES_GENRES = "animes_genres";
