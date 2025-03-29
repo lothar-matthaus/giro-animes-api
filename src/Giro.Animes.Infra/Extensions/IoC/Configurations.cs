@@ -1,18 +1,17 @@
 ﻿using Giro.Animes.Infra.Configs;
+using Giro.Animes.Infra.Interfaces.Configs;
 using Microsoft.Extensions.DependencyInjection;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Giro.Animes.Infra.Extensions.Dependencies
 {
     public static class Configurations
     {
-        public static void AddAppConfig(this IServiceCollection services)
+        public static IServiceCollection AddAppConfig(this IServiceCollection services)
         {
-            services.AddSingleton<AppConfig>();
+
+            services.AddSingleton<IAppConfig, AppConfig>();
+
+            return services;
         }
     }
 }
