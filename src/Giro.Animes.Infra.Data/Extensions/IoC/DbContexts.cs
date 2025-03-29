@@ -1,31 +1,38 @@
-﻿using Giro.Animes.Infra.Configs;
-using Giro.Animes.Infra.Data.Contexts;
+﻿using Giro.Animes.Infra.Data.Contexts;
+using Giro.Animes.Infra.Interfaces.Configs;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using System;
 
 namespace Giro.Animes.Infra.Data.Extensions.IoC
 {
     public static class DbContexts
     {
-        public static void AddWriteDbContext(this IServiceCollection services)
+        public static IServiceCollection AddWriteDbContext(this IServiceCollection services)
         {
-            IServiceProvider serviceProvider = services.BuildServiceProvider();
-            services.AddDbContext<GiroAnimesWriteDbContext>(options =>
+            services.AddDbContext<GiroAnimesWriteDbContext>((serviceProvider, options) =>
             {
-                AppConfig config = serviceProvider.GetRequiredService<AppConfig>();
-                options.UseNpgsql(config.DataBaseConfig.GiroAnimesDb);
+                IAppConfig appConfig = serviceProvider.GetRequiredService<IAppConfig>();
+                options
+                .UseNpgsql(appConfig.DataBaseConfig.ConnectionString)
+                .EnableSensitiveDataLogging(appConfig.DataBaseConfig.EnableSensitiveDataLogging)
+                .LogTo(Console.WriteLine, appConfig.DataBaseConfig.LogLevel);
             });
+
+            return services;
         }
-        public static void AddReadDbContext(this IServiceCollection services)
+        public static IServiceCollection AddReadDbContext(this IServiceCollection services)
         {
-            IServiceProvider serviceProvider = services.BuildServiceProvider();
-            services.AddDbContext<GiroAnimesReadDbContext>(options =>
+            services.AddDbContext<GiroAnimesReadDbContext>((serviceProvider, options) =>
             {
-                AppConfig config = serviceProvider.GetRequiredService<AppConfig>();
-                options.UseNpgsql(config.DataBaseConfig.GiroAnimesDb);
+                IAppConfig appConfig = serviceProvider.GetRequiredService<IAppConfig>();
+                options
+                .UseNpgsql(appConfig.DataBaseConfig.ConnectionString)
+                .EnableSensitiveDataLogging(appConfig.DataBaseConfig.EnableSensitiveDataLogging)
+                .LogTo(Console.WriteLine, appConfig.DataBaseConfig.LogLevel)
+                .UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking);
             });
+
+            return services;
         }
     }
 }
