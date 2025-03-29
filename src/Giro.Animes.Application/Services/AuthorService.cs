@@ -6,7 +6,6 @@ using Giro.Animes.Domain.Entities;
 using Giro.Animes.Domain.Interfaces.Pagination;
 using Giro.Animes.Domain.Interfaces.Services;
 using Giro.Animes.Infra.Interfaces;
-using System.Reflection.Metadata;
 
 namespace Giro.Animes.Application.Services
 {
