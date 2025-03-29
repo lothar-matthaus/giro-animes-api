@@ -1,12 +1,11 @@
-﻿using System;
-using Microsoft.EntityFrameworkCore.Migrations;
+﻿using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
 namespace Giro.Animes.Infra.Data.Migrations
 {
     /// <inheritdoc />
-    public partial class alteracaoordemcolunastabeladeavaliacaoanimes : Migration
+    public partial class alteracaodemapeamentoduplicadosemanimesscreenshot : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -21,8 +20,7 @@ namespace Giro.Animes.Infra.Data.Migrations
                 oldClrType: typeof(DateTime),
                 oldType: "TIMESTAMP",
                 oldDefaultValueSql: "CURRENT_TIMESTAMP")
-                .Annotation("Relational:ColumnOrder", 31)
-                .OldAnnotation("Relational:ColumnOrder", 101);
+                .OldAnnotation("Relational:ColumnOrder", 31);
 
             migrationBuilder.AlterColumn<DateTime>(
                 name: "DeletionDate",
@@ -33,8 +31,7 @@ namespace Giro.Animes.Infra.Data.Migrations
                 oldClrType: typeof(DateTime),
                 oldType: "TIMESTAMP",
                 oldNullable: true)
-                .Annotation("Relational:ColumnOrder", 32)
-                .OldAnnotation("Relational:ColumnOrder", 102);
+                .OldAnnotation("Relational:ColumnOrder", 32);
 
             migrationBuilder.AlterColumn<DateTime>(
                 name: "CreationDate",
@@ -46,8 +43,7 @@ namespace Giro.Animes.Infra.Data.Migrations
                 oldClrType: typeof(DateTime),
                 oldType: "TIMESTAMP",
                 oldDefaultValueSql: "CURRENT_TIMESTAMP")
-                .Annotation("Relational:ColumnOrder", 30)
-                .OldAnnotation("Relational:ColumnOrder", 100);
+                .OldAnnotation("Relational:ColumnOrder", 30);
 
             migrationBuilder.AlterColumn<DateTime>(
                 name: "UpdateDate",
@@ -59,8 +55,7 @@ namespace Giro.Animes.Infra.Data.Migrations
                 oldClrType: typeof(DateTime),
                 oldType: "TIMESTAMP",
                 oldDefaultValueSql: "CURRENT_TIMESTAMP")
-                .Annotation("Relational:ColumnOrder", 31)
-                .OldAnnotation("Relational:ColumnOrder", 101);
+                .OldAnnotation("Relational:ColumnOrder", 31);
 
             migrationBuilder.AlterColumn<DateTime>(
                 name: "DeletionDate",
@@ -71,8 +66,7 @@ namespace Giro.Animes.Infra.Data.Migrations
                 oldClrType: typeof(DateTime),
                 oldType: "TIMESTAMP",
                 oldNullable: true)
-                .Annotation("Relational:ColumnOrder", 32)
-                .OldAnnotation("Relational:ColumnOrder", 102);
+                .OldAnnotation("Relational:ColumnOrder", 32);
 
             migrationBuilder.AlterColumn<DateTime>(
                 name: "CreationDate",
@@ -84,8 +78,7 @@ namespace Giro.Animes.Infra.Data.Migrations
                 oldClrType: typeof(DateTime),
                 oldType: "TIMESTAMP",
                 oldDefaultValueSql: "CURRENT_TIMESTAMP")
-                .Annotation("Relational:ColumnOrder", 30)
-                .OldAnnotation("Relational:ColumnOrder", 100);
+                .OldAnnotation("Relational:ColumnOrder", 30);
 
             migrationBuilder.AlterColumn<DateTime>(
                 name: "UpdateDate",
@@ -97,8 +90,7 @@ namespace Giro.Animes.Infra.Data.Migrations
                 oldClrType: typeof(DateTime),
                 oldType: "TIMESTAMP",
                 oldDefaultValueSql: "CURRENT_TIMESTAMP")
-                .Annotation("Relational:ColumnOrder", 31)
-                .OldAnnotation("Relational:ColumnOrder", 101);
+                .OldAnnotation("Relational:ColumnOrder", 31);
 
             migrationBuilder.AlterColumn<DateTime>(
                 name: "DeletionDate",
@@ -109,8 +101,7 @@ namespace Giro.Animes.Infra.Data.Migrations
                 oldClrType: typeof(DateTime),
                 oldType: "TIMESTAMP",
                 oldNullable: true)
-                .Annotation("Relational:ColumnOrder", 32)
-                .OldAnnotation("Relational:ColumnOrder", 102);
+                .OldAnnotation("Relational:ColumnOrder", 32);
 
             migrationBuilder.AlterColumn<DateTime>(
                 name: "CreationDate",
@@ -122,8 +113,17 @@ namespace Giro.Animes.Infra.Data.Migrations
                 oldClrType: typeof(DateTime),
                 oldType: "TIMESTAMP",
                 oldDefaultValueSql: "CURRENT_TIMESTAMP")
-                .Annotation("Relational:ColumnOrder", 30)
-                .OldAnnotation("Relational:ColumnOrder", 100);
+                .OldAnnotation("Relational:ColumnOrder", 30);
+
+            migrationBuilder.AlterColumn<long>(
+                name: "AnimeId",
+                schema: "content",
+                table: "sinopses",
+                type: "bigint",
+                nullable: false,
+                oldClrType: typeof(long),
+                oldType: "bigint")
+                .OldAnnotation("Relational:ColumnOrder", 3);
 
             migrationBuilder.AlterColumn<DateTime>(
                 name: "UpdateDate",
@@ -135,8 +135,7 @@ namespace Giro.Animes.Infra.Data.Migrations
                 oldClrType: typeof(DateTime),
                 oldType: "TIMESTAMP",
                 oldDefaultValueSql: "CURRENT_TIMESTAMP")
-                .Annotation("Relational:ColumnOrder", 31)
-                .OldAnnotation("Relational:ColumnOrder", 101);
+                .OldAnnotation("Relational:ColumnOrder", 31);
 
             migrationBuilder.AlterColumn<DateTime>(
                 name: "DeletionDate",
@@ -147,8 +146,7 @@ namespace Giro.Animes.Infra.Data.Migrations
                 oldClrType: typeof(DateTime),
                 oldType: "TIMESTAMP",
                 oldNullable: true)
-                .Annotation("Relational:ColumnOrder", 32)
-                .OldAnnotation("Relational:ColumnOrder", 102);
+                .OldAnnotation("Relational:ColumnOrder", 32);
 
             migrationBuilder.AlterColumn<DateTime>(
                 name: "CreationDate",
@@ -160,8 +158,7 @@ namespace Giro.Animes.Infra.Data.Migrations
                 oldClrType: typeof(DateTime),
                 oldType: "TIMESTAMP",
                 oldDefaultValueSql: "CURRENT_TIMESTAMP")
-                .Annotation("Relational:ColumnOrder", 30)
-                .OldAnnotation("Relational:ColumnOrder", 100);
+                .OldAnnotation("Relational:ColumnOrder", 30);
 
             migrationBuilder.AlterColumn<DateTime>(
                 name: "UpdateDate",
@@ -173,8 +170,7 @@ namespace Giro.Animes.Infra.Data.Migrations
                 oldClrType: typeof(DateTime),
                 oldType: "TIMESTAMP",
                 oldDefaultValueSql: "CURRENT_TIMESTAMP")
-                .Annotation("Relational:ColumnOrder", 31)
-                .OldAnnotation("Relational:ColumnOrder", 101);
+                .OldAnnotation("Relational:ColumnOrder", 31);
 
             migrationBuilder.AlterColumn<DateTime>(
                 name: "DeletionDate",
@@ -185,8 +181,7 @@ namespace Giro.Animes.Infra.Data.Migrations
                 oldClrType: typeof(DateTime),
                 oldType: "TIMESTAMP",
                 oldNullable: true)
-                .Annotation("Relational:ColumnOrder", 32)
-                .OldAnnotation("Relational:ColumnOrder", 102);
+                .OldAnnotation("Relational:ColumnOrder", 32);
 
             migrationBuilder.AlterColumn<DateTime>(
                 name: "CreationDate",
@@ -198,8 +193,7 @@ namespace Giro.Animes.Infra.Data.Migrations
                 oldClrType: typeof(DateTime),
                 oldType: "TIMESTAMP",
                 oldDefaultValueSql: "CURRENT_TIMESTAMP")
-                .Annotation("Relational:ColumnOrder", 30)
-                .OldAnnotation("Relational:ColumnOrder", 100);
+                .OldAnnotation("Relational:ColumnOrder", 30);
 
             migrationBuilder.AlterColumn<DateTime>(
                 name: "UpdateDate",
@@ -211,8 +205,7 @@ namespace Giro.Animes.Infra.Data.Migrations
                 oldClrType: typeof(DateTime),
                 oldType: "TIMESTAMP",
                 oldDefaultValueSql: "CURRENT_TIMESTAMP")
-                .Annotation("Relational:ColumnOrder", 31)
-                .OldAnnotation("Relational:ColumnOrder", 101);
+                .OldAnnotation("Relational:ColumnOrder", 31);
 
             migrationBuilder.AlterColumn<DateTime>(
                 name: "DeletionDate",
@@ -223,8 +216,7 @@ namespace Giro.Animes.Infra.Data.Migrations
                 oldClrType: typeof(DateTime),
                 oldType: "TIMESTAMP",
                 oldNullable: true)
-                .Annotation("Relational:ColumnOrder", 32)
-                .OldAnnotation("Relational:ColumnOrder", 102);
+                .OldAnnotation("Relational:ColumnOrder", 32);
 
             migrationBuilder.AlterColumn<DateTime>(
                 name: "CreationDate",
@@ -236,8 +228,7 @@ namespace Giro.Animes.Infra.Data.Migrations
                 oldClrType: typeof(DateTime),
                 oldType: "TIMESTAMP",
                 oldDefaultValueSql: "CURRENT_TIMESTAMP")
-                .Annotation("Relational:ColumnOrder", 30)
-                .OldAnnotation("Relational:ColumnOrder", 100);
+                .OldAnnotation("Relational:ColumnOrder", 30);
 
             migrationBuilder.AlterColumn<DateTime>(
                 name: "UpdateDate",
@@ -249,8 +240,7 @@ namespace Giro.Animes.Infra.Data.Migrations
                 oldClrType: typeof(DateTime),
                 oldType: "TIMESTAMP",
                 oldDefaultValueSql: "CURRENT_TIMESTAMP")
-                .Annotation("Relational:ColumnOrder", 31)
-                .OldAnnotation("Relational:ColumnOrder", 101);
+                .OldAnnotation("Relational:ColumnOrder", 31);
 
             migrationBuilder.AlterColumn<DateTime>(
                 name: "DeletionDate",
@@ -261,8 +251,7 @@ namespace Giro.Animes.Infra.Data.Migrations
                 oldClrType: typeof(DateTime),
                 oldType: "TIMESTAMP",
                 oldNullable: true)
-                .Annotation("Relational:ColumnOrder", 32)
-                .OldAnnotation("Relational:ColumnOrder", 102);
+                .OldAnnotation("Relational:ColumnOrder", 32);
 
             migrationBuilder.AlterColumn<DateTime>(
                 name: "CreationDate",
@@ -274,8 +263,7 @@ namespace Giro.Animes.Infra.Data.Migrations
                 oldClrType: typeof(DateTime),
                 oldType: "TIMESTAMP",
                 oldDefaultValueSql: "CURRENT_TIMESTAMP")
-                .Annotation("Relational:ColumnOrder", 30)
-                .OldAnnotation("Relational:ColumnOrder", 100);
+                .OldAnnotation("Relational:ColumnOrder", 30);
 
             migrationBuilder.AlterColumn<DateTime>(
                 name: "UpdateDate",
@@ -287,8 +275,7 @@ namespace Giro.Animes.Infra.Data.Migrations
                 oldClrType: typeof(DateTime),
                 oldType: "TIMESTAMP",
                 oldDefaultValueSql: "CURRENT_TIMESTAMP")
-                .Annotation("Relational:ColumnOrder", 31)
-                .OldAnnotation("Relational:ColumnOrder", 101);
+                .OldAnnotation("Relational:ColumnOrder", 31);
 
             migrationBuilder.AlterColumn<DateTime>(
                 name: "DeletionDate",
@@ -299,8 +286,7 @@ namespace Giro.Animes.Infra.Data.Migrations
                 oldClrType: typeof(DateTime),
                 oldType: "TIMESTAMP",
                 oldNullable: true)
-                .Annotation("Relational:ColumnOrder", 32)
-                .OldAnnotation("Relational:ColumnOrder", 102);
+                .OldAnnotation("Relational:ColumnOrder", 32);
 
             migrationBuilder.AlterColumn<DateTime>(
                 name: "CreationDate",
@@ -312,8 +298,7 @@ namespace Giro.Animes.Infra.Data.Migrations
                 oldClrType: typeof(DateTime),
                 oldType: "TIMESTAMP",
                 oldDefaultValueSql: "CURRENT_TIMESTAMP")
-                .Annotation("Relational:ColumnOrder", 30)
-                .OldAnnotation("Relational:ColumnOrder", 100);
+                .OldAnnotation("Relational:ColumnOrder", 30);
 
             migrationBuilder.AlterColumn<DateTime>(
                 name: "UpdateDate",
@@ -325,8 +310,7 @@ namespace Giro.Animes.Infra.Data.Migrations
                 oldClrType: typeof(DateTime),
                 oldType: "TIMESTAMP",
                 oldDefaultValueSql: "CURRENT_TIMESTAMP")
-                .Annotation("Relational:ColumnOrder", 31)
-                .OldAnnotation("Relational:ColumnOrder", 101);
+                .OldAnnotation("Relational:ColumnOrder", 31);
 
             migrationBuilder.AlterColumn<DateTime>(
                 name: "DeletionDate",
@@ -337,8 +321,7 @@ namespace Giro.Animes.Infra.Data.Migrations
                 oldClrType: typeof(DateTime),
                 oldType: "TIMESTAMP",
                 oldNullable: true)
-                .Annotation("Relational:ColumnOrder", 32)
-                .OldAnnotation("Relational:ColumnOrder", 102);
+                .OldAnnotation("Relational:ColumnOrder", 32);
 
             migrationBuilder.AlterColumn<DateTime>(
                 name: "CreationDate",
@@ -350,8 +333,7 @@ namespace Giro.Animes.Infra.Data.Migrations
                 oldClrType: typeof(DateTime),
                 oldType: "TIMESTAMP",
                 oldDefaultValueSql: "CURRENT_TIMESTAMP")
-                .Annotation("Relational:ColumnOrder", 30)
-                .OldAnnotation("Relational:ColumnOrder", 100);
+                .OldAnnotation("Relational:ColumnOrder", 30);
 
             migrationBuilder.AlterColumn<DateTime>(
                 name: "UpdateDate",
@@ -363,8 +345,7 @@ namespace Giro.Animes.Infra.Data.Migrations
                 oldClrType: typeof(DateTime),
                 oldType: "TIMESTAMP",
                 oldDefaultValueSql: "CURRENT_TIMESTAMP")
-                .Annotation("Relational:ColumnOrder", 31)
-                .OldAnnotation("Relational:ColumnOrder", 101);
+                .OldAnnotation("Relational:ColumnOrder", 31);
 
             migrationBuilder.AlterColumn<DateTime>(
                 name: "DeletionDate",
@@ -375,8 +356,7 @@ namespace Giro.Animes.Infra.Data.Migrations
                 oldClrType: typeof(DateTime),
                 oldType: "TIMESTAMP",
                 oldNullable: true)
-                .Annotation("Relational:ColumnOrder", 32)
-                .OldAnnotation("Relational:ColumnOrder", 102);
+                .OldAnnotation("Relational:ColumnOrder", 32);
 
             migrationBuilder.AlterColumn<DateTime>(
                 name: "CreationDate",
@@ -388,8 +368,7 @@ namespace Giro.Animes.Infra.Data.Migrations
                 oldClrType: typeof(DateTime),
                 oldType: "TIMESTAMP",
                 oldDefaultValueSql: "CURRENT_TIMESTAMP")
-                .Annotation("Relational:ColumnOrder", 30)
-                .OldAnnotation("Relational:ColumnOrder", 100);
+                .OldAnnotation("Relational:ColumnOrder", 30);
 
             migrationBuilder.AlterColumn<DateTime>(
                 name: "UpdateDate",
@@ -401,8 +380,7 @@ namespace Giro.Animes.Infra.Data.Migrations
                 oldClrType: typeof(DateTime),
                 oldType: "TIMESTAMP",
                 oldDefaultValueSql: "CURRENT_TIMESTAMP")
-                .Annotation("Relational:ColumnOrder", 31)
-                .OldAnnotation("Relational:ColumnOrder", 101);
+                .OldAnnotation("Relational:ColumnOrder", 31);
 
             migrationBuilder.AlterColumn<DateTime>(
                 name: "DeletionDate",
@@ -413,8 +391,7 @@ namespace Giro.Animes.Infra.Data.Migrations
                 oldClrType: typeof(DateTime),
                 oldType: "TIMESTAMP",
                 oldNullable: true)
-                .Annotation("Relational:ColumnOrder", 32)
-                .OldAnnotation("Relational:ColumnOrder", 102);
+                .OldAnnotation("Relational:ColumnOrder", 32);
 
             migrationBuilder.AlterColumn<DateTime>(
                 name: "CreationDate",
@@ -426,8 +403,7 @@ namespace Giro.Animes.Infra.Data.Migrations
                 oldClrType: typeof(DateTime),
                 oldType: "TIMESTAMP",
                 oldDefaultValueSql: "CURRENT_TIMESTAMP")
-                .Annotation("Relational:ColumnOrder", 30)
-                .OldAnnotation("Relational:ColumnOrder", 100);
+                .OldAnnotation("Relational:ColumnOrder", 30);
 
             migrationBuilder.AlterColumn<DateTime>(
                 name: "UpdateDate",
@@ -439,8 +415,7 @@ namespace Giro.Animes.Infra.Data.Migrations
                 oldClrType: typeof(DateTime),
                 oldType: "TIMESTAMP",
                 oldDefaultValueSql: "CURRENT_TIMESTAMP")
-                .Annotation("Relational:ColumnOrder", 31)
-                .OldAnnotation("Relational:ColumnOrder", 101);
+                .OldAnnotation("Relational:ColumnOrder", 31);
 
             migrationBuilder.AlterColumn<DateTime>(
                 name: "DeletionDate",
@@ -451,8 +426,7 @@ namespace Giro.Animes.Infra.Data.Migrations
                 oldClrType: typeof(DateTime),
                 oldType: "TIMESTAMP",
                 oldNullable: true)
-                .Annotation("Relational:ColumnOrder", 32)
-                .OldAnnotation("Relational:ColumnOrder", 102);
+                .OldAnnotation("Relational:ColumnOrder", 32);
 
             migrationBuilder.AlterColumn<DateTime>(
                 name: "CreationDate",
@@ -464,8 +438,42 @@ namespace Giro.Animes.Infra.Data.Migrations
                 oldClrType: typeof(DateTime),
                 oldType: "TIMESTAMP",
                 oldDefaultValueSql: "CURRENT_TIMESTAMP")
-                .Annotation("Relational:ColumnOrder", 30)
-                .OldAnnotation("Relational:ColumnOrder", 100);
+                .OldAnnotation("Relational:ColumnOrder", 30);
+
+            migrationBuilder.AlterColumn<DateTime>(
+                name: "UpdateDate",
+                schema: "content",
+                table: "episode_sinopses",
+                type: "TIMESTAMP",
+                nullable: false,
+                defaultValueSql: "CURRENT_TIMESTAMP",
+                oldClrType: typeof(DateTime),
+                oldType: "TIMESTAMP",
+                oldDefaultValueSql: "CURRENT_TIMESTAMP")
+                .OldAnnotation("Relational:ColumnOrder", 31);
+
+            migrationBuilder.AlterColumn<DateTime>(
+                name: "DeletionDate",
+                schema: "content",
+                table: "episode_sinopses",
+                type: "TIMESTAMP",
+                nullable: true,
+                oldClrType: typeof(DateTime),
+                oldType: "TIMESTAMP",
+                oldNullable: true)
+                .OldAnnotation("Relational:ColumnOrder", 32);
+
+            migrationBuilder.AlterColumn<DateTime>(
+                name: "CreationDate",
+                schema: "content",
+                table: "episode_sinopses",
+                type: "TIMESTAMP",
+                nullable: false,
+                defaultValueSql: "CURRENT_TIMESTAMP",
+                oldClrType: typeof(DateTime),
+                oldType: "TIMESTAMP",
+                oldDefaultValueSql: "CURRENT_TIMESTAMP")
+                .OldAnnotation("Relational:ColumnOrder", 30);
 
             migrationBuilder.AlterColumn<DateTime>(
                 name: "UpdateDate",
@@ -477,8 +485,7 @@ namespace Giro.Animes.Infra.Data.Migrations
                 oldClrType: typeof(DateTime),
                 oldType: "TIMESTAMP",
                 oldDefaultValueSql: "CURRENT_TIMESTAMP")
-                .Annotation("Relational:ColumnOrder", 31)
-                .OldAnnotation("Relational:ColumnOrder", 101);
+                .OldAnnotation("Relational:ColumnOrder", 31);
 
             migrationBuilder.AlterColumn<DateTime>(
                 name: "DeletionDate",
@@ -489,8 +496,7 @@ namespace Giro.Animes.Infra.Data.Migrations
                 oldClrType: typeof(DateTime),
                 oldType: "TIMESTAMP",
                 oldNullable: true)
-                .Annotation("Relational:ColumnOrder", 32)
-                .OldAnnotation("Relational:ColumnOrder", 102);
+                .OldAnnotation("Relational:ColumnOrder", 32);
 
             migrationBuilder.AlterColumn<DateTime>(
                 name: "CreationDate",
@@ -502,8 +508,7 @@ namespace Giro.Animes.Infra.Data.Migrations
                 oldClrType: typeof(DateTime),
                 oldType: "TIMESTAMP",
                 oldDefaultValueSql: "CURRENT_TIMESTAMP")
-                .Annotation("Relational:ColumnOrder", 30)
-                .OldAnnotation("Relational:ColumnOrder", 100);
+                .OldAnnotation("Relational:ColumnOrder", 30);
 
             migrationBuilder.AlterColumn<DateTime>(
                 name: "UpdateDate",
@@ -515,8 +520,7 @@ namespace Giro.Animes.Infra.Data.Migrations
                 oldClrType: typeof(DateTime),
                 oldType: "TIMESTAMP",
                 oldDefaultValueSql: "CURRENT_TIMESTAMP")
-                .Annotation("Relational:ColumnOrder", 31)
-                .OldAnnotation("Relational:ColumnOrder", 101);
+                .OldAnnotation("Relational:ColumnOrder", 31);
 
             migrationBuilder.AlterColumn<DateTime>(
                 name: "DeletionDate",
@@ -527,8 +531,7 @@ namespace Giro.Animes.Infra.Data.Migrations
                 oldClrType: typeof(DateTime),
                 oldType: "TIMESTAMP",
                 oldNullable: true)
-                .Annotation("Relational:ColumnOrder", 32)
-                .OldAnnotation("Relational:ColumnOrder", 102);
+                .OldAnnotation("Relational:ColumnOrder", 32);
 
             migrationBuilder.AlterColumn<DateTime>(
                 name: "CreationDate",
@@ -540,8 +543,7 @@ namespace Giro.Animes.Infra.Data.Migrations
                 oldClrType: typeof(DateTime),
                 oldType: "TIMESTAMP",
                 oldDefaultValueSql: "CURRENT_TIMESTAMP")
-                .Annotation("Relational:ColumnOrder", 30)
-                .OldAnnotation("Relational:ColumnOrder", 100);
+                .OldAnnotation("Relational:ColumnOrder", 30);
 
             migrationBuilder.AlterColumn<DateTime>(
                 name: "UpdateDate",
@@ -553,8 +555,7 @@ namespace Giro.Animes.Infra.Data.Migrations
                 oldClrType: typeof(DateTime),
                 oldType: "TIMESTAMP",
                 oldDefaultValueSql: "CURRENT_TIMESTAMP")
-                .Annotation("Relational:ColumnOrder", 31)
-                .OldAnnotation("Relational:ColumnOrder", 101);
+                .OldAnnotation("Relational:ColumnOrder", 31);
 
             migrationBuilder.AlterColumn<DateTime>(
                 name: "DeletionDate",
@@ -565,8 +566,7 @@ namespace Giro.Animes.Infra.Data.Migrations
                 oldClrType: typeof(DateTime),
                 oldType: "TIMESTAMP",
                 oldNullable: true)
-                .Annotation("Relational:ColumnOrder", 32)
-                .OldAnnotation("Relational:ColumnOrder", 102);
+                .OldAnnotation("Relational:ColumnOrder", 32);
 
             migrationBuilder.AlterColumn<DateTime>(
                 name: "CreationDate",
@@ -578,8 +578,7 @@ namespace Giro.Animes.Infra.Data.Migrations
                 oldClrType: typeof(DateTime),
                 oldType: "TIMESTAMP",
                 oldDefaultValueSql: "CURRENT_TIMESTAMP")
-                .Annotation("Relational:ColumnOrder", 30)
-                .OldAnnotation("Relational:ColumnOrder", 100);
+                .OldAnnotation("Relational:ColumnOrder", 30);
 
             migrationBuilder.AlterColumn<DateTime>(
                 name: "UpdateDate",
@@ -591,8 +590,7 @@ namespace Giro.Animes.Infra.Data.Migrations
                 oldClrType: typeof(DateTime),
                 oldType: "TIMESTAMP",
                 oldDefaultValueSql: "CURRENT_TIMESTAMP")
-                .Annotation("Relational:ColumnOrder", 31)
-                .OldAnnotation("Relational:ColumnOrder", 101);
+                .OldAnnotation("Relational:ColumnOrder", 31);
 
             migrationBuilder.AlterColumn<DateTime>(
                 name: "DeletionDate",
@@ -603,8 +601,7 @@ namespace Giro.Animes.Infra.Data.Migrations
                 oldClrType: typeof(DateTime),
                 oldType: "TIMESTAMP",
                 oldNullable: true)
-                .Annotation("Relational:ColumnOrder", 32)
-                .OldAnnotation("Relational:ColumnOrder", 102);
+                .OldAnnotation("Relational:ColumnOrder", 32);
 
             migrationBuilder.AlterColumn<DateTime>(
                 name: "CreationDate",
@@ -616,8 +613,7 @@ namespace Giro.Animes.Infra.Data.Migrations
                 oldClrType: typeof(DateTime),
                 oldType: "TIMESTAMP",
                 oldDefaultValueSql: "CURRENT_TIMESTAMP")
-                .Annotation("Relational:ColumnOrder", 30)
-                .OldAnnotation("Relational:ColumnOrder", 100);
+                .OldAnnotation("Relational:ColumnOrder", 30);
 
             migrationBuilder.AlterColumn<DateTime>(
                 name: "UpdateDate",
@@ -629,8 +625,7 @@ namespace Giro.Animes.Infra.Data.Migrations
                 oldClrType: typeof(DateTime),
                 oldType: "TIMESTAMP",
                 oldDefaultValueSql: "CURRENT_TIMESTAMP")
-                .Annotation("Relational:ColumnOrder", 31)
-                .OldAnnotation("Relational:ColumnOrder", 101);
+                .OldAnnotation("Relational:ColumnOrder", 31);
 
             migrationBuilder.AlterColumn<DateTime>(
                 name: "DeletionDate",
@@ -641,8 +636,7 @@ namespace Giro.Animes.Infra.Data.Migrations
                 oldClrType: typeof(DateTime),
                 oldType: "TIMESTAMP",
                 oldNullable: true)
-                .Annotation("Relational:ColumnOrder", 32)
-                .OldAnnotation("Relational:ColumnOrder", 102);
+                .OldAnnotation("Relational:ColumnOrder", 32);
 
             migrationBuilder.AlterColumn<DateTime>(
                 name: "CreationDate",
@@ -654,8 +648,7 @@ namespace Giro.Animes.Infra.Data.Migrations
                 oldClrType: typeof(DateTime),
                 oldType: "TIMESTAMP",
                 oldDefaultValueSql: "CURRENT_TIMESTAMP")
-                .Annotation("Relational:ColumnOrder", 30)
-                .OldAnnotation("Relational:ColumnOrder", 100);
+                .OldAnnotation("Relational:ColumnOrder", 30);
 
             migrationBuilder.AlterColumn<DateTime>(
                 name: "UpdateDate",
@@ -667,8 +660,7 @@ namespace Giro.Animes.Infra.Data.Migrations
                 oldClrType: typeof(DateTime),
                 oldType: "TIMESTAMP",
                 oldDefaultValueSql: "CURRENT_TIMESTAMP")
-                .Annotation("Relational:ColumnOrder", 31)
-                .OldAnnotation("Relational:ColumnOrder", 101);
+                .OldAnnotation("Relational:ColumnOrder", 31);
 
             migrationBuilder.AlterColumn<DateTime>(
                 name: "DeletionDate",
@@ -679,8 +671,7 @@ namespace Giro.Animes.Infra.Data.Migrations
                 oldClrType: typeof(DateTime),
                 oldType: "TIMESTAMP",
                 oldNullable: true)
-                .Annotation("Relational:ColumnOrder", 32)
-                .OldAnnotation("Relational:ColumnOrder", 102);
+                .OldAnnotation("Relational:ColumnOrder", 32);
 
             migrationBuilder.AlterColumn<DateTime>(
                 name: "CreationDate",
@@ -692,8 +683,7 @@ namespace Giro.Animes.Infra.Data.Migrations
                 oldClrType: typeof(DateTime),
                 oldType: "TIMESTAMP",
                 oldDefaultValueSql: "CURRENT_TIMESTAMP")
-                .Annotation("Relational:ColumnOrder", 30)
-                .OldAnnotation("Relational:ColumnOrder", 100);
+                .OldAnnotation("Relational:ColumnOrder", 30);
 
             migrationBuilder.AlterColumn<DateTime>(
                 name: "UpdateDate",
@@ -705,8 +695,7 @@ namespace Giro.Animes.Infra.Data.Migrations
                 oldClrType: typeof(DateTime),
                 oldType: "TIMESTAMP",
                 oldDefaultValueSql: "CURRENT_TIMESTAMP")
-                .Annotation("Relational:ColumnOrder", 31)
-                .OldAnnotation("Relational:ColumnOrder", 101);
+                .OldAnnotation("Relational:ColumnOrder", 31);
 
             migrationBuilder.AlterColumn<DateTime>(
                 name: "DeletionDate",
@@ -717,8 +706,7 @@ namespace Giro.Animes.Infra.Data.Migrations
                 oldClrType: typeof(DateTime),
                 oldType: "TIMESTAMP",
                 oldNullable: true)
-                .Annotation("Relational:ColumnOrder", 32)
-                .OldAnnotation("Relational:ColumnOrder", 102);
+                .OldAnnotation("Relational:ColumnOrder", 32);
 
             migrationBuilder.AlterColumn<DateTime>(
                 name: "CreationDate",
@@ -730,8 +718,7 @@ namespace Giro.Animes.Infra.Data.Migrations
                 oldClrType: typeof(DateTime),
                 oldType: "TIMESTAMP",
                 oldDefaultValueSql: "CURRENT_TIMESTAMP")
-                .Annotation("Relational:ColumnOrder", 30)
-                .OldAnnotation("Relational:ColumnOrder", 100);
+                .OldAnnotation("Relational:ColumnOrder", 30);
 
             migrationBuilder.AlterColumn<DateTime>(
                 name: "UpdateDate",
@@ -743,8 +730,7 @@ namespace Giro.Animes.Infra.Data.Migrations
                 oldClrType: typeof(DateTime),
                 oldType: "TIMESTAMP",
                 oldDefaultValueSql: "CURRENT_TIMESTAMP")
-                .Annotation("Relational:ColumnOrder", 31)
-                .OldAnnotation("Relational:ColumnOrder", 101);
+                .OldAnnotation("Relational:ColumnOrder", 31);
 
             migrationBuilder.AlterColumn<DateTime>(
                 name: "DeletionDate",
@@ -755,8 +741,7 @@ namespace Giro.Animes.Infra.Data.Migrations
                 oldClrType: typeof(DateTime),
                 oldType: "TIMESTAMP",
                 oldNullable: true)
-                .Annotation("Relational:ColumnOrder", 32)
-                .OldAnnotation("Relational:ColumnOrder", 102);
+                .OldAnnotation("Relational:ColumnOrder", 32);
 
             migrationBuilder.AlterColumn<DateTime>(
                 name: "CreationDate",
@@ -768,8 +753,17 @@ namespace Giro.Animes.Infra.Data.Migrations
                 oldClrType: typeof(DateTime),
                 oldType: "TIMESTAMP",
                 oldDefaultValueSql: "CURRENT_TIMESTAMP")
-                .Annotation("Relational:ColumnOrder", 30)
-                .OldAnnotation("Relational:ColumnOrder", 100);
+                .OldAnnotation("Relational:ColumnOrder", 30);
+
+            migrationBuilder.AlterColumn<long>(
+                name: "AnimeId",
+                schema: "content",
+                table: "anime_screenshots",
+                type: "bigint",
+                nullable: false,
+                oldClrType: typeof(long),
+                oldType: "bigint")
+                .OldAnnotation("Relational:ColumnOrder", 4);
 
             migrationBuilder.AlterColumn<DateTime>(
                 name: "UpdateDate",
@@ -781,8 +775,7 @@ namespace Giro.Animes.Infra.Data.Migrations
                 oldClrType: typeof(DateTime),
                 oldType: "TIMESTAMP",
                 oldDefaultValueSql: "CURRENT_TIMESTAMP")
-                .Annotation("Relational:ColumnOrder", 31)
-                .OldAnnotation("Relational:ColumnOrder", 101);
+                .OldAnnotation("Relational:ColumnOrder", 31);
 
             migrationBuilder.AlterColumn<DateTime>(
                 name: "DeletionDate",
@@ -793,8 +786,7 @@ namespace Giro.Animes.Infra.Data.Migrations
                 oldClrType: typeof(DateTime),
                 oldType: "TIMESTAMP",
                 oldNullable: true)
-                .Annotation("Relational:ColumnOrder", 32)
-                .OldAnnotation("Relational:ColumnOrder", 102);
+                .OldAnnotation("Relational:ColumnOrder", 32);
 
             migrationBuilder.AlterColumn<DateTime>(
                 name: "CreationDate",
@@ -806,8 +798,7 @@ namespace Giro.Animes.Infra.Data.Migrations
                 oldClrType: typeof(DateTime),
                 oldType: "TIMESTAMP",
                 oldDefaultValueSql: "CURRENT_TIMESTAMP")
-                .Annotation("Relational:ColumnOrder", 30)
-                .OldAnnotation("Relational:ColumnOrder", 100);
+                .OldAnnotation("Relational:ColumnOrder", 30);
         }
 
         /// <inheritdoc />
@@ -823,8 +814,7 @@ namespace Giro.Animes.Infra.Data.Migrations
                 oldClrType: typeof(DateTime),
                 oldType: "TIMESTAMP",
                 oldDefaultValueSql: "CURRENT_TIMESTAMP")
-                .Annotation("Relational:ColumnOrder", 101)
-                .OldAnnotation("Relational:ColumnOrder", 31);
+                .Annotation("Relational:ColumnOrder", 31);
 
             migrationBuilder.AlterColumn<DateTime>(
                 name: "DeletionDate",
@@ -835,8 +825,7 @@ namespace Giro.Animes.Infra.Data.Migrations
                 oldClrType: typeof(DateTime),
                 oldType: "TIMESTAMP",
                 oldNullable: true)
-                .Annotation("Relational:ColumnOrder", 102)
-                .OldAnnotation("Relational:ColumnOrder", 32);
+                .Annotation("Relational:ColumnOrder", 32);
 
             migrationBuilder.AlterColumn<DateTime>(
                 name: "CreationDate",
@@ -848,8 +837,7 @@ namespace Giro.Animes.Infra.Data.Migrations
                 oldClrType: typeof(DateTime),
                 oldType: "TIMESTAMP",
                 oldDefaultValueSql: "CURRENT_TIMESTAMP")
-                .Annotation("Relational:ColumnOrder", 100)
-                .OldAnnotation("Relational:ColumnOrder", 30);
+                .Annotation("Relational:ColumnOrder", 30);
 
             migrationBuilder.AlterColumn<DateTime>(
                 name: "UpdateDate",
@@ -861,8 +849,7 @@ namespace Giro.Animes.Infra.Data.Migrations
                 oldClrType: typeof(DateTime),
                 oldType: "TIMESTAMP",
                 oldDefaultValueSql: "CURRENT_TIMESTAMP")
-                .Annotation("Relational:ColumnOrder", 101)
-                .OldAnnotation("Relational:ColumnOrder", 31);
+                .Annotation("Relational:ColumnOrder", 31);
 
             migrationBuilder.AlterColumn<DateTime>(
                 name: "DeletionDate",
@@ -873,8 +860,7 @@ namespace Giro.Animes.Infra.Data.Migrations
                 oldClrType: typeof(DateTime),
                 oldType: "TIMESTAMP",
                 oldNullable: true)
-                .Annotation("Relational:ColumnOrder", 102)
-                .OldAnnotation("Relational:ColumnOrder", 32);
+                .Annotation("Relational:ColumnOrder", 32);
 
             migrationBuilder.AlterColumn<DateTime>(
                 name: "CreationDate",
@@ -886,8 +872,7 @@ namespace Giro.Animes.Infra.Data.Migrations
                 oldClrType: typeof(DateTime),
                 oldType: "TIMESTAMP",
                 oldDefaultValueSql: "CURRENT_TIMESTAMP")
-                .Annotation("Relational:ColumnOrder", 100)
-                .OldAnnotation("Relational:ColumnOrder", 30);
+                .Annotation("Relational:ColumnOrder", 30);
 
             migrationBuilder.AlterColumn<DateTime>(
                 name: "UpdateDate",
@@ -899,8 +884,7 @@ namespace Giro.Animes.Infra.Data.Migrations
                 oldClrType: typeof(DateTime),
                 oldType: "TIMESTAMP",
                 oldDefaultValueSql: "CURRENT_TIMESTAMP")
-                .Annotation("Relational:ColumnOrder", 101)
-                .OldAnnotation("Relational:ColumnOrder", 31);
+                .Annotation("Relational:ColumnOrder", 31);
 
             migrationBuilder.AlterColumn<DateTime>(
                 name: "DeletionDate",
@@ -911,8 +895,7 @@ namespace Giro.Animes.Infra.Data.Migrations
                 oldClrType: typeof(DateTime),
                 oldType: "TIMESTAMP",
                 oldNullable: true)
-                .Annotation("Relational:ColumnOrder", 102)
-                .OldAnnotation("Relational:ColumnOrder", 32);
+                .Annotation("Relational:ColumnOrder", 32);
 
             migrationBuilder.AlterColumn<DateTime>(
                 name: "CreationDate",
@@ -924,8 +907,17 @@ namespace Giro.Animes.Infra.Data.Migrations
                 oldClrType: typeof(DateTime),
                 oldType: "TIMESTAMP",
                 oldDefaultValueSql: "CURRENT_TIMESTAMP")
-                .Annotation("Relational:ColumnOrder", 100)
-                .OldAnnotation("Relational:ColumnOrder", 30);
+                .Annotation("Relational:ColumnOrder", 30);
+
+            migrationBuilder.AlterColumn<long>(
+                name: "AnimeId",
+                schema: "content",
+                table: "sinopses",
+                type: "bigint",
+                nullable: false,
+                oldClrType: typeof(long),
+                oldType: "bigint")
+                .Annotation("Relational:ColumnOrder", 3);
 
             migrationBuilder.AlterColumn<DateTime>(
                 name: "UpdateDate",
@@ -937,8 +929,7 @@ namespace Giro.Animes.Infra.Data.Migrations
                 oldClrType: typeof(DateTime),
                 oldType: "TIMESTAMP",
                 oldDefaultValueSql: "CURRENT_TIMESTAMP")
-                .Annotation("Relational:ColumnOrder", 101)
-                .OldAnnotation("Relational:ColumnOrder", 31);
+                .Annotation("Relational:ColumnOrder", 31);
 
             migrationBuilder.AlterColumn<DateTime>(
                 name: "DeletionDate",
@@ -949,8 +940,7 @@ namespace Giro.Animes.Infra.Data.Migrations
                 oldClrType: typeof(DateTime),
                 oldType: "TIMESTAMP",
                 oldNullable: true)
-                .Annotation("Relational:ColumnOrder", 102)
-                .OldAnnotation("Relational:ColumnOrder", 32);
+                .Annotation("Relational:ColumnOrder", 32);
 
             migrationBuilder.AlterColumn<DateTime>(
                 name: "CreationDate",
@@ -962,8 +952,7 @@ namespace Giro.Animes.Infra.Data.Migrations
                 oldClrType: typeof(DateTime),
                 oldType: "TIMESTAMP",
                 oldDefaultValueSql: "CURRENT_TIMESTAMP")
-                .Annotation("Relational:ColumnOrder", 100)
-                .OldAnnotation("Relational:ColumnOrder", 30);
+                .Annotation("Relational:ColumnOrder", 30);
 
             migrationBuilder.AlterColumn<DateTime>(
                 name: "UpdateDate",
@@ -975,8 +964,7 @@ namespace Giro.Animes.Infra.Data.Migrations
                 oldClrType: typeof(DateTime),
                 oldType: "TIMESTAMP",
                 oldDefaultValueSql: "CURRENT_TIMESTAMP")
-                .Annotation("Relational:ColumnOrder", 101)
-                .OldAnnotation("Relational:ColumnOrder", 31);
+                .Annotation("Relational:ColumnOrder", 31);
 
             migrationBuilder.AlterColumn<DateTime>(
                 name: "DeletionDate",
@@ -987,8 +975,7 @@ namespace Giro.Animes.Infra.Data.Migrations
                 oldClrType: typeof(DateTime),
                 oldType: "TIMESTAMP",
                 oldNullable: true)
-                .Annotation("Relational:ColumnOrder", 102)
-                .OldAnnotation("Relational:ColumnOrder", 32);
+                .Annotation("Relational:ColumnOrder", 32);
 
             migrationBuilder.AlterColumn<DateTime>(
                 name: "CreationDate",
@@ -1000,8 +987,7 @@ namespace Giro.Animes.Infra.Data.Migrations
                 oldClrType: typeof(DateTime),
                 oldType: "TIMESTAMP",
                 oldDefaultValueSql: "CURRENT_TIMESTAMP")
-                .Annotation("Relational:ColumnOrder", 100)
-                .OldAnnotation("Relational:ColumnOrder", 30);
+                .Annotation("Relational:ColumnOrder", 30);
 
             migrationBuilder.AlterColumn<DateTime>(
                 name: "UpdateDate",
@@ -1013,8 +999,7 @@ namespace Giro.Animes.Infra.Data.Migrations
                 oldClrType: typeof(DateTime),
                 oldType: "TIMESTAMP",
                 oldDefaultValueSql: "CURRENT_TIMESTAMP")
-                .Annotation("Relational:ColumnOrder", 101)
-                .OldAnnotation("Relational:ColumnOrder", 31);
+                .Annotation("Relational:ColumnOrder", 31);
 
             migrationBuilder.AlterColumn<DateTime>(
                 name: "DeletionDate",
@@ -1025,8 +1010,7 @@ namespace Giro.Animes.Infra.Data.Migrations
                 oldClrType: typeof(DateTime),
                 oldType: "TIMESTAMP",
                 oldNullable: true)
-                .Annotation("Relational:ColumnOrder", 102)
-                .OldAnnotation("Relational:ColumnOrder", 32);
+                .Annotation("Relational:ColumnOrder", 32);
 
             migrationBuilder.AlterColumn<DateTime>(
                 name: "CreationDate",
@@ -1038,8 +1022,7 @@ namespace Giro.Animes.Infra.Data.Migrations
                 oldClrType: typeof(DateTime),
                 oldType: "TIMESTAMP",
                 oldDefaultValueSql: "CURRENT_TIMESTAMP")
-                .Annotation("Relational:ColumnOrder", 100)
-                .OldAnnotation("Relational:ColumnOrder", 30);
+                .Annotation("Relational:ColumnOrder", 30);
 
             migrationBuilder.AlterColumn<DateTime>(
                 name: "UpdateDate",
@@ -1051,8 +1034,7 @@ namespace Giro.Animes.Infra.Data.Migrations
                 oldClrType: typeof(DateTime),
                 oldType: "TIMESTAMP",
                 oldDefaultValueSql: "CURRENT_TIMESTAMP")
-                .Annotation("Relational:ColumnOrder", 101)
-                .OldAnnotation("Relational:ColumnOrder", 31);
+                .Annotation("Relational:ColumnOrder", 31);
 
             migrationBuilder.AlterColumn<DateTime>(
                 name: "DeletionDate",
@@ -1063,8 +1045,7 @@ namespace Giro.Animes.Infra.Data.Migrations
                 oldClrType: typeof(DateTime),
                 oldType: "TIMESTAMP",
                 oldNullable: true)
-                .Annotation("Relational:ColumnOrder", 102)
-                .OldAnnotation("Relational:ColumnOrder", 32);
+                .Annotation("Relational:ColumnOrder", 32);
 
             migrationBuilder.AlterColumn<DateTime>(
                 name: "CreationDate",
@@ -1076,8 +1057,7 @@ namespace Giro.Animes.Infra.Data.Migrations
                 oldClrType: typeof(DateTime),
                 oldType: "TIMESTAMP",
                 oldDefaultValueSql: "CURRENT_TIMESTAMP")
-                .Annotation("Relational:ColumnOrder", 100)
-                .OldAnnotation("Relational:ColumnOrder", 30);
+                .Annotation("Relational:ColumnOrder", 30);
 
             migrationBuilder.AlterColumn<DateTime>(
                 name: "UpdateDate",
@@ -1089,8 +1069,7 @@ namespace Giro.Animes.Infra.Data.Migrations
                 oldClrType: typeof(DateTime),
                 oldType: "TIMESTAMP",
                 oldDefaultValueSql: "CURRENT_TIMESTAMP")
-                .Annotation("Relational:ColumnOrder", 101)
-                .OldAnnotation("Relational:ColumnOrder", 31);
+                .Annotation("Relational:ColumnOrder", 31);
 
             migrationBuilder.AlterColumn<DateTime>(
                 name: "DeletionDate",
@@ -1101,8 +1080,7 @@ namespace Giro.Animes.Infra.Data.Migrations
                 oldClrType: typeof(DateTime),
                 oldType: "TIMESTAMP",
                 oldNullable: true)
-                .Annotation("Relational:ColumnOrder", 102)
-                .OldAnnotation("Relational:ColumnOrder", 32);
+                .Annotation("Relational:ColumnOrder", 32);
 
             migrationBuilder.AlterColumn<DateTime>(
                 name: "CreationDate",
@@ -1114,8 +1092,7 @@ namespace Giro.Animes.Infra.Data.Migrations
                 oldClrType: typeof(DateTime),
                 oldType: "TIMESTAMP",
                 oldDefaultValueSql: "CURRENT_TIMESTAMP")
-                .Annotation("Relational:ColumnOrder", 100)
-                .OldAnnotation("Relational:ColumnOrder", 30);
+                .Annotation("Relational:ColumnOrder", 30);
 
             migrationBuilder.AlterColumn<DateTime>(
                 name: "UpdateDate",
@@ -1127,8 +1104,7 @@ namespace Giro.Animes.Infra.Data.Migrations
                 oldClrType: typeof(DateTime),
                 oldType: "TIMESTAMP",
                 oldDefaultValueSql: "CURRENT_TIMESTAMP")
-                .Annotation("Relational:ColumnOrder", 101)
-                .OldAnnotation("Relational:ColumnOrder", 31);
+                .Annotation("Relational:ColumnOrder", 31);
 
             migrationBuilder.AlterColumn<DateTime>(
                 name: "DeletionDate",
@@ -1139,8 +1115,7 @@ namespace Giro.Animes.Infra.Data.Migrations
                 oldClrType: typeof(DateTime),
                 oldType: "TIMESTAMP",
                 oldNullable: true)
-                .Annotation("Relational:ColumnOrder", 102)
-                .OldAnnotation("Relational:ColumnOrder", 32);
+                .Annotation("Relational:ColumnOrder", 32);
 
             migrationBuilder.AlterColumn<DateTime>(
                 name: "CreationDate",
@@ -1152,8 +1127,7 @@ namespace Giro.Animes.Infra.Data.Migrations
                 oldClrType: typeof(DateTime),
                 oldType: "TIMESTAMP",
                 oldDefaultValueSql: "CURRENT_TIMESTAMP")
-                .Annotation("Relational:ColumnOrder", 100)
-                .OldAnnotation("Relational:ColumnOrder", 30);
+                .Annotation("Relational:ColumnOrder", 30);
 
             migrationBuilder.AlterColumn<DateTime>(
                 name: "UpdateDate",
@@ -1165,8 +1139,7 @@ namespace Giro.Animes.Infra.Data.Migrations
                 oldClrType: typeof(DateTime),
                 oldType: "TIMESTAMP",
                 oldDefaultValueSql: "CURRENT_TIMESTAMP")
-                .Annotation("Relational:ColumnOrder", 101)
-                .OldAnnotation("Relational:ColumnOrder", 31);
+                .Annotation("Relational:ColumnOrder", 31);
 
             migrationBuilder.AlterColumn<DateTime>(
                 name: "DeletionDate",
@@ -1177,8 +1150,7 @@ namespace Giro.Animes.Infra.Data.Migrations
                 oldClrType: typeof(DateTime),
                 oldType: "TIMESTAMP",
                 oldNullable: true)
-                .Annotation("Relational:ColumnOrder", 102)
-                .OldAnnotation("Relational:ColumnOrder", 32);
+                .Annotation("Relational:ColumnOrder", 32);
 
             migrationBuilder.AlterColumn<DateTime>(
                 name: "CreationDate",
@@ -1190,8 +1162,7 @@ namespace Giro.Animes.Infra.Data.Migrations
                 oldClrType: typeof(DateTime),
                 oldType: "TIMESTAMP",
                 oldDefaultValueSql: "CURRENT_TIMESTAMP")
-                .Annotation("Relational:ColumnOrder", 100)
-                .OldAnnotation("Relational:ColumnOrder", 30);
+                .Annotation("Relational:ColumnOrder", 30);
 
             migrationBuilder.AlterColumn<DateTime>(
                 name: "UpdateDate",
@@ -1203,8 +1174,7 @@ namespace Giro.Animes.Infra.Data.Migrations
                 oldClrType: typeof(DateTime),
                 oldType: "TIMESTAMP",
                 oldDefaultValueSql: "CURRENT_TIMESTAMP")
-                .Annotation("Relational:ColumnOrder", 101)
-                .OldAnnotation("Relational:ColumnOrder", 31);
+                .Annotation("Relational:ColumnOrder", 31);
 
             migrationBuilder.AlterColumn<DateTime>(
                 name: "DeletionDate",
@@ -1215,8 +1185,7 @@ namespace Giro.Animes.Infra.Data.Migrations
                 oldClrType: typeof(DateTime),
                 oldType: "TIMESTAMP",
                 oldNullable: true)
-                .Annotation("Relational:ColumnOrder", 102)
-                .OldAnnotation("Relational:ColumnOrder", 32);
+                .Annotation("Relational:ColumnOrder", 32);
 
             migrationBuilder.AlterColumn<DateTime>(
                 name: "CreationDate",
@@ -1228,8 +1197,7 @@ namespace Giro.Animes.Infra.Data.Migrations
                 oldClrType: typeof(DateTime),
                 oldType: "TIMESTAMP",
                 oldDefaultValueSql: "CURRENT_TIMESTAMP")
-                .Annotation("Relational:ColumnOrder", 100)
-                .OldAnnotation("Relational:ColumnOrder", 30);
+                .Annotation("Relational:ColumnOrder", 30);
 
             migrationBuilder.AlterColumn<DateTime>(
                 name: "UpdateDate",
@@ -1241,8 +1209,7 @@ namespace Giro.Animes.Infra.Data.Migrations
                 oldClrType: typeof(DateTime),
                 oldType: "TIMESTAMP",
                 oldDefaultValueSql: "CURRENT_TIMESTAMP")
-                .Annotation("Relational:ColumnOrder", 101)
-                .OldAnnotation("Relational:ColumnOrder", 31);
+                .Annotation("Relational:ColumnOrder", 31);
 
             migrationBuilder.AlterColumn<DateTime>(
                 name: "DeletionDate",
@@ -1253,8 +1220,7 @@ namespace Giro.Animes.Infra.Data.Migrations
                 oldClrType: typeof(DateTime),
                 oldType: "TIMESTAMP",
                 oldNullable: true)
-                .Annotation("Relational:ColumnOrder", 102)
-                .OldAnnotation("Relational:ColumnOrder", 32);
+                .Annotation("Relational:ColumnOrder", 32);
 
             migrationBuilder.AlterColumn<DateTime>(
                 name: "CreationDate",
@@ -1266,8 +1232,42 @@ namespace Giro.Animes.Infra.Data.Migrations
                 oldClrType: typeof(DateTime),
                 oldType: "TIMESTAMP",
                 oldDefaultValueSql: "CURRENT_TIMESTAMP")
-                .Annotation("Relational:ColumnOrder", 100)
-                .OldAnnotation("Relational:ColumnOrder", 30);
+                .Annotation("Relational:ColumnOrder", 30);
+
+            migrationBuilder.AlterColumn<DateTime>(
+                name: "UpdateDate",
+                schema: "content",
+                table: "episode_sinopses",
+                type: "TIMESTAMP",
+                nullable: false,
+                defaultValueSql: "CURRENT_TIMESTAMP",
+                oldClrType: typeof(DateTime),
+                oldType: "TIMESTAMP",
+                oldDefaultValueSql: "CURRENT_TIMESTAMP")
+                .Annotation("Relational:ColumnOrder", 31);
+
+            migrationBuilder.AlterColumn<DateTime>(
+                name: "DeletionDate",
+                schema: "content",
+                table: "episode_sinopses",
+                type: "TIMESTAMP",
+                nullable: true,
+                oldClrType: typeof(DateTime),
+                oldType: "TIMESTAMP",
+                oldNullable: true)
+                .Annotation("Relational:ColumnOrder", 32);
+
+            migrationBuilder.AlterColumn<DateTime>(
+                name: "CreationDate",
+                schema: "content",
+                table: "episode_sinopses",
+                type: "TIMESTAMP",
+                nullable: false,
+                defaultValueSql: "CURRENT_TIMESTAMP",
+                oldClrType: typeof(DateTime),
+                oldType: "TIMESTAMP",
+                oldDefaultValueSql: "CURRENT_TIMESTAMP")
+                .Annotation("Relational:ColumnOrder", 30);
 
             migrationBuilder.AlterColumn<DateTime>(
                 name: "UpdateDate",
@@ -1279,8 +1279,7 @@ namespace Giro.Animes.Infra.Data.Migrations
                 oldClrType: typeof(DateTime),
                 oldType: "TIMESTAMP",
                 oldDefaultValueSql: "CURRENT_TIMESTAMP")
-                .Annotation("Relational:ColumnOrder", 101)
-                .OldAnnotation("Relational:ColumnOrder", 31);
+                .Annotation("Relational:ColumnOrder", 31);
 
             migrationBuilder.AlterColumn<DateTime>(
                 name: "DeletionDate",
@@ -1291,8 +1290,7 @@ namespace Giro.Animes.Infra.Data.Migrations
                 oldClrType: typeof(DateTime),
                 oldType: "TIMESTAMP",
                 oldNullable: true)
-                .Annotation("Relational:ColumnOrder", 102)
-                .OldAnnotation("Relational:ColumnOrder", 32);
+                .Annotation("Relational:ColumnOrder", 32);
 
             migrationBuilder.AlterColumn<DateTime>(
                 name: "CreationDate",
@@ -1304,8 +1302,7 @@ namespace Giro.Animes.Infra.Data.Migrations
                 oldClrType: typeof(DateTime),
                 oldType: "TIMESTAMP",
                 oldDefaultValueSql: "CURRENT_TIMESTAMP")
-                .Annotation("Relational:ColumnOrder", 100)
-                .OldAnnotation("Relational:ColumnOrder", 30);
+                .Annotation("Relational:ColumnOrder", 30);
 
             migrationBuilder.AlterColumn<DateTime>(
                 name: "UpdateDate",
@@ -1317,8 +1314,7 @@ namespace Giro.Animes.Infra.Data.Migrations
                 oldClrType: typeof(DateTime),
                 oldType: "TIMESTAMP",
                 oldDefaultValueSql: "CURRENT_TIMESTAMP")
-                .Annotation("Relational:ColumnOrder", 101)
-                .OldAnnotation("Relational:ColumnOrder", 31);
+                .Annotation("Relational:ColumnOrder", 31);
 
             migrationBuilder.AlterColumn<DateTime>(
                 name: "DeletionDate",
@@ -1329,8 +1325,7 @@ namespace Giro.Animes.Infra.Data.Migrations
                 oldClrType: typeof(DateTime),
                 oldType: "TIMESTAMP",
                 oldNullable: true)
-                .Annotation("Relational:ColumnOrder", 102)
-                .OldAnnotation("Relational:ColumnOrder", 32);
+                .Annotation("Relational:ColumnOrder", 32);
 
             migrationBuilder.AlterColumn<DateTime>(
                 name: "CreationDate",
@@ -1342,8 +1337,7 @@ namespace Giro.Animes.Infra.Data.Migrations
                 oldClrType: typeof(DateTime),
                 oldType: "TIMESTAMP",
                 oldDefaultValueSql: "CURRENT_TIMESTAMP")
-                .Annotation("Relational:ColumnOrder", 100)
-                .OldAnnotation("Relational:ColumnOrder", 30);
+                .Annotation("Relational:ColumnOrder", 30);
 
             migrationBuilder.AlterColumn<DateTime>(
                 name: "UpdateDate",
@@ -1355,8 +1349,7 @@ namespace Giro.Animes.Infra.Data.Migrations
                 oldClrType: typeof(DateTime),
                 oldType: "TIMESTAMP",
                 oldDefaultValueSql: "CURRENT_TIMESTAMP")
-                .Annotation("Relational:ColumnOrder", 101)
-                .OldAnnotation("Relational:ColumnOrder", 31);
+                .Annotation("Relational:ColumnOrder", 31);
 
             migrationBuilder.AlterColumn<DateTime>(
                 name: "DeletionDate",
@@ -1367,8 +1360,7 @@ namespace Giro.Animes.Infra.Data.Migrations
                 oldClrType: typeof(DateTime),
                 oldType: "TIMESTAMP",
                 oldNullable: true)
-                .Annotation("Relational:ColumnOrder", 102)
-                .OldAnnotation("Relational:ColumnOrder", 32);
+                .Annotation("Relational:ColumnOrder", 32);
 
             migrationBuilder.AlterColumn<DateTime>(
                 name: "CreationDate",
@@ -1380,8 +1372,7 @@ namespace Giro.Animes.Infra.Data.Migrations
                 oldClrType: typeof(DateTime),
                 oldType: "TIMESTAMP",
                 oldDefaultValueSql: "CURRENT_TIMESTAMP")
-                .Annotation("Relational:ColumnOrder", 100)
-                .OldAnnotation("Relational:ColumnOrder", 30);
+                .Annotation("Relational:ColumnOrder", 30);
 
             migrationBuilder.AlterColumn<DateTime>(
                 name: "UpdateDate",
@@ -1393,8 +1384,7 @@ namespace Giro.Animes.Infra.Data.Migrations
                 oldClrType: typeof(DateTime),
                 oldType: "TIMESTAMP",
                 oldDefaultValueSql: "CURRENT_TIMESTAMP")
-                .Annotation("Relational:ColumnOrder", 101)
-                .OldAnnotation("Relational:ColumnOrder", 31);
+                .Annotation("Relational:ColumnOrder", 31);
 
             migrationBuilder.AlterColumn<DateTime>(
                 name: "DeletionDate",
@@ -1405,8 +1395,7 @@ namespace Giro.Animes.Infra.Data.Migrations
                 oldClrType: typeof(DateTime),
                 oldType: "TIMESTAMP",
                 oldNullable: true)
-                .Annotation("Relational:ColumnOrder", 102)
-                .OldAnnotation("Relational:ColumnOrder", 32);
+                .Annotation("Relational:ColumnOrder", 32);
 
             migrationBuilder.AlterColumn<DateTime>(
                 name: "CreationDate",
@@ -1418,8 +1407,7 @@ namespace Giro.Animes.Infra.Data.Migrations
                 oldClrType: typeof(DateTime),
                 oldType: "TIMESTAMP",
                 oldDefaultValueSql: "CURRENT_TIMESTAMP")
-                .Annotation("Relational:ColumnOrder", 100)
-                .OldAnnotation("Relational:ColumnOrder", 30);
+                .Annotation("Relational:ColumnOrder", 30);
 
             migrationBuilder.AlterColumn<DateTime>(
                 name: "UpdateDate",
@@ -1431,8 +1419,7 @@ namespace Giro.Animes.Infra.Data.Migrations
                 oldClrType: typeof(DateTime),
                 oldType: "TIMESTAMP",
                 oldDefaultValueSql: "CURRENT_TIMESTAMP")
-                .Annotation("Relational:ColumnOrder", 101)
-                .OldAnnotation("Relational:ColumnOrder", 31);
+                .Annotation("Relational:ColumnOrder", 31);
 
             migrationBuilder.AlterColumn<DateTime>(
                 name: "DeletionDate",
@@ -1443,8 +1430,7 @@ namespace Giro.Animes.Infra.Data.Migrations
                 oldClrType: typeof(DateTime),
                 oldType: "TIMESTAMP",
                 oldNullable: true)
-                .Annotation("Relational:ColumnOrder", 102)
-                .OldAnnotation("Relational:ColumnOrder", 32);
+                .Annotation("Relational:ColumnOrder", 32);
 
             migrationBuilder.AlterColumn<DateTime>(
                 name: "CreationDate",
@@ -1456,8 +1442,7 @@ namespace Giro.Animes.Infra.Data.Migrations
                 oldClrType: typeof(DateTime),
                 oldType: "TIMESTAMP",
                 oldDefaultValueSql: "CURRENT_TIMESTAMP")
-                .Annotation("Relational:ColumnOrder", 100)
-                .OldAnnotation("Relational:ColumnOrder", 30);
+                .Annotation("Relational:ColumnOrder", 30);
 
             migrationBuilder.AlterColumn<DateTime>(
                 name: "UpdateDate",
@@ -1469,8 +1454,7 @@ namespace Giro.Animes.Infra.Data.Migrations
                 oldClrType: typeof(DateTime),
                 oldType: "TIMESTAMP",
                 oldDefaultValueSql: "CURRENT_TIMESTAMP")
-                .Annotation("Relational:ColumnOrder", 101)
-                .OldAnnotation("Relational:ColumnOrder", 31);
+                .Annotation("Relational:ColumnOrder", 31);
 
             migrationBuilder.AlterColumn<DateTime>(
                 name: "DeletionDate",
@@ -1481,8 +1465,7 @@ namespace Giro.Animes.Infra.Data.Migrations
                 oldClrType: typeof(DateTime),
                 oldType: "TIMESTAMP",
                 oldNullable: true)
-                .Annotation("Relational:ColumnOrder", 102)
-                .OldAnnotation("Relational:ColumnOrder", 32);
+                .Annotation("Relational:ColumnOrder", 32);
 
             migrationBuilder.AlterColumn<DateTime>(
                 name: "CreationDate",
@@ -1494,8 +1477,7 @@ namespace Giro.Animes.Infra.Data.Migrations
                 oldClrType: typeof(DateTime),
                 oldType: "TIMESTAMP",
                 oldDefaultValueSql: "CURRENT_TIMESTAMP")
-                .Annotation("Relational:ColumnOrder", 100)
-                .OldAnnotation("Relational:ColumnOrder", 30);
+                .Annotation("Relational:ColumnOrder", 30);
 
             migrationBuilder.AlterColumn<DateTime>(
                 name: "UpdateDate",
@@ -1507,8 +1489,7 @@ namespace Giro.Animes.Infra.Data.Migrations
                 oldClrType: typeof(DateTime),
                 oldType: "TIMESTAMP",
                 oldDefaultValueSql: "CURRENT_TIMESTAMP")
-                .Annotation("Relational:ColumnOrder", 101)
-                .OldAnnotation("Relational:ColumnOrder", 31);
+                .Annotation("Relational:ColumnOrder", 31);
 
             migrationBuilder.AlterColumn<DateTime>(
                 name: "DeletionDate",
@@ -1519,8 +1500,7 @@ namespace Giro.Animes.Infra.Data.Migrations
                 oldClrType: typeof(DateTime),
                 oldType: "TIMESTAMP",
                 oldNullable: true)
-                .Annotation("Relational:ColumnOrder", 102)
-                .OldAnnotation("Relational:ColumnOrder", 32);
+                .Annotation("Relational:ColumnOrder", 32);
 
             migrationBuilder.AlterColumn<DateTime>(
                 name: "CreationDate",
@@ -1532,8 +1512,7 @@ namespace Giro.Animes.Infra.Data.Migrations
                 oldClrType: typeof(DateTime),
                 oldType: "TIMESTAMP",
                 oldDefaultValueSql: "CURRENT_TIMESTAMP")
-                .Annotation("Relational:ColumnOrder", 100)
-                .OldAnnotation("Relational:ColumnOrder", 30);
+                .Annotation("Relational:ColumnOrder", 30);
 
             migrationBuilder.AlterColumn<DateTime>(
                 name: "UpdateDate",
@@ -1545,8 +1524,7 @@ namespace Giro.Animes.Infra.Data.Migrations
                 oldClrType: typeof(DateTime),
                 oldType: "TIMESTAMP",
                 oldDefaultValueSql: "CURRENT_TIMESTAMP")
-                .Annotation("Relational:ColumnOrder", 101)
-                .OldAnnotation("Relational:ColumnOrder", 31);
+                .Annotation("Relational:ColumnOrder", 31);
 
             migrationBuilder.AlterColumn<DateTime>(
                 name: "DeletionDate",
@@ -1557,8 +1535,7 @@ namespace Giro.Animes.Infra.Data.Migrations
                 oldClrType: typeof(DateTime),
                 oldType: "TIMESTAMP",
                 oldNullable: true)
-                .Annotation("Relational:ColumnOrder", 102)
-                .OldAnnotation("Relational:ColumnOrder", 32);
+                .Annotation("Relational:ColumnOrder", 32);
 
             migrationBuilder.AlterColumn<DateTime>(
                 name: "CreationDate",
@@ -1570,8 +1547,17 @@ namespace Giro.Animes.Infra.Data.Migrations
                 oldClrType: typeof(DateTime),
                 oldType: "TIMESTAMP",
                 oldDefaultValueSql: "CURRENT_TIMESTAMP")
-                .Annotation("Relational:ColumnOrder", 100)
-                .OldAnnotation("Relational:ColumnOrder", 30);
+                .Annotation("Relational:ColumnOrder", 30);
+
+            migrationBuilder.AlterColumn<long>(
+                name: "AnimeId",
+                schema: "content",
+                table: "anime_screenshots",
+                type: "bigint",
+                nullable: false,
+                oldClrType: typeof(long),
+                oldType: "bigint")
+                .Annotation("Relational:ColumnOrder", 4);
 
             migrationBuilder.AlterColumn<DateTime>(
                 name: "UpdateDate",
@@ -1583,8 +1569,7 @@ namespace Giro.Animes.Infra.Data.Migrations
                 oldClrType: typeof(DateTime),
                 oldType: "TIMESTAMP",
                 oldDefaultValueSql: "CURRENT_TIMESTAMP")
-                .Annotation("Relational:ColumnOrder", 101)
-                .OldAnnotation("Relational:ColumnOrder", 31);
+                .Annotation("Relational:ColumnOrder", 31);
 
             migrationBuilder.AlterColumn<DateTime>(
                 name: "DeletionDate",
@@ -1595,8 +1580,7 @@ namespace Giro.Animes.Infra.Data.Migrations
                 oldClrType: typeof(DateTime),
                 oldType: "TIMESTAMP",
                 oldNullable: true)
-                .Annotation("Relational:ColumnOrder", 102)
-                .OldAnnotation("Relational:ColumnOrder", 32);
+                .Annotation("Relational:ColumnOrder", 32);
 
             migrationBuilder.AlterColumn<DateTime>(
                 name: "CreationDate",
@@ -1608,8 +1592,7 @@ namespace Giro.Animes.Infra.Data.Migrations
                 oldClrType: typeof(DateTime),
                 oldType: "TIMESTAMP",
                 oldDefaultValueSql: "CURRENT_TIMESTAMP")
-                .Annotation("Relational:ColumnOrder", 100)
-                .OldAnnotation("Relational:ColumnOrder", 30);
+                .Annotation("Relational:ColumnOrder", 30);
         }
     }
 }

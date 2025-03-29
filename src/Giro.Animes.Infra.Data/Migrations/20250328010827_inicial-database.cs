@@ -1,13 +1,12 @@
-﻿using System;
-using Microsoft.EntityFrameworkCore.Migrations;
+﻿using Microsoft.EntityFrameworkCore.Migrations;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 #nullable disable
 
-namespace Giro.Animes.Infra.Data.Migrations.GiroAnimesReadDb
+namespace Giro.Animes.Infra.Data.Migrations
 {
     /// <inheritdoc />
-    public partial class adicaotabelaepisodesinopses : Migration
+    public partial class inicialdatabase : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
