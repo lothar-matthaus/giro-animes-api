@@ -30,6 +30,8 @@
             public const string AUTHOR_WORKS = "author_works";
             public const string WATCHLIST = "watchlist";
             public const string RATINGS = "ratings";
+            public const string SETTINGS_ANIME_LANGUAGES = "settings_anime_languages";
+            public const string EPISODE_LANGUAGES = "episode_languages";
         }
 
         public static class Management
