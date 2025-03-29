@@ -15,14 +15,14 @@
         /// </summary>
         public LanguageDTO Language { get; private set; }
 
-        private EpisodeFileDTO(long? id, DateTime creationDate, DateTime updateDate, DateTime? deletionDate, string url, string fileName, string extension, long episodeId, LanguageDTO language) :
-            base(id, creationDate, updateDate, deletionDate, url, fileName, extension)
+        private EpisodeFileDTO(long? id, DateTime creationDate, DateTime updateDate, string url, string fileName, string extension, long episodeId, LanguageDTO language) :
+            base(id, creationDate, updateDate, url, fileName, extension)
         {
             EpisodeId = episodeId;
             Language = language;
         }
 
-        public static EpisodeFileDTO Create(long? id, DateTime creationDate, DateTime updateDate, DateTime? deletionDate, string url, string fileName, string extension, long episodeId, LanguageDTO language)
-            => new EpisodeFileDTO(id, creationDate, updateDate, deletionDate, url, fileName, extension, episodeId, language);
+        public static EpisodeFileDTO Create(long? id, DateTime creationDate, DateTime updateDate, string url, string fileName, string extension, long episodeId, LanguageDTO language)
+            => new EpisodeFileDTO(id, creationDate, updateDate, url, fileName, extension, episodeId, language);
     }
 }

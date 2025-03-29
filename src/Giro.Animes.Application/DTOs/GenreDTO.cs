@@ -12,7 +12,7 @@ namespace Giro.Animes.Application.DTOs
         /// Private constructor to initialize GenreDTODTO with an GenreDTO entity.
         /// </summary>
         /// <param name="genre">GenreDTO entity.</param>
-        private GenreDTO(long? id, DateTime creationDate, DateTime updateDate, DateTime? deletionDate, IEnumerable<GenreTitleDTO> titles, IEnumerable<GenreDescriptionDTO> descriptions) : base(id, creationDate, updateDate, deletionDate)
+        private GenreDTO(long? id, DateTime creationDate, DateTime updateDate, IEnumerable<GenreTitleDTO> titles, IEnumerable<GenreDescriptionDTO> descriptions) : base(id, creationDate, updateDate)
         {
             Titles = titles;
             Description = descriptions;
@@ -23,6 +23,6 @@ namespace Giro.Animes.Application.DTOs
         /// </summary>
         /// <param name="genre">Genre entity.</param>
         /// <returns>New instance of GenreDTO.</returns>
-        public static GenreDTO Create(long? id, DateTime creationDate, DateTime updateDate, DateTime? deletionDate, IEnumerable<GenreTitleDTO> titles, IEnumerable<GenreDescriptionDTO> descriptions) => new GenreDTO(id, creationDate, updateDate, deletionDate, titles, descriptions);
+        public static GenreDTO Create(long? id, DateTime creationDate, DateTime updateDate, IEnumerable<GenreTitleDTO> titles, IEnumerable<GenreDescriptionDTO> descriptions) => new GenreDTO(id, creationDate, updateDate, titles, descriptions);
     }
 }

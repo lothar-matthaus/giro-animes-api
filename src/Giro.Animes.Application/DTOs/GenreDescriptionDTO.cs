@@ -10,11 +10,11 @@ namespace Giro.Animes.Application.DTOs
         /// </summary>
         public long GenreId { get; private set; }
 
-        private GenreDescriptionDTO(long? id, DateTime creationDate, DateTime updateDate, DateTime? deletionDate, long genreId, string text, LanguageDTO language) : base(id, creationDate, updateDate, deletionDate, text, language)
+        private GenreDescriptionDTO(long? id, DateTime creationDate, DateTime updateDate, long genreId, string text, LanguageDTO language) : base(id, creationDate, updateDate, text, language)
         {
             GenreId = genreId;
         }
-        public static GenreDescriptionDTO Create(long? id, DateTime creationDate, DateTime updateDate, DateTime? deletionDate, long genreId, string text, LanguageDTO language)
-            => new GenreDescriptionDTO(id, creationDate, updateDate, deletionDate, genreId, text, language);
+        public static GenreDescriptionDTO Create(long? id, DateTime creationDate, DateTime updateDate, long genreId, string text, LanguageDTO language)
+            => new GenreDescriptionDTO(id, creationDate, updateDate, genreId, text, language);
     }
 }

@@ -10,13 +10,13 @@
         /// </summary>
         public long AnimeId { get; private set; }
 
-        private AnimeScreenshotDTO(long? id, DateTime creationDate, DateTime updateDate, DateTime? deletionDate, long animeId, string url, string fileName, string extension) :
-            base(id, creationDate, updateDate, deletionDate, url, fileName, extension)
+        private AnimeScreenshotDTO(long? id, DateTime creationDate, DateTime updateDate, long animeId, string url, string fileName, string extension) :
+            base(id, creationDate, updateDate, url, fileName, extension)
         {
             AnimeId = animeId;
         }
 
-        public static AnimeScreenshotDTO Create(long? id, DateTime creationDate, DateTime updateDate, DateTime? deletionDate, long animeId, string url, string fileName, string extension)
-            => new AnimeScreenshotDTO(id, creationDate, updateDate, deletionDate, animeId, url, fileName, extension);
+        public static AnimeScreenshotDTO Create(long? id, DateTime creationDate, DateTime updateDate, long animeId, string url, string fileName, string extension)
+            => new AnimeScreenshotDTO(id, creationDate, updateDate, animeId, url, fileName, extension);
     }
 }

@@ -10,13 +10,14 @@
         /// </summary>
         public long StudioId { get; private set; }
 
-        private LogoDTO(long? id, DateTime creationDate, DateTime updateDate, DateTime? deletionDate, long studioId, string url, string fileName, string extension) : base(id, creationDate, updateDate, deletionDate, url, fileName, extension)
+        private LogoDTO(long? id, DateTime creationDate, DateTime updateDate, long studioId, string url, string fileName, string extension) :
+            base(id, creationDate, updateDate, url, fileName, extension)
         {
         }
 
-        public static LogoDTO Create(long? id, DateTime creationDate, DateTime updateDate, DateTime? deletionDate, long studioId, string url, string fileName, string extension)
+        public static LogoDTO Create(long? id, DateTime creationDate, DateTime updateDate, long studioId, string url, string fileName, string extension)
         {
-            return new LogoDTO(id, creationDate, updateDate, deletionDate, studioId, url, fileName, extension);
+            return new LogoDTO(id, creationDate, updateDate, studioId, url, fileName, extension);
         }
     }
 }

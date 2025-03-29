@@ -27,7 +27,7 @@ namespace Giro.Animes.Application.DTOs
         /// Inicializa uma nova instância da classe <see cref="LanguageDTO"/>.
         /// </summary>
         /// <param name="language">A entidade Language.</param>
-        private LanguageDTO(long? id, DateTime creationDate, DateTime updateDate, DateTime? deletionDate, string name, string code, string nativeName) : base(id, creationDate, updateDate, deletionDate)
+        private LanguageDTO(long? id, DateTime creationDate, DateTime updateDate, string name, string code, string nativeName) : base(id, creationDate, updateDate)
         {
             Name = name;
             Code = code;
@@ -39,7 +39,7 @@ namespace Giro.Animes.Application.DTOs
         /// </summary>
         /// <param name="language">A entidade Language.</param>
         /// <returns>Uma nova instância de <see cref="LanguageDTO"/>.</returns>
-        public static LanguageDTO Create(long? id, DateTime creationDate, DateTime updateDate, DateTime? deletionDate, string name, string code, string nativeName)
-            => new LanguageDTO(id, creationDate, updateDate, deletionDate, name, code, nativeName);
+        public static LanguageDTO Create(long? id, DateTime creationDate, DateTime updateDate, string name, string code, string nativeName)
+            => new LanguageDTO(id, creationDate, updateDate, name, code, nativeName);
     }
 }

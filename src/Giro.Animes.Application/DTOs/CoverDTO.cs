@@ -15,14 +15,14 @@
         /// </summary>
         public LanguageDTO Language { get; private set; }
 
-        private CoverDTO(long? id, DateTime creationDate, DateTime updateDate, DateTime? deletionDate, long animeId, LanguageDTO language, string url, string fileName, string extension) :
-            base(id, creationDate, updateDate, deletionDate, url, fileName, extension)
+        private CoverDTO(long? id, DateTime creationDate, DateTime updateDate, long animeId, LanguageDTO language, string url, string fileName, string extension) :
+            base(id, creationDate, updateDate, url, fileName, extension)
         {
             AnimeId = animeId;
             Language = language;
         }
 
-        public static CoverDTO Create(long? id, DateTime creationDate, DateTime updateDate, DateTime? deletionDate, long animeId, LanguageDTO language, string url, string fileName, string extension)
-            => new CoverDTO(id, creationDate, updateDate, deletionDate, animeId, language, url, fileName, extension);
+        public static CoverDTO Create(long? id, DateTime creationDate, DateTime updateDate, long animeId, LanguageDTO language, string url, string fileName, string extension)
+            => new CoverDTO(id, creationDate, updateDate, animeId, language, url, fileName, extension);
     }
 }

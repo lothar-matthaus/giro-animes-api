@@ -40,8 +40,8 @@ namespace Giro.Animes.Application.DTOs
         /// </summary>
         public LogoDTO Logo { get; private set; }
 
-        private StudioDTO(long? id, DateTime creationDate, DateTime updateDate, DateTime? deletionDate, string name, DateTime establishedDate, string country, string city, string website, string twitter, string instagram, LogoDTO logo)
-            : base(id, creationDate, updateDate, deletionDate)
+        private StudioDTO(long? id, DateTime creationDate, DateTime updateDate, string name, DateTime establishedDate, string country, string city, string website, string twitter, string instagram, LogoDTO logo)
+            : base(id, creationDate, updateDate)
         {
             Name = name;
             EstablishedDate = establishedDate;
@@ -53,9 +53,9 @@ namespace Giro.Animes.Application.DTOs
             Logo = logo;
         }
 
-        public static StudioDTO Create(long? id, DateTime creationDate, DateTime updateDate, DateTime? deletionDate, string name, DateTime establishedDate, string country, string city, string website, string twitter, string instagram, LogoDTO logo)
+        public static StudioDTO Create(long? id, DateTime creationDate, DateTime updateDate, string name, DateTime establishedDate, string country, string city, string website, string twitter, string instagram, LogoDTO logo)
         {
-            return new StudioDTO(id, creationDate, updateDate, deletionDate, name, establishedDate, country, city, website, twitter, instagram, logo);
+            return new StudioDTO(id, creationDate, updateDate, name, establishedDate, country, city, website, twitter, instagram, logo);
         }
     }
 }

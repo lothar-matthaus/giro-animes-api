@@ -12,13 +12,13 @@ namespace Giro.Animes.Application.DTOs
         /// </summary>
         public long EpisodeId { get; private set; }
 
-        private EpisodeSinopseDTO(long? id, DateTime creationDate, DateTime updateDate, DateTime? deletionDate, string text, long episodeId, LanguageDTO language) :
-            base(id, creationDate, updateDate, deletionDate, text, language)
+        private EpisodeSinopseDTO(long? id, DateTime creationDate, DateTime updateDate, string text, long episodeId, LanguageDTO language) :
+            base(id, creationDate, updateDate, text, language)
         {
             EpisodeId = episodeId;
         }
 
-        public static EpisodeSinopseDTO Create(long? id, DateTime creationDate, DateTime updateDate, DateTime? deletionDate, string text, long episodeId, LanguageDTO language)
-            => new EpisodeSinopseDTO(id, creationDate, updateDate, deletionDate, text, episodeId, language);
+        public static EpisodeSinopseDTO Create(long? id, DateTime creationDate, DateTime updateDate, string text, long episodeId, LanguageDTO language)
+            => new EpisodeSinopseDTO(id, creationDate, updateDate, text, episodeId, language);
     }
 }

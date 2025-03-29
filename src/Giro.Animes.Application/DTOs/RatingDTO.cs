@@ -1,9 +1,4 @@
 ﻿using Giro.Animes.Application.DTOs.Base;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Giro.Animes.Application.DTOs
 {
@@ -21,7 +16,7 @@ namespace Giro.Animes.Application.DTOs
         /// <param name="creationDate"></param>
         /// <param name="updateDate"></param>
         /// <param name="deletionDate"></param>
-        private RatingDTO(double rate, long userId, long? id, DateTime creationDate, DateTime updateDate, DateTime? deletionDate) : base(id, creationDate, updateDate, deletionDate)
+        private RatingDTO(double rate, long userId, long? id, DateTime creationDate, DateTime updateDate) : base(id, creationDate, updateDate)
         {
             UserId = userId;
             Rate = rate;
@@ -37,9 +32,9 @@ namespace Giro.Animes.Application.DTOs
         /// <param name="updateDate"></param>
         /// <param name="deletionDate"></param>
         /// <returns></returns>
-        public static RatingDTO Create(double rate, long userId, long? id, DateTime creationDate, DateTime updateDate, DateTime? deletionDate, long animeId)
+        public static RatingDTO Create(double rate, long userId, long? id, DateTime creationDate, DateTime updateDate, long animeId)
         {
-            return new RatingDTO(rate, userId, id, creationDate, updateDate, deletionDate);
+            return new RatingDTO(rate, userId, id, creationDate, updateDate);
         }
     }
 }

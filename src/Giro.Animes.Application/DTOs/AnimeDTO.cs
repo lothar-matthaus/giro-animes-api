@@ -1,6 +1,5 @@
 ﻿
 using Giro.Animes.Application.DTOs.Base;
-using Giro.Animes.Domain.Enums;
 
 namespace Giro.Animes.Application.DTOs
 {
@@ -65,7 +64,6 @@ namespace Giro.Animes.Application.DTOs
         /// <param name="id">Identificador do anime.</param>
         /// <param name="creationDate">Data de criação.</param>
         /// <param name="updateDate">Data de atualização.</param>
-        /// <param name="deletionDate">Data de exclusão.</param>
         /// <param name="titles">Coleção de títulos do anime.</param>
         /// <param name="sinopses">Coleção de sinopses do anime.</param>
         /// <param name="covers">Coleção de capas do anime.</param>
@@ -76,8 +74,8 @@ namespace Giro.Animes.Application.DTOs
         /// <param name="genres">Coleção de gêneros do anime.</param>
         /// <param name="studio">Estúdio que criou o anime.</param>
         /// <param name="status">Status do anime.</param>
-        private AnimeDTO(long? id, DateTime creationDate, DateTime updateDate, DateTime? deletionDate, IEnumerable<AnimeTitleDTO> titles, IEnumerable<AnimeSinopseDTO> sinopses, IEnumerable<CoverDTO> covers, IEnumerable<AnimeScreenshotDTO> screenshots, IEnumerable<EpisodeDTO> episodes, IEnumerable<AuthorDTO> authors, IEnumerable<RatingDTO> rating, IEnumerable<GenreDTO> genres, StudioDTO studio, EnumDTO<int> status) :
-            base(id, creationDate, updateDate, deletionDate)
+        private AnimeDTO(long? id, DateTime creationDate, DateTime updateDate, IEnumerable<AnimeTitleDTO> titles, IEnumerable<AnimeSinopseDTO> sinopses, IEnumerable<CoverDTO> covers, IEnumerable<AnimeScreenshotDTO> screenshots, IEnumerable<EpisodeDTO> episodes, IEnumerable<AuthorDTO> authors, IEnumerable<RatingDTO> rating, IEnumerable<GenreDTO> genres, StudioDTO studio, EnumDTO<int> status) :
+            base(id, creationDate, updateDate)
         {
             Titles = titles;
             Sinopses = sinopses;
@@ -97,7 +95,6 @@ namespace Giro.Animes.Application.DTOs
         /// <param name="id">Identificador do anime.</param>
         /// <param name="creationDate">Data de criação.</param>
         /// <param name="updateDate">Data de atualização.</param>
-        /// <param name="deletionDate">Data de exclusão.</param>
         /// <param name="titles">Coleção de títulos do anime.</param>
         /// <param name="sinopses">Coleção de sinopses do anime.</param>
         /// <param name="covers">Coleção de capas do anime.</param>
@@ -109,9 +106,9 @@ namespace Giro.Animes.Application.DTOs
         /// <param name="studio">Estúdio que criou o anime.</param>
         /// <param name="status">Status do anime.</param>
         /// <returns>Nova instância de AnimeDTO.</returns>
-        public static AnimeDTO Create(long? id, DateTime creationDate, DateTime updateDate, DateTime? deletionDate, IEnumerable<AnimeTitleDTO> titles, IEnumerable<AnimeSinopseDTO> sinopses, IEnumerable<CoverDTO> covers, IEnumerable<AnimeScreenshotDTO> screenshots, IEnumerable<EpisodeDTO> episodes, IEnumerable<AuthorDTO> authors, IEnumerable<RatingDTO> rating, IEnumerable<GenreDTO> genres, StudioDTO studio, EnumDTO<int> status)
+        public static AnimeDTO Create(long? id, DateTime creationDate, DateTime updateDate, IEnumerable<AnimeTitleDTO> titles, IEnumerable<AnimeSinopseDTO> sinopses, IEnumerable<CoverDTO> covers, IEnumerable<AnimeScreenshotDTO> screenshots, IEnumerable<EpisodeDTO> episodes, IEnumerable<AuthorDTO> authors, IEnumerable<RatingDTO> rating, IEnumerable<GenreDTO> genres, StudioDTO studio, EnumDTO<int> status)
         {
-            return new AnimeDTO(id, creationDate, updateDate, deletionDate, titles, sinopses, covers, screenshots, episodes, authors, rating, genres, studio, status);
+            return new AnimeDTO(id, creationDate, updateDate, titles, sinopses, covers, screenshots, episodes, authors, rating, genres, studio, status);
         }
     }
 

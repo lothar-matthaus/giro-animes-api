@@ -10,13 +10,14 @@ namespace Giro.Animes.Application.DTOs
         /// </summary>
         public long AuthorId { get; private set; }
 
-        private BiographyDTO(long? id, DateTime creationDate, DateTime updateDate, DateTime? deletionDate, long authorId, string text, LanguageDTO language) : base(id, creationDate, updateDate, deletionDate, text, language)
+        private BiographyDTO(long? id, DateTime creationDate, DateTime updateDate, long authorId, string text, LanguageDTO language) :
+            base(id, creationDate, updateDate, text, language)
         {
             AuthorId = authorId;
         }
-        public static BiographyDTO Create(long? id, DateTime creationDate, DateTime updateDate, DateTime? deletionDate, long authorId, string text, LanguageDTO language)
+        public static BiographyDTO Create(long? id, DateTime creationDate, DateTime updateDate, long authorId, string text, LanguageDTO language)
         {
-            return new BiographyDTO(id, creationDate, updateDate, deletionDate, authorId, text, language);
+            return new BiographyDTO(id, creationDate, updateDate, authorId, text, language);
         }
     }
 }

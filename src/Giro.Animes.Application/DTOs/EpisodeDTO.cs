@@ -43,7 +43,8 @@ namespace Giro.Animes.Application.DTOs
         /// </summary>
         public long AnimeId { get; private set; }
 
-        private EpisodeDTO(IEnumerable<EpisodeTitleDTO> titles, IEnumerable<EpisodeSinopseDTO> animeSinopses, int number, int duration, DateTime airDate, IEnumerable<EpisodeFileDTO> episodeFiles, long animeId, long? id, DateTime creationDate, DateTime updateDate, DateTime? deletionDate) : base(id, creationDate, updateDate, deletionDate)
+        private EpisodeDTO(IEnumerable<EpisodeTitleDTO> titles, IEnumerable<EpisodeSinopseDTO> animeSinopses, int number, int duration, DateTime airDate, IEnumerable<EpisodeFileDTO> episodeFiles, long animeId, long? id, DateTime creationDate, DateTime updateDate) :
+            base(id, creationDate, updateDate)
         {
             Titles = titles;
             Sinopses = animeSinopses;
@@ -54,7 +55,7 @@ namespace Giro.Animes.Application.DTOs
             AirDate = airDate;
         }
 
-        public static EpisodeDTO Create(IEnumerable<EpisodeTitleDTO> titles, IEnumerable<EpisodeSinopseDTO> animeSinopses, int number, int duration, DateTime airDate, IEnumerable<EpisodeFileDTO> episodeFiles, long animeId, long? id, DateTime creationDate, DateTime updateDate, DateTime? deletionDate)
-            => new EpisodeDTO(titles, animeSinopses, number, duration, airDate, episodeFiles, animeId, id, creationDate, updateDate, deletionDate);
+        public static EpisodeDTO Create(IEnumerable<EpisodeTitleDTO> titles, IEnumerable<EpisodeSinopseDTO> animeSinopses, int number, int duration, DateTime airDate, IEnumerable<EpisodeFileDTO> episodeFiles, long animeId, long? id, DateTime creationDate, DateTime updateDate)
+            => new EpisodeDTO(titles, animeSinopses, number, duration, airDate, episodeFiles, animeId, id, creationDate, updateDate);
     }
 }

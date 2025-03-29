@@ -53,8 +53,8 @@ namespace Giro.Animes.Application.DTOs
         /// </summary>
         public IEnumerable<BiographyDTO> Biographies { get; private set; }
 
-        private AuthorDTO(long? id, string name, string penName, DateTime? birthDate, DateTime? deathDate, string website, string twitter, string instagram, IEnumerable<AnimeDTO> works, IEnumerable<BiographyDTO> biographies, DateTime creationDate, DateTime updateDate, DateTime? deletionDate) :
-            base(id, creationDate, updateDate, deletionDate)
+        private AuthorDTO(long? id, string name, string penName, DateTime? birthDate, DateTime? deathDate, string website, string twitter, string instagram, IEnumerable<AnimeDTO> works, IEnumerable<BiographyDTO> biographies, DateTime creationDate, DateTime updateDate) :
+            base(id, creationDate, updateDate)
         {
             Name = name;
             PenName = penName;
@@ -67,9 +67,9 @@ namespace Giro.Animes.Application.DTOs
             Biographies = biographies;
         }
 
-        public static AuthorDTO Create(long? id, string name, string penName, DateTime? birthDate, DateTime? deathDate, string website, string twitter, string instagram, IEnumerable<AnimeDTO> works, IEnumerable<BiographyDTO> biographies, DateTime creationDate, DateTime updateDate, DateTime? deletionDate)
+        public static AuthorDTO Create(long? id, string name, string penName, DateTime? birthDate, DateTime? deathDate, string website, string twitter, string instagram, IEnumerable<AnimeDTO> works, IEnumerable<BiographyDTO> biographies, DateTime creationDate, DateTime updateDate)
         {
-            return new AuthorDTO(id, name, penName, birthDate, deathDate, website, twitter, instagram, works, biographies, creationDate, updateDate, deletionDate);
+            return new AuthorDTO(id, name, penName, birthDate, deathDate, website, twitter, instagram, works, biographies, creationDate, updateDate);
         }
     }
 }
