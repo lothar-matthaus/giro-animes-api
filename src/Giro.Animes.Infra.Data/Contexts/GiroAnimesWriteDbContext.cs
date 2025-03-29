@@ -13,6 +13,7 @@ namespace Giro.Animes.Infra.Data.Contexts
 
         public GiroAnimesWriteDbContext(DbContextOptions<GiroAnimesWriteDbContext> options, IServiceProvider serviceProvider) : base(options)
         {
+            Console.WriteLine("Construindo provider");
             _user = serviceProvider.GetRequiredService<IApplicationUser>();
         }
 
