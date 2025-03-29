@@ -7,7 +7,7 @@
         /// </summary>
         protected Screenshot()
         {
-            
+
         }
         /// <summary>
         /// Construtor com parâmetro. Garanta a construção do objeto pelo método Create
