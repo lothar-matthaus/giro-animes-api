@@ -1,13 +1,9 @@
-﻿using Microsoft.Extensions.Configuration;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Giro.Animes.Infra.Interfaces.Configs;
+using Microsoft.Extensions.Configuration;
 
 namespace Giro.Animes.Infra.Configs
 {
-    public class JwtConfig
+    public class JwtConfig : IJwtConfig
     {
         private readonly IConfiguration _configuration;
 
