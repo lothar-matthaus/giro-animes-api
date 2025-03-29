@@ -1,18 +1,18 @@
 ﻿using Giro.Animes.Domain.Entities;
 using Giro.Animes.Infra.Data.Configurations.Types.Base;
 using Giro.Animes.Infra.Data.Constants;
+using Giro.Animes.Infra.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Giro.Animes.Infra.Data.Configurations.Types.Content
 {
     internal class EpisodeSinopseEntityTypeConfiguration : DescriptionEntityTypeConfiguration<EpisodeSinopse>
     {
+        public EpisodeSinopseEntityTypeConfiguration(IApplicationUser user) : base(user)
+        {
+        }
+
         public override void Configure(EntityTypeBuilder<EpisodeSinopse> builder)
         {
             base.Configure(builder);

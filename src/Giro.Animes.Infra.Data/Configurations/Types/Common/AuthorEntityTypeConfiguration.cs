@@ -21,6 +21,8 @@ namespace Giro.Animes.Infra.Data.Configurations.Types.Common
             builder.Property(author => author.Twitter).IsRequired(false).HasDefaultValue(null);
             builder.Property(author => author.BirthDate).IsRequired(false).HasDefaultValue(null);
             builder.Property(author => author.DeathDate).IsRequired(false).HasDefaultValue(null);
+
+            builder.Navigation(author => author.Biographies).AutoInclude();
         }
     }
 }

@@ -1,21 +1,24 @@
 ﻿using Giro.Animes.Domain.Entities;
+using Giro.Animes.Infra.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Giro.Animes.Infra.Data.Configurations.Types.Base
 {
     internal class DescriptionEntityTypeConfiguration<Derivate> : EntityBaseTypeConfiguration<Derivate> where Derivate : Description
     {
+        protected readonly IApplicationUser _user;
+
+        public DescriptionEntityTypeConfiguration(IApplicationUser user)
+        {
+            _user = user;
+        }
         public override void Configure(EntityTypeBuilder<Derivate> builder)
         {
             base.Configure(builder);
 
             builder.Property(des => des.Text).IsRequired(true).HasColumnName(nameof(Description)).HasColumnOrder(2);
+            builder.HasQueryFilter(des => _user.Language.Contains(des.Language.Code));
         }
     }
 }

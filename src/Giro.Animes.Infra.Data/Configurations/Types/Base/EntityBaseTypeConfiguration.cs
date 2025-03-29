@@ -11,11 +11,11 @@ namespace Giro.Animes.Infra.Data.Configurations.Types.Base
             builder.HasKey(entityBase => entityBase.Id);
             builder.Property(entityBase => entityBase.Id).HasColumnOrder(1).IsRequired();
             builder.Ignore(entityBase => entityBase.IsValid);
-            builder.HasQueryFilter(entityBase => entityBase.DeletionDate != null);
+            builder.HasQueryFilter(entityBase => entityBase.DeletionDate == null);
 
-            builder.Property(entityBase => entityBase.CreationDate).ValueGeneratedOnAdd().HasColumnType("TIMESTAMP").HasDefaultValueSql("CURRENT_TIMESTAMP").HasColumnOrder(30);
-            builder.Property(entityBase => entityBase.UpdateDate).ValueGeneratedOnAddOrUpdate().HasColumnType("TIMESTAMP").HasDefaultValueSql("CURRENT_TIMESTAMP").HasColumnOrder(31);
-            builder.Property(entityBase => entityBase.DeletionDate).HasColumnType("TIMESTAMP").HasDefaultValueSql(null).IsRequired(false).HasColumnOrder(32);
+            builder.Property(entityBase => entityBase.CreationDate).ValueGeneratedOnAdd().HasColumnType("TIMESTAMP").HasDefaultValueSql("CURRENT_TIMESTAMP");
+            builder.Property(entityBase => entityBase.UpdateDate).ValueGeneratedOnAddOrUpdate().HasColumnType("TIMESTAMP").HasDefaultValueSql("CURRENT_TIMESTAMP");
+            builder.Property(entityBase => entityBase.DeletionDate).HasColumnType("TIMESTAMP").HasDefaultValueSql(null).IsRequired(false);
         }
     }
 }

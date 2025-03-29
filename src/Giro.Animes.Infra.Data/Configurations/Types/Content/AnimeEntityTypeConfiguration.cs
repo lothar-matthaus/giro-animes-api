@@ -5,11 +5,6 @@ using Giro.Animes.Infra.Data.Configurations.Types.Base;
 using Giro.Animes.Infra.Data.Constants;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Giro.Animes.Infra.Data.Configurations.Types.Content
 {
@@ -22,8 +17,9 @@ namespace Giro.Animes.Infra.Data.Configurations.Types.Content
             builder.ToTable(Tables.Content.ANIMES, Schemas.CONTENT);
             builder.HasOne(ani => ani.Studio).WithMany(studio => studio.Animes).HasForeignKey(anime => anime.StudioId).IsRequired();
             builder.HasMany(ani => ani.Titles).WithOne(title => title.Anime).HasForeignKey(title => title.AnimeId).IsRequired(true);
-            builder.HasMany(ani => ani.Sinopses).WithOne(sinopse => sinopse.Anime).HasForeignKey(title => title.AnimeId).IsRequired(true);
+            builder.HasMany(ani => ani.Sinopses).WithOne(sinopse => sinopse.Anime).HasForeignKey(sinopse => sinopse.AnimeId).IsRequired(true);
             builder.HasMany(ani => ani.Screenshots).WithOne(screenshot => screenshot.Anime).HasForeignKey(title => title.AnimeId).IsRequired(true);
+
             builder.HasMany(ani => ani.Authors).WithMany(author => author.Works).UsingEntity<Works>(
             Tables.Content.AUTHOR_WORKS, // Nome da tabela de junção
             authorsAnimes => authorsAnimes.HasOne(authorsAnimes => authorsAnimes.Author)
@@ -39,6 +35,7 @@ namespace Giro.Animes.Infra.Data.Configurations.Types.Content
             authorsAnimes =>
             {
                 authorsAnimes.ToTable(Tables.Content.AUTHOR_WORKS, Schemas.CONTENT);
+                authorsAnimes.HasQueryFilter(join => join.DeletionDate == null);
             });
 
             builder.HasMany(ani => ani.Genres).WithMany(gen => gen.Animes).UsingEntity<AnimesGenres>(
@@ -53,9 +50,11 @@ namespace Giro.Animes.Infra.Data.Configurations.Types.Content
                   .HasForeignKey(animesGenres => animesGenres.AnimeId) // Nome da coluna FK para Description
                   .IsRequired(true)
                   .OnDelete(DeleteBehavior.Cascade),
-            authorsAnimes =>
+            animesGenres =>
             {
-                authorsAnimes.ToTable(Tables.Content.ANIMES_GENRES, Schemas.CONTENT);
+                animesGenres.ToTable(Tables.Content.ANIMES_GENRES, Schemas.CONTENT);
+                animesGenres.HasQueryFilter(join => join.DeletionDate == null);
+
             });
 
             builder.HasMany(ani => ani.Covers).WithOne(cover => cover.Anime).HasForeignKey(title => title.AnimeId).IsRequired(true);

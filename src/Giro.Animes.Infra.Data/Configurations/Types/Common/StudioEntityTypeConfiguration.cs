@@ -10,7 +10,6 @@ namespace Giro.Animes.Infra.Data.Configurations.Types.Common
     {
         public override void Configure(EntityTypeBuilder<Studio> builder)
         {
-            base.Configure(builder);
 
             builder.ToTable(Tables.Common.STUDIOS, Schemas.COMMON);
 
@@ -24,6 +23,8 @@ namespace Giro.Animes.Infra.Data.Configurations.Types.Common
 
             builder.HasOne(stu => stu.Logo).WithOne(logo => logo.Studio).HasForeignKey<Logo>(logo => logo.StudioId).IsRequired(true);
             builder.HasMany(stu => stu.Animes).WithOne(ani => ani.Studio).HasForeignKey(ani => ani.StudioId);
+
+            base.Configure(builder);
         }
     }
 }

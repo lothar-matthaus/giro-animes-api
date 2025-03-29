@@ -49,6 +49,7 @@ namespace Giro.Animes.Infra.Data.Configurations.Types.Management
             join =>
             {
                 join.ToTable(Tables.Content.WATCHLIST, Schemas.CONTENT);
+                join.HasQueryFilter(join => join.DeletionDate == null);
             });
         }
     }
