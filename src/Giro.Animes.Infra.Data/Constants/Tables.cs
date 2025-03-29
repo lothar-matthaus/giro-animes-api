@@ -43,6 +43,7 @@
 
         public static class Misc
         {
+            public const string AUDIT_LOGS = "audit_logs";
         }
     }
 }

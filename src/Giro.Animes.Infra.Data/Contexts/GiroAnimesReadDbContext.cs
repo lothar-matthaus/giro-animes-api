@@ -39,7 +39,6 @@ namespace Giro.Animes.Infra.Data.Contexts
             modelBuilder.ApplyConfiguration(new AnimeSinopseEntityTypeConfiguration(_user));
             modelBuilder.ApplyConfiguration(new RatingEntityTypeConfiguration());
             modelBuilder.ApplyConfiguration(new EpisodeSinopseEntityTypeConfiguration(_user));
-            // this.ToSnakeCase(modelBuilder);
         }
     }
 }

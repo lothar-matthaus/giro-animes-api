@@ -16,5 +16,6 @@ namespace Giro.Animes.Infra.Data.Repositories.Write.Base
         public async Task AddAsync(TEntity entity, CancellationToken cancellationToken) => await _dbSet.AddAsync(entity, cancellationToken);
         public void Delete(TEntity entity) => _dbSet.Remove(entity);
         public void Update(TEntity entity) => _dbSet.Update(entity);
+
     }
 }
