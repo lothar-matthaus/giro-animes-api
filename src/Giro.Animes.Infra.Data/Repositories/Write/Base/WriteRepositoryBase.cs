@@ -1,12 +1,6 @@
 ﻿using Giro.Animes.Domain.Entities.Base;
 using Giro.Animes.Domain.Interfaces.Repositories.Write.Base;
-using Giro.Animes.Infra.Data.Contexts;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Giro.Animes.Infra.Data.Repositories.Write.Base
 {
@@ -14,7 +8,7 @@ namespace Giro.Animes.Infra.Data.Repositories.Write.Base
     {
         private readonly DbSet<TEntity> _dbSet;
 
-        public WriteRepositoryBase(GiroAnimesWriteDbContext dbContext)
+        public WriteRepositoryBase(DbContext dbContext)
         {
             _dbSet = dbContext.Set<TEntity>();
         }
