@@ -3,7 +3,7 @@ using Giro.Animes.Domain.Interfaces.Repositories.Write.Base;
 
 namespace Giro.Animes.Domain.Interfaces.Repositories.Write
 {
-    public interface IUserWriteRepository : IWriteBaseRepository<User>
+    public interface IAuthorWriteRepository : IWriteBaseRepository<Author>
     {
     }
 }
