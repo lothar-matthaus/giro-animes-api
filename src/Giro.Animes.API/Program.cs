@@ -8,13 +8,15 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 
 builder.Services.AddControllers();
-builder.Services.AddHttpContextAccessor();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 // Configura os serviços da API (Controllers, etc.)
 builder.Services.AddControllers();
+
+// Configura o acesso ao contexto HTTP
+builder.Services.AddHttpContextAccessor();
 
 // Adiciona as configurações da aplicação
 builder.Services.AddAppConfig();
