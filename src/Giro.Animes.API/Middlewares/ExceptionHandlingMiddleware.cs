@@ -1,8 +1,6 @@
 ﻿
 using Giro.Animes.Application.Responses;
-using Microsoft.Data.SqlClient;
 using System.Net;
-using System.Net.Sockets;
 
 namespace Giro.Animes.API.Middlewares
 {
