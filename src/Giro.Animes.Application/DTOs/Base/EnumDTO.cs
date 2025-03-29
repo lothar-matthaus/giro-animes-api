@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Giro.Animes.Application.DTOs.Base
+﻿namespace Giro.Animes.Application.DTOs.Base
 {
     public class EnumDTO<TKey> where TKey : IComparable
     {

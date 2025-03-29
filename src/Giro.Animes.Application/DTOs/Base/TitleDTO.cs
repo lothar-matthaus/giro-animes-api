@@ -17,8 +17,8 @@ namespace Giro.Animes.Application.DTOs
         /// </summary>
         public LanguageDTO Language { get; private set; }
 
-        protected TitleDTO(long? id, DateTime creationDate, DateTime updateDate, DateTime? deletionDate, string name, LanguageDTO language) :
-            base(id, creationDate, updateDate, deletionDate)
+        protected TitleDTO(long? id, DateTime creationDate, DateTime updateDate, string name, LanguageDTO language) :
+            base(id, creationDate, updateDate)
         {
             Name = name;
             Language = language;
