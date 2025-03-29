@@ -91,13 +91,16 @@ namespace Giro.Animes.Domain.Entities
         /// <summary>
         /// Collection of language settings
         /// </summary>
-        public ICollection<Settings> Settings { get; private set; }
-        public ICollection<EpisodeTitle> EpisodeTitles { get; private set; }
-        public ICollection<GenreTitle> GenreTitles { get; private set; }
-        public ICollection<GenreDescription> GenreDescriptions { get; private set; }
-        public ICollection<AnimeSinopse> AnimeSinopses { get; private set; }
-        public ICollection<Cover> Covers { get; private set; }
-        public ICollection<EpisodeSinopse> EpisodeSinopses { get; private set; }
+        public IEnumerable<Settings> Settings { get; private set; }
+        public IEnumerable<Settings> SettingsAnimes { get; private set; }
+        public IEnumerable<EpisodeTitle> EpisodeTitles { get; private set; }
+        public IEnumerable<GenreTitle> GenreTitles { get; private set; }
+        public IEnumerable<GenreDescription> GenreDescriptions { get; private set; }
+        public IEnumerable<AnimeSinopse> AnimeSinopses { get; private set; }
+        public IEnumerable<Cover> Covers { get; private set; }
+        public IEnumerable<EpisodeSinopse> EpisodeSinopses { get; private set; }
+        public IEnumerable<Episode> Episodes { get; private set; }
+        public IEnumerable<Biography> Biographies { get; private set; }
 
         /// <summary>
         /// Collection of language descriptions
@@ -107,7 +110,7 @@ namespace Giro.Animes.Domain.Entities
 
         public Language()
         {
-            
+
         }
 
         #region Constructors
@@ -131,7 +134,7 @@ namespace Giro.Animes.Domain.Entities
         /// <param name="code">Language code</param>
         /// <param name="nativeName">Native name of the language</param>
         /// <returns>New instance of Language</returns>
-        public static Language Create(string name, string code, string nativeName) => new Language(name, code, nativeName);
+        public static Language Create(string name, string code, string nativeName) => new(name, code, nativeName);
         #endregion
     }
 }

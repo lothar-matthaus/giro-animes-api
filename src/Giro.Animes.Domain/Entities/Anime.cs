@@ -1,6 +1,5 @@
 ﻿using Giro.Animes.Domain.Entities.Base;
 using Giro.Animes.Domain.Enums;
-using System.Runtime.CompilerServices;
 
 namespace Giro.Animes.Domain.Entities
 {
@@ -9,42 +8,42 @@ namespace Giro.Animes.Domain.Entities
         /// <summary>
         /// Lista de títulos do anime
         /// </summary>
-        public ICollection<AnimeTitle> Titles { get; private set; }
+        public IEnumerable<AnimeTitle> Titles { get; private set; }
 
         /// <summary>
         /// Descrições do anime, em diferentes idiomas
         /// </summary>
-        public ICollection<AnimeSinopse> Sinopses { get; private set; }
+        public IEnumerable<AnimeSinopse> Sinopses { get; private set; }
 
         /// <summary>
         /// Lista de capas do anime 
         /// </summary>
-        public ICollection<Cover> Covers { get; private set; }
+        public IEnumerable<Cover> Covers { get; private set; }
 
         /// <summary>
         /// Screenshots de resumo para o anime em questão
         /// </summary>
-        public ICollection<AnimeScreenshot> Screenshots { get; private set; }
+        public IEnumerable<AnimeScreenshot> Screenshots { get; private set; }
 
         /// <summary>
         /// Episódios que o anime possui
         /// </summary>
-        public ICollection<Episode> Episodes { get; private set; }
+        public IEnumerable<Episode> Episodes { get; private set; }
 
         /// <summary>
         /// Lista de autores do anime
         /// </summary>
-        public ICollection<Author> Authors { get; private set; }
+        public IEnumerable<Author> Authors { get; private set; }
 
         /// <summary>
         /// Notas dos usuário recebidas neste anime
         /// </summary>
-        public ICollection<Rating> Ratings { get; private set; }
+        public IEnumerable<Rating> Ratings { get; private set; }
 
         /// <summary>
         /// Gêneros que o anime possui
         /// </summary>
-        public ICollection<Genre> Genres { get; private set; }
+        public IEnumerable<Genre> Genres { get; private set; }
 
         /// <summary>
         /// Identificador do estúdio de animação
@@ -59,7 +58,7 @@ namespace Giro.Animes.Domain.Entities
         /// <summary>
         /// Contas de usuário que o anime é favoritado
         /// </summary>
-        public ICollection<Account> Accounts { get; private set; }
+        public IEnumerable<Account> Accounts { get; private set; }
 
         /// <summary>
         /// Indica o status do anime 
@@ -79,7 +78,7 @@ namespace Giro.Animes.Domain.Entities
         /// <param name="authors"></param>
         /// <param name="sinopses"></param>
         /// <param name="status"></param>
-        private Anime(ICollection<AnimeTitle> titles, ICollection<Cover> covers, ICollection<Author> authors, ICollection<AnimeSinopse> sinopses, ICollection<Genre> genres , Studio studio, AnimeStatus status)
+        private Anime(IEnumerable<AnimeTitle> titles, IEnumerable<Cover> covers, IEnumerable<Author> authors, IEnumerable<AnimeSinopse> sinopses, IEnumerable<Genre> genres, Studio studio, AnimeStatus status)
         {
             Titles = titles;
             Covers = covers;
@@ -99,8 +98,8 @@ namespace Giro.Animes.Domain.Entities
         /// <param name="sinopses"></param>
         /// <param name="status"></param>
         /// <returns></returns>
-        public static Anime Create(ICollection<AnimeTitle> titles, ICollection<Cover> covers, ICollection<Author> authors, ICollection<AnimeSinopse> sinopses, ICollection<Genre> genres, Studio studio, AnimeStatus status)
-            => new Anime(titles, covers, authors, sinopses, genres, studio, status);
+        public static Anime Create(IEnumerable<AnimeTitle> titles, IEnumerable<Cover> covers, IEnumerable<Author> authors, IEnumerable<AnimeSinopse> sinopses, IEnumerable<Genre> genres, Studio studio, AnimeStatus status)
+            => new(titles, covers, authors, sinopses, genres, studio, status);
 
     }
 }
