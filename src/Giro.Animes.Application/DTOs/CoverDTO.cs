@@ -1,11 +1,9 @@
-﻿using Giro.Animes.Domain.Entities;
-
-namespace Giro.Animes.Application.DTOs
+﻿namespace Giro.Animes.Application.DTOs
 {
     /// <summary>
     /// Objeto de Transferência de Dados para a entidade Cover.
     /// </summary>
-    public class CoverDTO : MediaDTO<Cover>
+    public class CoverDTO : MediaDTO
     {
         /// <summary>
         /// Obtém ou define o identificador do anime ao qual a capa pertence.
@@ -17,21 +15,14 @@ namespace Giro.Animes.Application.DTOs
         /// </summary>
         public LanguageDTO Language { get; private set; }
 
-        /// <summary>
-        /// Inicializa uma nova instância da classe <see cref="CoverDTO"/>.
-        /// </summary>
-        /// <param name="cover">A entidade Cover.</param>
-        private CoverDTO(Cover cover) : base(cover)
+        private CoverDTO(long? id, DateTime creationDate, DateTime updateDate, DateTime? deletionDate, long animeId, LanguageDTO language, string url, string fileName, string extension) :
+            base(id, creationDate, updateDate, deletionDate, url, fileName, extension)
         {
-            AnimeId = cover.AnimeId;
-            Language = LanguageDTO.Create(cover.Language);
+            AnimeId = animeId;
+            Language = language;
         }
 
-        /// <summary>
-        /// Cria uma nova instância da classe <see cref="CoverDTO"/> a partir de uma entidade <see cref="Cover"/>.
-        /// </summary>
-        /// <param name="cover">A entidade Cover.</param>
-        /// <returns>Uma nova instância de <see cref="CoverDTO"/>.</returns>
-        public static CoverDTO Create(Cover cover) => new CoverDTO(cover);
+        public static CoverDTO Create(long? id, DateTime creationDate, DateTime updateDate, DateTime? deletionDate, long animeId, LanguageDTO language, string url, string fileName, string extension)
+            => new CoverDTO(id, creationDate, updateDate, deletionDate, animeId, language, url, fileName, extension);
     }
 }

@@ -1,9 +1,8 @@
 ﻿using Giro.Animes.Application.DTOs.Base;
-using Giro.Animes.Domain.Entities;
 
 namespace Giro.Animes.Application.DTOs
 {
-    public class GenreDTO : BaseDTO<Genre>
+    public class GenreDTO : BaseDTO
     {
         public IEnumerable<GenreTitleDTO> Titles { get; private set; }
 
@@ -13,10 +12,10 @@ namespace Giro.Animes.Application.DTOs
         /// Private constructor to initialize GenreDTODTO with an GenreDTO entity.
         /// </summary>
         /// <param name="genre">GenreDTO entity.</param>
-        private GenreDTO(Genre genre) : base(genre)
+        private GenreDTO(long? id, DateTime creationDate, DateTime updateDate, DateTime? deletionDate, IEnumerable<GenreTitleDTO> titles, IEnumerable<GenreDescriptionDTO> descriptions) : base(id, creationDate, updateDate, deletionDate)
         {
-            Titles = genre.Titles.Select(GenreTitleDTO.Create);
-            Description = genre.Descriptions.Select(GenreDescriptionDTO.Create);
+            Titles = titles;
+            Description = descriptions;
         }
 
         /// <summary>
@@ -24,6 +23,6 @@ namespace Giro.Animes.Application.DTOs
         /// </summary>
         /// <param name="genre">Genre entity.</param>
         /// <returns>New instance of GenreDTO.</returns>
-        public static GenreDTO Create(Genre genre) => new GenreDTO(genre);
+        public static GenreDTO Create(long? id, DateTime creationDate, DateTime updateDate, DateTime? deletionDate, IEnumerable<GenreTitleDTO> titles, IEnumerable<GenreDescriptionDTO> descriptions) => new GenreDTO(id, creationDate, updateDate, deletionDate, titles, descriptions);
     }
 }

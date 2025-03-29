@@ -1,41 +1,20 @@
 ﻿using Giro.Animes.Application.DTOs.Base;
-using Giro.Animes.Domain.Entities;
 
 namespace Giro.Animes.Application.DTOs
 {
-    public class AnimeSinopseDTO : BaseDTO<AnimeSinopse>
+    public class AnimeSinopseDTO : DescriptionDTO
     {
-        /// <summary>  
-        /// Texto da descrição do anime  
-        /// </summary>  
-        public string Text { get; private set; }
 
         /// <summary>  
         /// Identificador do anime ao qual a descrição pertence  
         /// </summary>  
         public long AnimeId { get; private set; }
 
-        /// <summary>  
-        /// Idioma da descrição  
-        /// </summary>  
-        public LanguageDTO Language { get; private set; }
-
-        /// <summary>  
-        /// Construtor privado com parâmetros. Garante a construção do objeto através do método Create  
-        /// </summary>  
-        /// <param name="animeSinopse">Instância da entidade AnimeSinopse</param>  
-        private AnimeSinopseDTO(AnimeSinopse animeSinopse) : base(animeSinopse)
+        private AnimeSinopseDTO(long? id, DateTime creationDate, DateTime updateDate, DateTime? deletionDate, long animeId, string text, LanguageDTO language) : base(id, creationDate, updateDate, deletionDate, text, language)
         {
-            Text = animeSinopse.Text;
-            AnimeId = animeSinopse.AnimeId;
-            Language = LanguageDTO.Create(animeSinopse.Language);
+            AnimeId = animeId;
         }
-
-        /// <summary>  
-        /// Método estático para criar um objeto AnimeSinopseDTO com validações de propriedades e retorno do objeto  
-        /// </summary>  
-        /// <param name="animeSinopse">Instância da entidade AnimeSinopse</param>  
-        /// <returns>Uma nova instância de AnimeSinopseDTO</returns>  
-        public static AnimeSinopseDTO Create(AnimeSinopse animeSinopse) => new AnimeSinopseDTO(animeSinopse);
+        public static AnimeSinopseDTO Create(long? id, DateTime creationDate, DateTime updateDate, DateTime? deletionDate, long animeId, string text, LanguageDTO language)
+            => new AnimeSinopseDTO(id, creationDate, updateDate, deletionDate, animeId, text, language);
     }
 }

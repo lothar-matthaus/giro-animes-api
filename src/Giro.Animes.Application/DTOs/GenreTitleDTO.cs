@@ -1,26 +1,18 @@
-﻿using Giro.Animes.Domain.Entities;
-
-namespace Giro.Animes.Application.DTOs
+﻿namespace Giro.Animes.Application.DTOs
 {
-    public class GenreTitleDTO : TitleDTO<GenreTitle>
+    public class GenreTitleDTO : TitleDTO
     {
         /// <summary>
         /// Identificador a qual o título de gênero pertence.
         /// </summary>
         public long GenreId { get; private set; }
 
-        /// <summary>
-        /// Private constructor to initialize GenreTitleDTO with an GenreTitle entity.
-        /// </summary>
-        /// <param name="genreTitle">GenreTitle entity.</param>
-        private GenreTitleDTO(GenreTitle genreTitle) : base(genreTitle)
+        private GenreTitleDTO(long? id, DateTime creationDate, DateTime updateDate, DateTime? deletionDate, long genreId, string name, LanguageDTO language) : base(id, creationDate, updateDate, deletionDate, name, language)
         {
+            GenreId = genreId;
         }
 
-        /// <summary>
-        /// Private constructor to initialize GenreTitleDTO with an GenreTitle entity.
-        /// </summary>
-        /// <param name="genreTitle">GenreTitle entity.</param>
-        public static GenreTitleDTO Create(GenreTitle genreTitle) => new GenreTitleDTO(genreTitle);
+        public static GenreTitleDTO Create(long? id, DateTime creationDate, DateTime updateDate, DateTime? deletionDate, long genreId, string name, LanguageDTO language)
+            => new GenreTitleDTO(id, creationDate, updateDate, deletionDate, genreId, name, language);
     }
 }

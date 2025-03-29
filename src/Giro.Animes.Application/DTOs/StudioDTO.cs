@@ -1,17 +1,11 @@
 ﻿using Giro.Animes.Application.DTOs.Base;
-using Giro.Animes.Domain.Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Giro.Animes.Application.DTOs
 {
     /// <summary>
     /// Data Transfer Object for Studio entity.
     /// </summary>
-    public class StudioDTO : BaseDTO<Studio>
+    public class StudioDTO : BaseDTO
     {
         /// <summary>
         /// Studio name.
@@ -46,30 +40,22 @@ namespace Giro.Animes.Application.DTOs
         /// </summary>
         public LogoDTO Logo { get; private set; }
 
-        /// <summary>
-        /// Private constructor to initialize StudioDTO with a Studio entity.
-        /// </summary>
-        /// <param name="studio">Studio entity.</param>
-        private StudioDTO(Studio studio) : base(studio)
+        private StudioDTO(long? id, DateTime creationDate, DateTime updateDate, DateTime? deletionDate, string name, DateTime establishedDate, string country, string city, string website, string twitter, string instagram, LogoDTO logo)
+            : base(id, creationDate, updateDate, deletionDate)
         {
-            Name = studio.Name;
-            EstablishedDate = studio.EstablishedDate;
-            Country = studio.Country;
-            City = studio.City;
-            Website = studio.Website;
-            Twitter = studio.Twitter;
-            Instagram = studio.Instagram;
-            Logo = LogoDTO.Create(studio.Logo);
+            Name = name;
+            EstablishedDate = establishedDate;
+            Country = country;
+            City = city;
+            Website = website;
+            Twitter = twitter;
+            Instagram = instagram;
+            Logo = logo;
         }
 
-        /// <summary>
-        /// Creates a new instance of StudioDTO.
-        /// </summary>
-        /// <param name="studio">Studio entity.</param>
-        /// <returns>New instance of StudioDTO.</returns>
-        public static StudioDTO Create(Studio studio)
+        public static StudioDTO Create(long? id, DateTime creationDate, DateTime updateDate, DateTime? deletionDate, string name, DateTime establishedDate, string country, string city, string website, string twitter, string instagram, LogoDTO logo)
         {
-            return new StudioDTO(studio);
+            return new StudioDTO(id, creationDate, updateDate, deletionDate, name, establishedDate, country, city, website, twitter, instagram, logo);
         }
     }
 }

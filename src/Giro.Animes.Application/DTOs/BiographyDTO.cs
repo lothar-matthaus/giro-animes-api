@@ -1,34 +1,22 @@
 ﻿using Giro.Animes.Application.DTOs.Base;
-using Giro.Animes.Domain.Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Giro.Animes.Application.DTOs
 {
-    public class BiographyDTO : DescriptionDTO<Biography>
+    public class BiographyDTO : DescriptionDTO
     {
+
         /// <summary>
         /// Identificador do autor ao qual a biografia pertence
         /// </summary>
         public long AuthorId { get; private set; }
 
-        private BiographyDTO(Biography biography) : base(biography)
+        private BiographyDTO(long? id, DateTime creationDate, DateTime updateDate, DateTime? deletionDate, long authorId, string text, LanguageDTO language) : base(id, creationDate, updateDate, deletionDate, text, language)
         {
-            AuthorId = biography.AuthorId;
+            AuthorId = authorId;
         }
-
-        /// <summary>
-        /// Cria uma nova instância de BiographyDTO a partir de uma entidade Biography.
-        /// </summary>
-        /// <param name="biography">A entidade Biography.</param>
-        /// <returns>Uma nova instância de BiographyDTO.</returns>
-        public static BiographyDTO Create(Biography biography)
+        public static BiographyDTO Create(long? id, DateTime creationDate, DateTime updateDate, DateTime? deletionDate, long authorId, string text, LanguageDTO language)
         {
-            return new BiographyDTO(biography);
+            return new BiographyDTO(id, creationDate, updateDate, deletionDate, authorId, text, language);
         }
     }
 }

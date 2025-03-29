@@ -1,83 +1,117 @@
 ﻿
 using Giro.Animes.Application.DTOs.Base;
-using Giro.Animes.Domain.Entities;
 using Giro.Animes.Domain.Enums;
-using System.Threading.Tasks;
 
 namespace Giro.Animes.Application.DTOs
 {
     /// <summary>
-    /// Data Transfer Object for Anime entity.
+    /// Objeto de Transferência de Dados para a entidade Anime.
     /// </summary>
-    public class AnimeDTO : BaseDTO<Anime>
+    public class AnimeDTO : BaseDTO
     {
         /// <summary>
-        /// Collection of anime titles.
+        /// Coleção de títulos do anime.
         /// </summary>
         public IEnumerable<AnimeTitleDTO> Titles { get; private set; }
-        /// <summary>
-        /// Collection of anime synopses.
-        /// </summary>
-        public IEnumerable<AnimeSinopseDTO> Sinopses { get; private set; }
-        /// <summary>
-        /// Collection of anime covers.
-        /// </summary>
-        public IEnumerable<CoverDTO> Covers { get; private set; }
-        /// <summary>
-        /// Collection of anime screenshots.
-        /// </summary>
-        public IEnumerable<AnimeScreenshotDTO> Screenshots { get; private set; }
-        /// <summary>
-        /// Collection of anime episodes.
-        /// </summary>
-        public IEnumerable<EpisodeDTO> Episodes { get; private set; }
-        /// <summary>
-        /// Collection of anime authors.
-        /// </summary>
-        public IEnumerable<AuthorDTO> Authors { get; private set; }
-        /// <summary>
-        /// Anime rating
-        /// </summary>
-        public double Rating { get; private set; }
-        /// <summary>
-        /// Collection of anime genres.
-        /// </summary>
-        public IEnumerable<GenreDTO> Genres { get; private set; }
-        /// <summary>
-        /// Studio that created the anime.
-        /// </summary>
-        public StudioDTO Studio { get; private set; }
-        /// <summary>
-        /// Status of the anime.
-        /// </summary>
-        public KeyValueDTO Status { get; private set; }
 
         /// <summary>
-        /// Private constructor to initialize AnimeDTO with an Anime entity.
+        /// Coleção de sinopses do anime.
         /// </summary>
-        /// <param name="anime">Anime entity.</param>
-        private AnimeDTO(Anime anime) : base(anime)
+        public IEnumerable<AnimeSinopseDTO> Sinopses { get; private set; }
+
+        /// <summary>
+        /// Coleção de capas do anime.
+        /// </summary>
+        public IEnumerable<CoverDTO> Covers { get; private set; }
+
+        /// <summary>
+        /// Coleção de capturas de tela do anime.
+        /// </summary>
+        public IEnumerable<AnimeScreenshotDTO> Screenshots { get; private set; }
+
+        /// <summary>
+        /// Coleção de episódios do anime.
+        /// </summary>
+        public IEnumerable<EpisodeDTO> Episodes { get; private set; }
+
+        /// <summary>
+        /// Coleção de autores do anime.
+        /// </summary>
+        public IEnumerable<AuthorDTO> Authors { get; private set; }
+
+        /// <summary>
+        /// Avaliação do anime.
+        /// </summary>
+        public IEnumerable<RatingDTO> Rating { get; private set; }
+
+        /// <summary>
+        /// Coleção de gêneros do anime.
+        /// </summary>
+        public IEnumerable<GenreDTO> Genres { get; private set; }
+
+        /// <summary>
+        /// Estúdio que criou o anime.
+        /// </summary>
+        public StudioDTO Studio { get; private set; }
+
+        /// <summary>
+        /// Status do anime.
+        /// </summary>
+        public EnumDTO<int> Status { get; private set; }
+
+        /// <summary>
+        /// Construtor privado para inicializar AnimeDTO com uma entidade Anime.
+        /// </summary>
+        /// <param name="id">Identificador do anime.</param>
+        /// <param name="creationDate">Data de criação.</param>
+        /// <param name="updateDate">Data de atualização.</param>
+        /// <param name="deletionDate">Data de exclusão.</param>
+        /// <param name="titles">Coleção de títulos do anime.</param>
+        /// <param name="sinopses">Coleção de sinopses do anime.</param>
+        /// <param name="covers">Coleção de capas do anime.</param>
+        /// <param name="screenshots">Coleção de capturas de tela do anime.</param>
+        /// <param name="episodes">Coleção de episódios do anime.</param>
+        /// <param name="authors">Coleção de autores do anime.</param>
+        /// <param name="rating">Avaliação do anime.</param>
+        /// <param name="genres">Coleção de gêneros do anime.</param>
+        /// <param name="studio">Estúdio que criou o anime.</param>
+        /// <param name="status">Status do anime.</param>
+        private AnimeDTO(long? id, DateTime creationDate, DateTime updateDate, DateTime? deletionDate, IEnumerable<AnimeTitleDTO> titles, IEnumerable<AnimeSinopseDTO> sinopses, IEnumerable<CoverDTO> covers, IEnumerable<AnimeScreenshotDTO> screenshots, IEnumerable<EpisodeDTO> episodes, IEnumerable<AuthorDTO> authors, IEnumerable<RatingDTO> rating, IEnumerable<GenreDTO> genres, StudioDTO studio, EnumDTO<int> status) :
+            base(id, creationDate, updateDate, deletionDate)
         {
-            Titles = anime.Titles.Select(AnimeTitleDTO.Create);
-            Sinopses = anime.Sinopses.Select(AnimeSinopseDTO.Create);
-            Covers = anime.Covers.Select(CoverDTO.Create);
-            Screenshots = anime.Screenshots.Select(AnimeScreenshotDTO.Create);
-            Episodes = anime.Episodes.Select(EpisodeDTO.Create);
-            Authors = anime.Authors.Select(AuthorDTO.Create);
-            Rating = Math.Round(anime.Ratings.Sum(rating => rating.Rate) / anime.Ratings.Count);
-            Genres = anime.Genres.Select(GenreDTO.Create);
-            Studio = StudioDTO.Create(anime.Studio);
-            Status = KeyValueDTO.Create(anime.Status.Value, anime.Status.Name);
+            Titles = titles;
+            Sinopses = sinopses;
+            Covers = covers;
+            Screenshots = screenshots;
+            Episodes = episodes;
+            Authors = authors;
+            Rating = rating;
+            Genres = genres;
+            Studio = studio;
+            Status = status;
         }
 
         /// <summary>
-        /// Creates a new instance of AnimeDTO.
+        /// Cria uma nova instância de AnimeDTO.
         /// </summary>
-        /// <param name="anime">Anime entity.</param>
-        /// <returns>New instance of AnimeDTO.</returns>
-        public static AnimeDTO Create(Anime anime)
+        /// <param name="id">Identificador do anime.</param>
+        /// <param name="creationDate">Data de criação.</param>
+        /// <param name="updateDate">Data de atualização.</param>
+        /// <param name="deletionDate">Data de exclusão.</param>
+        /// <param name="titles">Coleção de títulos do anime.</param>
+        /// <param name="sinopses">Coleção de sinopses do anime.</param>
+        /// <param name="covers">Coleção de capas do anime.</param>
+        /// <param name="screenshots">Coleção de capturas de tela do anime.</param>
+        /// <param name="episodes">Coleção de episódios do anime.</param>
+        /// <param name="authors">Coleção de autores do anime.</param>
+        /// <param name="rating">Avaliação do anime.</param>
+        /// <param name="genres">Coleção de gêneros do anime.</param>
+        /// <param name="studio">Estúdio que criou o anime.</param>
+        /// <param name="status">Status do anime.</param>
+        /// <returns>Nova instância de AnimeDTO.</returns>
+        public static AnimeDTO Create(long? id, DateTime creationDate, DateTime updateDate, DateTime? deletionDate, IEnumerable<AnimeTitleDTO> titles, IEnumerable<AnimeSinopseDTO> sinopses, IEnumerable<CoverDTO> covers, IEnumerable<AnimeScreenshotDTO> screenshots, IEnumerable<EpisodeDTO> episodes, IEnumerable<AuthorDTO> authors, IEnumerable<RatingDTO> rating, IEnumerable<GenreDTO> genres, StudioDTO studio, EnumDTO<int> status)
         {
-            return new AnimeDTO(anime);
+            return new AnimeDTO(id, creationDate, updateDate, deletionDate, titles, sinopses, covers, screenshots, episodes, authors, rating, genres, studio, status);
         }
     }
 

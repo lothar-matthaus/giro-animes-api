@@ -1,44 +1,24 @@
 ﻿using Giro.Animes.Application.DTOs.Base;
-using Giro.Animes.Domain.Entities;
 
 namespace Giro.Animes.Application.DTOs
 {
     /// <summary>
     /// Objeto de Transferência de Dados para a entidade EpisodeSinopse.
     /// </summary>
-    public class EpisodeSinopseDTO : BaseDTO<EpisodeSinopse>
+    public class EpisodeSinopseDTO : DescriptionDTO
     {
-        /// <summary>
-        /// Texto da descrição do episódio.
-        /// </summary>
-        public string Text { get; private set; }
-
         /// <summary>
         /// Identificador do episódio ao qual a descrição pertence.
         /// </summary>
         public long EpisodeId { get; private set; }
 
-        /// <summary>
-        /// Idioma da descrição.
-        /// </summary>
-        public LanguageDTO Language { get; private set; }
-
-        /// <summary>
-        /// Construtor privado com parâmetros. Garante a construção do objeto através do método Create.
-        /// </summary>
-        /// <param name="episodeSinopse">Instância da entidade EpisodeSinopse.</param>
-        private EpisodeSinopseDTO(EpisodeSinopse episodeSinopse) : base(episodeSinopse)
+        private EpisodeSinopseDTO(long? id, DateTime creationDate, DateTime updateDate, DateTime? deletionDate, string text, long episodeId, LanguageDTO language) :
+            base(id, creationDate, updateDate, deletionDate, text, language)
         {
-            Text = episodeSinopse.Text;
-            EpisodeId = episodeSinopse.EpisodeId;
-            Language = LanguageDTO.Create(episodeSinopse.Language);
+            EpisodeId = episodeId;
         }
 
-        /// <summary>
-        /// Método estático para criar um objeto EpisodeSinopseDTO com validações de propriedades e retorno do objeto.
-        /// </summary>
-        /// <param name="episodeSinopse">Instância da entidade EpisodeSinopse.</param>
-        /// <returns>Uma nova instância de EpisodeSinopseDTO.</returns>
-        public static EpisodeSinopseDTO Create(EpisodeSinopse episodeSinopse) => new EpisodeSinopseDTO(episodeSinopse);
+        public static EpisodeSinopseDTO Create(long? id, DateTime creationDate, DateTime updateDate, DateTime? deletionDate, string text, long episodeId, LanguageDTO language)
+            => new EpisodeSinopseDTO(id, creationDate, updateDate, deletionDate, text, episodeId, language);
     }
 }

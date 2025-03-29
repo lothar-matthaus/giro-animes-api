@@ -1,12 +1,11 @@
 ﻿using Giro.Animes.Application.DTOs.Base;
-using Giro.Animes.Domain.Entities;
 
 namespace Giro.Animes.Application.DTOs
 {
     /// <summary>
     /// Objeto de Transferência de Dados para a entidade Episode.
     /// </summary>
-    public class EpisodeDTO : BaseDTO<Episode>
+    public class EpisodeDTO : BaseDTO
     {
         /// <summary>
         /// Coleção de títulos do episódio.
@@ -29,6 +28,12 @@ namespace Giro.Animes.Application.DTOs
         public int Duration { get; private set; }
 
         /// <summary>
+        /// Data de exibição do episódio.
+        /// </summary>
+        public DateTime AirDate { get; private set; }
+
+
+        /// <summary>
         /// Arquivo de vídeo do episódio em questão.
         /// </summary>
         public IEnumerable<EpisodeFileDTO> Files { get; private set; }
@@ -38,25 +43,18 @@ namespace Giro.Animes.Application.DTOs
         /// </summary>
         public long AnimeId { get; private set; }
 
-        /// <summary>
-        /// Inicializa uma nova instância da classe <see cref="EpisodeDTO"/>.
-        /// </summary>
-        /// <param name="episode">A entidade Episode.</param>
-        private EpisodeDTO(Episode episode) : base(episode)
+        private EpisodeDTO(IEnumerable<EpisodeTitleDTO> titles, IEnumerable<EpisodeSinopseDTO> animeSinopses, int number, int duration, DateTime airDate, IEnumerable<EpisodeFileDTO> episodeFiles, long animeId, long? id, DateTime creationDate, DateTime updateDate, DateTime? deletionDate) : base(id, creationDate, updateDate, deletionDate)
         {
-            Titles = episode.Titles.Select(EpisodeTitleDTO.Create).ToList();
-            Sinopses = episode.Sinopses.Select(EpisodeSinopseDTO.Create).ToList();
-            Number = episode.Number;
-            Duration = episode.Duration;
-            Files = episode.Files.Select(EpisodeFileDTO.Create).ToList();
-            AnimeId = episode.AnimeId;
+            Titles = titles;
+            Sinopses = animeSinopses;
+            Number = number;
+            Duration = duration;
+            Files = episodeFiles;
+            AnimeId = animeId;
+            AirDate = airDate;
         }
 
-        /// <summary>
-        /// Cria uma nova instância da classe <see cref="EpisodeDTO"/> a partir de uma entidade <see cref="Episode"/>.
-        /// </summary>
-        /// <param name="episode">A entidade Episode.</param>
-        /// <returns>Uma nova instância de <see cref="EpisodeDTO"/>.</returns>
-        public static EpisodeDTO Create(Episode episode) => new EpisodeDTO(episode);
+        public static EpisodeDTO Create(IEnumerable<EpisodeTitleDTO> titles, IEnumerable<EpisodeSinopseDTO> animeSinopses, int number, int duration, DateTime airDate, IEnumerable<EpisodeFileDTO> episodeFiles, long animeId, long? id, DateTime creationDate, DateTime updateDate, DateTime? deletionDate)
+            => new EpisodeDTO(titles, animeSinopses, number, duration, airDate, episodeFiles, animeId, id, creationDate, updateDate, deletionDate);
     }
 }
