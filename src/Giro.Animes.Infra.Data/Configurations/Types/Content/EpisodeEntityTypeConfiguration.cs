@@ -34,7 +34,6 @@ namespace Giro.Animes.Infra.Data.Configurations.Types.Content
             join =>
             {
                 join.ToTable(Tables.Content.EPISODE_LANGUAGES, Schemas.CONTENT);
-                join.HasQueryFilter(join => join.DeletionDate == null);
             });
             builder.Navigation(ep => ep.Titles);
             builder.Navigation(ep => ep.Files);

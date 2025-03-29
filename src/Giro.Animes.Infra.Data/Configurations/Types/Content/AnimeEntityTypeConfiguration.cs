@@ -35,7 +35,6 @@ namespace Giro.Animes.Infra.Data.Configurations.Types.Content
             authorsAnimes =>
             {
                 authorsAnimes.ToTable(Tables.Content.AUTHOR_WORKS, Schemas.CONTENT);
-                authorsAnimes.HasQueryFilter(join => join.DeletionDate == null);
             });
 
             builder.HasMany(ani => ani.Genres).WithMany(gen => gen.Animes).UsingEntity<AnimesGenres>(
@@ -53,8 +52,6 @@ namespace Giro.Animes.Infra.Data.Configurations.Types.Content
             animesGenres =>
             {
                 animesGenres.ToTable(Tables.Content.ANIMES_GENRES, Schemas.CONTENT);
-                animesGenres.HasQueryFilter(join => join.DeletionDate == null);
-
             });
 
             builder.HasMany(ani => ani.Covers).WithOne(cover => cover.Anime).HasForeignKey(title => title.AnimeId).IsRequired(true);

@@ -35,7 +35,6 @@ namespace Giro.Animes.Infra.Data.Configurations.Types.Management
             join =>
             {
                 join.ToTable(Tables.Content.SETTINGS_ANIME_LANGUAGES, Schemas.CONTENT);
-                join.HasQueryFilter(join => join.DeletionDate == null);
             });
 
             builder.Navigation(settings => settings.InterfaceLanguage);
