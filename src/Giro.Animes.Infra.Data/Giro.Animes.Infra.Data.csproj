@@ -18,6 +18,7 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
+    <PackageReference Include="MySql.Data" Version="9.2.0" />
     <PackageReference Include="Npgsql" Version="9.0.3" />
     <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="9.0.4" />
   </ItemGroup>
@@ -28,7 +29,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Configurations\Types\Misc\" />
     <Folder Include="Migrations\" />
   </ItemGroup>
 
