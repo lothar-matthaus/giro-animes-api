@@ -1,10 +1,5 @@
 ﻿using Giro.Animes.Application.DTOs;
 using Giro.Animes.Domain.Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Giro.Animes.Application.Mappers
 {
@@ -20,7 +15,7 @@ namespace Giro.Animes.Application.Mappers
         /// <returns></returns>
         public static CoverDTO Map(this Cover cover)
         {
-            CoverDTO coverDTO = CoverDTO.Create(cover.Id, cover.CreationDate, cover.UpdateDate, cover.DeletionDate, cover.AnimeId, cover.Language.Map(), cover.Url, cover.FileName, cover.Extension);
+            CoverDTO coverDTO = CoverDTO.Create(cover.Id, cover.CreationDate, cover.UpdateDate, cover.AnimeId, cover.Language.Map(), cover.Url, cover.FileName, cover.Extension);
             return coverDTO;
         }
 

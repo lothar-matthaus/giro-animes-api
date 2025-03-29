@@ -11,7 +11,6 @@ namespace Giro.Animes.Application.Mappers
                 episodeFile.Id,
                 episodeFile.CreationDate,
                 episodeFile.UpdateDate,
-                episodeFile.DeletionDate,
                 episodeFile.Url,
                 episodeFile.FileName,
                 episodeFile.Extension,

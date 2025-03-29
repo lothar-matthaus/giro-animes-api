@@ -1,10 +1,5 @@
 ﻿using Giro.Animes.Application.DTOs;
 using Giro.Animes.Domain.Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Giro.Animes.Application.Mappers
 {
@@ -18,10 +13,10 @@ namespace Giro.Animes.Application.Mappers
         /// </summary>
         /// <param name="screenshot"></param>
         /// <returns></returns>
-        public static AnimeScreenshotDTO Map (this AnimeScreenshot screenshot)
+        public static AnimeScreenshotDTO Map(this AnimeScreenshot screenshot)
         {
-            AnimeScreenshotDTO animeScreenshot = AnimeScreenshotDTO.Create(screenshot.Id, screenshot.CreationDate, screenshot.UpdateDate, screenshot.DeletionDate, screenshot.AnimeId, screenshot.Url, screenshot.FileName, screenshot.Extension);
-            return animeScreenshot;            
+            AnimeScreenshotDTO animeScreenshot = AnimeScreenshotDTO.Create(screenshot.Id, screenshot.CreationDate, screenshot.UpdateDate, screenshot.AnimeId, screenshot.Url, screenshot.FileName, screenshot.Extension);
+            return animeScreenshot;
         }
 
         /// <summary>

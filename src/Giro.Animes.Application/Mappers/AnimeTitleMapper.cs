@@ -1,10 +1,5 @@
 ﻿using Giro.Animes.Application.DTOs;
 using Giro.Animes.Domain.Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Giro.Animes.Application.Mappers
 {
@@ -12,7 +7,7 @@ namespace Giro.Animes.Application.Mappers
     {
         public static AnimeTitleDTO Map(this AnimeTitle title)
         {
-            AnimeTitleDTO titleDTO = AnimeTitleDTO.Create(title.Name, title.AnimeId, LanguageMapper.Map(title.Language), title.Id, title.CreationDate, title.UpdateDate, title.DeletionDate);
+            AnimeTitleDTO titleDTO = AnimeTitleDTO.Create(title.Name, title.AnimeId, LanguageMapper.Map(title.Language), title.Id, title.CreationDate, title.UpdateDate);
             return titleDTO;
         }
 

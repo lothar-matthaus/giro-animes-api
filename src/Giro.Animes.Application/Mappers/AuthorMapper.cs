@@ -19,8 +19,7 @@ namespace Giro.Animes.Application.Mappers
                 author.Works?.Map(),
                 BiographyMapper.Map(author.Biographies),
                 author.CreationDate,
-                author.UpdateDate,
-                author.DeletionDate);
+                author.UpdateDate);
 
             return authorDTO;
         }

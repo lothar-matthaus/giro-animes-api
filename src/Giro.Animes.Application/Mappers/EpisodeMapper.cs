@@ -1,10 +1,5 @@
 ﻿using Giro.Animes.Application.DTOs;
 using Giro.Animes.Domain.Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Giro.Animes.Application.Mappers
 {
@@ -30,8 +25,7 @@ namespace Giro.Animes.Application.Mappers
                 episode.AnimeId,
                 episode.Id,
                 episode.CreationDate,
-                episode.UpdateDate,
-                episode.DeletionDate
+                episode.UpdateDate
             );
 
             return episodeDTO;
