@@ -21,11 +21,6 @@ namespace Giro.Animes.Domain.Entities.Base
         public DateTime UpdateDate { get; protected set; }
 
         /// <summary>
-        /// Data de exclusão do registro
-        /// </summary>
-        public DateTime? DeletionDate { get; private set; }
-
-        /// <summary>
         /// Indica se a entidade é válida ou não 
         /// </summary>
         public bool IsValid => !_errors.Any();
@@ -41,14 +36,6 @@ namespace Giro.Animes.Domain.Entities.Base
         protected EntityBase()
         {
 
-        }
-
-        /// <summary>
-        /// Atualiza a data de exclusão do registro para a data e hora atuais
-        /// </summary>
-        public void Delete()
-        {
-            DeletionDate = DateTime.Now;
         }
 
         #region Métodos de validação de entidade
