@@ -21,9 +21,9 @@
 
         public static class Language
         {
-            public const string NAME = @"^.{3,20}$";
+            public const string NAME = @"^.{3,50}$";
             public const string CODE = @"^[a-z]{2}-[A-Z]{2}$";
-            public const string NATIVE_NAME = @"^.{3,20}$";
+            public const string NATIVE_NAME = @"^.{3,50}$";
         }
 
         public static class Author

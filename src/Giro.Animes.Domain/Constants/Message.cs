@@ -23,7 +23,7 @@
 
             public static class Language
             {
-                public const string NAME_LENGHT = "O nome do idioma deve conter entre 3 e 20 caracteres";
+                public const string NAME_LENGHT = "O nome do idioma deve conter entre 3 e 50 caracteres";
                 public const string CODE_FORMAT = "O código do idioma deve seguir o padrão xx-XX";
                 public const string CODE_LENGHT = "O código do idioma deve conter 5 caracteres";
             }
