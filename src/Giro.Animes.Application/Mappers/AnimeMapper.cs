@@ -1,0 +1,40 @@
+﻿using Giro.Animes.Application.DTOs;
+using Giro.Animes.Domain.Entities;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Giro.Animes.Application.Mappers
+{
+    internal static class AnimeMapper
+    {
+        public static AnimeDTO Map(this Anime anime)
+        {
+            AnimeDTO animeDTO = AnimeDTO.Create(
+                anime.Id,
+                anime.CreationDate,
+                anime.UpdateDate,
+                anime.DeletionDate,
+                anime.Titles.Map(),
+                anime.Sinopses?.Map(),
+                anime.Covers.Map(),
+                anime.Screenshots?.Map(),
+                anime.Episodes?.Map(),
+                anime.Authors?.Map(),
+                anime.Ratings?.Map(),
+                anime.Genres.Map(),
+                anime.Studio.Map(),
+                anime.Status.Map()
+                );
+            return animeDTO;
+        }
+
+        public static IEnumerable<AnimeDTO> Map(this IEnumerable<Anime> animes)
+        {
+            IEnumerable<AnimeDTO> result = animes.Select(Map);
+            return result;
+        }
+    }
+}
