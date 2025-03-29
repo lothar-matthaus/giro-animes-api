@@ -1,17 +1,11 @@
 ﻿using Giro.Animes.Application.DTOs.Base;
-using Giro.Animes.Domain.Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Giro.Animes.Application.DTOs
 {
     /// <summary>
     /// Objeto de Transferência de Dados para a entidade Media.
     /// </summary>
-    public abstract class MediaDTO<TMedia> : BaseDTO<TMedia> where TMedia : Media
+    public abstract class MediaDTO : BaseDTO
     {
         /// <summary>
         /// URL da mídia.
@@ -32,11 +26,12 @@ namespace Giro.Animes.Application.DTOs
         /// Construtor privado com parâmetros. Garante a construção do objeto através do método Create.
         /// </summary>
         /// <param name="media">Instância da entidade Media.</param>
-        protected MediaDTO(TMedia media) : base(media)
+        protected MediaDTO(long? id, DateTime creationDate, DateTime updateDate, DateTime? deletionDate, string url, string fileName, string extension) :
+            base(id, creationDate, updateDate, deletionDate)
         {
-            Url = media.Url;
-            FileName = media.FileName;
-            Extension = media.Extension;
+            Url = url;
+            FileName = fileName;
+            Extension = extension;
         }
     }
 }

@@ -1,26 +1,14 @@
-﻿using Giro.Animes.Domain.Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Giro.Animes.Application.DTOs.Base
+﻿namespace Giro.Animes.Application.DTOs.Base
 {
     /// <summary>
     /// Objeto de Transferência de Dados para a entidade Description.
     /// </summary>
-    public abstract class DescriptionDTO<TDescription> : BaseDTO<Description> where TDescription : Description
+    public abstract class DescriptionDTO : BaseDTO
     {
         /// <summary>
         /// Texto da descrição.
         /// </summary>
         public string Text { get; private set; }
-
-        /// <summary>
-        /// Identificador do idioma da descrição.
-        /// </summary>
-        public long? LanguageId { get; private set; }
 
         /// <summary>
         /// Idioma da descrição.
@@ -31,11 +19,11 @@ namespace Giro.Animes.Application.DTOs.Base
         /// Construtor privado com parâmetros. Garante a construção do objeto através do método Create.
         /// </summary>
         /// <param name="description">Instância da entidade Description.</param>
-        protected DescriptionDTO(TDescription description) : base(description)
+        protected DescriptionDTO(long? id, DateTime creationDate, DateTime updateDate, DateTime? deletionDate, string text, LanguageDTO language) :
+            base(id, creationDate, updateDate, deletionDate)
         {
-            Text = description.Text;
-            LanguageId = description.LanguageId;
-            Language = LanguageDTO.Create(description.Language);
+            Text = text;
+            Language = language;
         }
     }
 }
