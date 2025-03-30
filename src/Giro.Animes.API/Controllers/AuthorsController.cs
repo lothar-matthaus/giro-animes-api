@@ -1,8 +1,8 @@
-﻿using Giro.Animes.API.Controllers.Base;
-using Giro.Animes.Application.DTOs;
+﻿using Giro.Animes.Application.DTOs;
 using Giro.Animes.Application.Interfaces.Services;
 using Giro.Animes.Application.Requests;
 using Giro.Animes.Application.Responses;
+using Giro.Animes.Presentation.Controllers;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Giro.Animes.API.Controllers
