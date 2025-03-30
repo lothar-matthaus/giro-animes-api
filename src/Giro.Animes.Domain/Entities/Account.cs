@@ -37,7 +37,7 @@ namespace Giro.Animes.Domain.Entities
         /// <summary>
         /// Lista de favoritos para assistir.
         /// </summary>
-        public ICollection<Anime> Watchlist { get; private set; }
+        public IEnumerable<Anime> Watchlist { get; private set; }
 
         /// <summary>
         /// Identificador do usuário
@@ -60,13 +60,14 @@ namespace Giro.Animes.Domain.Entities
         /// </summary>
         /// <param name="email"></param>
         /// <param name="password"></param>
-        private Account(Email email, Password password, Avatar avatar)
+        private Account(Email email, Password password, Settings settings, Avatar avatar)
         {
             Email = email;
             Password = password;
             Avatar = avatar;
             Status = AccountStatus.EmailNotConfirmed;
             Plan = AccountPlan.Bronze;
+            Settings = settings;
         }
 
         /// <summary>
@@ -75,6 +76,6 @@ namespace Giro.Animes.Domain.Entities
         /// <param name="email"></param>
         /// <param name="password"></param>
         /// <returns></returns>
-        public static Account Create(Email email, Password password, Avatar avatar) => new Account(email, password, avatar);
+        public static Account Create(Email email, Password password, Settings settings, Avatar avatar) => new Account(email, password, settings, avatar);
     }
 }

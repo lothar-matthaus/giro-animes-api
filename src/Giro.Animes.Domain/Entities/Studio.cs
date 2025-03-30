@@ -20,17 +20,17 @@ namespace Giro.Animes.Domain.Entities
             {
                 Validate(
                     isInvalidIf: string.IsNullOrEmpty(value),
-                    ifInvalid: () => ValidationError.Create(GetType().Name, "Name", string.Format(Message.Validation.General.REQUIRED, "Name")),
+                    ifInvalid: () => Notification.Create(GetType().Name, "Name", string.Format(Message.Validation.General.REQUIRED, "Name")),
                     ifValid: () => _name = value);
 
                 Validate(
                     isInvalidIf: !Regex.IsMatch(Patterns.Studio.NAME, value),
-                    ifInvalid: () => ValidationError.Create(GetType().Name, "Name", Message.Validation.Studio.INVALID_NAME),
+                    ifInvalid: () => Notification.Create(GetType().Name, "Name", Message.Validation.Studio.INVALID_NAME),
                     ifValid: () => _name = value);
 
                 Validate(
                    isInvalidIf: !Regex.IsMatch(Patterns.Studio.NAME_LENGHT, value),
-                   ifInvalid: () => ValidationError.Create(GetType().Name, "Name", Message.Validation.Studio.INVALID_NAME_LENGHT),
+                   ifInvalid: () => Notification.Create(GetType().Name, "Name", Message.Validation.Studio.INVALID_NAME_LENGHT),
                    ifValid: () => _name = value);
             }
         }
@@ -64,7 +64,7 @@ namespace Giro.Animes.Domain.Entities
             {
                 Validate(
                     isInvalidIf: (!string.IsNullOrEmpty(value) && !Regex.IsMatch(Patterns.General.URL, value)),
-                    ifInvalid: () => ValidationError.Create(GetType().Name, "Website", Message.Validation.General.INVALID_URL),
+                    ifInvalid: () => Notification.Create(GetType().Name, "Website", Message.Validation.General.INVALID_URL),
                     ifValid: () => _website = value);
             }
         }
@@ -83,7 +83,7 @@ namespace Giro.Animes.Domain.Entities
             {
                 Validate(
                     isInvalidIf: (!string.IsNullOrEmpty(value) && !Regex.IsMatch(Patterns.General.URL_TWITTER, value)),
-                    ifInvalid: () => ValidationError.Create(GetType().Name, "Twitter", Message.Validation.General.INVALID_URL),
+                    ifInvalid: () => Notification.Create(GetType().Name, "Twitter", Message.Validation.General.INVALID_URL),
                     ifValid: () => _twitter = value);
             }
         }
@@ -102,7 +102,7 @@ namespace Giro.Animes.Domain.Entities
             {
                 Validate(
                     isInvalidIf: (!string.IsNullOrEmpty(value) && !Regex.IsMatch(Patterns.General.URL_INSTAGRAM, value)),
-                    ifInvalid: () => ValidationError.Create(GetType().Name, "Instagram", Message.Validation.General.INVALID_URL),
+                    ifInvalid: () => Notification.Create(GetType().Name, "Instagram", Message.Validation.General.INVALID_URL),
                     ifValid: () => _instagram = value);
             }
         }

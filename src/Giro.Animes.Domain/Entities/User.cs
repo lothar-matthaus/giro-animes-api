@@ -20,17 +20,17 @@ namespace Giro.Animes.Domain.Entities
             {
                 Validate(
                         isInvalidIf: string.IsNullOrWhiteSpace(value),
-                        ifInvalid: () => ValidationError.Create(GetType().Name, "Username", string.Format(Message.Validation.General.REQUIRED, "Username")),
+                        ifInvalid: () => Notification.Create(GetType().Name, "Username", string.Format(Message.Validation.General.REQUIRED, "Username")),
                         ifValid: () => _name = value);
 
                 Validate(
                         isInvalidIf: !Regex.IsMatch(Patterns.User.NAME, value),
-                        ifInvalid: () => ValidationError.Create(GetType().Name, "Username", Message.Validation.User.INVALID_NAME),
+                        ifInvalid: () => Notification.Create(GetType().Name, "Username", Message.Validation.User.INVALID_NAME),
                         ifValid: () => _name = value);
 
                 Validate(
                         isInvalidIf: !Regex.IsMatch(Patterns.User.NAME_LENGHT, value),
-                        ifInvalid: () => ValidationError.Create(GetType().Name, "Username", Message.Validation.User.INVALID_NAME_LENGHT),
+                        ifInvalid: () => Notification.Create(GetType().Name, "Username", Message.Validation.User.INVALID_NAME_LENGHT),
                         ifValid: () => _name = value);
             }
         }
@@ -54,7 +54,7 @@ namespace Giro.Animes.Domain.Entities
         /// <summary>
         /// Notas que o usuário deu para um determinado anime
         /// </summary>
-        public ICollection<Rating> Ratings { get; set; }
+        public IEnumerable<Rating> Ratings { get; private set; }
 
         /// <summary>
         /// Construtor padrão do objeto de entidade

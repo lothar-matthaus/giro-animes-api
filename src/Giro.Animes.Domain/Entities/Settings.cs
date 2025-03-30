@@ -69,7 +69,7 @@ namespace Giro.Animes.Domain.Entities
         /// <param name="enableNotifications"></param>
         /// <param name="language"></param>
         /// <returns></returns>
-        public static Settings Create(Language interfaceLanguage, ICollection<Language> animeLanguages) => new(interfaceLanguage, animeLanguages);
+        public static Settings Create(Language interfaceLanguage, IEnumerable<Language> animeLanguages) => new(interfaceLanguage, animeLanguages);
 
         #region Behaviors
         /// <summary>

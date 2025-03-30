@@ -22,15 +22,15 @@ namespace Giro.Animes.Domain.Entities
             set
             {
                 Validate(
-                    isInvalidIf: string.IsNullOrEmpty(value),
-                    ifInvalid: () => ValidationError.Create(GetType().Name, "FileName", string.Format(Message.Validation.General.REQUIRED, "FileName")),
-                    ifValid: () => _extension = value
+                    isInvalidIf: string.IsNullOrWhiteSpace(value),
+                    ifInvalid: () => Notification.Create(GetType().Name, "FileName", string.Format(Message.Validation.General.REQUIRED, "FileName")),
+                    ifValid: () => _fileName = value
                 );
 
                 Validate(
                    isInvalidIf: !Regex.IsMatch(Patterns.Cover.FILE_NAME_LENGTH, value),
-                   ifInvalid: () => ValidationError.Create(GetType().Name, "FileName", Message.Validation.Cover.INVALID_FILE_NAME_LENGHT),
-                   ifValid: () => _extension = value
+                   ifInvalid: () => Notification.Create(GetType().Name, "FileName", Message.Validation.Cover.INVALID_FILE_NAME_LENGHT),
+                   ifValid: () => _fileName = value
                );
             }
         }
@@ -47,14 +47,14 @@ namespace Giro.Animes.Domain.Entities
             set
             {
                 Validate(
-                    isInvalidIf: string.IsNullOrEmpty(value),
-                    ifInvalid: () => ValidationError.Create(GetType().Name, "Extension", string.Format(Message.Validation.General.REQUIRED, "Extension")),
+                    isInvalidIf: string.IsNullOrWhiteSpace(value),
+                    ifInvalid: () => Notification.Create(GetType().Name, "Extension", string.Format(Message.Validation.General.REQUIRED, "Extension")),
                     ifValid: () => _extension = value
                 );
 
                 Validate(
                     isInvalidIf: !Regex.IsMatch(Patterns.Cover.ALLOWED_EXTENSIONS, value),
-                    ifInvalid: () => ValidationError.Create(GetType().Name, "Extension", Message.Validation.Cover.INVALID_EXTENSION),
+                    ifInvalid: () => Notification.Create(GetType().Name, "Extension", Message.Validation.Cover.INVALID_EXTENSION),
                     ifValid: () => _extension = value
                 );
             }
@@ -65,6 +65,8 @@ namespace Giro.Animes.Domain.Entities
         /// Identificador do anime a qual o cover pertence
         /// </summary>
 
+        public byte[] File { get; set; }
+
         public Media() { }
 
         /// <summary>
@@ -72,11 +74,23 @@ namespace Giro.Animes.Domain.Entities
         /// </summary>
         /// <param name="fileName"></param>
         /// <param name="extension"></param>
-        protected Media(string url, string fileName, string extension)
+        protected Media(string url, string fileName, string extension, byte[] file = null)
         {
             FileName = fileName;
             Extension = extension;
             Url = url;
+            File = file;
+        }
+
+        /// <summary>
+        /// Define uma nova url para a mídia
+        /// </summary>
+        /// <param name="url"></param>
+        /// <returns></returns>
+        public Media SetUrl(string url)
+        {
+            Url = url;
+            return this;
         }
     }
 }

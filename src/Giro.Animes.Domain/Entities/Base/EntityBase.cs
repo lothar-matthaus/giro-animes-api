@@ -23,12 +23,12 @@ namespace Giro.Animes.Domain.Entities.Base
         /// <summary>
         /// Indica se a entidade é válida ou não 
         /// </summary>
-        public bool IsValid => !_errors.Any();
+        public bool IsValid => !_errors?.Any() ?? true;
 
         /// <summary>
         /// Lista de erros de validação da entidade 
         /// </summary>
-        private IList<ValidationError> _errors;
+        private IList<Notification> _errors;
 
         /// <summary>
         /// Construtor padrão
@@ -43,7 +43,7 @@ namespace Giro.Animes.Domain.Entities.Base
         /// Retorna a lista de erros de validação da entidade como uma coleção somente leitura
         /// </summary>
         /// <returns>Uma coleção somente leitura de erros de validação</returns>
-        public IEnumerable<ValidationError> GetErrors()
+        public IEnumerable<Notification> GetErrors()
         {
             return _errors.AsReadOnly();
         }
@@ -54,7 +54,7 @@ namespace Giro.Animes.Domain.Entities.Base
         /// <param name="isInvalidIf">Condição que determina se a entidade é inválida</param>
         /// <param name="ifInvalid">Função que retorna um erro de validação se a condição for verdadeira</param>
         /// <param name="ifValid">Ação a ser executada se a condição for falsa</param>
-        public void Validate(bool isInvalidIf, Func<ValidationError> ifInvalid, Action? ifValid)
+        public void Validate(bool isInvalidIf, Func<Notification> ifInvalid, Action? ifValid)
         {
             if (isInvalidIf)
             {

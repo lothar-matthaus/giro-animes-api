@@ -19,19 +19,16 @@
         /// <summary>
         /// Construtor da classe ProfilePicture a partir do valor da foto e do formato
         /// </summary>
-        /// <param name="value"></param>
-        /// <param name="extension"></param>
-        private Avatar(string url, string fileName, string extension) : base(url, fileName, extension)
+        /// <param name="extension">Extensão do arquivo </param>
+        private Avatar(string extension, byte[] file = null) : base(string.Empty, Guid.NewGuid().ToString(), extension, file)
         {
         }
 
         /// <summary>
         /// Cria um objeto de valor ProfilePicture a partir do arquivo e do formato da foto 
         /// </summary>
-        /// <param name="url"></param>
         /// <param name="extension"></param>
-        /// <param name="fileName"
         /// <returns></returns>
-        public static Avatar Create(string url, string fileName, string extension) => new Avatar(url, fileName, extension);
+        public static Avatar Create(string extension, byte[] file = null) => new Avatar(extension, file);
     }
 }

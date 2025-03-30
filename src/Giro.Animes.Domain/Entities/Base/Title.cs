@@ -21,12 +21,12 @@ namespace Giro.Animes.Domain.Entities.Base
             {
                 Validate(
                     isInvalidIf: string.IsNullOrEmpty(value),
-                    ifInvalid: () => ValidationError.Create(GetType().Name, "Title", string.Format(Message.Validation.General.REQUIRED, "Title")),
+                    ifInvalid: () => Notification.Create(GetType().Name, "Title", string.Format(Message.Validation.General.REQUIRED, "Title")),
                     ifValid: () => _name = value);
 
                 Validate(
                     isInvalidIf: !Regex.IsMatch(Patterns.Anime.TITLE, value),
-                    ifInvalid: () => ValidationError.Create(GetType().Name, "Title", Message.Validation.Anime.TITLE_LENGHT),
+                    ifInvalid: () => Notification.Create(GetType().Name, "Title", Message.Validation.Anime.TITLE_LENGHT),
                     ifValid: () => _name = value);
             }
         }
