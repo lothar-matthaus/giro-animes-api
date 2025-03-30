@@ -17,4 +17,8 @@
     <ProjectReference Include="..\Giro.Animes.Infra\Giro.Animes.Infra.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Requests\Base\" />
+  </ItemGroup>
+
 </Project>
