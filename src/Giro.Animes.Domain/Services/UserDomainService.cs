@@ -33,7 +33,7 @@ namespace Giro.Animes.Domain.Services
                 return null;
             }
 
-            await _mediaDomainService.CreateAsync(user.Account.Avatar);
+            //  wait _mediaDomainService.CreateAsync(user.Account.Avatar);
 
 
             return await _writeRepository.AddAsync(user, CancellationToken.None);

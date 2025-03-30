@@ -23,7 +23,7 @@ namespace Giro.Animes.Domain.ValueObjects
                     ifValid: () => _plainText = value);
 
                 Validate(
-                    isInvalidIf: !Regex.IsMatch(Patterns.Account.PASSWORD, value),
+                    isInvalidIf: Regex.IsMatch(Patterns.Account.PASSWORD, value),
                     ifInvalid: () => Notification.Create(this.GetType().Name, "Senha", Message.Validation.Account.INVALID_PASSWORD),
                     ifValid: () => _plainText = value);
 

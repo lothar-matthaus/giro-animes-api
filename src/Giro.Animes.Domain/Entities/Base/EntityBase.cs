@@ -23,12 +23,12 @@ namespace Giro.Animes.Domain.Entities.Base
         /// <summary>
         /// Indica se a entidade é válida ou não 
         /// </summary>
-        public bool IsValid => !_errors?.Any() ?? true;
+        public bool IsValid => !_errors.Any();
 
         /// <summary>
         /// Lista de erros de validação da entidade 
         /// </summary>
-        private IList<Notification> _errors;
+        private IList<Notification> _errors = new List<Notification>();
 
         /// <summary>
         /// Construtor padrão

@@ -12,7 +12,7 @@ namespace Giro.Animes.Domain.Services
 {
     public class NotificationService : INotificationService
     {
-        private List<Notification> _notifications;
+        private List<Notification> _notifications = new List<Notification>();
 
         public Task AddNotification(Notification notification)
         {
@@ -43,9 +43,9 @@ namespace Giro.Animes.Domain.Services
             return Task.FromResult(_notifications.AsEnumerable());
         }
 
-        public Task<bool> HasNotifications()
+        public bool HasNotifications()
         {
-            return Task.FromResult(_notifications?.Any() ?? false);
+            return _notifications.Any();
         }
     }
 }

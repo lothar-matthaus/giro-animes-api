@@ -12,7 +12,7 @@ namespace Giro.Animes.Domain.Interfaces.Services
 {
     public interface INotificationService : IDomainServiceBase
     {
-        Task<bool> HasNotifications();
+        bool HasNotifications();
         Task AddNotification(Notification notification);
         Task AddNotification(IEnumerable<Notification> notifications);
         Task AddNotification(string message, string context, string property);

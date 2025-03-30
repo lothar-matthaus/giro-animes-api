@@ -2,24 +2,31 @@
 using Giro.Animes.Domain.Interfaces.Services;
 using Giro.Animes.Domain.ValueObjects;
 using Microsoft.AspNetCore.Http;
+using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
 using System.Net;
 
 namespace Giro.Animes.Shared.Middlewares
 {
-    public class NotificationHandlingMiddleware : IMiddleware
+    public class SaveChangesHandlingMiddleware : IMiddleware
     {
         private readonly INotificationService _notificationService;
+        private readonly DbContext _dbContext;
 
-        public NotificationHandlingMiddleware(INotificationService notificationService)
+        public SaveChangesHandlingMiddleware(INotificationService notificationService, DbContext dbContext)
         {
             _notificationService = notificationService;
+            _dbContext = dbContext;
         }
         public async Task InvokeAsync(HttpContext context, RequestDelegate next)
         {
             await next(context);
 
-            if(await _notificationService.HasNotifications())
+            if (_dbContext.ChangeTracker.HasChanges() && !_notificationService.HasNotifications())
+            {
+                await _dbContext.SaveChangesAsync();
+            }
+            else
             {
                 context.Response.StatusCode = StatusCodes.Status400BadRequest;
                 context.Response.ContentType = "application/json";

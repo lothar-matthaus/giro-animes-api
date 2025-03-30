@@ -24,12 +24,12 @@ namespace Giro.Animes.Domain.Entities
                         ifValid: () => _name = value);
 
                 Validate(
-                        isInvalidIf: !Regex.IsMatch(Patterns.User.NAME, value),
+                        isInvalidIf: Regex.IsMatch(Patterns.User.NAME, value),
                         ifInvalid: () => Notification.Create(GetType().Name, "Username", Message.Validation.User.INVALID_NAME),
                         ifValid: () => _name = value);
 
                 Validate(
-                        isInvalidIf: !Regex.IsMatch(Patterns.User.NAME_LENGHT, value),
+                        isInvalidIf: Regex.IsMatch(Patterns.User.NAME_LENGHT, value),
                         ifInvalid: () => Notification.Create(GetType().Name, "Username", Message.Validation.User.INVALID_NAME_LENGHT),
                         ifValid: () => _name = value);
             }

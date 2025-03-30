@@ -28,7 +28,7 @@ namespace Giro.Animes.Domain.Entities
                 );
 
                 Validate(
-                   isInvalidIf: !Regex.IsMatch(Patterns.Cover.FILE_NAME_LENGTH, value),
+                   isInvalidIf: Regex.IsMatch(Patterns.Cover.FILE_NAME_LENGTH, value),
                    ifInvalid: () => Notification.Create(GetType().Name, "FileName", Message.Validation.Cover.INVALID_FILE_NAME_LENGHT),
                    ifValid: () => _fileName = value
                );
@@ -53,7 +53,7 @@ namespace Giro.Animes.Domain.Entities
                 );
 
                 Validate(
-                    isInvalidIf: !Regex.IsMatch(Patterns.Cover.ALLOWED_EXTENSIONS, value),
+                    isInvalidIf: Regex.IsMatch(Patterns.Cover.ALLOWED_EXTENSIONS, value),
                     ifInvalid: () => Notification.Create(GetType().Name, "Extension", Message.Validation.Cover.INVALID_EXTENSION),
                     ifValid: () => _extension = value
                 );
