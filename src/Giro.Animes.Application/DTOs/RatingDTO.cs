@@ -5,6 +5,7 @@ namespace Giro.Animes.Application.DTOs
     public class RatingDTO : BaseDTO
     {
         public double Rate { get; private set; }
+        public long AnimeId { get; private set; }
         public long UserId { get; private set; }
 
         /// <summary>
@@ -16,8 +17,9 @@ namespace Giro.Animes.Application.DTOs
         /// <param name="creationDate"></param>
         /// <param name="updateDate"></param>
         /// <param name="deletionDate"></param>
-        private RatingDTO(double rate, long userId, long? id, DateTime creationDate, DateTime updateDate) : base(id, creationDate, updateDate)
+        private RatingDTO(double rate, long userId, long animeId, long? id, DateTime creationDate, DateTime updateDate) : base(id, creationDate, updateDate)
         {
+            AnimeId = animeId;
             UserId = userId;
             Rate = rate;
         }
@@ -30,11 +32,10 @@ namespace Giro.Animes.Application.DTOs
         /// <param name="id"></param>
         /// <param name="creationDate"></param>
         /// <param name="updateDate"></param>
-        /// <param name="deletionDate"></param>
         /// <returns></returns>
-        public static RatingDTO Create(double rate, long userId, long? id, DateTime creationDate, DateTime updateDate, long animeId)
+        public static RatingDTO Create(double rate, long userId, long animeId, long? id, DateTime creationDate, DateTime updateDate)
         {
-            return new RatingDTO(rate, userId, id, creationDate, updateDate);
+            return new RatingDTO(rate, userId, animeId, id, creationDate, updateDate);
         }
     }
 }
