@@ -30,6 +30,6 @@ namespace Giro.Animes.Infra
         public string Nome => _context.HttpContext.User.Claims.Where(cl => cl.Type.Equals(ClaimTypes.Name)).Select(cl => cl.Value).FirstOrDefault() ?? "Guest";
         public string Email => _context.HttpContext.User.Claims.Where(cl => cl.Type.Equals(ClaimTypes.Email)).Select(cl => cl.Value).FirstOrDefault() ?? "";
         public UserRole Role => GetUserRole(_context.HttpContext.User.Claims.Where(cl => cl.Type.Equals(ClaimTypes.Role)).Select(cl => cl.Value).FirstOrDefault() ?? "");
-        public string[] Language => _context.HttpContext?.Request.Headers["Accept-Language"].FirstOrDefault()?.Split(',', StringSplitOptions.TrimEntries) ?? ["en-US"];
+        public string[] Languages => _context.HttpContext?.Request.Headers["Accept-Language"].FirstOrDefault()?.Split(',', StringSplitOptions.TrimEntries) ?? ["en-US"];
     }
 }

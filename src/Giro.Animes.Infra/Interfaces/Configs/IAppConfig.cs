@@ -3,6 +3,7 @@
     public interface IAppConfig
     {
         public IDataBaseConfig DataBaseConfig { get; }
-        public IJwtConfig JwtConfig { get; }
+        public IJwtSettings JwtSettings { get; }
+        public IMediaConfig MediaConfig { get; }
     }
 }

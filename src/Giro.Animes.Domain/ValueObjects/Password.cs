@@ -1,6 +1,6 @@
 ﻿using Giro.Animes.Domain.Constants;
 using Giro.Animes.Domain.ValueObjects.Base;
-using System.Text;
+using System.Security.Cryptography;
 using System.Text.RegularExpressions;
 
 namespace Giro.Animes.Domain.ValueObjects
@@ -15,16 +15,16 @@ namespace Giro.Animes.Domain.ValueObjects
         public string PlainText
         {
             get { return _plainText; }
-            init
+            private set
             {
                 Validate(
-                    isInvalidIf: string.IsNullOrEmpty(value),
-                    ifInvalid: () => ValidationError.Create(this.GetType().Name, "Senha", string.Format(Message.Validation.General.REQUIRED, "Senha")),
+                    isInvalidIf: string.IsNullOrWhiteSpace(value),
+                    ifInvalid: () => Notification.Create(this.GetType().Name, "Senha", string.Format(Message.Validation.General.REQUIRED, "Senha")),
                     ifValid: () => _plainText = value);
 
                 Validate(
                     isInvalidIf: !Regex.IsMatch(Patterns.Account.PASSWORD, value),
-                    ifInvalid: () => ValidationError.Create(this.GetType().Name, "Senha", Message.Validation.Account.INVALID_PASSWORD),
+                    ifInvalid: () => Notification.Create(this.GetType().Name, "Senha", Message.Validation.Account.INVALID_PASSWORD),
                     ifValid: () => _plainText = value);
 
             }
@@ -40,16 +40,16 @@ namespace Giro.Animes.Domain.ValueObjects
         public string PlainTextConfirm
         {
             get { return _plainTextConfirm; }
-            init
+            private set
             {
                 Validate(
-                    isInvalidIf: string.IsNullOrEmpty(value),
-                    ifInvalid: () => ValidationError.Create(this.GetType().Name, "Confirmar senha", string.Format(Message.Validation.Account.INVALID_PASSWORD, "Confirmar senha")),
+                    isInvalidIf: string.IsNullOrWhiteSpace(value),
+                    ifInvalid: () => Notification.Create(this.GetType().Name, "Confirmar senha", string.Format(Message.Validation.Account.INVALID_PASSWORD, "Confirmar senha")),
                     ifValid: () => _plainTextConfirm = value);
 
                 Validate(
                     isInvalidIf: !string.Equals(value, _plainText),
-                    ifInvalid: () => ValidationError.Create(this.GetType().Name, "Confirmar senha", Message.Validation.Account.INVALID_PASSWORD),
+                    ifInvalid: () => Notification.Create(this.GetType().Name, "Confirmar senha", Message.Validation.Account.INVALID_PASSWORD),
                     ifValid: () => _plainTextConfirm = value);
             }
         }
@@ -58,7 +58,7 @@ namespace Giro.Animes.Domain.ValueObjects
         /// <summary>
         /// Senha com hash de segurança para armazenamento seguro no banco de dados
         /// </summary>
-        public string Value { get; init; }
+        public string Value { get; private set; }
 
         /// <summary>
         /// Salt do hash da senha para armazenamento seguro no banco de dados
@@ -79,9 +79,9 @@ namespace Giro.Animes.Domain.ValueObjects
         /// <param name="plainTextConfirm"></param>
         public Password(string plainText, string plainTextConfirm)
         {
-            _plainText = plainText;
-            _plainTextConfirm = plainTextConfirm;
             Salt = GenerateSalt();
+            PlainText = plainText;
+            PlainTextConfirm = plainTextConfirm;
             Value = GeneratePasswordHash(plainText, Salt);
         }
 
@@ -93,9 +93,9 @@ namespace Giro.Animes.Domain.ValueObjects
         /// <param name="salt"></param>
         public Password(string plainText, string plainTextConfirm, string salt)
         {
-            _plainText = plainText;
-            _plainTextConfirm = plainTextConfirm;
             Salt = salt;
+            PlainText = plainText;
+            PlainTextConfirm = plainTextConfirm;
             Value = GeneratePasswordHash(plainText, Salt);
         }
 
@@ -107,20 +107,12 @@ namespace Giro.Animes.Domain.ValueObjects
         /// <returns></returns>
         private string GenerateSalt()
         {
-            const string validChars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890!@#$%^&*()";
-            StringBuilder salt = new StringBuilder(16);
-            using (var rng = System.Security.Cryptography.RandomNumberGenerator.Create())
+            byte[] saltBytes = new byte[32];
+            using (var rng = RandomNumberGenerator.Create())
             {
-                byte[] uintBuffer = new byte[sizeof(uint)];
-
-                while (salt.Length < 16)
-                {
-                    rng.GetBytes(uintBuffer);
-                    uint num = BitConverter.ToUInt32(uintBuffer, 0);
-                    salt.Append(validChars[(int)(num % (uint)validChars.Length)]);
-                }
+                rng.GetBytes(saltBytes);
             }
-            return salt.ToString();
+            return Convert.ToBase64String(saltBytes);
         }
 
         /// <summary>

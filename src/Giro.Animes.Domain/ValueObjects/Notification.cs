@@ -1,9 +1,9 @@
 ﻿namespace Giro.Animes.Domain.ValueObjects
 {
-    public record ValidationError
+    public record Notification
     {
         public string Context { get; init; }
-        public string Field { get; init; }
+        public string Property { get; init; }
         public string Message { get; init; }
 
         /// <summary>
@@ -12,10 +12,10 @@
         /// <param name="context"></param>
         /// <param name="field"></param>
         /// <param name="message"></param>
-        private ValidationError(string context, string field, string message)
+        private Notification(string context, string field, string message)
         {
             Context = context;
-            Field = field;
+            Property = field;
             Message = message;
         }
 
@@ -26,6 +26,6 @@
         /// <param name="field"></param>
         /// <param name="message"></param>
         /// <returns></returns>
-        public static ValidationError Create(string context, string field, string message) => new ValidationError(context, field, message);
+        public static Notification Create(string context, string field, string message) => new Notification(context, field, message);
     }
 }

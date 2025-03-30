@@ -1,8 +1,7 @@
-﻿using Giro.Animes.Infra.Configs;
-using Giro.Animes.Infra.Interfaces.Configs;
+﻿using Giro.Animes.Infra.Interfaces.Configs;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Giro.Animes.Infra.Extensions.Dependencies
+namespace Giro.Animes.Infra.Configs
 {
     public static class Configurations
     {

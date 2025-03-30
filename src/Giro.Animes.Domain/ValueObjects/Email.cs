@@ -15,12 +15,12 @@ namespace Giro.Animes.Domain.ValueObjects
             {
                 Validate(
                     isInvalidIf: string.IsNullOrEmpty(value),
-                    ifInvalid: () => ValidationError.Create(this.GetType().Name, "E-mail", string.Format(Message.Validation.General.REQUIRED, "E-mail")),
+                    ifInvalid: () => Notification.Create(this.GetType().Name, "E-mail", string.Format(Message.Validation.General.REQUIRED, "E-mail")),
                     ifValid: () => _value = value);
 
                 Validate(
                     isInvalidIf: !Regex.IsMatch(Patterns.Account.EMAIL, value),
-                    ifInvalid: () => ValidationError.Create(this.GetType().Name, "E-mail", string.Format(Message.Validation.General.INVALID, "E-mail")),
+                    ifInvalid: () => Notification.Create(this.GetType().Name, "E-mail", string.Format(Message.Validation.General.INVALID, "E-mail")),
                     ifValid: () => _value = value);
             }
         }

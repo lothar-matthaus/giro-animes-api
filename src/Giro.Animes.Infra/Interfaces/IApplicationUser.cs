@@ -8,6 +8,6 @@ namespace Giro.Animes.Infra.Interfaces
         public string Nome { get; }
         public string Email { get; }
         public UserRole Role { get; }
-        public string[] Language { get; }
+        public string[] Languages { get; }
     }
 }

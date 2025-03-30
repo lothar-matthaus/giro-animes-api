@@ -9,9 +9,10 @@ namespace Giro.Animes.Infra.Configs
 
         public AppConfig(IConfiguration configuration)
         {
-            this._configuration = configuration;
+            _configuration = configuration;
         }
         public IDataBaseConfig DataBaseConfig => new DataBaseConfig(_configuration);
-        public IJwtConfig JwtConfig => new JwtConfig(_configuration);
+        public IJwtSettings JwtSettings => new JwtSettings(_configuration);
+        public IMediaConfig MediaConfig => new MediaConfig(_configuration);
     }
 }

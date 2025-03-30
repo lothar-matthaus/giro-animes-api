@@ -5,7 +5,7 @@ using Giro.Animes.Infra.Data.Repositories.Read.Base;
 
 namespace Giro.Animes.Infra.Data.Repositories.Read
 {
-    public class AuthorReadRepository : ReadRepositoryBase<Author>, IAuthorReadRepository
+    public class AuthorReadRepository : ReadRepositoryBase<Author, GiroAnimesReadDbContext>, IAuthorReadRepository
     {
         public AuthorReadRepository(GiroAnimesReadDbContext dbContext) : base(dbContext)
         {

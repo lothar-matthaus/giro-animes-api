@@ -5,7 +5,7 @@ using Giro.Animes.Infra.Data.Repositories.Write.Base;
 
 namespace Giro.Animes.Infra.Data.Repositories.Write
 {
-    internal class UserWriteRepository : WriteRepositoryBase<User>, IUserWriteRepository
+    internal class UserWriteRepository : WriteRepositoryBase<User, GiroAnimesWriteDbContext>, IUserWriteRepository
     {
         public UserWriteRepository(GiroAnimesWriteDbContext dbContext) : base(dbContext)
         {

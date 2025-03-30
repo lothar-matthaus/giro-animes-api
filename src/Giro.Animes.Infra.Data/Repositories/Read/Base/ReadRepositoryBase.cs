@@ -6,13 +6,18 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Giro.Animes.Infra.Data.Repositories.Read.Base
 {
-    public class ReadRepositoryBase<TEntity> : IReadBaseRepository<TEntity> where TEntity : EntityBase, new()
+    public class ReadRepositoryBase<TEntity, TDbContext> : IReadBaseRepository<TEntity> where TEntity : EntityBase where TDbContext : DbContext
     {
-        private readonly DbSet<TEntity> _dbSet;
+        protected readonly DbSet<TEntity> _dbSet;
 
-        public ReadRepositoryBase(GiroAnimesReadDbContext dbContext)
+        public ReadRepositoryBase(TDbContext dbContext)
         {
             _dbSet = dbContext.Set<TEntity>();
+        }
+
+        public async Task<IEnumerable<TEntity>> GetAllAsync(CancellationToken cancellationToken)
+        {
+            return await _dbSet.ToListAsync(cancellationToken);
         }
 
         public async Task<IEnumerable<TEntity>> GetAllPagedAsync(IPagination param, CancellationToken cancellationToken)
