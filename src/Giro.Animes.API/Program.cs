@@ -1,7 +1,9 @@
-using Giro.Animes.API.Middlewares;
+using Giro.Animes.Shared.Middleware;
 using Giro.Animes.Application.Extensions.IoC;
+using Giro.Animes.Infra.Configs;
 using Giro.Animes.Infra.Data.Extensions.IoC;
-using Giro.Animes.Infra.Extensions.Dependencies;
+using Giro.Animes.Infra.Security;
+using Giro.Animes.Shared.Middlewares;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -24,6 +26,9 @@ builder.Services.AddAppConfig();
 // Configura o usuário do contexto da requisição
 builder.Services.AddApplicationUser();
 
+// Configura a autenticação JWT
+builder.Services.AddJwtAuthentication(builder.Configuration);
+
 #region Contexts
 builder.Services.AddWriteDbContext();
 builder.Services.AddReadDbContext();
@@ -41,6 +46,7 @@ builder.Services.ConfigureApplicationServices();
 
 #region Middlewares
 builder.Services.AddTransient<ExceptionHandlingMiddleware>();
+builder.Services.AddTransient<NotificationHandlingMiddleware>();
 #endregion
 var app = builder.Build();
 
@@ -53,6 +59,7 @@ if (app.Environment.IsDevelopment())
 
 #region Middlewares
 app.UseMiddleware<ExceptionHandlingMiddleware>();
+app.UseMiddleware<NotificationHandlingMiddleware>();
 #endregion
 
 app.UseHttpsRedirection();

@@ -22,6 +22,7 @@
 		<ProjectReference Include="..\Giro.Animes.Application\Giro.Animes.Application.csproj" />
 		<ProjectReference Include="..\Giro.Animes.Infra.Data\Giro.Animes.Infra.Data.csproj" />
 		<ProjectReference Include="..\Giro.Animes.Infra\Giro.Animes.Infra.csproj" />
+		<ProjectReference Include="..\Giro.Animes.Presentation\Giro.Animes.Shared.csproj" />
 	</ItemGroup>
 
 </Project>
