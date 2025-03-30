@@ -5,7 +5,7 @@ namespace Giro.Animes.Domain.Interfaces
     public interface IValidation
     {
         bool IsValid { get; }
-        IEnumerable<ValidationError> GetErrors();
-        void Validate(bool isInvalidIf, Func<ValidationError> ifInvalid, Action? ifValid);
+        IEnumerable<Notification> GetErrors();
+        void Validate(bool isInvalidIf, Func<Notification> ifInvalid, Action? ifValid);
     }
 }
