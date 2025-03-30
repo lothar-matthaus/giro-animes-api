@@ -10,16 +10,17 @@ namespace Giro.Animes.Application.Mappers
             RatingDTO ratingDTO = RatingDTO.Create(
                 rating.Rate,
                 rating.UserId,
+                rating.AnimeId,
                 rating.Id,
                 rating.CreationDate,
-                rating.UpdateDate,
-                rating.AnimeId);
+                rating.UpdateDate);
+
             return ratingDTO;
         }
 
         public static IEnumerable<RatingDTO> Map(this IEnumerable<Rating> ratings)
         {
-            IEnumerable<RatingDTO> result = ratings?.Select(Map);
+            IEnumerable<RatingDTO> result = ratings?.Select(Map).ToList();
             return result;
         }
     }
