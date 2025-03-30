@@ -7,7 +7,7 @@ namespace Giro.Animes.Domain.ValueObjects.Base
         /// <summary>
         /// Lista de erros de validação do objeto de valor e suas propriedades
         /// </summary>
-        private IList<ValidationError> _errors;
+        private IList<Notification> _errors;
 
         /// <summary>
         /// Propriedade que indica se o objeto de valor é válido ou não
@@ -26,7 +26,7 @@ namespace Giro.Animes.Domain.ValueObjects.Base
         /// Pega todos os erros de validação do objeto de valor e suas propriedades 
         /// </summary>
         /// <returns></returns>
-        public IEnumerable<ValidationError> GetErrors()
+        public IEnumerable<Notification> GetErrors()
         {
             return _errors.AsReadOnly();
         }
@@ -37,7 +37,7 @@ namespace Giro.Animes.Domain.ValueObjects.Base
         /// <param name="isInvalidIf"></param>
         /// <param name="ifInvalid"></param>
         /// <param name="ifValid"></param>
-        public void Validate(bool isInvalidIf, Func<ValidationError> ifInvalid, Action? ifValid)
+        public void Validate(bool isInvalidIf, Func<Notification> ifInvalid, Action? ifValid)
         {
             if (isInvalidIf)
             {
