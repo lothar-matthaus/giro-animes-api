@@ -1,11 +1,5 @@
 ﻿using Giro.Animes.Infra.Interfaces.Configs;
 using Microsoft.Extensions.Configuration;
-using Microsoft.Win32.SafeHandles;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Giro.Animes.Infra.Configs
 {
@@ -35,7 +29,7 @@ namespace Giro.Animes.Infra.Configs
 
         public string Path(string name)
         {
-            return configuration.GetSection(string.Format("Media:{0}:Peah", name)).Value ?? "";
+            return configuration.GetSection(string.Format("Media:{0}:Path", name)).Value ?? "";
         }
     }
 }
