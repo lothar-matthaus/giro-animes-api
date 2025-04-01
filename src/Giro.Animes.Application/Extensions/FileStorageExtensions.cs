@@ -1,9 +1,4 @@
 ﻿using Microsoft.AspNetCore.Http;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Giro.Animes.Application.Extensions
 {
@@ -11,6 +6,8 @@ namespace Giro.Animes.Application.Extensions
     {
         public static byte[] ReadAsBytes(this IFormFile file)
         {
+            if (file == null) return null;
+
             using (var stream = file.OpenReadStream())
             {
                 byte[] bytes = new byte[stream.Length];
