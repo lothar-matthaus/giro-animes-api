@@ -11,7 +11,8 @@ namespace Giro.Animes.Application.Services
 {
     public class AuthorService : ApplicationServiceBase<IAuthorDomainService>, IAuthorService
     {
-        public AuthorService(IApplicationUser applicationUser, IAuthorDomainService domainService) : base(applicationUser, domainService)
+        public AuthorService(IApplicationUser applicationUser, INotificationService notificationService, IAuthorDomainService domainService) :
+            base(applicationUser, notificationService, domainService)
         {
         }
 
