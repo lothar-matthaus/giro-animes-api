@@ -1,6 +1,4 @@
-﻿using Microsoft.AspNetCore.Http;
-
-namespace Giro.Animes.Application.Requests.User
+﻿namespace Giro.Animes.Application.Requests.User
 {
     public class UserCreateRequest
     {
@@ -8,6 +6,5 @@ namespace Giro.Animes.Application.Requests.User
         public string Email { get; set; }
         public string Password { get; set; }
         public string ConfirmPassword { get; set; }
-        public IFormFile Avatar { get; set; }
     }
 }
