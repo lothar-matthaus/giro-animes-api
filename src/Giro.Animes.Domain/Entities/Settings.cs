@@ -59,8 +59,15 @@ namespace Giro.Animes.Domain.Entities
             EnableApplicationNotifications = true;
             EnableApplicationNotifications = false;
             Theme = UserTheme.Light;
-            InterfaceLanguage = interfaceLanguage ?? Language.Create("Portuguese (Brazil)", "pt-BR", "Português");
-            AnimeLanguages = animeLanguages ?? [Language.Create("Portuguese (Brazil)", "pt-BR", "Português")];
+            InterfaceLanguage = interfaceLanguage;
+            AnimeLanguages = animeLanguages;
+        }
+
+        private Settings(UserTheme userTheme)
+        {
+            EnableApplicationNotifications = true;
+            EnableApplicationNotifications = false;
+            Theme = userTheme;
         }
 
         /// <summary>
@@ -70,6 +77,13 @@ namespace Giro.Animes.Domain.Entities
         /// <param name="language"></param>
         /// <returns></returns>
         public static Settings Create(Language interfaceLanguage, IEnumerable<Language> animeLanguages) => new(interfaceLanguage, animeLanguages);
+
+        /// <summary>
+        /// Método para criar uma instância de Setting com os valores padrões definidos
+        /// </summary>
+        /// <param name="userTheme"></param>
+        /// <returns></returns>
+        public static Settings Create(UserTheme userTheme) => new Settings(userTheme);
 
         #region Behaviors
         /// <summary>
@@ -98,7 +112,11 @@ namespace Giro.Animes.Domain.Entities
         /// Altera os idiomas de animes que devem aparecer para o usuário.
         /// </summary>
         /// <param name="animeLanguages"></param>
-        public void ChangeAnimeLanguages(IEnumerable<Language> animeLanguages) => AnimeLanguages = animeLanguages;
+        public void AddAnimeLanguages(IEnumerable<Language> animeLanguages)
+        {
+            AnimeLanguages ??= new List<Language>();
+            ((List<Language>)AnimeLanguages).AddRange(animeLanguages);
+        }
         #endregion
     }
 }

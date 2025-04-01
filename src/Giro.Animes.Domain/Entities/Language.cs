@@ -25,7 +25,7 @@ namespace Giro.Animes.Domain.Entities
 
                 // Checks if the language name has between 3 and 20 characters and returns a validation error if not
                 Validate(
-                    isInvalidIf: !Regex.IsMatch(Patterns.Language.NAME, value),
+                    isInvalidIf: !Regex.IsMatch(value, Patterns.Language.NAME),
                     ifInvalid: () => Notification.Create(GetType().Name, "Name", Message.Validation.Language.NAME_LENGHT),
                     ifValid: () => _name = value);
             }
@@ -50,7 +50,7 @@ namespace Giro.Animes.Domain.Entities
 
                 // Checks if the language code has 5 characters and returns a validation error if not
                 Validate(
-                    isInvalidIf: !Regex.IsMatch(Patterns.Language.CODE, value),
+                    isInvalidIf: !Regex.IsMatch(value, Patterns.Language.CODE),
                     ifInvalid: () => Notification.Create(GetType().Name, "Code", Message.Validation.Language.CODE_FORMAT),
                     ifValid: () => _code = value);
             }
@@ -80,7 +80,7 @@ namespace Giro.Animes.Domain.Entities
 
                 // Checks if the native name of the language has between 3 and 20 characters and returns a validation error if not
                 Validate(
-                    isInvalidIf: !Regex.IsMatch(Patterns.Language.NATIVE_NAME, value),
+                    isInvalidIf: !Regex.IsMatch(value, Patterns.Language.NATIVE_NAME),
                     ifInvalid: () => Notification.Create(GetType().Name, "NativeName", Message.Validation.Language.NAME_LENGHT),
                     ifValid: () => _nativeName = value);
             }

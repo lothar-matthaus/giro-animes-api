@@ -60,7 +60,7 @@ namespace Giro.Animes.Domain.Entities
         /// </summary>
         /// <param name="email"></param>
         /// <param name="password"></param>
-        private Account(Email email, Password password, Settings settings, Avatar avatar)
+        private Account(Email email, Password password, Settings settings, Avatar avatar = null)
         {
             Email = email;
             Password = password;
@@ -76,6 +76,6 @@ namespace Giro.Animes.Domain.Entities
         /// <param name="email"></param>
         /// <param name="password"></param>
         /// <returns></returns>
-        public static Account Create(Email email, Password password, Settings settings, Avatar avatar) => new Account(email, password, settings, avatar);
+        public static Account Create(Email email, Password password, Settings settings, Avatar avatar = null) => new Account(email, password, settings, avatar);
     }
 }

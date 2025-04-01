@@ -25,7 +25,7 @@ namespace Giro.Animes.Domain.Entities.Base
                     ifValid: () => _name = value);
 
                 Validate(
-                    isInvalidIf: !Regex.IsMatch(Patterns.Anime.TITLE, value),
+                    isInvalidIf: !Regex.IsMatch(value, Patterns.Anime.TITLE),
                     ifInvalid: () => Notification.Create(GetType().Name, "Title", Message.Validation.Anime.TITLE_LENGHT),
                     ifValid: () => _name = value);
             }

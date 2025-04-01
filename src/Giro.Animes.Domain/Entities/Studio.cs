@@ -24,12 +24,12 @@ namespace Giro.Animes.Domain.Entities
                     ifValid: () => _name = value);
 
                 Validate(
-                    isInvalidIf: Regex.IsMatch(Patterns.Studio.NAME, value),
+                    isInvalidIf: !Regex.IsMatch(value, Patterns.Studio.NAME),
                     ifInvalid: () => Notification.Create(GetType().Name, "Name", Message.Validation.Studio.INVALID_NAME),
                     ifValid: () => _name = value);
 
                 Validate(
-                   isInvalidIf: !Regex.IsMatch(Patterns.Studio.NAME_LENGHT, value),
+                   isInvalidIf: !Regex.IsMatch(value, Patterns.Studio.NAME_LENGHT),
                    ifInvalid: () => Notification.Create(GetType().Name, "Name", Message.Validation.Studio.INVALID_NAME_LENGHT),
                    ifValid: () => _name = value);
             }
@@ -63,7 +63,7 @@ namespace Giro.Animes.Domain.Entities
             set
             {
                 Validate(
-                    isInvalidIf: (!string.IsNullOrEmpty(value) && !Regex.IsMatch(Patterns.General.URL, value)),
+                    isInvalidIf: !string.IsNullOrEmpty(value) && !Regex.IsMatch(value, Patterns.General.URL),
                     ifInvalid: () => Notification.Create(GetType().Name, "Website", Message.Validation.General.INVALID_URL),
                     ifValid: () => _website = value);
             }
@@ -82,7 +82,7 @@ namespace Giro.Animes.Domain.Entities
             set
             {
                 Validate(
-                    isInvalidIf: (!string.IsNullOrEmpty(value) && !Regex.IsMatch(Patterns.General.URL_TWITTER, value)),
+                    isInvalidIf: !string.IsNullOrEmpty(value) && !Regex.IsMatch(value, Patterns.General.URL_TWITTER),
                     ifInvalid: () => Notification.Create(GetType().Name, "Twitter", Message.Validation.General.INVALID_URL),
                     ifValid: () => _twitter = value);
             }
@@ -101,7 +101,7 @@ namespace Giro.Animes.Domain.Entities
             set
             {
                 Validate(
-                    isInvalidIf: (!string.IsNullOrEmpty(value) && !Regex.IsMatch(Patterns.General.URL_INSTAGRAM, value)),
+                    isInvalidIf: !string.IsNullOrEmpty(value) && !Regex.IsMatch(value, Patterns.General.URL_INSTAGRAM),
                     ifInvalid: () => Notification.Create(GetType().Name, "Instagram", Message.Validation.General.INVALID_URL),
                     ifValid: () => _instagram = value);
             }
