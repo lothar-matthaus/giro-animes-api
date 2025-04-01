@@ -16,7 +16,7 @@
         public static class Account
         {
             public const string EMAIL = @"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$";
-            public const string PASSWORD = @"^(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$";
+            public const string PASSWORD = @"^(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).{8,}$";
         }
 
         public static class Language
