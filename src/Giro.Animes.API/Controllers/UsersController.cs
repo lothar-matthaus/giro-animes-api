@@ -20,7 +20,7 @@ namespace Giro.Animes.API.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<DetailResponse<UserDTO>>> CreateUser([FromForm]UserCreateRequest request)
+        public async Task<ActionResult<DetailResponse<UserDTO>>> CreateUser([FromBody] UserCreateRequest request)
         {
             return Ok(await _applicationService.CreateUserAsync(request));
         }
