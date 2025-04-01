@@ -35,7 +35,7 @@ namespace Giro.Animes.Infra.Data.Configurations.Types.Management
             builder.Navigation(account => account.Settings);
 
             builder.HasOne(account => account.User).WithOne(user => user.Account).IsRequired(true);
-            builder.HasOne(account => account.Avatar).WithOne(avatar => avatar.Account).HasForeignKey<Avatar>(avatar => avatar.AccountId).IsRequired(true);
+            builder.HasOne(account => account.Avatar).WithOne(avatar => avatar.Account).HasForeignKey<Avatar>(avatar => avatar.AccountId).IsRequired(false);
             builder.HasMany(account => account.Watchlist).WithMany(anime => anime.Accounts).UsingEntity<Watchlist>(
             Tables.Content.WATCHLIST, // Nome da tabela de junção
             join => join.HasOne(watch => watch.Anime)

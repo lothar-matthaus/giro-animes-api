@@ -1,7 +1,6 @@
 ﻿using Giro.Animes.Domain.Entities.Base;
 using Giro.Animes.Domain.Interfaces.Repositories.Write.Base;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.ChangeTracking;
 
 namespace Giro.Animes.Infra.Data.Repositories.Write.Base
 {
@@ -14,11 +13,9 @@ namespace Giro.Animes.Infra.Data.Repositories.Write.Base
             _dbSet = dbContext.Set<TEntity>();
         }
 
-        public async Task<TEntity> AddAsync(TEntity entity, CancellationToken cancellationToken)
+        public async Task AddAsync(TEntity entity, CancellationToken cancellationToken)
         {
-            EntityEntry entry = await _dbSet.AddAsync(entity, cancellationToken);
-
-            return (TEntity)entry.Entity;
+            await _dbSet.AddAsync(entity, cancellationToken);
         }
 
         public void Delete(TEntity entity) => _dbSet.Remove(entity);

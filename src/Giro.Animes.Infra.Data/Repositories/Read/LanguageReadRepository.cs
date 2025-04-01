@@ -15,7 +15,7 @@ namespace Giro.Animes.Infra.Data.Repositories.Read
         public async Task<Language> GetLanguageByCode(string code)
         {
             IQueryable<Language> query = _dbSet.AsQueryable();
-            return await query
+            return await query.AsNoTracking()
                 .FirstOrDefaultAsync(language => language.Code.Equals(code))
                 .ConfigureAwait(false);  // Evita capturar o contexto de sincronização
         }

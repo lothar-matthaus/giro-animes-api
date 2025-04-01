@@ -13,11 +13,9 @@ namespace Giro.Animes.Infra.Data.Configurations.Types.Common
             base.Configure(builder);
             builder.ToTable(Tables.Common.LANGUAGES, Schemas.COMMON);
 
-            builder.HasMany(language => language.Settings).WithOne(settings => settings.InterfaceLanguage).IsRequired(true);
-
-            builder.Property(language => language.Name).IsRequired().HasMaxLength(50).HasColumnOrder(2);
-            builder.Property(language => language.Code).IsRequired().HasMaxLength(5).HasColumnOrder(3);
-            builder.Property(language => language.NativeName).IsRequired().HasMaxLength(50).HasColumnOrder(4);
+            builder.Property(language => language.Name).IsRequired().HasMaxLength(50);
+            builder.Property(language => language.Code).IsRequired().HasMaxLength(5);
+            builder.Property(language => language.NativeName).IsRequired().HasMaxLength(50);
         }
     }
 }

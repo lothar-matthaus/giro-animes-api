@@ -1,7 +1,6 @@
 ﻿using Giro.Animes.Domain.Entities.Base;
 using Giro.Animes.Domain.Interfaces.Pagination;
 using Giro.Animes.Domain.Interfaces.Repositories.Read.Base;
-using Giro.Animes.Infra.Data.Contexts;
 using Microsoft.EntityFrameworkCore;
 
 namespace Giro.Animes.Infra.Data.Repositories.Read.Base

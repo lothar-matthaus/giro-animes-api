@@ -68,7 +68,7 @@ namespace Giro.Animes.Infra.Data.Contexts
                     entry.Entity.GetType().Name,
                     entry.State.ToString(),
                     _user.Id, // Você pode obter isso via DI ou HttpContext
-                    (entry.State == EntityState.Deleted || entry.State == EntityState.Modified) ? null : JsonSerializer.Serialize(entry.CurrentValues.ToObject())
+                    (entry.State != EntityState.Deleted || entry.State != EntityState.Modified) ? null : JsonSerializer.Serialize(entry.CurrentValues.ToObject())
              );
 
                 auditEntries.Add(auditEntry);

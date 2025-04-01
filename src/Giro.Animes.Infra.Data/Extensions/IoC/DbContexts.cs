@@ -28,8 +28,7 @@ namespace Giro.Animes.Infra.Data.Extensions.IoC
                 options
                 .UseNpgsql(appConfig.DataBaseConfig.ConnectionString)
                 .EnableSensitiveDataLogging(appConfig.DataBaseConfig.EnableSensitiveDataLogging)
-                .LogTo(Console.WriteLine, appConfig.DataBaseConfig.LogLevel)
-                .UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking);
+                .LogTo(Console.WriteLine, appConfig.DataBaseConfig.LogLevel);
             });
 
             return services;
