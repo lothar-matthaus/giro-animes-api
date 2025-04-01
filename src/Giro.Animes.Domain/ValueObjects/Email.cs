@@ -19,7 +19,7 @@ namespace Giro.Animes.Domain.ValueObjects
                     ifValid: () => _value = value);
 
                 Validate(
-                    isInvalidIf: Regex.IsMatch(Patterns.Account.EMAIL, value),
+                    isInvalidIf: !Regex.IsMatch(value, Patterns.Account.EMAIL),
                     ifInvalid: () => Notification.Create(this.GetType().Name, "E-mail", string.Format(Message.Validation.General.INVALID, "E-mail")),
                     ifValid: () => _value = value);
             }

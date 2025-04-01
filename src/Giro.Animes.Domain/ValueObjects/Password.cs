@@ -19,12 +19,12 @@ namespace Giro.Animes.Domain.ValueObjects
             {
                 Validate(
                     isInvalidIf: string.IsNullOrWhiteSpace(value),
-                    ifInvalid: () => Notification.Create(this.GetType().Name, "Senha", string.Format(Message.Validation.General.REQUIRED, "Senha")),
+                    ifInvalid: () => Notification.Create(GetType().Name, "Senha", string.Format(Message.Validation.General.REQUIRED, "Senha")),
                     ifValid: () => _plainText = value);
 
                 Validate(
-                    isInvalidIf: Regex.IsMatch(Patterns.Account.PASSWORD, value),
-                    ifInvalid: () => Notification.Create(this.GetType().Name, "Senha", Message.Validation.Account.INVALID_PASSWORD),
+                    isInvalidIf: !Regex.IsMatch(value, Patterns.Account.PASSWORD),
+                    ifInvalid: () => Notification.Create(GetType().Name, "Senha", Message.Validation.Account.INVALID_PASSWORD),
                     ifValid: () => _plainText = value);
 
             }
@@ -49,7 +49,7 @@ namespace Giro.Animes.Domain.ValueObjects
 
                 Validate(
                     isInvalidIf: !string.Equals(value, _plainText),
-                    ifInvalid: () => Notification.Create(this.GetType().Name, "Confirmar senha", Message.Validation.Account.INVALID_PASSWORD),
+                    ifInvalid: () => Notification.Create(this.GetType().Name, "Confirmar senha", Message.Validation.Account.INVALID_PASSWORD_CONFIRM),
                     ifValid: () => _plainTextConfirm = value);
             }
         }
@@ -123,7 +123,7 @@ namespace Giro.Animes.Domain.ValueObjects
         /// <returns></returns>
         private string GeneratePasswordHash(string password, string salt)
         {
-            using (var algorithm = new System.Security.Cryptography.Rfc2898DeriveBytes(password, Convert.FromBase64String(salt), 10000, System.Security.Cryptography.HashAlgorithmName.SHA256))
+            using (var algorithm = new Rfc2898DeriveBytes(password, Convert.FromBase64String(salt), 20000, HashAlgorithmName.SHA256))
             {
                 return Convert.ToBase64String(algorithm.GetBytes(256 / 8));
             }
