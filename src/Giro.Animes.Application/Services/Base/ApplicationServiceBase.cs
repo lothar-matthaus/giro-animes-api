@@ -1,4 +1,5 @@
-﻿using Giro.Animes.Application.Interfaces.Services.Base;
+﻿using Giro.Animes.Application.Interfaces.Services;
+using Giro.Animes.Application.Interfaces.Services.Base;
 using Giro.Animes.Domain.Interfaces.Services.Base;
 using Giro.Animes.Infra.Interfaces;
 
@@ -8,10 +9,12 @@ namespace Giro.Animes.Application.Services.Base
     {
         protected readonly IApplicationUser _applicationUser;
         protected readonly TDomainService _domainService;
-        public ApplicationServiceBase(IApplicationUser applicationUser, TDomainService domainService)
+        protected readonly INotificationService _notificationService;
+        public ApplicationServiceBase(IApplicationUser applicationUser, INotificationService notificationService, TDomainService domainService)
         {
             _applicationUser = applicationUser;
             _domainService = domainService;
+            _notificationService = notificationService;
         }
     }
 }
