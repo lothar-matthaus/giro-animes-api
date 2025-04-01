@@ -11,8 +11,8 @@ namespace Giro.Animes.Domain.Services
         where IMediaWriteRepository : IWriteBaseRepository<TMedia>
         where IMediaReadRepository : IReadBaseRepository<TMedia>
     {
-        public MediaDomainService(IMediaWriteRepository writeRepository, IMediaReadRepository readRepository, INotificationService notificationService) : 
-            base(writeRepository, readRepository, notificationService)
+        public MediaDomainService(IMediaWriteRepository writeRepository, IMediaReadRepository readRepository) :
+            base(writeRepository, readRepository)
         {
         }
 

@@ -8,7 +8,7 @@ namespace Giro.Animes.Domain.Services
 {
     public class LanguageDomainService : DomainServiceBase<ILanguageWriteRepository, ILanguageReadRepository, Language>, ILanguageDomainService
     {
-        public LanguageDomainService(ILanguageWriteRepository writeRepository, ILanguageReadRepository readRepository, INotificationService notificationService) : base(writeRepository, readRepository, notificationService)
+        public LanguageDomainService(ILanguageWriteRepository writeRepository, ILanguageReadRepository readRepository) : base(writeRepository, readRepository)
         {
         }
 

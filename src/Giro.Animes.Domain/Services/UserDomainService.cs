@@ -4,7 +4,6 @@ using Giro.Animes.Domain.Interfaces.Repositories.Write;
 using Giro.Animes.Domain.Interfaces.Services;
 using Giro.Animes.Domain.Services.Base;
 using Giro.Animes.Domain.ValueObjects;
-using System.Linq;
 
 namespace Giro.Animes.Domain.Services
 {
@@ -12,31 +11,25 @@ namespace Giro.Animes.Domain.Services
     {
         private readonly IMediaDomainService<Avatar> _mediaDomainService;
 
-        public UserDomainService(IUserWriteRepository writeRepository, IUserReadRepository readRepository, INotificationService notificationService, IMediaDomainService<Avatar> mediaDomainService) :
-            base(writeRepository, readRepository, notificationService)
+        public UserDomainService(IUserWriteRepository writeRepository, IUserReadRepository readRepository, IMediaDomainService<Avatar> mediaDomainService) :
+            base(writeRepository, readRepository)
         {
             _mediaDomainService = mediaDomainService;
         }
 
-        public async Task<User> CreateUser(User user)
+        public async Task<EntityResult<User>> CreateUser(User user)
         {
+
             IEnumerable<Notification> notifications = new List<Notification>()
-            .Concat(user.IsValid ? Enumerable.Empty<Notification>() : user.GetErrors())
-            .Concat(user.Account.IsValid ? Enumerable.Empty<Notification>() : user.Account.GetErrors())
-            .Concat(user.Account.Password.IsValid ? Enumerable.Empty<Notification>() : user.Account.Password.GetErrors())
-            .Concat(user.Account.Avatar.IsValid ? Enumerable.Empty<Notification>() : user.Account.Avatar.GetErrors())
-            .ToList();
+                        .Concat(user.IsValid ? Enumerable.Empty<Notification>() : user.GetErrors())
+                        .Concat(user.Account.IsValid ? Enumerable.Empty<Notification>() : user.Account.GetErrors())
+                        .Concat(user.Account.Password.IsValid ? Enumerable.Empty<Notification>() : user.Account.Password.GetErrors())
+                        .Concat(user.Account.Email.IsValid ? Enumerable.Empty<Notification>() : user.Account.Email.GetErrors())
+                        .ToList();
 
-            if (notifications.Any())
-            {
-                await _notificationService.AddNotification(notifications);
-                return null;
-            }
+            await _writeRepository.AddAsync(user, CancellationToken.None);
 
-            //  wait _mediaDomainService.CreateAsync(user.Account.Avatar);
-
-
-            return await _writeRepository.AddAsync(user, CancellationToken.None);
+            return EntityResult<User>.Create(user, notifications);
         }
 
         public async Task<User> GetUserAndAccountById(long userId)

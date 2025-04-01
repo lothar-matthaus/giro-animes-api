@@ -9,7 +9,7 @@ namespace Giro.Animes.Domain.Services
 {
     public class AuthorDomainService : DomainServiceBase<IAuthorWriteRepository, IAuthorReadRepository, Author>, IAuthorDomainService
     {
-        public AuthorDomainService(IAuthorWriteRepository writeRepository, IAuthorReadRepository readRepository, INotificationService notificationService) : base(writeRepository, readRepository, notificationService)
+        public AuthorDomainService(IAuthorWriteRepository writeRepository, IAuthorReadRepository readRepository) : base(writeRepository, readRepository)
         {
         }
 
