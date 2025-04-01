@@ -1,8 +1,9 @@
-using Giro.Animes.Shared.Middleware;
 using Giro.Animes.Application.Extensions.IoC;
 using Giro.Animes.Infra.Configs;
 using Giro.Animes.Infra.Data.Extensions.IoC;
+using Giro.Animes.Infra.Extensions.IoC;
 using Giro.Animes.Infra.Security;
+using Giro.Animes.Shared.Middleware;
 using Giro.Animes.Shared.Middlewares;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -37,16 +38,17 @@ builder.Services.AddReadDbContext();
 #region Repositories
 builder.Services.AddReadRepositories();
 builder.Services.AddWriteRepositories();
-
-builder.Services.ConfigureDomainServices();
-builder.Services.ConfigureApplicationServices();
-
 #endregion
 
+#region Services
+builder.Services.ConfigureDomainServices();
+builder.Services.ConfigureApplicationServices();
+builder.Services.AddServices();
+#endregion
 
 #region Middlewares
-builder.Services.AddTransient<ExceptionHandlingMiddleware>();
 builder.Services.AddTransient<SaveChangesHandlingMiddleware>();
+builder.Services.AddTransient<ExceptionHandlingMiddleware>();
 #endregion
 var app = builder.Build();
 
@@ -58,8 +60,8 @@ if (app.Environment.IsDevelopment())
 }
 
 #region Middlewares
-app.UseMiddleware<ExceptionHandlingMiddleware>();
 app.UseMiddleware<SaveChangesHandlingMiddleware>();
+app.UseMiddleware<ExceptionHandlingMiddleware>();
 #endregion
 
 app.UseHttpsRedirection();
