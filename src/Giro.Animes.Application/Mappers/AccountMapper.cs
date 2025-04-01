@@ -18,9 +18,9 @@ namespace Giro.Animes.Application.Mappers
             AccountDTO accountDTO = AccountDTO.Create(
                 account.Email.Value,
                 account.Plan.Map(),
-                account.Avatar.Map(),
+                account.Avatar?.Map(),
                 account.Settings.Map(),
-                account.Watchlist.Map(),
+                account.Watchlist?.Map(),
                 account.UserId,
                 account.Id,
                 account.CreationDate,
