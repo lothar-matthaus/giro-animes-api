@@ -22,7 +22,6 @@ namespace Giro.Animes.Infra.Data.Configurations.Types.Management
 
             builder.HasOne(settings => settings.Account).WithOne(acc => acc.Settings).HasForeignKey<Settings>(set => set.AccountId).IsRequired(true);
             builder.HasOne(settings => settings.InterfaceLanguage).WithMany(language => language.Settings).HasForeignKey(settings => settings.InterfaceLanguageId).IsRequired(true);
-            builder.Navigation(settings => settings.InterfaceLanguage).IsRequired();
             builder.HasMany(settings => settings.AnimeLanguages).WithMany(lan => lan.SettingsAnimes).UsingEntity<SettingsAnimesLanguage>(
                 Tables.Content.SETTINGS_ANIME_LANGUAGES, join =>
             join.HasOne(join => join.Language)
@@ -37,9 +36,6 @@ namespace Giro.Animes.Infra.Data.Configurations.Types.Management
             {
                 join.ToTable(Tables.Content.SETTINGS_ANIME_LANGUAGES, Schemas.CONTENT);
             });
-
-            builder.Navigation(settings => settings.InterfaceLanguage);
-            builder.Navigation(settings => settings.Account);
         }
     }
 }

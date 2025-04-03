@@ -22,8 +22,10 @@ namespace Giro.Animes.Infra.Data.Repositories.Read.Base
         public async Task<IEnumerable<TEntity>> GetAllPagedAsync(IPagination param, CancellationToken cancellationToken)
         {
             IQueryable<TEntity> query = _dbSet.AsQueryable();
-            param.Count = query.Count();
+            int count = query.Count();
             IEnumerable<TEntity> result = await query.OrderBy(entity => entity.Id).Skip((param.Page - 1) * param.RowsPerPage).Take(param.RowsPerPage).ToListAsync();
+
+            param.SetPagination(param.Page, param.RowsPerPage, count);
             return result;
         }
 
