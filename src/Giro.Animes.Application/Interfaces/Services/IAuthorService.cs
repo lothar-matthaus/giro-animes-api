@@ -1,4 +1,5 @@
 ﻿using Giro.Animes.Application.DTOs;
+using Giro.Animes.Application.DTOs.Base;
 using Giro.Animes.Application.Interfaces.Services.Base;
 using Giro.Animes.Domain.Interfaces.Pagination;
 

@@ -24,7 +24,7 @@ namespace Giro.Animes.Application.Services
         public async Task<UserDTO> GetUserAndAccountByUserIdAsync(long userId)
         {
             User user = await _domainService.GetUserAndAccountById(userId);
-            UserDTO userDTO = UserDTO.Create(user.Id, user.CreationDate, user.UpdateDate, user.Name, user.Status.Map(), user.Role.Map(), user.Ratings.Map(), user.Account.Map());
+            UserDTO userDTO = user?.Map();
 
             return userDTO;
         }
@@ -33,10 +33,13 @@ namespace Giro.Animes.Application.Services
         {
             // Cria as tasks para obter o idioma da interface e os idiomas favoritos
             Language interfaceLanguage = await _languageDomainService.GetLanguageByCode();
-            IEnumerable<Language> favoriteLanguage = await _languageDomainService.GetLanguagesByCodes(_applicationUser.Languages);
+            IEnumerable<Language> favoriteLanguages = await _languageDomainService.GetLanguagesByCodes(_applicationUser.Languages);
 
             // Cria as configurações do usuário
-            Settings settings = Settings.Create(interfaceLanguage, favoriteLanguage);
+            Settings settings = Settings.Create(null, null);
+            settings.AddAnimeLanguages(favoriteLanguages);
+            settings.ChangeInterfaceLanguage(interfaceLanguage);
+
             // Cria os objetos de valor para senha e email
             Password password = Password.Create(request.Password, request.ConfirmPassword);
             Email email = Email.Create(request.Email);

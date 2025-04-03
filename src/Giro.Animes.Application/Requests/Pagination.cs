@@ -9,5 +9,12 @@ namespace Giro.Animes.Application.Requests
         public int RowsPerPage { get; set; }
 
         public int Count { get; set; }
+
+        public void SetPagination(int page, int rowsPerPage, int count)
+        {
+            Page = page;
+            RowsPerPage = rowsPerPage;
+            Count = count;
+        }
     }
 }

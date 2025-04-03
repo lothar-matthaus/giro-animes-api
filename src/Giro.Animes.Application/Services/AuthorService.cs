@@ -1,4 +1,5 @@
 ﻿using Giro.Animes.Application.DTOs;
+using Giro.Animes.Application.DTOs.Base;
 using Giro.Animes.Application.Interfaces.Services;
 using Giro.Animes.Application.Mappers;
 using Giro.Animes.Application.Services.Base;
@@ -19,15 +20,16 @@ namespace Giro.Animes.Application.Services
         public async Task<IEnumerable<AuthorDTO>> GetAllAuthorsPagedAsync(IPagination param)
         {
             IEnumerable<Author> authors = await _domainService.GetAllAuthorsPagedAsync(param);
-            IEnumerable<AuthorDTO> result = authors.Map();
+            IEnumerable<AuthorDTO> authorsDTO = authors?.Map();
 
-            return result;
+            return authorsDTO;
         }
 
         public async Task<AuthorDTO> GetAuthorByIdAsync(long id)
         {
             Author author = await _domainService.GetAuthorByIdAsync(id);
-            AuthorDTO authorDTO = author.Map();
+            AuthorDTO authorDTO = author?.Map();
+
             return authorDTO;
         }
     }
