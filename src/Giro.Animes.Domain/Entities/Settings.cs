@@ -33,16 +33,16 @@ namespace Giro.Animes.Domain.Entities
         /// <summary>
         /// Idiomas em que os animes serão mostrados.
         /// </summary>
-        public IEnumerable<Language> AnimeLanguages { get; private set; }
+        public ICollection<Language> AnimeLanguages { get; private set; }
         /// <summary>
         /// Identificador do usuário ao qual as configurações pertencem
         /// </summary>
-        public long AccountId { get; private set; }
+        public long AccountId { get; }
 
         /// <summary>
         /// Propriedade de navegação para o usuário ao qual as configurações pertencem
         /// </summary>
-        public Account Account { get; private set; }
+        public Account Account { get; }
 
         /// <summary>
         /// Construtor padrão para garantir a construção no EntityFramework
@@ -59,15 +59,6 @@ namespace Giro.Animes.Domain.Entities
             EnableApplicationNotifications = true;
             EnableApplicationNotifications = false;
             Theme = UserTheme.Light;
-            InterfaceLanguage = interfaceLanguage;
-            AnimeLanguages = animeLanguages;
-        }
-
-        private Settings(UserTheme userTheme)
-        {
-            EnableApplicationNotifications = true;
-            EnableApplicationNotifications = false;
-            Theme = userTheme;
         }
 
         /// <summary>
@@ -77,13 +68,6 @@ namespace Giro.Animes.Domain.Entities
         /// <param name="language"></param>
         /// <returns></returns>
         public static Settings Create(Language interfaceLanguage, IEnumerable<Language> animeLanguages) => new(interfaceLanguage, animeLanguages);
-
-        /// <summary>
-        /// Método para criar uma instância de Setting com os valores padrões definidos
-        /// </summary>
-        /// <param name="userTheme"></param>
-        /// <returns></returns>
-        public static Settings Create(UserTheme userTheme) => new Settings(userTheme);
 
         #region Behaviors
         /// <summary>
@@ -115,7 +99,22 @@ namespace Giro.Animes.Domain.Entities
         public void AddAnimeLanguages(IEnumerable<Language> animeLanguages)
         {
             AnimeLanguages ??= new List<Language>();
-            ((List<Language>)AnimeLanguages).AddRange(animeLanguages);
+            foreach (var language in animeLanguages)
+            {
+                if (!AnimeLanguages.Contains(language))
+                {
+                    AnimeLanguages.Add(language);
+                }
+            }
+        }
+
+        /// <summary>
+        /// Remove um idioma da lista de idiomas de animes
+        /// </summary>
+        /// <param name="language"></param>
+        public void ChangeInterfaceLanguage(Language language)
+        {
+            InterfaceLanguage = language;
         }
         #endregion
     }

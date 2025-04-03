@@ -2,8 +2,10 @@
 {
     public interface IPagination
     {
-        public int Page { get; set; }
-        public int RowsPerPage { get; set; }
-        public int Count { get; set; }
+        public int Page { get; }
+        public int RowsPerPage { get; }
+        public int Count { get; }
+
+        void SetPagination(int page, int rowsPerPage, int count);
     }
 }
