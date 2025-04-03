@@ -11,38 +11,26 @@ namespace Giro.Animes.Shared.Middlewares
 {
     public class SaveChangesHandlingMiddleware : IMiddleware
     {
-        private readonly INotificationService _notificationService;
         private readonly DbContext _dbContext;
 
-        public SaveChangesHandlingMiddleware(INotificationService notificationService, GiroAnimesWriteDbContext dbContext)
+        public SaveChangesHandlingMiddleware(GiroAnimesWriteDbContext dbContext)
         {
-            _notificationService = notificationService;
             _dbContext = dbContext;
         }
         public async Task InvokeAsync(HttpContext context, RequestDelegate next)
         {
-            await next(context);
-
-            if (_dbContext.ChangeTracker.HasChanges() && !_notificationService.HasNotifications())
+            try
             {
-                await _dbContext.SaveChangesAsync();
-            }
-            else
-            {
-                _dbContext.ChangeTracker.Clear();
+                await next(context);
 
-                if (!context.Response.HasStarted)
+                if (_dbContext.ChangeTracker.HasChanges())
                 {
-                    context.Response.StatusCode = StatusCodes.Status400BadRequest;
-                    context.Response.ContentType = "application/json";
-
-                    IEnumerable<Notification> notifications = await _notificationService.GetNotifications();
-
-                    NotificationResponse errorResponse = NotificationResponse.Create(notifications, false, HttpStatusCode.BadRequest, "Houve um ou mais erros de validação");
-
-                    var json = JsonConvert.SerializeObject(errorResponse);
-                    await context.Response.WriteAsync(json);
+                    await _dbContext.SaveChangesAsync();
                 }
+            }
+            catch (Exception)
+            {
+                throw;
             }
         }
     }
