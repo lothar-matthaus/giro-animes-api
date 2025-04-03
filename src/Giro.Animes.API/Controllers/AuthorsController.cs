@@ -12,15 +12,15 @@ namespace Giro.Animes.API.Controllers
         [HttpGet("{id}")]
         public async Task<DetailResponse<AuthorDTO>> GetAuthorById([FromRoute] long id)
         {
-            AuthorDTO data = await _applicationService.GetAuthorByIdAsync(id);
-            return DetailResponse<AuthorDTO>.Create(data, true, System.Net.HttpStatusCode.OK, "Autor encontrado com sucesso");
+            AuthorDTO authorDTO = await _applicationService.GetAuthorByIdAsync(id);
+            return await Ok(authorDTO);
         }
 
         [HttpGet()]
         public async Task<ListPagedResponse<AuthorDTO>> GetAll([FromQuery] Pagination param)
         {
-            IEnumerable<AuthorDTO> list = await _applicationService.GetAllAuthorsPagedAsync(param);
-            return ListPagedResponse<AuthorDTO>.Create(list, param, true, System.Net.HttpStatusCode.OK, "Lista encontrada com sucesso");
+            IEnumerable<AuthorDTO> authors = await _applicationService.GetAllAuthorsPagedAsync(param);
+            return await Ok(authors, param);   
         }
     }
 }

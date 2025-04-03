@@ -4,6 +4,8 @@ using Giro.Animes.Application.Requests.User;
 using Giro.Animes.Application.Responses;
 using Giro.Animes.Presentation.Controllers;
 using Microsoft.AspNetCore.Mvc;
+using System.Net;
+using System.Web.Http.Description;
 
 namespace Giro.Animes.API.Controllers
 {
@@ -14,15 +16,22 @@ namespace Giro.Animes.API.Controllers
         }
 
         [HttpGet("{id:long}")]
-        public async Task<ActionResult<DetailResponse<UserDTO>>> GetUser([FromRoute] long id)
+        [ProducesResponseType<DetailResponse<UserDTO>>((int)HttpStatusCode.OK)]
+        [ProducesResponseType<ErrorResponse>((int)HttpStatusCode.InternalServerError)]
+        public async Task<DetailResponse<UserDTO>> GetUser([FromRoute] long id)
         {
-            return Ok(await _applicationService.GetUserAndAccountByUserIdAsync(id));
+            UserDTO userDTO = await _applicationService.GetUserAndAccountByUserIdAsync(id);
+            return await Ok(userDTO);
         }
 
         [HttpPost]
-        public async Task<ActionResult<DetailResponse<UserDTO>>> CreateUser([FromBody] UserCreateRequest request)
+        [ProducesResponseType<DetailResponse<UserDTO>>((int)HttpStatusCode.OK)]
+        [ProducesResponseType<ErrorResponse>((int)HttpStatusCode.InternalServerError)]
+        [ProducesResponseType<NotificationResponse>((int)HttpStatusCode.BadRequest)]
+        public async Task<DetailResponse<UserDTO>> CreateUser([FromBody] UserCreateRequest request)
         {
-            return Ok(await _applicationService.CreateUserAsync(request));
+            UserDTO userDTO = await _applicationService.CreateUserAsync(request);
+            return await Ok(userDTO);
         }
     }
 }

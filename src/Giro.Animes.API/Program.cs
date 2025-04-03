@@ -47,8 +47,9 @@ builder.Services.AddServices();
 #endregion
 
 #region Middlewares
-builder.Services.AddTransient<SaveChangesHandlingMiddleware>();
 builder.Services.AddTransient<ExceptionHandlingMiddleware>();
+builder.Services.AddTransient<SaveChangesHandlingMiddleware>();
+builder.Services.AddTransient<NotificationHandlerMiddleware>();
 #endregion
 var app = builder.Build();
 
@@ -60,8 +61,12 @@ if (app.Environment.IsDevelopment())
 }
 
 #region Middlewares
-app.UseMiddleware<SaveChangesHandlingMiddleware>();
 app.UseMiddleware<ExceptionHandlingMiddleware>();
+
+app.UseRouting();
+
+app.UseMiddleware<SaveChangesHandlingMiddleware>();
+app.UseMiddleware<NotificationHandlerMiddleware>();
 #endregion
 
 app.UseHttpsRedirection();
