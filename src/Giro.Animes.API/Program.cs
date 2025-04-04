@@ -3,6 +3,7 @@ using Giro.Animes.Infra.Configs;
 using Giro.Animes.Infra.Data.Extensions.IoC;
 using Giro.Animes.Infra.Extensions.IoC;
 using Giro.Animes.Infra.Security;
+using Giro.Animes.Shared.Filters;
 using Giro.Animes.Shared.Middleware;
 using Giro.Animes.Shared.Middlewares;
 
@@ -10,13 +11,14 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
-builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 // Configura os serviços da API (Controllers, etc.)
-builder.Services.AddControllers();
+builder.Services.AddControllers(options => {
+    options.Filters.Add<StandardApiResponseFilter>();
+});
 
 // Configura o acesso ao contexto HTTP
 builder.Services.AddHttpContextAccessor();
@@ -48,9 +50,10 @@ builder.Services.AddServices();
 
 #region Middlewares
 builder.Services.AddTransient<ExceptionHandlingMiddleware>();
-builder.Services.AddTransient<SaveChangesHandlingMiddleware>();
 builder.Services.AddTransient<NotificationHandlerMiddleware>();
+builder.Services.AddTransient<SaveChangesHandlingMiddleware>();
 #endregion
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -60,17 +63,11 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-#region Middlewares
 app.UseMiddleware<ExceptionHandlingMiddleware>();
-
 app.UseRouting();
-
 app.UseMiddleware<SaveChangesHandlingMiddleware>();
 app.UseMiddleware<NotificationHandlerMiddleware>();
-#endregion
-
 app.UseHttpsRedirection();
-
 app.UseAuthorization();
 
 app.MapControllers();
