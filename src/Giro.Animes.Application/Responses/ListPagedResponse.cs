@@ -1,5 +1,7 @@
-﻿using Giro.Animes.Application.Responses.Base;
+﻿using Giro.Animes.Application.Requests;
+using Giro.Animes.Application.Responses.Base;
 using Giro.Animes.Domain.Interfaces.Pagination;
+using Microsoft.AspNetCore.Mvc.RazorPages;
 using System.Net;
 
 namespace Giro.Animes.Application.Responses
@@ -12,24 +14,18 @@ namespace Giro.Animes.Application.Responses
 
         public int RowsPerPage { get; private set; }
 
-        public int Count { get; private set; }
+        public int TotalCount { get; set; }
 
         public int TotalPages { get; private set; }
 
-        private ListPagedResponse(IEnumerable<TDto> list, IPagination pagination, bool isSuccess, HttpStatusCode httpStatusCode, string message) : base(isSuccess, httpStatusCode, message)
+        private ListPagedResponse(IEnumerable<TDto> list, bool isSuccess, HttpStatusCode httpStatusCode, string message, int page, int rowsPerPage, int totalCount) : base(isSuccess, httpStatusCode, message)
         {
             List = list;
-            Count = pagination.Count;
-            Page = pagination.Page;
-            RowsPerPage = pagination.RowsPerPage;
-            TotalPages = (int)Math.Ceiling((double)Count / RowsPerPage);
+            Page = page;
+            RowsPerPage = rowsPerPage;
+            TotalCount = totalCount;
+            TotalPages = (int)Math.Ceiling((double)TotalCount / RowsPerPage);
         }
-
-        /// <summary>
-        /// Sets the list of items to be returned in the response.
-        /// </summary>
-        /// <param name="count"></param>
-        public void SetCount(int count) => Count = count;
 
         /// <summary>
         /// Creates a new instance of ListPagedResponse with the specified parameters. 
@@ -40,8 +36,8 @@ namespace Giro.Animes.Application.Responses
         /// <param name="httpStatusCode"></param>
         /// <param name="message"></param>
         /// <returns></returns>
-        public static ListPagedResponse<TDto> Create(IEnumerable<TDto> list, IPagination pagination, bool isSuccess, HttpStatusCode httpStatusCode, string message)
-            => new ListPagedResponse<TDto>(list, pagination, isSuccess, httpStatusCode, message);
+        public static ListPagedResponse<TDto> Create(IEnumerable<TDto> list, bool isSuccess, HttpStatusCode httpStatusCode, string message, int page, int rowsPerPage, int totalCount)
+            => new ListPagedResponse<TDto>(list, isSuccess, httpStatusCode, message, page, rowsPerPage, totalCount);
 
         /// <summary>
         /// Creates a new instance of ListPagedResponse with the specified parameters. 
@@ -50,20 +46,7 @@ namespace Giro.Animes.Application.Responses
         /// <param name="statusCode"></param>
         /// <param name="message"></param>
         /// <returns></returns>
-        public static ListPagedResponse<TDto> Create(IPagination pagination, HttpStatusCode statusCode, string message)
-            => new ListPagedResponse<TDto>(null, pagination, true, statusCode, message);
-
-        /// <summary>
-        /// Sets the pagination information for the response. 
-        /// </summary>
-        /// <param name="page"></param>
-        /// <param name="rowsPerPage"></param>
-        /// <param name="count"></param>
-        public void SetPagination(int page, int rowsPerPage, int count)
-        {
-            Page = page;
-            RowsPerPage = rowsPerPage;
-            Count = count;
-        }
+        public static ListPagedResponse<TDto> Create(HttpStatusCode statusCode, string message, int page, int rowsPerPage, int totalCount)
+            => new ListPagedResponse<TDto>(null, true, statusCode, message, page, rowsPerPage, totalCount);
     }
 }
