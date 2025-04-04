@@ -6,7 +6,7 @@ namespace Giro.Animes.Domain.Interfaces.Services
 {
     public interface IAuthorDomainService : IDomainServiceBase
     {
-        Task<IEnumerable<Author>> GetAllAuthorsPagedAsync(IPagination param);
+        Task<(IEnumerable<Author>, int)> GetAllAuthorsPagedAsync(IPagination param);
         Task<Author> GetAuthorByIdAsync(long id);
     }
 }

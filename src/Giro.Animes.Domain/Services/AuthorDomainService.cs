@@ -13,7 +13,7 @@ namespace Giro.Animes.Domain.Services
         {
         }
 
-        public async Task<IEnumerable<Author>> GetAllAuthorsPagedAsync(IPagination param)
+        public async Task<(IEnumerable<Author>, int)> GetAllAuthorsPagedAsync(IPagination param)
         {
             return await _readRepository.GetAllPagedAsync(param, CancellationToken.None);
         }
