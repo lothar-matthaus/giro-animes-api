@@ -19,14 +19,13 @@ namespace Giro.Animes.Infra.Data.Repositories.Read.Base
             return await _dbSet.ToListAsync(cancellationToken);
         }
 
-        public async Task<IEnumerable<TEntity>> GetAllPagedAsync(IPagination param, CancellationToken cancellationToken)
+        public async Task<(IEnumerable<TEntity>, int)> GetAllPagedAsync(IPagination param, CancellationToken cancellationToken)
         {
             IQueryable<TEntity> query = _dbSet.AsQueryable();
             int count = query.Count();
             IEnumerable<TEntity> result = await query.OrderBy(entity => entity.Id).Skip((param.Page - 1) * param.RowsPerPage).Take(param.RowsPerPage).ToListAsync();
 
-            param.SetPagination(param.Page, param.RowsPerPage, count);
-            return result;
+            return (result, count);
         }
 
         public async Task<TEntity> GetByIdAsync(long id, CancellationToken cancellationToken) => await _dbSet.FindAsync(id, cancellationToken);
