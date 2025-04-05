@@ -21,7 +21,7 @@ namespace Giro.Animes.Infra.Data.Configurations.Types.Management
             builder.Property(settings => settings.EnableEmailNotifications).IsRequired().HasDefaultValue(false);
 
             builder.HasOne(settings => settings.Account).WithOne(acc => acc.Settings).HasForeignKey<Settings>(set => set.AccountId).IsRequired(true);
-            builder.HasOne(settings => settings.InterfaceLanguage).WithMany(language => language.Settings).HasForeignKey(settings => settings.InterfaceLanguageId).IsRequired(false);
+            builder.HasOne(settings => settings.InterfaceLanguage).WithMany(language => language.Settings).HasForeignKey(settings => settings.InterfaceLanguageId).IsRequired(true);
             builder.HasMany(settings => settings.AnimeLanguages).WithMany(lan => lan.SettingsAnimes).UsingEntity<SettingsAnimesLanguage>(
                 Tables.Content.SETTINGS_ANIME_LANGUAGES, join =>
             join.HasOne(join => join.Language)
