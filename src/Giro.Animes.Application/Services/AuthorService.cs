@@ -1,6 +1,5 @@
 ﻿using Giro.Animes.Application.Custom;
 using Giro.Animes.Application.DTOs;
-using Giro.Animes.Application.DTOs.Base;
 using Giro.Animes.Application.Interfaces.Enumerations;
 using Giro.Animes.Application.Interfaces.Services;
 using Giro.Animes.Application.Mappers;
@@ -25,7 +24,7 @@ namespace Giro.Animes.Application.Services
             IPagedEnumerable<AuthorDTO> pagedEnumerable = new PagedEnumerable<AuthorDTO>(authors?.Map(), param.Page, param.RowsPerPage, count);
 
             return pagedEnumerable;
-        }   
+        }
 
         public async Task<AuthorDTO> GetAuthorByIdAsync(long id)
         {

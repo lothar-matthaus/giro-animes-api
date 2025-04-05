@@ -1,7 +1,5 @@
-﻿using Giro.Animes.Application.Requests;
-using Giro.Animes.Application.Responses.Base;
+﻿using Giro.Animes.Application.Responses.Base;
 using Giro.Animes.Domain.Interfaces.Pagination;
-using Microsoft.AspNetCore.Mvc.RazorPages;
 using System.Net;
 
 namespace Giro.Animes.Application.Responses

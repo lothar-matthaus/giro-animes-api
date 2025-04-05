@@ -1,10 +1,4 @@
 ﻿using Giro.Animes.Application.Interfaces.Enumerations;
-using Giro.Animes.Domain.Interfaces.Pagination;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Giro.Animes.Application.Custom
 {
