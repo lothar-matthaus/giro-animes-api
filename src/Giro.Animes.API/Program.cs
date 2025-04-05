@@ -17,7 +17,8 @@ builder.Services.AddSwaggerGen();
 
 // Configura os serviços da API (Controllers, etc.)
 builder.Services.AddControllers(options => {
-    options.Filters.Add<StandardApiResponseFilter>();
+   // options.Filters.Add<StandardApiResponseFilter>();
+   options.Filters.Add<NotificationResultFilter>();
 });
 
 // Configura o acesso ao contexto HTTP
@@ -50,8 +51,7 @@ builder.Services.AddServices();
 
 #region Middlewares
 builder.Services.AddTransient<ExceptionHandlingMiddleware>();
-builder.Services.AddTransient<NotificationHandlerMiddleware>();
-builder.Services.AddTransient<SaveChangesHandlingMiddleware>();
+// builder.Services.AddTransient<NotificationHandlerMiddleware>();
 #endregion
 
 var app = builder.Build();
@@ -65,8 +65,7 @@ if (app.Environment.IsDevelopment())
 
 app.UseMiddleware<ExceptionHandlingMiddleware>();
 app.UseRouting();
-app.UseMiddleware<SaveChangesHandlingMiddleware>();
-app.UseMiddleware<NotificationHandlerMiddleware>();
+// app.UseMiddleware<NotificationHandlerMiddleware>();
 app.UseHttpsRedirection();
 app.UseAuthorization();
 

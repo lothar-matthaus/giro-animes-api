@@ -15,6 +15,11 @@ namespace Giro.Animes.API.Controllers
         {
         }
 
+        /// <summary>
+        /// Obtém um usuário pelo seu ID.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [HttpGet("{id:long}")]
         [ProducesResponseType<DetailResponse<UserDTO>>((int)HttpStatusCode.OK)]
         [ProducesResponseType<ErrorResponse>((int)HttpStatusCode.InternalServerError)]
@@ -25,6 +30,11 @@ namespace Giro.Animes.API.Controllers
             return Ok(userDTO);
         }
 
+        /// <summary>
+        /// Cria um novo usuário. 
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
         [HttpPost]
         [ProducesResponseType<DetailResponse<UserDTO>>((int)HttpStatusCode.OK)]
         [ProducesResponseType<ErrorResponse>((int)HttpStatusCode.InternalServerError)]
@@ -33,7 +43,8 @@ namespace Giro.Animes.API.Controllers
         public async Task<IActionResult> CreateUser([FromBody] UserCreateRequest request)
         {
             UserDTO userDTO = await _applicationService.CreateUserAsync(request);
-            return new ObjectResult(userDTO);
+            DetailResponse<UserDTO> response = DetailResponse<UserDTO>.Create(userDTO, true, HttpStatusCode.Created, "O usuário foi criado com sucesso");
+            return StatusCode((int)HttpStatusCode.Created, response);
         }
     }
 }
