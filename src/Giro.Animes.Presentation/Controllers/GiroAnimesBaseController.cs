@@ -1,11 +1,5 @@
-﻿using Giro.Animes.Application.DTOs.Base;
-using Giro.Animes.Application.Interfaces.Services.Base;
-using Giro.Animes.Application.Requests;
-using Giro.Animes.Application.Responses;
-using Giro.Animes.Application.Responses.Base;
-using Giro.Animes.Shared.Filters;
+﻿using Giro.Animes.Application.Interfaces.Services.Base;
 using Microsoft.AspNetCore.Mvc;
-using System.Net;
 
 namespace Giro.Animes.Presentation.Controllers
 {
