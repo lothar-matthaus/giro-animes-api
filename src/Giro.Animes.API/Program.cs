@@ -2,7 +2,7 @@ using Giro.Animes.Application.Extensions.IoC;
 using Giro.Animes.Infra.Configs;
 using Giro.Animes.Infra.Data.Extensions.IoC;
 using Giro.Animes.Infra.Extensions.IoC;
-using Giro.Animes.Infra.Security;
+using Giro.Animes.Infra.Extensions.IoC.Security;
 using Giro.Animes.Shared.Filters;
 using Giro.Animes.Shared.Middleware;
 
