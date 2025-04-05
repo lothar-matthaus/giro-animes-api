@@ -28,8 +28,14 @@ namespace Giro.Animes.Domain.Services
                         .ToList();
 
             await _writeRepository.AddAsync(user, CancellationToken.None);
+            EntityResult<User> result = EntityResult<User>.Create(user, notifications);
 
-            return EntityResult<User>.Create(user, notifications);
+            if (result.IsValid)
+            {
+                await _writeRepository.Commit();
+            }
+
+            return result;
         }
 
         public async Task<User> GetUserAndAccountById(long userId)

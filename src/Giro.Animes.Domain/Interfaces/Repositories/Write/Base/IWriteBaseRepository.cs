@@ -7,5 +7,7 @@ namespace Giro.Animes.Domain.Interfaces.Repositories.Write.Base
         Task AddAsync(TEntity entity, CancellationToken cancellationToken);
         void Update(TEntity entity);
         void Delete(TEntity entity);
+
+        Task<int> Commit();
     }
 }
