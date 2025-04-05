@@ -32,7 +32,7 @@ namespace Giro.Animes.API.Controllers
         {
             IPagedEnumerable<AuthorDTO> authors = await _applicationService.GetAllAuthorsPagedAsync(param);
             ListPagedResponse<AuthorDTO> response = ListPagedResponse<AuthorDTO>.Create(authors, true, HttpStatusCode.OK, "A consulta de autores retornou com resultado", param.Page, param.RowsPerPage, authors.TotalCount);
-            return StatusCode((int) HttpStatusCode.OK, response);
+            return StatusCode((int)HttpStatusCode.OK, response);
         }
     }
 }

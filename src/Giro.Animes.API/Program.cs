@@ -5,7 +5,6 @@ using Giro.Animes.Infra.Extensions.IoC;
 using Giro.Animes.Infra.Security;
 using Giro.Animes.Shared.Filters;
 using Giro.Animes.Shared.Middleware;
-using Giro.Animes.Shared.Middlewares;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -16,9 +15,9 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 // Configura os serviços da API (Controllers, etc.)
-builder.Services.AddControllers(options => {
-   // options.Filters.Add<StandardApiResponseFilter>();
-   options.Filters.Add<NotificationResultFilter>();
+builder.Services.AddControllers(options =>
+{
+    options.Filters.Add<NotificationResultFilter>();
 });
 
 // Configura o acesso ao contexto HTTP
@@ -34,13 +33,11 @@ builder.Services.AddApplicationUser();
 builder.Services.AddJwtAuthentication(builder.Configuration);
 
 #region Contexts
-builder.Services.AddWriteDbContext();
-builder.Services.AddReadDbContext();
+builder.Services.AddGiroAnimesDbContext();
 #endregion
 
 #region Repositories
-builder.Services.AddReadRepositories();
-builder.Services.AddWriteRepositories();
+builder.Services.AddRepositories();
 #endregion
 
 #region Services
