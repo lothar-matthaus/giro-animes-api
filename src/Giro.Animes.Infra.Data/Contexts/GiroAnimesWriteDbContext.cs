@@ -20,11 +20,12 @@ namespace Giro.Animes.Infra.Data.Contexts
             _user = serviceProvider.GetRequiredService<IApplicationUser>();
         }
 
-        public override int SaveChanges()
+        public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
         {
             Audit();
-            return base.SaveChanges();
-        }
+            int key = await base.SaveChangesAsync(cancellationToken);
+            return key;
+        } 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.ApplyConfiguration(new UserEntityTypeConfiguration());
