@@ -69,12 +69,12 @@ namespace Giro.Animes.Domain.Entities
         /// <param name="userName"></param>
         /// <param name="status"></param>
         /// <param name="account"></param>
-        private User(string userName, UserStatus status, Account account)
+        private User(string userName, UserStatus status, Account account, UserRole user)
         {
             Name = userName;
             Status = status;
             Account = account;
-            Role = UserRole.User;
+            Role = user;
         }
 
         /// <summary>
@@ -84,7 +84,7 @@ namespace Giro.Animes.Domain.Entities
         /// <param name="status"></param>
         /// <param name="account"></param>
         /// <returns></returns>
-        public static User Create(string userName, UserStatus status, Account account) => new User(userName, status, account);
+        public static User Create(string userName, UserStatus status, UserRole role, Account account) => new User(userName, status, account, role);
 
     }
 }
