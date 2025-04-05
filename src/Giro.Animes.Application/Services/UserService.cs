@@ -53,7 +53,6 @@ namespace Giro.Animes.Application.Services
             // Chama o serviço de domínio para demais validações e persistência
             EntityResult<User> resultUser = await _domainService.CreateUser(user);
 
-
             if (!resultUser.IsValid)
             {
                 // Adiciona as notificações de erro
