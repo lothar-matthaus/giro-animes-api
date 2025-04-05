@@ -46,7 +46,7 @@ namespace Giro.Animes.Application.Services
             Account account = Account.Create(email, password, settings);
 
             // Cria o usuário com status inativo
-            User user = User.Create(request.Name, UserStatus.Inactive, account);
+            User user = User.Create(request.Name, UserStatus.Inactive, UserRole.User, account);
 
             // Chama o serviço de domínio para demais validações e persistência
             EntityResult<User> resultUser = await _domainService.CreateUser(user);
