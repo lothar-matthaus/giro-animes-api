@@ -35,6 +35,8 @@ namespace Giro.Animes.Shared.Filters
                 context.Result = new ObjectResult(errorResponse)
                 {
                     StatusCode = StatusCodes.Status400BadRequest,
+                    ContentTypes = { "application/json" },
+                    DeclaredType = typeof(NotificationResponse)
                 };
             }
             await next();
