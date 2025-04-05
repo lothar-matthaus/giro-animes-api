@@ -20,9 +20,8 @@ namespace Giro.Animes.Infra.Data.Repositories
         public async Task<Language> GetLanguageByCode(string code)
         {
             IQueryable<Language> query = _dbSet.AsQueryable();
-            return await query.AsNoTracking()
-                .FirstOrDefaultAsync(language => language.Code.Equals(code))
-                .ConfigureAwait(false);  // Evita capturar o contexto de sincronização
+            Language language = await query.FirstOrDefaultAsync(language => language.Code == code).ConfigureAwait(false);  // Evita capturar o contexto de sincronização
+            return language;
         }
 
         /// <summary>
@@ -33,10 +32,8 @@ namespace Giro.Animes.Infra.Data.Repositories
         public async Task<IEnumerable<Language>> GetLanguagesByCodes(params string[] codes)
         {
             IQueryable<Language> query = _dbSet.AsQueryable();
-            return await query
-                .Where(language => codes.Contains(language.Code))
-                .ToListAsync()
-                .ConfigureAwait(false);  // Evita capturar o contexto de sincronização
+            IEnumerable<Language> result = await query.Where(language => codes.Contains(language.Code)).ToListAsync().ConfigureAwait(false);  // Evita capturar o contexto de sincronização
+            return result;
         }
     }
 }

@@ -19,7 +19,6 @@ namespace Giro.Animes.Infra.Data.Configurations.Types.Management
             builder.Property(user => user.Role).IsRequired().HasConversion(role => role.Value, value => UserRole.FromValue(value));
 
             builder.HasOne(user => user.Account).WithOne(account => account.User).HasForeignKey<Account>(account => account.UserId).IsRequired(true);
-            builder.Navigation(user => user.Account);
         }
     }
 }

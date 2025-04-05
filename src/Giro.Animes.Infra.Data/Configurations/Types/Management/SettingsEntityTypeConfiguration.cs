@@ -18,10 +18,10 @@ namespace Giro.Animes.Infra.Data.Configurations.Types.Management
 
             builder.Property(settings => settings.Theme).IsRequired(true).HasConversion(theme => theme.Value, value => UserTheme.FromValue(value)).HasDefaultValue(UserTheme.Light);
             builder.Property(settings => settings.EnableApplicationNotifications).IsRequired().HasDefaultValue(true).HasDefaultValue(true);
-            builder.Property(settings => settings.EnableEmailNotifications).IsRequired().HasDefaultValue(false).HasDefaultValue(false);
+            builder.Property(settings => settings.EnableEmailNotifications).IsRequired().HasDefaultValue(false);
 
             builder.HasOne(settings => settings.Account).WithOne(acc => acc.Settings).HasForeignKey<Settings>(set => set.AccountId).IsRequired(true);
-            builder.HasOne(settings => settings.InterfaceLanguage).WithMany(language => language.Settings).HasForeignKey(settings => settings.InterfaceLanguageId).IsRequired(true);
+            builder.HasOne(settings => settings.InterfaceLanguage).WithMany(language => language.Settings).HasForeignKey(settings => settings.InterfaceLanguageId).IsRequired(false);
             builder.HasMany(settings => settings.AnimeLanguages).WithMany(lan => lan.SettingsAnimes).UsingEntity<SettingsAnimesLanguage>(
                 Tables.Content.SETTINGS_ANIME_LANGUAGES, join =>
             join.HasOne(join => join.Language)
