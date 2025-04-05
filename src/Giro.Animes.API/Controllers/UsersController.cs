@@ -36,7 +36,7 @@ namespace Giro.Animes.API.Controllers
         /// <param name="request"></param>
         /// <returns></returns>
         [HttpPost]
-        [ProducesResponseType<DetailResponse<UserDTO>>((int)HttpStatusCode.OK)]
+        [ProducesResponseType<DetailResponse<UserDTO>>((int)HttpStatusCode.Created)]
         [ProducesResponseType<ErrorResponse>((int)HttpStatusCode.InternalServerError)]
         [ProducesResponseType<NotificationResponse>((int)HttpStatusCode.BadRequest)]
         [ProducesResponseType<ApiResponse>((int)HttpStatusCode.BadRequest)]

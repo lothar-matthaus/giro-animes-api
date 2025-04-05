@@ -48,7 +48,6 @@ builder.Services.AddServices();
 
 #region Middlewares
 builder.Services.AddTransient<ExceptionHandlingMiddleware>();
-// builder.Services.AddTransient<NotificationHandlerMiddleware>();
 #endregion
 
 var app = builder.Build();
