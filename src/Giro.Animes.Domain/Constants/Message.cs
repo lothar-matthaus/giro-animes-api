@@ -45,6 +45,8 @@
             {
                 public const string INVALID_NAME = "O nome de usuário pode conter apenas letras, números e símbolos permitidos (como !@#$%^&*(),._-).";
                 public const string INVALID_NAME_LENGHT = "O nome do usuário deve conter entre 3 e 20 caracteres";
+                public const string USERNAME_ALREADY_EXISTS = "Nome de usuário já existe";
+                public const string EMAIL_ALREADY_EXISTS = "E-mail já existe";
             }
 
             public static class Studio
