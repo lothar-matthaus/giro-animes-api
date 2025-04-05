@@ -25,9 +25,9 @@ namespace Giro.Animes.Shared.Filters
         {
             if (context.Result is ObjectResult objectResult)
             {
-                if (objectResult.Value is IPagedEnumerable<BaseDTO> list)
+                if (objectResult.Value is IPagedEnumerable<object> list)
                 {
-                    context.Result = new ObjectResult(ListPagedResponse<BaseDTO>
+                    context.Result = new ObjectResult(ListPagedResponse<object>
                         .Create(list, true, HttpStatusCode.OK, "A consulta retornou resultados.", list.Page, list.RowsPerPage, list.TotalCount));
                 }
 

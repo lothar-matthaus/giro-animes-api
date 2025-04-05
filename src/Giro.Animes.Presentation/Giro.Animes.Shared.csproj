@@ -17,4 +17,8 @@
     <ProjectReference Include="..\Giro.Animes.Infra.Data\Giro.Animes.Infra.Data.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Extensions\" />
+  </ItemGroup>
+
 </Project>
