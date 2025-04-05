@@ -59,6 +59,8 @@ namespace Giro.Animes.Domain.Entities
             EnableApplicationNotifications = true;
             EnableApplicationNotifications = false;
             Theme = UserTheme.Light;
+            InterfaceLanguage = interfaceLanguage;
+            AnimeLanguages = animeLanguages.ToList();
         }
 
         /// <summary>
