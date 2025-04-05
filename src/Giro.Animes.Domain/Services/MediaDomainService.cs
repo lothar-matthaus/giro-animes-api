@@ -1,27 +1,22 @@
 ﻿using Giro.Animes.Domain.Entities;
-using Giro.Animes.Domain.Interfaces.Repositories.Read.Base;
-using Giro.Animes.Domain.Interfaces.Repositories.Write.Base;
+using Giro.Animes.Domain.Interfaces.Repositories.Base;
 using Giro.Animes.Domain.Interfaces.Services;
 using Giro.Animes.Domain.Services.Base;
 
 namespace Giro.Animes.Domain.Services
 {
-    public class MediaDomainService<IMediaWriteRepository, IMediaReadRepository, TMedia> : DomainServiceBase<IMediaWriteRepository, IMediaReadRepository, TMedia>, IMediaDomainService<TMedia>
+    public class MediaDomainService<TMediaRepository, TMedia> : DomainServiceBase<TMediaRepository, TMedia>, IMediaDomainService<TMedia>
         where TMedia : Media
-        where IMediaWriteRepository : IWriteBaseRepository<TMedia>
-        where IMediaReadRepository : IReadBaseRepository<TMedia>
+        where TMediaRepository : IMediaRepository<TMedia>
     {
-        public MediaDomainService(IMediaWriteRepository writeRepository, IMediaReadRepository readRepository) :
-            base(writeRepository, readRepository)
+        public MediaDomainService(TMediaRepository repository) :
+            base(repository)
         {
         }
 
-        public async Task<TMedia> CreateAsync(TMedia media)
+        public Task<TMedia> CreateAsync(TMedia media)
         {
-            if (media.File is null)
-                return null;
-
-            return media;
+            throw new NotImplementedException();
         }
 
         public Task DeleteAsync(TMedia media)

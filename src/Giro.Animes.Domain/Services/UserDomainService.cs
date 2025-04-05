@@ -1,22 +1,23 @@
 ﻿using Giro.Animes.Domain.Entities;
-using Giro.Animes.Domain.Interfaces.Repositories.Read;
-using Giro.Animes.Domain.Interfaces.Repositories.Write;
+using Giro.Animes.Domain.Interfaces.Repositories;
 using Giro.Animes.Domain.Interfaces.Services;
 using Giro.Animes.Domain.Services.Base;
 using Giro.Animes.Domain.ValueObjects;
 
 namespace Giro.Animes.Domain.Services
 {
-    public class UserDomainService : DomainServiceBase<IUserWriteRepository, IUserReadRepository, User>, IUserDomainService
+    public class UserDomainService : DomainServiceBase<IUserRepository, User>, IUserDomainService
     {
-        private readonly IMediaDomainService<Avatar> _mediaDomainService;
-
-        public UserDomainService(IUserWriteRepository writeRepository, IUserReadRepository readRepository, IMediaDomainService<Avatar> mediaDomainService) :
-            base(writeRepository, readRepository)
+        public UserDomainService(IUserRepository userRepository) :
+            base(userRepository)
         {
-            _mediaDomainService = mediaDomainService;
         }
 
+        /// <summary>
+        /// Creates a new user and validates the user and account.
+        /// </summary>
+        /// <param name="user"></param>
+        /// <returns></returns>
         public async Task<EntityResult<User>> CreateUser(User user)
         {
 
@@ -27,12 +28,12 @@ namespace Giro.Animes.Domain.Services
                         .Concat(user.Account.Email.IsValid ? Enumerable.Empty<Notification>() : user.Account.Email.GetErrors())
                         .ToList();
 
-            await _writeRepository.AddAsync(user, CancellationToken.None);
+            await _repository.AddAsync(user, CancellationToken.None);
             EntityResult<User> result = EntityResult<User>.Create(user, notifications);
 
             if (result.IsValid)
             {
-                await _writeRepository.Commit();
+                await _repository.Commit();
             }
 
             return result;
@@ -40,7 +41,7 @@ namespace Giro.Animes.Domain.Services
 
         public async Task<User> GetUserAndAccountById(long userId)
         {
-            return await _readRepository.GetByIdAsync(userId, CancellationToken.None);
+            return await _repository.GetByIdAsync(userId, CancellationToken.None);
         }
     }
 }
