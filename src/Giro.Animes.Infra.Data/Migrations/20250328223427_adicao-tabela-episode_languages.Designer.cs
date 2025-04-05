@@ -11,7 +11,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace Giro.Animes.Infra.Data.Migrations
 {
-    [DbContext(typeof(GiroAnimesWriteDbContext))]
+    [DbContext(typeof(GiroAnimesDbContext))]
     [Migration("20250328223427_adicao-tabela-episode_languages")]
     partial class adicaotabelaepisode_languages
     {

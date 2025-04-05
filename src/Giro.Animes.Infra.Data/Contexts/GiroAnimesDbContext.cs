@@ -11,13 +11,19 @@ using System.Text.Json;
 
 namespace Giro.Animes.Infra.Data.Contexts
 {
-    public class GiroAnimesWriteDbContext : DbContext
+    public class GiroAnimesDbContext : DbContext
     {
         private readonly IApplicationUser _user;
 
-        public GiroAnimesWriteDbContext(DbContextOptions<GiroAnimesWriteDbContext> options, IServiceProvider serviceProvider) : base(options)
+        public GiroAnimesDbContext(DbContextOptions<GiroAnimesDbContext> options, IServiceProvider serviceProvider) : base(options)
         {
             _user = serviceProvider.GetRequiredService<IApplicationUser>();
+        }
+
+        public override int SaveChanges()
+        {
+            Audit();
+            return base.SaveChanges();
         }
 
         public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
@@ -25,7 +31,7 @@ namespace Giro.Animes.Infra.Data.Contexts
             Audit();
             int key = await base.SaveChangesAsync(cancellationToken);
             return key;
-        } 
+        }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.ApplyConfiguration(new UserEntityTypeConfiguration());

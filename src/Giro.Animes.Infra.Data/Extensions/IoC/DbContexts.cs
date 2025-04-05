@@ -7,24 +7,12 @@ namespace Giro.Animes.Infra.Data.Extensions.IoC
 {
     public static class DbContexts
     {
-        public static IServiceCollection AddWriteDbContext(this IServiceCollection services)
+        public static IServiceCollection AddGiroAnimesDbContext(this IServiceCollection services)
         {
-            services.AddDbContext<GiroAnimesWriteDbContext>((serviceProvider, options) =>
+            services.AddDbContext<GiroAnimesDbContext>((serviceProvider, options) =>
             {
                 IAppConfig appConfig = serviceProvider.GetRequiredService<IAppConfig>();
-                options
-                .UseNpgsql(appConfig.DataBaseConfig.ConnectionString)
-                .EnableSensitiveDataLogging(appConfig.DataBaseConfig.EnableSensitiveDataLogging)
-                .LogTo(Console.WriteLine, appConfig.DataBaseConfig.LogLevel);
-            });
 
-            return services;
-        }
-        public static IServiceCollection AddReadDbContext(this IServiceCollection services)
-        {
-            services.AddDbContext<GiroAnimesReadDbContext>((serviceProvider, options) =>
-            {
-                IAppConfig appConfig = serviceProvider.GetRequiredService<IAppConfig>();
                 options
                 .UseNpgsql(appConfig.DataBaseConfig.ConnectionString)
                 .EnableSensitiveDataLogging(appConfig.DataBaseConfig.EnableSensitiveDataLogging)

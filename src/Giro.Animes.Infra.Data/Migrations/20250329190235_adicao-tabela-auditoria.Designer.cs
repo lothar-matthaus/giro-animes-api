@@ -11,7 +11,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace Giro.Animes.Infra.Data.Migrations
 {
-    [DbContext(typeof(GiroAnimesWriteDbContext))]
+    [DbContext(typeof(GiroAnimesDbContext))]
     [Migration("20250329190235_adicao-tabela-auditoria")]
     partial class adicaotabelaauditoria
     {

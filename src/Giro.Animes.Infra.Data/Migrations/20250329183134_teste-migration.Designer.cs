@@ -11,7 +11,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace Giro.Animes.Infra.Data.Migrations
 {
-    [DbContext(typeof(GiroAnimesWriteDbContext))]
+    [DbContext(typeof(GiroAnimesDbContext))]
     [Migration("20250329183134_teste-migration")]
     partial class testemigration
     {

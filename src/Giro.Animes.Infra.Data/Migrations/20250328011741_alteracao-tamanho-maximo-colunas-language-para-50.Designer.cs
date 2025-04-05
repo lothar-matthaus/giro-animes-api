@@ -11,7 +11,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace Giro.Animes.Infra.Data.Migrations
 {
-    [DbContext(typeof(GiroAnimesWriteDbContext))]
+    [DbContext(typeof(GiroAnimesDbContext))]
     [Migration("20250328011741_alteracao-tamanho-maximo-colunas-language-para-50")]
     partial class alteracaotamanhomaximocolunaslanguagepara50
     {

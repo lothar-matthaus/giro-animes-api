@@ -11,7 +11,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace Giro.Animes.Infra.Data.Migrations
 {
-    [DbContext(typeof(GiroAnimesWriteDbContext))]
+    [DbContext(typeof(GiroAnimesDbContext))]
     [Migration("20250328024347_alteracao-de-mapeamento-duplicados-em-animes-screenshot")]
     partial class alteracaodemapeamentoduplicadosemanimesscreenshot
     {
