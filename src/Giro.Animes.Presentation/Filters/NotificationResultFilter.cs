@@ -22,22 +22,39 @@ namespace Giro.Animes.Shared.Filters
 
         public async Task OnResultExecutionAsync(ResultExecutingContext context, ResultExecutionDelegate next)
         {
-            if (_notificationService.HasNotifications() && !context.HttpContext.Response.HasStarted)
-            {
-                IEnumerable<Notification> notifications = await _notificationService.GetNotifications();
-                var errorResponse = NotificationResponse.Create(
-                    notifications,
-                    false,
-                    HttpStatusCode.BadRequest,
-                    "Houve um ou mais erros de validação"
-                );
+            IEnumerable<Notification> notifications = await _notificationService.GetNotifications();
 
-                context.Result = new ObjectResult(errorResponse)
+            if (notifications.Any() && !context.HttpContext.Response.HasStarted)
+            {
+                if (notifications.Count() == 1)
                 {
-                    StatusCode = StatusCodes.Status400BadRequest,
-                    ContentTypes = { "application/json" },
-                    DeclaredType = typeof(NotificationResponse)
-                };
+                    Notification notification = notifications.First();
+                    ErrorResponse errorResponse = ErrorResponse.Create(HttpStatusCode.BadRequest, notification.Message);
+
+                    context.Result = new ObjectResult(errorResponse)
+                    {
+                        StatusCode = StatusCodes.Status400BadRequest,
+                        ContentTypes = { "application/json" },
+                        DeclaredType = typeof(ErrorResponse)
+                    };
+                }
+                else
+                {
+
+                    var errorResponse = NotificationResponse.Create(
+                        notifications,
+                        false,
+                        HttpStatusCode.BadRequest,
+                        "Houve um ou mais erros de validação"
+                    );
+
+                    context.Result = new ObjectResult(errorResponse)
+                    {
+                        StatusCode = StatusCodes.Status400BadRequest,
+                        ContentTypes = { "application/json" },
+                        DeclaredType = typeof(NotificationResponse)
+                    };
+                }
             }
             await next();
         }
