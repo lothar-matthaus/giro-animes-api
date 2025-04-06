@@ -6,12 +6,12 @@ namespace Giro.Animes.Infra.Services
 {
     public class FileMediaStorageService : IFileMediaStorageService
     {
-        private readonly IAppConfig _appConfig;
+        private readonly IMediaConfig _mediaConfig;
         private IList<Media> _medias = new List<Media>();
 
-        public FileMediaStorageService(IAppConfig appConfig)
+        public FileMediaStorageService(IMediaConfig mediaConfig)
         {
-            _appConfig = appConfig;
+            _mediaConfig = mediaConfig;
         }
 
         public Task<bool> DeleteAsync(Media media)
@@ -41,7 +41,6 @@ namespace Giro.Animes.Infra.Services
             }
             catch (Exception)
             {
-
                 throw;
             }
         }
@@ -55,7 +54,7 @@ namespace Giro.Animes.Infra.Services
                 {
                     EnsureDirectory(media);
 
-                    string basePath = _appConfig.MediaConfig.Path(media.GetType().Name);
+                    string basePath = _mediaConfig.Path(media.GetType().Name);
                     string fileName = $"{media.FileName}.{media.Extension}";
                     string fullPath = Path.Combine(basePath, fileName);
 
@@ -83,7 +82,7 @@ namespace Giro.Animes.Infra.Services
             {
                 EnsureDirectory(media);
 
-                string basePath = _appConfig.MediaConfig.Path(media.GetType().Name);
+                string basePath = _mediaConfig.Path(media.GetType().Name);
                 string fileName = $"{media.FileName}.{media.Extension.Split("/")[1]}";
                 string fullPath = Path.Combine(basePath, fileName);
 
@@ -104,10 +103,10 @@ namespace Giro.Animes.Infra.Services
 
         private void EnsureDirectory(Media media)
         {
-            string dir = _appConfig.MediaConfig.Path(media.GetType().Name);
+            string dir = _mediaConfig.Path(media.GetType().Name);
 
             if (!Directory.Exists(dir))
-                Directory.CreateDirectory(_appConfig.MediaConfig.Path(media.GetType().Name));
+                Directory.CreateDirectory(_mediaConfig.Path(media.GetType().Name));
         }
     }
 }

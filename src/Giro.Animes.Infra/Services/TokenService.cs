@@ -12,11 +12,11 @@ namespace Giro.Animes.Infra.Services
 {
     public class TokenService : ITokenService
     {
-        private readonly IAppConfig _appConfig;
+        private readonly IJwtSettings _jwtSettings;
 
-        public TokenService(IAppConfig appConfig)
+        public TokenService(IJwtSettings appConfig)
         {
-            _appConfig = appConfig;
+            _jwtSettings = appConfig;
         }
 
         public async Task<UserTokenDTO> GenerateUserToken(Account account)
@@ -24,7 +24,7 @@ namespace Giro.Animes.Infra.Services
             try
             {
                 var tokenHandler = new JwtSecurityTokenHandler();
-                var key = Encoding.ASCII.GetBytes(_appConfig.JwtSettings.SecretKey);
+                var key = Encoding.ASCII.GetBytes(_jwtSettings.SecretKey);
                 var tokenDescriptor = new SecurityTokenDescriptor
                 {
                     Subject = new ClaimsIdentity(new[]
@@ -34,8 +34,8 @@ namespace Giro.Animes.Infra.Services
                         new Claim(ClaimTypes.Sid, account.User.Id.ToString()),
                         new Claim(ClaimTypes.Email, account?.Email.Value)
                 }),
-                    Issuer = _appConfig.JwtSettings.Issuer,
-                    Audience = _appConfig.JwtSettings.Audience,
+                    Issuer = _jwtSettings.Issuer,
+                    Audience = _jwtSettings.Audience,
                     NotBefore = DateTime.UtcNow,
                     Expires = DateTime.UtcNow.AddHours(1),
                     SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
@@ -62,7 +62,7 @@ namespace Giro.Animes.Infra.Services
             try
             {
                 var tokenHandler = new JwtSecurityTokenHandler();
-                var key = Encoding.ASCII.GetBytes(_appConfig.JwtSettings.SecretKey);
+                var key = Encoding.ASCII.GetBytes(_jwtSettings.SecretKey);
                 var tokenDescriptor = new SecurityTokenDescriptor
                 {
                     Subject = new ClaimsIdentity(new[]
@@ -70,8 +70,8 @@ namespace Giro.Animes.Infra.Services
                         new Claim(ClaimTypes.Name, "Guest"),
                         new Claim(ClaimTypes.Role, UserRole.Guest.ToString()),
                 }),
-                    Issuer = _appConfig.JwtSettings.Issuer,
-                    Audience = _appConfig.JwtSettings.Audience,
+                    Issuer = _jwtSettings.Issuer,
+                    Audience = _jwtSettings.Audience,
                     NotBefore = DateTime.UtcNow,
                     Expires = DateTime.UtcNow.AddHours(1),
                     SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)

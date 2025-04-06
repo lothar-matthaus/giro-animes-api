@@ -12,12 +12,23 @@ namespace Giro.Animes.Infra
         public ApplicationUser(IServiceProvider serviceProvider)
         {
             _context = serviceProvider.GetRequiredService<IHttpContextAccessor>();
+
+            Id = long.Parse(_context.HttpContext.User.Claims.Where(cl => cl.Type.Equals(ClaimTypes.Sid)).Select(cl => cl.Value).FirstOrDefault() ?? "0");
+            Nome = _context.HttpContext.User.Claims.Where(cl => cl.Type.Equals(ClaimTypes.Name)).Select(cl => cl.Value).FirstOrDefault() ?? "Guest";
+            Email = _context.HttpContext.User.Claims.Where(cl => cl.Type.Equals(ClaimTypes.Email)).Select(cl => cl.Value).FirstOrDefault() ?? "";
+            Role = GetUserRole(_context.HttpContext.User.Claims.FirstOrDefault(cl => cl.Type == ClaimTypes.Role)?.Value);
+            Languages = _context.HttpContext?.Request.Headers["Accept-Language"].FirstOrDefault()?.Split(',', StringSplitOptions.TrimEntries) ?? ["en-US"];
         }
 
-        public long Id => long.Parse(_context.HttpContext.User.Claims.Where(cl => cl.Type.Equals(ClaimTypes.Sid)).Select(cl => cl.Value).FirstOrDefault() ?? "0");
-        public string Nome => _context.HttpContext.User.Claims.Where(cl => cl.Type.Equals(ClaimTypes.Name)).Select(cl => cl.Value).FirstOrDefault() ?? "Guest";
-        public string Email => _context.HttpContext.User.Claims.Where(cl => cl.Type.Equals(ClaimTypes.Email)).Select(cl => cl.Value).FirstOrDefault() ?? "";
-        public UserRole Role => Enum.Parse<UserRole>(_context.HttpContext.User.Claims.Where(cl => cl.Type.Equals(ClaimTypes.Role, StringComparison.InvariantCultureIgnoreCase)).Select(cl => cl.Value).FirstOrDefault());
-        public string[] Languages => _context.HttpContext?.Request.Headers["Accept-Language"].FirstOrDefault()?.Split(',', StringSplitOptions.TrimEntries) ?? ["en-US"];
+        private UserRole GetUserRole(string role)
+        {
+            return Enum.TryParse<UserRole>(role, out var userRole) ? userRole : UserRole.Guest;
+        }
+
+        public long Id { get; }
+        public string Nome { get; }
+        public string Email { get; }
+        public UserRole Role { get; }
+        public string[] Languages { get; }
     }
 }

@@ -9,7 +9,7 @@ namespace Giro.Animes.Infra.Extensions.IoC.Security
 {
     public static class JwtExtensios
     {
-        public static IServiceCollection AddJwtAuthentication(this IServiceCollection services, IConfiguration configuration)
+        public static IServiceCollection AddJwtAuthorization(this IServiceCollection services, IConfiguration configuration)
         {
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
         .AddJwtBearer((options) =>
