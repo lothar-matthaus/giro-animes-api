@@ -14,6 +14,11 @@ namespace Giro.Animes.Application.DTOs
         public string Name { get; private set; }
 
         /// <summary>
+        /// Identificador da conta do usuário.
+        /// </summary>
+        public AccountDTO  Account { get; private set; }
+
+        /// <summary>
         /// Papel do usuário.
         /// </summary>
         public EnumDTO<UserRole> Role { get; private set; }
@@ -23,6 +28,7 @@ namespace Giro.Animes.Application.DTOs
         /// </summary>
         public IEnumerable<RatingDTO> Ratings { get; private set; }
 
+
         /// <summary>
         /// Construtor privado com parâmetros. Garante a construção do objeto através do método Create.
         /// </summary>
@@ -30,16 +36,16 @@ namespace Giro.Animes.Application.DTOs
         /// <param name="creationDate">Data de criação do usuário.</param>
         /// <param name="updateDate">Data de atualização do usuário.</param>
         /// <param name="name">Nome do usuário.</param>
-        /// <param name="status">Status do usuário.</param>
         /// <param name="role">Papel do usuário.</param>
         /// <param name="ratings">Avaliações feitas pelo usuário.</param>
         /// <param name="account">Conta do usuário.</param>
-        private UserDTO(long? id, DateTime creationDate, DateTime updateDate, string name, EnumDTO<UserRole> role, IEnumerable<RatingDTO> ratings) :
+        private UserDTO(long? id, AccountDTO account, DateTime creationDate, DateTime updateDate, string name, EnumDTO<UserRole> role, IEnumerable<RatingDTO> ratings) :
             base(id, creationDate, updateDate)
         {
             Name = name;
             Role = role;
             Ratings = ratings;
+            Account = account;
         }
 
         /// <summary>
@@ -49,12 +55,11 @@ namespace Giro.Animes.Application.DTOs
         /// <param name="creationDate">Data de criação do usuário.</param>
         /// <param name="updateDate">Data de atualização do usuário.</param>
         /// <param name="name">Nome do usuário.</param>
-        /// <param name="status">Status do usuário.</param>
         /// <param name="role">Papel do usuário.</param>
         /// <param name="ratings">Avaliações feitas pelo usuário.</param>
         /// <param name="account">Conta do usuário.</param>
         /// <returns>Uma nova instância de UserDTO.</returns>
-        public static UserDTO Create(long? id, DateTime creationDate, DateTime updateDate, string name, EnumDTO<UserRole> role, IEnumerable<RatingDTO> ratings)
-            => new UserDTO(id, creationDate, updateDate, name, role, ratings);
+        public static UserDTO Create(long? id, AccountDTO account, DateTime creationDate, DateTime updateDate, string name, EnumDTO<UserRole> role, IEnumerable<RatingDTO> ratings)
+            => new UserDTO(id, account, creationDate, updateDate, name, role, ratings);
     }
 }

@@ -24,7 +24,7 @@ namespace Giro.Animes.Application.Services
         public async Task<AccountDTO> GetAccountAndUserByAccountIdAsync(long accountId)
         {
             Account account = await _domainService.GetAccountAndUserByAccountIdAsync(accountId);
-            AccountDTO userDTO = account?.Map();
+            AccountDTO userDTO = account?.Map(true);
 
             return userDTO;
         }

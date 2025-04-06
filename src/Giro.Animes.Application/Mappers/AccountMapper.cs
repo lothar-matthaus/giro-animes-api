@@ -13,12 +13,13 @@ namespace Giro.Animes.Application.Mappers
         /// </summary>
         /// <param name="account"></param>
         /// <returns></returns>
-        public static AccountDTO Map(this Account account)
+        public static AccountDTO Map(this Account account, bool mapWithUsers = false)
         {
             AccountDTO accountDTO = AccountDTO.Create(
-                account.User?.Map(),
+               mapWithUsers ? account.User?.Map() : null,
                 account.Email.Value,
                 account.Settings.Map(),
+                account.Status.Map(),
                 account.Watchlist?.Map(),
                 account.Id,
                 account.CreationDate,

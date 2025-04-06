@@ -15,7 +15,7 @@ namespace Giro.Animes.Application.DTOs
         /// Cria uma nova instância de AuthDTO
         /// </summary>
         /// <param name="message"></param>
-        public AuthDTO(string username, EnumDTO<AccountStatus> status)
+        public AuthDTO(string username, EnumDTO<AccountStatus> status, long id) : base(id, DateTime.Now, DateTime.Now)
         {
             UserName = username;
             Status = status;
@@ -26,6 +26,6 @@ namespace Giro.Animes.Application.DTOs
         /// </summary>
         /// <param name="message"></param>
         /// <returns></returns>
-        public static AuthDTO Create(string username, EnumDTO<AccountStatus> status) => new AuthDTO(username, status);
+        public static AuthDTO Create(string username, EnumDTO<AccountStatus> status, long id) => new AuthDTO(username, status, id);
     }
 }

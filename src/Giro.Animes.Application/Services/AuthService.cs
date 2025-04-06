@@ -42,8 +42,7 @@ namespace Giro.Animes.Application.Services
                 return null;
             }
 
-            Password password = new Password(request.Password, account.Password.Salt);
-            bool isValidPassword = account.Password.VerifyPassword(password);
+            bool isValidPassword = account.Password.VerifyPassword(request.Password, account.Password.Salt);
 
             if (!isValidPassword)
             {
@@ -55,7 +54,7 @@ namespace Giro.Animes.Application.Services
 
             SetCookie(tokenDTO);
 
-            return AuthDTO.Create(account.User.Name, account.Status.Map());
+            return AuthDTO.Create(account.User.Name, account.Status.Map(), account.Id.Value);
         }
 
         private void SetCookie(UserTokenDTO userTokenDTO)
