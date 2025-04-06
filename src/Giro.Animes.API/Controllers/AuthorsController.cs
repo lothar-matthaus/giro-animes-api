@@ -5,6 +5,7 @@ using Giro.Animes.Application.Requests;
 using Giro.Animes.Application.Responses;
 using Giro.Animes.Application.Responses.Base;
 using Giro.Animes.Presentation.Controllers;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Net;
 
@@ -31,8 +32,7 @@ namespace Giro.Animes.API.Controllers
         public async Task<IActionResult> GetAllPaged([FromQuery] Pagination param)
         {
             IPagedEnumerable<AuthorDTO> authors = await _applicationService.GetAllAuthorsPagedAsync(param);
-            ListPagedResponse<AuthorDTO> response = ListPagedResponse<AuthorDTO>.Create(authors, true, HttpStatusCode.OK, "A consulta de autores retornou com resultado", param.Page, param.RowsPerPage, authors.TotalCount);
-            return StatusCode((int)HttpStatusCode.OK, response);
+            return await Ok(authors, param);
         }
     }
 }

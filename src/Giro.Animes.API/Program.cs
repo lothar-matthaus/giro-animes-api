@@ -1,8 +1,9 @@
 using Giro.Animes.Application.Extensions.IoC;
-using Giro.Animes.Infra.Configs;
 using Giro.Animes.Infra.Data.Extensions.IoC;
+using Giro.Animes.Infra.Extensions;
 using Giro.Animes.Infra.Extensions.IoC;
 using Giro.Animes.Infra.Extensions.IoC.Security;
+using Giro.Animes.Shared.Extensions;
 using Giro.Animes.Shared.Filters;
 using Giro.Animes.Shared.Middleware;
 
@@ -12,7 +13,6 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
 
 // Configura os serviços da API (Controllers, etc.)
 builder.Services.AddControllers(options =>
@@ -28,9 +28,11 @@ builder.Services.AddAppConfig();
 
 // Configura o usuário do contexto da requisição
 builder.Services.AddApplicationUser();
+// Configura o AutoMapper
+builder.Services.AddSwaggerConfig();
 
 // Configura a autenticação JWT
-builder.Services.AddJwtAuthentication(builder.Configuration);
+builder.Services.AddJwtAuthorization(builder.Configuration);
 
 #region Contexts
 builder.Services.AddGiroAnimesDbContext();
@@ -55,16 +57,13 @@ var app = builder.Build();
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
-    app.UseSwagger();
-    app.UseSwaggerUI();
+    app.UseSwaggerConfig();
 }
 
 app.UseMiddleware<ExceptionHandlingMiddleware>();
 app.UseRouting();
-// app.UseMiddleware<NotificationHandlerMiddleware>();
 app.UseHttpsRedirection();
 app.UseAuthorization();
-
 app.MapControllers();
 
 app.Run();

@@ -5,3 +5,18 @@ Accept: application/json
 Accept-Language: fr-FR, es-ES
 
 ###
+
+GET {{Giro.Animes.API_HostAddress}}/api/v1/authors/1
+Accept: application/json
+Accept-Language: fr-FR, es-ES
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1bmlxdWVfbmFtZSI6InNpZGUiLCJyb2xlIjoiVXNlciIsImh0dHA6Ly9zY2hlbWFzLnhtbHNvYXAub3JnL3dzLzIwMDUvMDUvaWRlbnRpdHkvY2xhaW1zL3NpZCI6IjEwIiwiZW1haWwiOiJzaWRlQGdtYWlsLmNvbSIsIm5iZiI6MTc0Mzk2OTc1MCwiZXhwIjoxNzQzOTczMzUwLCJpYXQiOjE3NDM5Njk3NTAsImlzcyI6Imh0dHBzOi8vZ2lyb2FuaW1lcy5jb20vIiwiYXVkIjoiaHR0cHM6Ly9naXJvYW5pbWVzLmNvbS8ifQ.4iah_KC7bdqFswU8FfPcAVv3YI_qrg_Ry23byfWo1v0
+
+### 
+
+POST {{Giro.Animes.API_HostAddress}}/api/v1/auth
+Content-Type: application/json
+Accept: application/json
+{
+  "Login": "side",
+  "Password": "SidEggwp@!*m107"
+}
