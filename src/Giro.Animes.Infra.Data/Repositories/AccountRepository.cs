@@ -17,14 +17,14 @@ namespace Giro.Animes.Infra.Data.Repositories
             return await _dbSet.AnyAsync(account => account.Email.Value == email, cancellationToken);
         }
 
-        public Task<Account> GetAccountByEmail(string email, CancellationToken cancellationToken)
+        public async Task<Account> GetAccountByEmail(string email, CancellationToken cancellationToken)
         {
-            throw new NotImplementedException();
+            return await _dbSet.Include(account => account.User).FirstOrDefaultAsync(account => account.Email.Value.Equals(email), cancellationToken).ConfigureAwait(false);
         }
 
-        public Task<Account> GetAccountByUsername(string username, CancellationToken cancellationToken)
+        public async Task<Account> GetAccountByUsername(string username, CancellationToken cancellationToken)
         {
-            throw new NotImplementedException();
+            return await _dbSet.Include(account => account.User).FirstOrDefaultAsync(account => account.User.Name.Equals(username)).ConfigureAwait(false);
         }
 
         public async Task<bool> UsernameAlreadyExists(string username, CancellationToken cancellationToken)
