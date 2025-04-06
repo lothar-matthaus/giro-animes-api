@@ -2,12 +2,15 @@
 {
     public class Avatar : Media
     {
-        public long AccountId { get; set; }
+        /// <summary>
+        /// Identificador do usuário
+        /// </summary>
+        public long UserId { get; private set; }
 
         /// <summary>
-        /// Conta atrelada a foto de perfil 
+        /// Usuário atrelado a imagem de perfil
         /// </summary>
-        public Account Account { get; set; }
+        public User User { get; private set; }
 
         /// <summary>
         /// Construtor padrão da classe ProfilePicture
@@ -20,8 +23,9 @@
         /// Construtor da classe ProfilePicture a partir do valor da foto e do formato
         /// </summary>
         /// <param name="extension">Extensão do arquivo </param>
-        private Avatar(string extension, byte[] file = null) : base(string.Empty, Guid.NewGuid().ToString(), extension, file)
+        private Avatar(User user, string extension, byte[] file = null) : base(string.Empty, Guid.NewGuid().ToString(), extension, file)
         {
+            User = user;
         }
 
         /// <summary>
@@ -29,6 +33,6 @@
         /// </summary>
         /// <param name="extension"></param>
         /// <returns></returns>
-        public static Avatar Create(string extension, byte[] file = null) => new Avatar(extension, file);
+        public static Avatar Create(User user, string extension, byte[] file = null) => new Avatar(user, extension, file);
     }
 }

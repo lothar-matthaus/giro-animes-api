@@ -20,16 +20,6 @@ namespace Giro.Animes.Domain.Entities
         public AccountStatus Status { get; private set; }
 
         /// <summary>
-        /// Identificador do plano do usuário 
-        /// </summary>
-        public AccountPlan Plan { get; private set; }
-
-        /// <summary>
-        /// Identificador da imagem de perfil
-        /// </summary>
-        public Avatar Avatar { get; private set; }
-
-        /// <summary>
         /// Configurações da conta do usuário
         /// </summary>
         public Settings Settings { get; private set; }
@@ -39,10 +29,6 @@ namespace Giro.Animes.Domain.Entities
         /// </summary>
         public IEnumerable<Anime> Watchlist { get; private set; }
 
-        /// <summary>
-        /// Identificador do usuário
-        /// </summary>
-        public long UserId { get; private set; }
         /// <summary>
         /// Usuário atrelado a conta 
         /// </summary>
@@ -60,14 +46,13 @@ namespace Giro.Animes.Domain.Entities
         /// </summary>
         /// <param name="email"></param>
         /// <param name="password"></param>
-        private Account(Email email, Password password, Settings settings, Avatar avatar = null)
+        private Account(User user, Email email, Password password, Settings settings)
         {
             Email = email;
             Password = password;
-            Avatar = avatar;
             Status = AccountStatus.EmailNotConfirmed;
-            Plan = AccountPlan.Bronze;
             Settings = settings;
+            User = user;
         }
 
         /// <summary>
@@ -75,7 +60,8 @@ namespace Giro.Animes.Domain.Entities
         /// </summary>
         /// <param name="email"></param>
         /// <param name="password"></param>
+        /// <param name="user"> </param>
         /// <returns></returns>
-        public static Account Create(Email email, Password password, Settings settings, Avatar avatar = null) => new Account(email, password, settings, avatar);
+        public static Account Create(User user, Email email, Password password, Settings settings) => new Account(user, email, password, settings);
     }
 }

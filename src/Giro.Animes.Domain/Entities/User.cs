@@ -35,6 +35,10 @@ namespace Giro.Animes.Domain.Entities
             }
         }
 
+        /// <summary>
+        /// Identificador da imagem de perfil
+        /// </summary>
+        public Avatar Avatar { get; private set; }
 
         /// <summary>
         /// Status do usuário 
@@ -45,6 +49,16 @@ namespace Giro.Animes.Domain.Entities
         /// Papel do usuário 
         /// </summary>
         public UserRole Role { get; private set; }
+
+        /// <summary>
+        /// Plano do usuário
+        /// </summary>
+        public UserPlan Plan { get; private set; }
+
+        /// <summary>
+        /// Identificador da conta do usuário
+        /// </summary>
+        public long AccountId { get; set; }
 
         /// <summary>
         /// Conta do usuário
@@ -68,13 +82,20 @@ namespace Giro.Animes.Domain.Entities
         /// </summary>
         /// <param name="userName"></param>
         /// <param name="status"></param>
-        /// <param name="account"></param>
-        private User(string userName, UserStatus status, Account account, UserRole user)
+        private User(string userName, UserStatus status, UserRole user)
         {
             Name = userName;
             Status = status;
-            Account = account;
             Role = user;
+        }
+
+        /// <summary>
+        /// Define o avatar do usuário 
+        /// </summary>
+        /// <param name="avatar"></param>
+        public void SetAvatar(Avatar avatar)
+        {
+            Avatar = avatar;
         }
 
         /// <summary>
@@ -82,9 +103,8 @@ namespace Giro.Animes.Domain.Entities
         /// </summary>
         /// <param name="userName"></param>
         /// <param name="status"></param>
-        /// <param name="account"></param>
         /// <returns></returns>
-        public static User Create(string userName, UserStatus status, UserRole role, Account account) => new User(userName, status, account, role);
+        public static User Create(string userName, UserStatus status, UserRole role) => new User(userName, status, role);
 
     }
 }

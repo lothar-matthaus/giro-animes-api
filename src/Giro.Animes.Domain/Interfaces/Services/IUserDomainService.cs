@@ -4,9 +4,9 @@ using Giro.Animes.Domain.ValueObjects;
 
 namespace Giro.Animes.Domain.Interfaces.Services
 {
-    public interface IUserDomainService : IDomainServiceBase
+    public interface IAccountDomainService : IDomainServiceBase
     {
-        Task<User> GetUserAndAccountById(long userId);
-        Task<EntityResult<User>> CreateUser(User user);
+        Task<Account> GetAccountAndUserByAccountIdAsync(long accountId);
+        Task<EntityResult<Account>> CreateAccountAsync(Account account);
     }
 }
