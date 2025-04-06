@@ -41,11 +41,6 @@ namespace Giro.Animes.Domain.Entities
         public Avatar Avatar { get; private set; }
 
         /// <summary>
-        /// Status do usuário 
-        /// </summary>
-        public UserStatus Status { get; private set; }
-
-        /// <summary>
         /// Papel do usuário 
         /// </summary>
         public UserRole Role { get; private set; }
@@ -78,15 +73,16 @@ namespace Giro.Animes.Domain.Entities
         }
 
         /// <summary>
-        /// Construtor com parâmetros privados. Garante a construção do objeto através do método Create
+        /// Construtor privado com parâmetros. Garante a construção do objeto através do método Create
         /// </summary>
         /// <param name="userName"></param>
-        /// <param name="status"></param>
-        private User(string userName, UserStatus status, UserRole user)
+        /// <param name="user"></param>
+        /// <param name="userPlan"></param>
+        private User(string userName, UserRole user, UserPlan userPlan)
         {
             Name = userName;
-            Status = status;
             Role = user;
+            Plan = userPlan;
         }
 
         /// <summary>
@@ -99,12 +95,13 @@ namespace Giro.Animes.Domain.Entities
         }
 
         /// <summary>
-        /// Cria um objeto de entidade User a partir do nome do usuário, status e conta
+        /// Cria uma instância de User. Utilize este método para garantir a construção do objeto
         /// </summary>
         /// <param name="userName"></param>
-        /// <param name="status"></param>
+        /// <param name="role"></param>
+        /// <param name="userPlan"></param>
         /// <returns></returns>
-        public static User Create(string userName, UserStatus status, UserRole role) => new User(userName, status, role);
+        public static User Create(string userName, UserRole role, UserPlan userPlan) => new User(userName, role, userPlan);
 
     }
 }

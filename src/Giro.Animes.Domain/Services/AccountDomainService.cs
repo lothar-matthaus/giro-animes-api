@@ -57,7 +57,7 @@ namespace Giro.Animes.Domain.Services
 
         public async Task<Account> GetAccountByLogin(string login)
         {
-            if(Regex.IsMatch(login, Patterns.Account.EMAIL))
+            if (Regex.IsMatch(login, Patterns.Account.EMAIL))
             {
                 return await _repository.GetAccountByEmail(login, CancellationToken.None);
             }

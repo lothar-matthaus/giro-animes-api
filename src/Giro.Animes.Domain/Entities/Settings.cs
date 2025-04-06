@@ -18,7 +18,7 @@ namespace Giro.Animes.Domain.Entities
         /// <summary>
         /// Thema favorito do usuário no aplicativo
         /// </summary>
-        public UserTheme Theme { get; private set; }
+        public Theme Theme { get; private set; }
 
         /// <summary>
         /// Identificador do idioma da interface 
@@ -58,7 +58,7 @@ namespace Giro.Animes.Domain.Entities
         {
             EnableApplicationNotifications = true;
             EnableApplicationNotifications = false;
-            Theme = UserTheme.Light;
+            Theme = Theme.Light;
             InterfaceLanguage = interfaceLanguage;
             AnimeLanguages = animeLanguages.ToList();
         }
@@ -76,7 +76,7 @@ namespace Giro.Animes.Domain.Entities
         /// Altera o tema favorito do usuário no aplicativo
         /// </summary>
         /// <param name="theme"></param>
-        public void ChangeFavoriteTheme(UserTheme theme) => Theme = theme;
+        public void ChangeFavoriteTheme(Theme theme) => Theme = theme;
 
         /// <summary>
         /// Alterna as notificações do usuário no aplicativo

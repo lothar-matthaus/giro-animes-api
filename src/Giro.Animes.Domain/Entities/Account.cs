@@ -50,7 +50,7 @@ namespace Giro.Animes.Domain.Entities
         {
             Email = email;
             Password = password;
-            Status = AccountStatus.EmailNotConfirmed;
+            Status = AccountStatus.Active;
             Settings = settings;
             User = user;
         }
