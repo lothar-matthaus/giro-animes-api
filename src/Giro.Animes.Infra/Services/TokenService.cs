@@ -1,13 +1,11 @@
 ﻿using Giro.Animes.Domain.Entities;
 using Giro.Animes.Domain.Enums;
-using Giro.Animes.Domain.ValueObjects;
 using Giro.Animes.Infra.DTOs;
 using Giro.Animes.Infra.Interfaces.Configs;
 using Giro.Animes.Infra.Interfaces.Services;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
-using System.Security.Principal;
 using System.Text;
 
 namespace Giro.Animes.Infra.Services
@@ -32,7 +30,7 @@ namespace Giro.Animes.Infra.Services
                     Subject = new ClaimsIdentity(new[]
                     {
                         new Claim(ClaimTypes.Name, account.User.Name),
-                        new Claim(ClaimTypes.Role, account.User.Role.Name),
+                        new Claim(ClaimTypes.Role, account.User.Role.ToString()),
                         new Claim(ClaimTypes.Sid, account.User.Id.ToString()),
                         new Claim(ClaimTypes.Email, account?.Email.Value)
                 }),
@@ -46,7 +44,7 @@ namespace Giro.Animes.Infra.Services
                 var token = tokenHandler.CreateToken(tokenDescriptor);
                 var tokenString = tokenHandler.WriteToken(token);
 
-                var userTokenDTO = UserTokenDTO.Create(account.User.Name, tokenString, tokenDescriptor.Expires.Value.Subtract(DateTime.UtcNow).TotalSeconds, account.User.Role.Name);
+                var userTokenDTO = UserTokenDTO.Create(account.User.Name, tokenString, tokenDescriptor.Expires.Value.Subtract(DateTime.UtcNow).TotalSeconds, account.User.Role.ToString());
 
                 return await Task.Run(() =>
                 {
@@ -70,7 +68,7 @@ namespace Giro.Animes.Infra.Services
                     Subject = new ClaimsIdentity(new[]
                     {
                         new Claim(ClaimTypes.Name, "Guest"),
-                        new Claim(ClaimTypes.Role, UserRole.Guest.Name),
+                        new Claim(ClaimTypes.Role, UserRole.Guest.ToString()),
                 }),
                     Issuer = _appConfig.JwtSettings.Issuer,
                     Audience = _appConfig.JwtSettings.Audience,
@@ -81,7 +79,7 @@ namespace Giro.Animes.Infra.Services
 
                 var token = tokenHandler.CreateToken(tokenDescriptor);
                 var tokenString = tokenHandler.WriteToken(token);
-                var userTokenDTO = UserTokenDTO.Create("Guest", tokenString, tokenDescriptor.Expires.Value.Subtract(DateTime.UtcNow).TotalSeconds, UserRole.Guest.Name);
+                var userTokenDTO = UserTokenDTO.Create("Guest", tokenString, tokenDescriptor.Expires.Value.Subtract(DateTime.UtcNow).TotalSeconds, UserRole.Guest.ToString());
 
                 return await Task.Run(() =>
                 {
@@ -92,7 +90,7 @@ namespace Giro.Animes.Infra.Services
             {
                 throw new InvalidOperationException("Não foi possível gerar o token de convidado. Tente novamente mais tarde.", ex);
             }
-            
+
         }
     }
 }
