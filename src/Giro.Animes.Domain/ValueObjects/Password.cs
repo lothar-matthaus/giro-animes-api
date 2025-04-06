@@ -77,7 +77,7 @@ namespace Giro.Animes.Domain.ValueObjects
         /// </summary>
         /// <param name="plainText"></param>
         /// <param name="plainTextConfirm"></param>
-        public Password(string plainText, string plainTextConfirm)
+        private Password(string plainText, string plainTextConfirm)
         {
             Salt = GenerateSalt();
             PlainText = plainText;
@@ -85,19 +85,20 @@ namespace Giro.Animes.Domain.ValueObjects
             Value = GeneratePasswordHash(plainText, Salt);
         }
 
+        #region Behaviors
         /// <summary>
-        /// Construtor privado com parâmetros. Garante a construção do objeto através do método Create com salt pré-definido
+        /// Verifica se a senha informada é válida
         /// </summary>
-        /// <param name="plainText"></param>
-        /// <param name="plainTextConfirm"></param>
+        /// <param name="password"></param>
         /// <param name="salt"></param>
-        public Password(string plainText, string plainTextConfirm, string salt)
+        /// <param name="hash"></param>
+        /// <returns></returns>
+        public bool VerifyPassword(string password, string salt)
         {
-            Salt = salt;
-            PlainText = plainText;
-            PlainTextConfirm = plainTextConfirm;
-            Value = GeneratePasswordHash(plainText, Salt);
+            return GeneratePasswordHash(password, salt) == Value;
         }
+
+        #endregion
 
         #region Métodos de hash
 
@@ -129,23 +130,6 @@ namespace Giro.Animes.Domain.ValueObjects
             }
         }
 
-        /// <summary>
-        /// Verifica se a senha informada é válida
-        /// </summary>
-        /// <param name="password"></param>
-        /// <param name="salt"></param>
-        /// <param name="hash"></param>
-        /// <returns></returns>
-        public bool VerifyPassword(string password, string salt)
-        {
-            return GeneratePasswordHash(password, salt) == Value;
-        }
-
-        public bool VerifyPassword(Password password)
-        {
-            return GeneratePasswordHash(password.PlainText, password.Salt) == Value;
-        }
-
         #endregion
 
         /// <summary>
@@ -155,13 +139,5 @@ namespace Giro.Animes.Domain.ValueObjects
         /// <param name="plainTextConfirm"></param>
         /// <returns></returns>
         public static Password Create(string plainText, string plainTextConfirm) => new Password(plainText, plainTextConfirm);
-
-        /// <summary>
-        /// Cria uma instância de Password com hash e salt pré-definido. Utilize este método para garantir a construção do objeto de valor
-        /// </summary>
-        /// <param name="password"></param>
-        /// <param name="salt"></param>
-        /// <returns></returns>
-        public static Password CreateWihSalt(string password, string salt) => new Password(password, salt);
     }
 }
