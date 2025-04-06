@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Giro.Animes.Application.Interfaces.Services
 {
-    public interface IAuthApplicationService : IApplicationServiceBase
+    public interface IAuthService : IApplicationServiceBase
     {
         Task<AuthDTO> Auth(AuthRequest request);
     }

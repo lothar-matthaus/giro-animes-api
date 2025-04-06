@@ -15,7 +15,7 @@ namespace Giro.Animes.Application.Extensions.IoC
             services.AddScoped<IAuthorService, AuthorService>();
             services.AddScoped<IAccountService, AccountService>();
             services.AddScoped<INotificationService, NotificationService>();
-            services.AddScoped<IAuthApplicationService, AuthApplicationService>();
+            services.AddScoped<IAuthService, AuthService>();
         }
 
         public static void ConfigureDomainServices(this IServiceCollection services)

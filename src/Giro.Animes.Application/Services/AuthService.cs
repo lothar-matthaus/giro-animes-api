@@ -15,18 +15,16 @@ using System.Text.RegularExpressions;
 
 namespace Giro.Animes.Application.Services
 {
-    public class AuthApplicationService : ApplicationServiceBase<IAccountDomainService>, IAuthApplicationService
+    public class AuthService : ApplicationServiceBase<IAccountDomainService>, IAuthService
     {
         private readonly IHttpContextAccessor _httpContextAccessor;
         private readonly ITokenService _tokenService;
-        private readonly IAccountDomainService _domainService;
 
-        public AuthApplicationService(IApplicationUser applicationUser, IHttpContextAccessor httpContextAccessor, INotificationService notificationService, ITokenService tokenService, IAccountDomainService domainService) :
+        public AuthService(IApplicationUser applicationUser, IHttpContextAccessor httpContextAccessor, INotificationService notificationService, ITokenService tokenService, IAccountDomainService domainService) :
             base(applicationUser, notificationService, domainService)
         {
             _httpContextAccessor = httpContextAccessor;
             _tokenService = tokenService;
-            _domainService = domainService;
         }
 
         public async Task<AuthDTO> Auth(AuthRequest request)
