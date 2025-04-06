@@ -3,6 +3,7 @@ using Giro.Animes.Domain.Interfaces.Repositories;
 using Giro.Animes.Infra.Data.Contexts;
 using Giro.Animes.Infra.Data.Repositories.Base;
 using Microsoft.EntityFrameworkCore;
+using System.Security.Principal;
 
 namespace Giro.Animes.Infra.Data.Repositories
 {
@@ -29,7 +30,7 @@ namespace Giro.Animes.Infra.Data.Repositories
 
         public async Task<bool> UsernameAlreadyExists(string username, CancellationToken cancellationToken)
         {
-            return await _dbSet.AnyAsync(account => account.User.Name == username, cancellationToken);
+            return await _dbSet.AnyAsync(account => username.ToLower().Equals(account.User.Name.ToLower()) , cancellationToken);
         }
     }
 }
