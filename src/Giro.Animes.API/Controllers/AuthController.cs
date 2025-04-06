@@ -24,8 +24,7 @@ namespace Giro.Animes.API.Controllers
         public async Task<IActionResult> Auth([FromBody] AuthRequest request)
         {
             AuthDTO authDTO = await _applicationService.Auth(request);
-            DetailResponse<AuthDTO> response = DetailResponse<AuthDTO>.Create(authDTO, true, HttpStatusCode.OK, "Login realizado com sucesso.");
-            return Ok(response);
+            return await Ok(authDTO);
         }
     }
 }

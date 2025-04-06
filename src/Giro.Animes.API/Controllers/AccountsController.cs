@@ -4,6 +4,7 @@ using Giro.Animes.Application.Requests.User;
 using Giro.Animes.Application.Responses;
 using Giro.Animes.Application.Responses.Base;
 using Giro.Animes.Presentation.Controllers;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Net;
 
@@ -21,13 +22,14 @@ namespace Giro.Animes.API.Controllers
         /// <param name="id"></param>
         /// <returns></returns>
         [HttpGet("{id:long}")]
+        [AllowAnonymous]
         [ProducesResponseType<DetailResponse<AccountDTO>>((int)HttpStatusCode.OK)]
         [ProducesResponseType<ErrorResponse>((int)HttpStatusCode.InternalServerError)]
         [ProducesResponseType<ApiResponse>((int)HttpStatusCode.BadRequest)]
         public async Task<IActionResult> GetAccount([FromRoute] long id)
         {
             AccountDTO accountDTO = await _applicationService.GetAccountAndUserByAccountIdAsync(id);
-            return Ok(accountDTO);
+            return await Ok(accountDTO);
         }
 
         /// <summary>
@@ -36,6 +38,7 @@ namespace Giro.Animes.API.Controllers
         /// <param name="request"></param>
         /// <returns></returns>
         [HttpPost]
+        [AllowAnonymous]
         [ProducesResponseType<DetailResponse<AccountDTO>>((int)HttpStatusCode.Created)]
         [ProducesResponseType<ErrorResponse>((int)HttpStatusCode.InternalServerError)]
         [ProducesResponseType<NotificationResponse>((int)HttpStatusCode.BadRequest)]
@@ -43,8 +46,7 @@ namespace Giro.Animes.API.Controllers
         public async Task<IActionResult> CreateAccount([FromBody] AccountCreateRequest request)
         {
             AccountDTO accountDTO = await _applicationService.CreateAccountAsync(request);
-            DetailResponse<AccountDTO> response = DetailResponse<AccountDTO>.Create(accountDTO, true, HttpStatusCode.Created, "O conta de usuário foi criado com sucesso");
-            return StatusCode((int)HttpStatusCode.Created, response);
+            return StatusCode((int)HttpStatusCode.Created, accountDTO);
         }
     }
 }
