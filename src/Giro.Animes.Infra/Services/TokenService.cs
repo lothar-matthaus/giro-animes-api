@@ -52,7 +52,7 @@ namespace Giro.Animes.Infra.Services
 
         public async Task<UserTokenDTO> GenerateUserToken()
         {
-            User user = User.Create("Guest", UserStatus.Inactive, UserRole.Guest, null);
+            User user = User.Create("Guest", UserStatus.Inactive, UserRole.Guest);
             return await GenerateUserToken(user);
         }
     }

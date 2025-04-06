@@ -15,10 +15,11 @@ namespace Giro.Animes.Infra.Data.Configurations.Types.Management
             builder.ToTable(Tables.Management.USERS, Schemas.MANAGEMENT);
 
             builder.Property(user => user.Name).IsRequired().HasMaxLength(20);
+            builder.HasIndex(user => user.Name).IsUnique();
             builder.Property(user => user.Status).IsRequired().HasConversion(status => status.Value, value => UserStatus.FromValue(value));
             builder.Property(user => user.Role).IsRequired().HasConversion(role => role.Value, value => UserRole.FromValue(value));
-
-            builder.HasOne(user => user.Account).WithOne(account => account.User).HasForeignKey<Account>(account => account.UserId).IsRequired(true);
+            builder.Property(user => user.Plan).IsRequired().HasConversion(plan => plan.Value, value => UserPlan.FromValue(value));
+            builder.HasOne(user => user.Account).WithOne(account => account.User).HasForeignKey<User>(user => user.AccountId).OnDelete(DeleteBehavior.Cascade).IsRequired();
         }
     }
 }

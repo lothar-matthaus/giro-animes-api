@@ -30,12 +30,9 @@ namespace Giro.Animes.Infra.Data.Configurations.Types.Management
                 password.Ignore(password => password.PlainText);
             });
 
-            builder.Property(account => account.Plan).IsRequired(true).HasConversion(plan => plan.Value, value => AccountPlan.FromValue(value));
             builder.Property(account => account.Status).IsRequired(true).HasConversion(status => status.Value, value => AccountStatus.FromValue(value));
             builder.Navigation(account => account.Settings);
 
-            builder.HasOne(account => account.User).WithOne(user => user.Account).IsRequired(true);
-            builder.HasOne(account => account.Avatar).WithOne(avatar => avatar.Account).HasForeignKey<Avatar>(avatar => avatar.AccountId).IsRequired(false);
             builder.HasMany(account => account.Watchlist).WithMany(anime => anime.Accounts).UsingEntity<Watchlist>(
             Tables.Content.WATCHLIST, // Nome da tabela de junção
             join => join.HasOne(watch => watch.Anime)

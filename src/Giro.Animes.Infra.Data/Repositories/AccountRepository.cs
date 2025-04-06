@@ -6,20 +6,20 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Giro.Animes.Infra.Data.Repositories
 {
-    internal class UserRepository : BaseRepository<User, GiroAnimesDbContext>, IUserRepository
+    internal class AccountRepository : BaseRepository<Account, GiroAnimesDbContext>, IAccountRepository
     {
-        public UserRepository(GiroAnimesDbContext dbContext) : base(dbContext)
+        public AccountRepository(GiroAnimesDbContext dbContext) : base(dbContext)
         {
         }
 
         public async Task<bool> EmailAlreadyExists(string email, CancellationToken cancellationToken)
         {
-            return await _dbSet.AnyAsync(x => x.Account.Email.Value == email, cancellationToken);
+            return await _dbSet.AnyAsync(account => account.Email.Value == email, cancellationToken);
         }
 
         public async Task<bool> UsernameAlreadyExists(string username, CancellationToken cancellationToken)
         {
-            return await _dbSet.AnyAsync(x => x.Name == username, cancellationToken);
+            return await _dbSet.AnyAsync(account => account.User.Name == username, cancellationToken);
         }
     }
 }

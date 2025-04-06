@@ -28,8 +28,4 @@
     <ProjectReference Include="..\Giro.Animes.Infra\Giro.Animes.Infra.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Migrations\" />
-  </ItemGroup>
-
 </Project>

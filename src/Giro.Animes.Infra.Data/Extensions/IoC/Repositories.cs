@@ -11,7 +11,7 @@ namespace Giro.Animes.Infra.Data.Extensions.IoC
     {
         public static void AddRepositories(this IServiceCollection services)
         {
-            services.AddScoped<IUserRepository, UserRepository>();
+            services.AddScoped<IAccountRepository, AccountRepository>();
             services.AddScoped<ILanguageRepository, LanguageRepository>();
             services.AddScoped<IAuthorRepository, AuthorRepository>();
             services.AddScoped<IMediaRepository<Avatar>, MediaRepository<Avatar, GiroAnimesDbContext>>();

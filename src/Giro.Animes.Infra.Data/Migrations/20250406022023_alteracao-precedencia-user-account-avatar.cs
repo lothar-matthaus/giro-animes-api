@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
+﻿using System;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 #nullable disable
@@ -6,7 +7,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Giro.Animes.Infra.Data.Migrations
 {
     /// <inheritdoc />
-    public partial class inicialdatabase : Migration
+    public partial class alteracaoprecedenciauseraccountavatar : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -18,7 +19,49 @@ namespace Giro.Animes.Infra.Data.Migrations
                 name: "content");
 
             migrationBuilder.EnsureSchema(
+                name: "misc");
+
+            migrationBuilder.EnsureSchema(
                 name: "common");
+
+            migrationBuilder.CreateTable(
+                name: "accounts",
+                schema: "management",
+                columns: table => new
+                {
+                    Id = table.Column<long>(type: "bigint", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    Email = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: true),
+                    IsConfirmed = table.Column<bool>(type: "boolean", nullable: true, defaultValue: false),
+                    Password = table.Column<string>(type: "character varying(256)", maxLength: 256, nullable: true),
+                    Salt = table.Column<string>(type: "character varying(256)", maxLength: 256, nullable: true),
+                    Status = table.Column<int>(type: "integer", nullable: false),
+                    CreationDate = table.Column<DateTime>(type: "TIMESTAMP", nullable: false, defaultValueSql: "CURRENT_TIMESTAMP"),
+                    UpdateDate = table.Column<DateTime>(type: "TIMESTAMP", nullable: false, defaultValueSql: "CURRENT_TIMESTAMP")
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_accounts", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "audit_logs",
+                schema: "misc",
+                columns: table => new
+                {
+                    Id = table.Column<long>(type: "bigint", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    TableName = table.Column<string>(type: "text", nullable: true),
+                    Operation = table.Column<string>(type: "text", nullable: true),
+                    UserId = table.Column<long>(type: "bigint", nullable: false),
+                    Log = table.Column<string>(type: "text", nullable: false),
+                    CreationDate = table.Column<DateTime>(type: "TIMESTAMP", nullable: false, defaultValueSql: "CURRENT_TIMESTAMP"),
+                    UpdateDate = table.Column<DateTime>(type: "TIMESTAMP", nullable: false, defaultValueSql: "CURRENT_TIMESTAMP")
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_audit_logs", x => x.Id);
+                });
 
             migrationBuilder.CreateTable(
                 name: "authors",
@@ -27,16 +70,15 @@ namespace Giro.Animes.Infra.Data.Migrations
                 {
                     Id = table.Column<long>(type: "bigint", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    CreationDate = table.Column<DateTime>(type: "TIMESTAMP", nullable: false, defaultValueSql: "CURRENT_TIMESTAMP"),
-                    UpdateDate = table.Column<DateTime>(type: "TIMESTAMP", nullable: false, defaultValueSql: "CURRENT_TIMESTAMP"),
-                    DeletionDate = table.Column<DateTime>(type: "TIMESTAMP", nullable: true),
                     Name = table.Column<string>(type: "character varying(30)", maxLength: 30, nullable: false),
                     PenName = table.Column<string>(type: "character varying(30)", maxLength: 30, nullable: true),
                     BirthDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
                     DeathDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
                     Website = table.Column<string>(type: "text", nullable: true),
                     Twitter = table.Column<string>(type: "text", nullable: true),
-                    Instagram = table.Column<string>(type: "text", nullable: true)
+                    Instagram = table.Column<string>(type: "text", nullable: true),
+                    CreationDate = table.Column<DateTime>(type: "TIMESTAMP", nullable: false, defaultValueSql: "CURRENT_TIMESTAMP"),
+                    UpdateDate = table.Column<DateTime>(type: "TIMESTAMP", nullable: false, defaultValueSql: "CURRENT_TIMESTAMP")
                 },
                 constraints: table =>
                 {
@@ -51,8 +93,7 @@ namespace Giro.Animes.Infra.Data.Migrations
                     Id = table.Column<long>(type: "bigint", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     CreationDate = table.Column<DateTime>(type: "TIMESTAMP", nullable: false, defaultValueSql: "CURRENT_TIMESTAMP"),
-                    UpdateDate = table.Column<DateTime>(type: "TIMESTAMP", nullable: false, defaultValueSql: "CURRENT_TIMESTAMP"),
-                    DeletionDate = table.Column<DateTime>(type: "TIMESTAMP", nullable: true)
+                    UpdateDate = table.Column<DateTime>(type: "TIMESTAMP", nullable: false, defaultValueSql: "CURRENT_TIMESTAMP")
                 },
                 constraints: table =>
                 {
@@ -66,12 +107,11 @@ namespace Giro.Animes.Infra.Data.Migrations
                 {
                     Id = table.Column<long>(type: "bigint", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    Name = table.Column<string>(type: "character varying(20)", maxLength: 20, nullable: false),
+                    Name = table.Column<string>(type: "character varying(50)", maxLength: 50, nullable: false),
                     Code = table.Column<string>(type: "character varying(5)", maxLength: 5, nullable: false),
-                    NativeName = table.Column<string>(type: "character varying(20)", maxLength: 20, nullable: false),
+                    NativeName = table.Column<string>(type: "character varying(50)", maxLength: 50, nullable: false),
                     CreationDate = table.Column<DateTime>(type: "TIMESTAMP", nullable: false, defaultValueSql: "CURRENT_TIMESTAMP"),
-                    UpdateDate = table.Column<DateTime>(type: "TIMESTAMP", nullable: false, defaultValueSql: "CURRENT_TIMESTAMP"),
-                    DeletionDate = table.Column<DateTime>(type: "TIMESTAMP", nullable: true)
+                    UpdateDate = table.Column<DateTime>(type: "TIMESTAMP", nullable: false, defaultValueSql: "CURRENT_TIMESTAMP")
                 },
                 constraints: table =>
                 {
@@ -85,16 +125,15 @@ namespace Giro.Animes.Infra.Data.Migrations
                 {
                     Id = table.Column<long>(type: "bigint", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    CreationDate = table.Column<DateTime>(type: "TIMESTAMP", nullable: false, defaultValueSql: "CURRENT_TIMESTAMP"),
-                    UpdateDate = table.Column<DateTime>(type: "TIMESTAMP", nullable: false, defaultValueSql: "CURRENT_TIMESTAMP"),
-                    DeletionDate = table.Column<DateTime>(type: "TIMESTAMP", nullable: true),
                     Name = table.Column<string>(type: "text", nullable: false),
                     EstablishedDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     Country = table.Column<string>(type: "text", nullable: true),
                     City = table.Column<string>(type: "text", nullable: true),
                     Website = table.Column<string>(type: "text", nullable: true),
                     Twitter = table.Column<string>(type: "text", nullable: true),
-                    Instagram = table.Column<string>(type: "text", nullable: true)
+                    Instagram = table.Column<string>(type: "text", nullable: true),
+                    CreationDate = table.Column<DateTime>(type: "TIMESTAMP", nullable: false, defaultValueSql: "CURRENT_TIMESTAMP"),
+                    UpdateDate = table.Column<DateTime>(type: "TIMESTAMP", nullable: false, defaultValueSql: "CURRENT_TIMESTAMP")
                 },
                 constraints: table =>
                 {
@@ -108,16 +147,24 @@ namespace Giro.Animes.Infra.Data.Migrations
                 {
                     Id = table.Column<long>(type: "bigint", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    CreationDate = table.Column<DateTime>(type: "TIMESTAMP", nullable: false, defaultValueSql: "CURRENT_TIMESTAMP"),
-                    UpdateDate = table.Column<DateTime>(type: "TIMESTAMP", nullable: false, defaultValueSql: "CURRENT_TIMESTAMP"),
-                    DeletionDate = table.Column<DateTime>(type: "TIMESTAMP", nullable: true),
                     Name = table.Column<string>(type: "character varying(20)", maxLength: 20, nullable: false),
                     Status = table.Column<int>(type: "integer", nullable: false),
-                    Role = table.Column<int>(type: "integer", nullable: false)
+                    Role = table.Column<int>(type: "integer", nullable: false),
+                    Plan = table.Column<int>(type: "integer", nullable: false),
+                    AccountId = table.Column<long>(type: "bigint", nullable: false),
+                    CreationDate = table.Column<DateTime>(type: "TIMESTAMP", nullable: false, defaultValueSql: "CURRENT_TIMESTAMP"),
+                    UpdateDate = table.Column<DateTime>(type: "TIMESTAMP", nullable: false, defaultValueSql: "CURRENT_TIMESTAMP")
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_users", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_users_accounts_AccountId",
+                        column: x => x.AccountId,
+                        principalSchema: "management",
+                        principalTable: "accounts",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -128,11 +175,10 @@ namespace Giro.Animes.Infra.Data.Migrations
                     Id = table.Column<long>(type: "bigint", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     Description = table.Column<string>(type: "text", nullable: false),
+                    AuthorId = table.Column<long>(type: "bigint", nullable: false),
                     CreationDate = table.Column<DateTime>(type: "TIMESTAMP", nullable: false, defaultValueSql: "CURRENT_TIMESTAMP"),
                     UpdateDate = table.Column<DateTime>(type: "TIMESTAMP", nullable: false, defaultValueSql: "CURRENT_TIMESTAMP"),
-                    DeletionDate = table.Column<DateTime>(type: "TIMESTAMP", nullable: true),
-                    AuthorId = table.Column<long>(type: "bigint", nullable: false),
-                    LanguageId = table.Column<long>(type: "bigint", nullable: true)
+                    LanguageId = table.Column<long>(type: "bigint", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -149,7 +195,8 @@ namespace Giro.Animes.Infra.Data.Migrations
                         column: x => x.LanguageId,
                         principalSchema: "common",
                         principalTable: "languages",
-                        principalColumn: "Id");
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -160,10 +207,9 @@ namespace Giro.Animes.Infra.Data.Migrations
                     Id = table.Column<long>(type: "bigint", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     Description = table.Column<string>(type: "text", nullable: false),
+                    GenreId = table.Column<long>(type: "bigint", nullable: false),
                     CreationDate = table.Column<DateTime>(type: "TIMESTAMP", nullable: false, defaultValueSql: "CURRENT_TIMESTAMP"),
                     UpdateDate = table.Column<DateTime>(type: "TIMESTAMP", nullable: false, defaultValueSql: "CURRENT_TIMESTAMP"),
-                    DeletionDate = table.Column<DateTime>(type: "TIMESTAMP", nullable: true),
-                    GenreId = table.Column<long>(type: "bigint", nullable: false),
                     LanguageId = table.Column<long>(type: "bigint", nullable: false)
                 },
                 constraints: table =>
@@ -192,10 +238,9 @@ namespace Giro.Animes.Infra.Data.Migrations
                 {
                     Id = table.Column<long>(type: "bigint", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    GenreId = table.Column<long>(type: "bigint", nullable: false),
                     CreationDate = table.Column<DateTime>(type: "TIMESTAMP", nullable: false, defaultValueSql: "CURRENT_TIMESTAMP"),
                     UpdateDate = table.Column<DateTime>(type: "TIMESTAMP", nullable: false, defaultValueSql: "CURRENT_TIMESTAMP"),
-                    DeletionDate = table.Column<DateTime>(type: "TIMESTAMP", nullable: true),
-                    GenreId = table.Column<long>(type: "bigint", nullable: false),
                     Name = table.Column<string>(type: "text", nullable: false),
                     LanguageId = table.Column<long>(type: "bigint", nullable: false)
                 },
@@ -219,17 +264,50 @@ namespace Giro.Animes.Infra.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "settings",
+                schema: "management",
+                columns: table => new
+                {
+                    Id = table.Column<long>(type: "bigint", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    EnableApplicationNotifications = table.Column<bool>(type: "boolean", nullable: false, defaultValue: true),
+                    EnableEmailNotifications = table.Column<bool>(type: "boolean", nullable: false, defaultValue: false),
+                    Theme = table.Column<int>(type: "integer", nullable: false, defaultValue: 1),
+                    InterfaceLanguageId = table.Column<long>(type: "bigint", nullable: false),
+                    AccountId = table.Column<long>(type: "bigint", nullable: false),
+                    CreationDate = table.Column<DateTime>(type: "TIMESTAMP", nullable: false, defaultValueSql: "CURRENT_TIMESTAMP"),
+                    UpdateDate = table.Column<DateTime>(type: "TIMESTAMP", nullable: false, defaultValueSql: "CURRENT_TIMESTAMP")
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_settings", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_settings_accounts_AccountId",
+                        column: x => x.AccountId,
+                        principalSchema: "management",
+                        principalTable: "accounts",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_settings_languages_InterfaceLanguageId",
+                        column: x => x.InterfaceLanguageId,
+                        principalSchema: "common",
+                        principalTable: "languages",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "animes",
                 schema: "content",
                 columns: table => new
                 {
                     Id = table.Column<long>(type: "bigint", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    CreationDate = table.Column<DateTime>(type: "TIMESTAMP", nullable: false, defaultValueSql: "CURRENT_TIMESTAMP"),
-                    UpdateDate = table.Column<DateTime>(type: "TIMESTAMP", nullable: false, defaultValueSql: "CURRENT_TIMESTAMP"),
-                    DeletionDate = table.Column<DateTime>(type: "TIMESTAMP", nullable: true),
                     StudioId = table.Column<long>(type: "bigint", nullable: false),
-                    Status = table.Column<int>(type: "integer", nullable: false, defaultValue: 1)
+                    Status = table.Column<int>(type: "integer", nullable: false, defaultValue: 1),
+                    CreationDate = table.Column<DateTime>(type: "TIMESTAMP", nullable: false, defaultValueSql: "CURRENT_TIMESTAMP"),
+                    UpdateDate = table.Column<DateTime>(type: "TIMESTAMP", nullable: false, defaultValueSql: "CURRENT_TIMESTAMP")
                 },
                 constraints: table =>
                 {
@@ -250,13 +328,12 @@ namespace Giro.Animes.Infra.Data.Migrations
                 {
                     Id = table.Column<long>(type: "bigint", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    Url = table.Column<string>(type: "text", nullable: false),
-                    FileName = table.Column<string>(type: "text", nullable: false),
-                    Extension = table.Column<string>(type: "text", nullable: false),
+                    StudioId = table.Column<long>(type: "bigint", nullable: false),
                     CreationDate = table.Column<DateTime>(type: "TIMESTAMP", nullable: false, defaultValueSql: "CURRENT_TIMESTAMP"),
                     UpdateDate = table.Column<DateTime>(type: "TIMESTAMP", nullable: false, defaultValueSql: "CURRENT_TIMESTAMP"),
-                    DeletionDate = table.Column<DateTime>(type: "TIMESTAMP", nullable: true),
-                    StudioId = table.Column<long>(type: "bigint", nullable: false)
+                    Url = table.Column<string>(type: "text", nullable: false),
+                    FileName = table.Column<string>(type: "text", nullable: false),
+                    Extension = table.Column<string>(type: "text", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -271,31 +348,56 @@ namespace Giro.Animes.Infra.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "accounts",
-                schema: "management",
+                name: "avatars",
+                schema: "content",
                 columns: table => new
                 {
                     Id = table.Column<long>(type: "bigint", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    UserId = table.Column<long>(type: "bigint", nullable: false),
                     CreationDate = table.Column<DateTime>(type: "TIMESTAMP", nullable: false, defaultValueSql: "CURRENT_TIMESTAMP"),
                     UpdateDate = table.Column<DateTime>(type: "TIMESTAMP", nullable: false, defaultValueSql: "CURRENT_TIMESTAMP"),
-                    DeletionDate = table.Column<DateTime>(type: "TIMESTAMP", nullable: true),
-                    Email = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: true),
-                    IsConfirmed = table.Column<bool>(type: "boolean", nullable: true, defaultValue: false),
-                    Password = table.Column<string>(type: "character varying(256)", maxLength: 256, nullable: true),
-                    Salt = table.Column<string>(type: "character varying(256)", maxLength: 256, nullable: true),
-                    Status = table.Column<int>(type: "integer", nullable: false),
-                    Plan = table.Column<int>(type: "integer", nullable: false),
-                    UserId = table.Column<long>(type: "bigint", nullable: false)
+                    Url = table.Column<string>(type: "text", nullable: false),
+                    FileName = table.Column<string>(type: "text", nullable: false),
+                    Extension = table.Column<string>(type: "text", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_accounts", x => x.Id);
+                    table.PrimaryKey("PK_avatars", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_accounts_users_UserId",
+                        name: "FK_avatars_users_UserId",
                         column: x => x.UserId,
                         principalSchema: "management",
                         principalTable: "users",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "settings_anime_languages",
+                schema: "content",
+                columns: table => new
+                {
+                    LanguageId = table.Column<long>(type: "bigint", nullable: false),
+                    SettingsId = table.Column<long>(type: "bigint", nullable: false),
+                    CreationDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    UpdateDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_settings_anime_languages", x => new { x.LanguageId, x.SettingsId });
+                    table.ForeignKey(
+                        name: "FK_settings_anime_languages_languages_LanguageId",
+                        column: x => x.LanguageId,
+                        principalSchema: "common",
+                        principalTable: "languages",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_settings_anime_languages_settings_SettingsId",
+                        column: x => x.SettingsId,
+                        principalSchema: "management",
+                        principalTable: "settings",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -307,13 +409,12 @@ namespace Giro.Animes.Infra.Data.Migrations
                 {
                     Id = table.Column<long>(type: "bigint", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    Url = table.Column<string>(type: "text", nullable: false),
-                    FileName = table.Column<string>(type: "text", nullable: false),
                     AnimeId = table.Column<long>(type: "bigint", nullable: false),
-                    Extension = table.Column<string>(type: "text", nullable: false),
                     CreationDate = table.Column<DateTime>(type: "TIMESTAMP", nullable: false, defaultValueSql: "CURRENT_TIMESTAMP"),
                     UpdateDate = table.Column<DateTime>(type: "TIMESTAMP", nullable: false, defaultValueSql: "CURRENT_TIMESTAMP"),
-                    DeletionDate = table.Column<DateTime>(type: "TIMESTAMP", nullable: true)
+                    Url = table.Column<string>(type: "text", nullable: false),
+                    FileName = table.Column<string>(type: "text", nullable: false),
+                    Extension = table.Column<string>(type: "text", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -334,10 +435,9 @@ namespace Giro.Animes.Infra.Data.Migrations
                 {
                     Id = table.Column<long>(type: "bigint", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    AnimeId = table.Column<long>(type: "bigint", nullable: false),
                     CreationDate = table.Column<DateTime>(type: "TIMESTAMP", nullable: false, defaultValueSql: "CURRENT_TIMESTAMP"),
                     UpdateDate = table.Column<DateTime>(type: "TIMESTAMP", nullable: false, defaultValueSql: "CURRENT_TIMESTAMP"),
-                    DeletionDate = table.Column<DateTime>(type: "TIMESTAMP", nullable: true),
-                    AnimeId = table.Column<long>(type: "bigint", nullable: false),
                     Name = table.Column<string>(type: "text", nullable: false),
                     LanguageId = table.Column<long>(type: "bigint", nullable: false)
                 },
@@ -368,8 +468,7 @@ namespace Giro.Animes.Infra.Data.Migrations
                     AnimeId = table.Column<long>(type: "bigint", nullable: false),
                     GenreId = table.Column<long>(type: "bigint", nullable: false),
                     CreationDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
-                    UpdateDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
-                    DeletionDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: true)
+                    UpdateDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -398,8 +497,7 @@ namespace Giro.Animes.Infra.Data.Migrations
                     AuthorId = table.Column<long>(type: "bigint", nullable: false),
                     AnimeId = table.Column<long>(type: "bigint", nullable: false),
                     CreationDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
-                    UpdateDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
-                    DeletionDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: true)
+                    UpdateDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -427,14 +525,13 @@ namespace Giro.Animes.Infra.Data.Migrations
                 {
                     Id = table.Column<long>(type: "bigint", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    Url = table.Column<string>(type: "text", nullable: false),
-                    FileName = table.Column<string>(type: "text", nullable: false),
-                    Extension = table.Column<string>(type: "text", nullable: false),
+                    LanguageId = table.Column<long>(type: "bigint", nullable: false),
+                    AnimeId = table.Column<long>(type: "bigint", nullable: false),
                     CreationDate = table.Column<DateTime>(type: "TIMESTAMP", nullable: false, defaultValueSql: "CURRENT_TIMESTAMP"),
                     UpdateDate = table.Column<DateTime>(type: "TIMESTAMP", nullable: false, defaultValueSql: "CURRENT_TIMESTAMP"),
-                    DeletionDate = table.Column<DateTime>(type: "TIMESTAMP", nullable: true),
-                    LanguageId = table.Column<long>(type: "bigint", nullable: false),
-                    AnimeId = table.Column<long>(type: "bigint", nullable: false)
+                    Url = table.Column<string>(type: "text", nullable: false),
+                    FileName = table.Column<string>(type: "text", nullable: false),
+                    Extension = table.Column<string>(type: "text", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -462,12 +559,12 @@ namespace Giro.Animes.Infra.Data.Migrations
                 {
                     Id = table.Column<long>(type: "bigint", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    CreationDate = table.Column<DateTime>(type: "TIMESTAMP", nullable: false, defaultValueSql: "CURRENT_TIMESTAMP"),
-                    UpdateDate = table.Column<DateTime>(type: "TIMESTAMP", nullable: false, defaultValueSql: "CURRENT_TIMESTAMP"),
-                    DeletionDate = table.Column<DateTime>(type: "TIMESTAMP", nullable: true),
                     Number = table.Column<int>(type: "integer", nullable: false, defaultValue: 0),
                     Duration = table.Column<int>(type: "integer", nullable: false, defaultValue: 0),
-                    AnimeId = table.Column<long>(type: "bigint", nullable: false)
+                    AirDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    AnimeId = table.Column<long>(type: "bigint", nullable: false),
+                    CreationDate = table.Column<DateTime>(type: "TIMESTAMP", nullable: false, defaultValueSql: "CURRENT_TIMESTAMP"),
+                    UpdateDate = table.Column<DateTime>(type: "TIMESTAMP", nullable: false, defaultValueSql: "CURRENT_TIMESTAMP")
                 },
                 constraints: table =>
                 {
@@ -490,10 +587,9 @@ namespace Giro.Animes.Infra.Data.Migrations
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     Rate = table.Column<double>(type: "double precision", maxLength: 5, nullable: false),
                     UserId = table.Column<long>(type: "bigint", nullable: false),
+                    AnimeId = table.Column<long>(type: "bigint", nullable: false),
                     CreationDate = table.Column<DateTime>(type: "TIMESTAMP", nullable: false, defaultValueSql: "CURRENT_TIMESTAMP"),
-                    UpdateDate = table.Column<DateTime>(type: "TIMESTAMP", nullable: false, defaultValueSql: "CURRENT_TIMESTAMP"),
-                    DeletionDate = table.Column<DateTime>(type: "TIMESTAMP", nullable: true),
-                    AnimeId = table.Column<long>(type: "bigint", nullable: false)
+                    UpdateDate = table.Column<DateTime>(type: "TIMESTAMP", nullable: false, defaultValueSql: "CURRENT_TIMESTAMP")
                 },
                 constraints: table =>
                 {
@@ -523,10 +619,9 @@ namespace Giro.Animes.Infra.Data.Migrations
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     Description = table.Column<string>(type: "text", nullable: false),
                     AnimeId = table.Column<long>(type: "bigint", nullable: false),
-                    LanguageId = table.Column<long>(type: "bigint", nullable: false),
                     CreationDate = table.Column<DateTime>(type: "TIMESTAMP", nullable: false, defaultValueSql: "CURRENT_TIMESTAMP"),
                     UpdateDate = table.Column<DateTime>(type: "TIMESTAMP", nullable: false, defaultValueSql: "CURRENT_TIMESTAMP"),
-                    DeletionDate = table.Column<DateTime>(type: "TIMESTAMP", nullable: true)
+                    LanguageId = table.Column<long>(type: "bigint", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -548,68 +643,6 @@ namespace Giro.Animes.Infra.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "avatars",
-                schema: "content",
-                columns: table => new
-                {
-                    Id = table.Column<long>(type: "bigint", nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    Url = table.Column<string>(type: "text", nullable: false),
-                    FileName = table.Column<string>(type: "text", nullable: false),
-                    Extension = table.Column<string>(type: "text", nullable: false),
-                    CreationDate = table.Column<DateTime>(type: "TIMESTAMP", nullable: false, defaultValueSql: "CURRENT_TIMESTAMP"),
-                    UpdateDate = table.Column<DateTime>(type: "TIMESTAMP", nullable: false, defaultValueSql: "CURRENT_TIMESTAMP"),
-                    DeletionDate = table.Column<DateTime>(type: "TIMESTAMP", nullable: true),
-                    AccountId = table.Column<long>(type: "bigint", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_avatars", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_avatars_accounts_AccountId",
-                        column: x => x.AccountId,
-                        principalSchema: "management",
-                        principalTable: "accounts",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "settings",
-                schema: "management",
-                columns: table => new
-                {
-                    Id = table.Column<long>(type: "bigint", nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    CreationDate = table.Column<DateTime>(type: "TIMESTAMP", nullable: false, defaultValueSql: "CURRENT_TIMESTAMP"),
-                    UpdateDate = table.Column<DateTime>(type: "TIMESTAMP", nullable: false, defaultValueSql: "CURRENT_TIMESTAMP"),
-                    DeletionDate = table.Column<DateTime>(type: "TIMESTAMP", nullable: true),
-                    EnableApplicationNotifications = table.Column<bool>(type: "boolean", nullable: false, defaultValue: true),
-                    EnableEmailNotifications = table.Column<bool>(type: "boolean", nullable: false, defaultValue: false),
-                    Theme = table.Column<int>(type: "integer", nullable: false, defaultValue: 1),
-                    LanguageId = table.Column<long>(type: "bigint", nullable: false),
-                    AccountId = table.Column<long>(type: "bigint", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_settings", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_settings_accounts_AccountId",
-                        column: x => x.AccountId,
-                        principalSchema: "management",
-                        principalTable: "accounts",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_settings_languages_LanguageId",
-                        column: x => x.LanguageId,
-                        principalSchema: "common",
-                        principalTable: "languages",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "watchlist",
                 schema: "content",
                 columns: table => new
@@ -617,8 +650,7 @@ namespace Giro.Animes.Infra.Data.Migrations
                     AccountId = table.Column<long>(type: "bigint", nullable: false),
                     AnimeId = table.Column<long>(type: "bigint", nullable: false),
                     CreationDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
-                    UpdateDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
-                    DeletionDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: true)
+                    UpdateDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -646,14 +678,13 @@ namespace Giro.Animes.Infra.Data.Migrations
                 {
                     Id = table.Column<long>(type: "bigint", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    Url = table.Column<string>(type: "text", nullable: false),
-                    FileName = table.Column<string>(type: "text", nullable: false),
-                    Extension = table.Column<string>(type: "text", nullable: false),
+                    EpisodeId = table.Column<long>(type: "bigint", nullable: false),
+                    LanguageId = table.Column<long>(type: "bigint", nullable: false),
                     CreationDate = table.Column<DateTime>(type: "TIMESTAMP", nullable: false, defaultValueSql: "CURRENT_TIMESTAMP"),
                     UpdateDate = table.Column<DateTime>(type: "TIMESTAMP", nullable: false, defaultValueSql: "CURRENT_TIMESTAMP"),
-                    DeletionDate = table.Column<DateTime>(type: "TIMESTAMP", nullable: true),
-                    EpisodeId = table.Column<long>(type: "bigint", nullable: false),
-                    LanguageId = table.Column<long>(type: "bigint", nullable: false)
+                    Url = table.Column<string>(type: "text", nullable: false),
+                    FileName = table.Column<string>(type: "text", nullable: false),
+                    Extension = table.Column<string>(type: "text", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -675,6 +706,35 @@ namespace Giro.Animes.Infra.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "episode_languages",
+                schema: "content",
+                columns: table => new
+                {
+                    EpisodeId = table.Column<long>(type: "bigint", nullable: false),
+                    LanguageId = table.Column<long>(type: "bigint", nullable: false),
+                    CreationDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    UpdateDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_episode_languages", x => new { x.EpisodeId, x.LanguageId });
+                    table.ForeignKey(
+                        name: "FK_episode_languages_episodes_LanguageId",
+                        column: x => x.LanguageId,
+                        principalSchema: "content",
+                        principalTable: "episodes",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_episode_languages_languages_EpisodeId",
+                        column: x => x.EpisodeId,
+                        principalSchema: "common",
+                        principalTable: "languages",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "episode_sinopses",
                 schema: "content",
                 columns: table => new
@@ -682,10 +742,9 @@ namespace Giro.Animes.Infra.Data.Migrations
                     Id = table.Column<long>(type: "bigint", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     Description = table.Column<string>(type: "text", nullable: false),
+                    EpisodeId = table.Column<long>(type: "bigint", nullable: false),
                     CreationDate = table.Column<DateTime>(type: "TIMESTAMP", nullable: false, defaultValueSql: "CURRENT_TIMESTAMP"),
                     UpdateDate = table.Column<DateTime>(type: "TIMESTAMP", nullable: false, defaultValueSql: "CURRENT_TIMESTAMP"),
-                    DeletionDate = table.Column<DateTime>(type: "TIMESTAMP", nullable: true),
-                    EpisodeId = table.Column<long>(type: "bigint", nullable: false),
                     LanguageId = table.Column<long>(type: "bigint", nullable: true)
                 },
                 constraints: table =>
@@ -714,10 +773,9 @@ namespace Giro.Animes.Infra.Data.Migrations
                 {
                     Id = table.Column<long>(type: "bigint", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    EpisodeId = table.Column<long>(type: "bigint", nullable: false),
                     CreationDate = table.Column<DateTime>(type: "TIMESTAMP", nullable: false, defaultValueSql: "CURRENT_TIMESTAMP"),
                     UpdateDate = table.Column<DateTime>(type: "TIMESTAMP", nullable: false, defaultValueSql: "CURRENT_TIMESTAMP"),
-                    DeletionDate = table.Column<DateTime>(type: "TIMESTAMP", nullable: true),
-                    EpisodeId = table.Column<long>(type: "bigint", nullable: false),
                     Name = table.Column<string>(type: "text", nullable: false),
                     LanguageId = table.Column<long>(type: "bigint", nullable: false)
                 },
@@ -739,13 +797,6 @@ namespace Giro.Animes.Infra.Data.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
-
-            migrationBuilder.CreateIndex(
-                name: "IX_accounts_UserId",
-                schema: "management",
-                table: "accounts",
-                column: "UserId",
-                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_anime_screenshots_AnimeId",
@@ -784,10 +835,10 @@ namespace Giro.Animes.Infra.Data.Migrations
                 column: "AuthorId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_avatars_AccountId",
+                name: "IX_avatars_UserId",
                 schema: "content",
                 table: "avatars",
-                column: "AccountId",
+                column: "UserId",
                 unique: true);
 
             migrationBuilder.CreateIndex(
@@ -824,6 +875,12 @@ namespace Giro.Animes.Infra.Data.Migrations
                 name: "IX_episode_files_LanguageId",
                 schema: "content",
                 table: "episode_files",
+                column: "LanguageId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_episode_languages_LanguageId",
+                schema: "content",
+                table: "episode_languages",
                 column: "LanguageId");
 
             migrationBuilder.CreateIndex(
@@ -901,10 +958,16 @@ namespace Giro.Animes.Infra.Data.Migrations
                 unique: true);
 
             migrationBuilder.CreateIndex(
-                name: "IX_settings_LanguageId",
+                name: "IX_settings_InterfaceLanguageId",
                 schema: "management",
                 table: "settings",
-                column: "LanguageId");
+                column: "InterfaceLanguageId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_settings_anime_languages_SettingsId",
+                schema: "content",
+                table: "settings_anime_languages",
+                column: "SettingsId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_sinopses_AnimeId",
@@ -917,6 +980,20 @@ namespace Giro.Animes.Infra.Data.Migrations
                 schema: "content",
                 table: "sinopses",
                 column: "LanguageId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_users_AccountId",
+                schema: "management",
+                table: "users",
+                column: "AccountId",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_users_Name",
+                schema: "management",
+                table: "users",
+                column: "Name",
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_watchlist_AnimeId",
@@ -941,6 +1018,10 @@ namespace Giro.Animes.Infra.Data.Migrations
                 schema: "content");
 
             migrationBuilder.DropTable(
+                name: "audit_logs",
+                schema: "misc");
+
+            migrationBuilder.DropTable(
                 name: "author_works",
                 schema: "content");
 
@@ -958,6 +1039,10 @@ namespace Giro.Animes.Infra.Data.Migrations
 
             migrationBuilder.DropTable(
                 name: "episode_files",
+                schema: "content");
+
+            migrationBuilder.DropTable(
+                name: "episode_languages",
                 schema: "content");
 
             migrationBuilder.DropTable(
@@ -985,8 +1070,8 @@ namespace Giro.Animes.Infra.Data.Migrations
                 schema: "content");
 
             migrationBuilder.DropTable(
-                name: "settings",
-                schema: "management");
+                name: "settings_anime_languages",
+                schema: "content");
 
             migrationBuilder.DropTable(
                 name: "sinopses",
@@ -1009,11 +1094,11 @@ namespace Giro.Animes.Infra.Data.Migrations
                 schema: "common");
 
             migrationBuilder.DropTable(
-                name: "languages",
-                schema: "common");
+                name: "users",
+                schema: "management");
 
             migrationBuilder.DropTable(
-                name: "accounts",
+                name: "settings",
                 schema: "management");
 
             migrationBuilder.DropTable(
@@ -1021,8 +1106,12 @@ namespace Giro.Animes.Infra.Data.Migrations
                 schema: "content");
 
             migrationBuilder.DropTable(
-                name: "users",
+                name: "accounts",
                 schema: "management");
+
+            migrationBuilder.DropTable(
+                name: "languages",
+                schema: "common");
 
             migrationBuilder.DropTable(
                 name: "studios",

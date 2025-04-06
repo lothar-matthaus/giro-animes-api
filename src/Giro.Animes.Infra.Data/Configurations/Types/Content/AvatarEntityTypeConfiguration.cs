@@ -13,8 +13,7 @@ namespace Giro.Animes.Infra.Data.Configurations.Types.Content
             base.Configure(builder);
 
             builder.ToTable(Tables.Content.AVATARS, Schemas.CONTENT);
-            builder.HasOne(builder => builder.Account).WithOne(account => account.Avatar).IsRequired(true);
-            builder.Navigation(builder => builder.Account);
+            builder.HasOne(avatar => avatar.User).WithOne(user => user.Avatar).HasForeignKey<Avatar>(x => x.UserId).IsRequired();
         }
     }
 }
