@@ -4,6 +4,7 @@ using Giro.Animes.Domain.Interfaces.Repositories;
 using Giro.Animes.Domain.Interfaces.Services;
 using Giro.Animes.Domain.Services.Base;
 using Giro.Animes.Domain.ValueObjects;
+using System.Text.RegularExpressions;
 
 namespace Giro.Animes.Domain.Services
 {
@@ -52,6 +53,18 @@ namespace Giro.Animes.Domain.Services
         public async Task<Account> GetAccountAndUserByAccountIdAsync(long accountId)
         {
             return await _repository.GetByIdAsync(accountId, CancellationToken.None);
+        }
+
+        public async Task<Account> GetAccountByLogin(string login)
+        {
+            if(Regex.IsMatch(login, Patterns.Account.EMAIL))
+            {
+                return await _repository.GetAccountByEmail(login, CancellationToken.None);
+            }
+            else
+            {
+                return await _repository.GetAccountByUsername(login, CancellationToken.None);
+            }
         }
     }
 }

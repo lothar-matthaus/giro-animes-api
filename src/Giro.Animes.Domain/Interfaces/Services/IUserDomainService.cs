@@ -8,5 +8,6 @@ namespace Giro.Animes.Domain.Interfaces.Services
     {
         Task<Account> GetAccountAndUserByAccountIdAsync(long accountId);
         Task<EntityResult<Account>> CreateAccountAsync(Account account);
+        Task<Account> GetAccountByLogin(string login);
     }
 }
