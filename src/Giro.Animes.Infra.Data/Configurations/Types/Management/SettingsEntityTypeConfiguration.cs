@@ -1,6 +1,5 @@
 ﻿using Giro.Animes.Domain.Entities;
 using Giro.Animes.Domain.Entities.Joint;
-using Giro.Animes.Domain.Enums;
 using Giro.Animes.Infra.Data.Configurations.Types.Base;
 using Giro.Animes.Infra.Data.Constants;
 using Microsoft.EntityFrameworkCore;
@@ -16,7 +15,7 @@ namespace Giro.Animes.Infra.Data.Configurations.Types.Management
 
             builder.ToTable(Tables.Management.SETTINGS, Schemas.MANAGEMENT);
 
-            builder.Property(settings => settings.Theme).IsRequired(true).HasConversion(theme => theme.Value, value => UserTheme.FromValue(value)).HasDefaultValue(UserTheme.Light);
+            builder.Property(settings => settings.Theme).IsRequired(true);
             builder.Property(settings => settings.EnableApplicationNotifications).IsRequired().HasDefaultValue(true).HasDefaultValue(true);
             builder.Property(settings => settings.EnableEmailNotifications).IsRequired().HasDefaultValue(false);
 
@@ -36,6 +35,9 @@ namespace Giro.Animes.Infra.Data.Configurations.Types.Management
             {
                 join.ToTable(Tables.Content.SETTINGS_ANIME_LANGUAGES, Schemas.CONTENT);
             });
+
+            builder.Navigation(settings => settings.AnimeLanguages).AutoInclude();
+            builder.Navigation(settings => settings.InterfaceLanguage).AutoInclude();
         }
     }
 }

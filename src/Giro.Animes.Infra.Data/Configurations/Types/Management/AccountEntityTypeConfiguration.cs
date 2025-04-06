@@ -1,6 +1,5 @@
 ﻿using Giro.Animes.Domain.Entities;
 using Giro.Animes.Domain.Entities.Joint;
-using Giro.Animes.Domain.Enums;
 using Giro.Animes.Domain.ValueObjects;
 using Giro.Animes.Infra.Data.Configurations.Types.Base;
 using Giro.Animes.Infra.Data.Constants;
@@ -30,8 +29,8 @@ namespace Giro.Animes.Infra.Data.Configurations.Types.Management
                 password.Ignore(password => password.PlainText);
             });
 
-            builder.Property(account => account.Status).IsRequired(true).HasConversion(status => status.Value, value => AccountStatus.FromValue(value));
-            builder.Navigation(account => account.Settings);
+            builder.HasOne(account => account.User).WithOne(user => user.Account).HasForeignKey<User>(user => user.AccountId).OnDelete(DeleteBehavior.Cascade);
+            builder.Property(account => account.Status).IsRequired(true);
 
             builder.HasMany(account => account.Watchlist).WithMany(anime => anime.Accounts).UsingEntity<Watchlist>(
             Tables.Content.WATCHLIST, // Nome da tabela de junção
@@ -47,6 +46,8 @@ namespace Giro.Animes.Infra.Data.Configurations.Types.Management
             {
                 join.ToTable(Tables.Content.WATCHLIST, Schemas.CONTENT);
             });
+
+            builder.Navigation(account => account.Settings).AutoInclude();
         }
     }
 }

@@ -58,7 +58,7 @@ namespace Giro.Animes.Infra.Data.Configurations.Types.Content
             builder.HasMany(ani => ani.Episodes).WithOne(episode => episode.Anime).HasForeignKey(title => title.AnimeId).IsRequired(true);
             builder.HasMany(ani => ani.Accounts).WithMany(episode => episode.Watchlist);
 
-            builder.Property(ani => ani.Status).HasConversion(status => status.Value, value => AnimeStatus.FromValue(value)).IsRequired(true).HasDefaultValue(AnimeStatus.OnGoing);
+            builder.Property(ani => ani.Status).IsRequired().HasDefaultValue(AnimeStatus.ToBeReleased);
         }
     }
 }
