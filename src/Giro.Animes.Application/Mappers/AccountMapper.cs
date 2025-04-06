@@ -16,12 +16,10 @@ namespace Giro.Animes.Application.Mappers
         public static AccountDTO Map(this Account account)
         {
             AccountDTO accountDTO = AccountDTO.Create(
+                account.User?.Map(),
                 account.Email.Value,
-                account.Plan.Map(),
-                account.Avatar?.Map(),
                 account.Settings.Map(),
                 account.Watchlist?.Map(),
-                account.UserId,
                 account.Id,
                 account.CreationDate,
                 account.UpdateDate);

@@ -19,7 +19,7 @@ namespace Giro.Animes.Application.Mappers
                 avatar.Id,
                 avatar.CreationDate,
                 avatar.UpdateDate,
-                avatar.AccountId,
+                avatar.UserId,
                 avatar.Url,
                 avatar.FileName,
                 avatar.Extension

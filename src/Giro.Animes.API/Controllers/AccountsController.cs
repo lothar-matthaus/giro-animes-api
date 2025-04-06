@@ -9,41 +9,41 @@ using System.Net;
 
 namespace Giro.Animes.API.Controllers
 {
-    public class UsersController : GiroAnimesBaseController<IUserService>
+    public class AccountsController : GiroAnimesBaseController<IAccountService>
     {
-        public UsersController(IUserService applicationService) : base(applicationService)
+        public AccountsController(IAccountService applicationService) : base(applicationService)
         {
         }
 
         /// <summary>
-        /// Obtém um usuário pelo seu ID.
+        /// Obtém uma conta de usuário pelo Id
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
         [HttpGet("{id:long}")]
-        [ProducesResponseType<DetailResponse<UserDTO>>((int)HttpStatusCode.OK)]
+        [ProducesResponseType<DetailResponse<AccountDTO>>((int)HttpStatusCode.OK)]
         [ProducesResponseType<ErrorResponse>((int)HttpStatusCode.InternalServerError)]
         [ProducesResponseType<ApiResponse>((int)HttpStatusCode.BadRequest)]
-        public async Task<IActionResult> GetUser([FromRoute] long id)
+        public async Task<IActionResult> GetAccount([FromRoute] long id)
         {
-            UserDTO userDTO = await _applicationService.GetUserAndAccountByUserIdAsync(id);
-            return Ok(userDTO);
+            AccountDTO accountDTO = await _applicationService.GetAccountAndUserByAccountIdAsync(id);
+            return Ok(accountDTO);
         }
 
         /// <summary>
-        /// Cria um novo usuário. 
+        /// Cria uma nova conta de usuário 
         /// </summary>
         /// <param name="request"></param>
         /// <returns></returns>
         [HttpPost]
-        [ProducesResponseType<DetailResponse<UserDTO>>((int)HttpStatusCode.Created)]
+        [ProducesResponseType<DetailResponse<AccountDTO>>((int)HttpStatusCode.Created)]
         [ProducesResponseType<ErrorResponse>((int)HttpStatusCode.InternalServerError)]
         [ProducesResponseType<NotificationResponse>((int)HttpStatusCode.BadRequest)]
         [ProducesResponseType<ApiResponse>((int)HttpStatusCode.BadRequest)]
-        public async Task<IActionResult> CreateUser([FromBody] UserCreateRequest request)
+        public async Task<IActionResult> CreateAccount([FromBody] AccountCreateRequest request)
         {
-            UserDTO userDTO = await _applicationService.CreateUserAsync(request);
-            DetailResponse<UserDTO> response = DetailResponse<UserDTO>.Create(userDTO, true, HttpStatusCode.Created, "O usuário foi criado com sucesso");
+            AccountDTO accountDTO = await _applicationService.CreateAccountAsync(request);
+            DetailResponse<AccountDTO> response = DetailResponse<AccountDTO>.Create(accountDTO, true, HttpStatusCode.Created, "O conta de usuário foi criado com sucesso");
             return StatusCode((int)HttpStatusCode.Created, response);
         }
     }

@@ -7,43 +7,34 @@ namespace Giro.Animes.Application.DTOs
         /// <summary>
         /// E-mail da conta
         /// </summary>
-        public string Email { get; set; }
+        public string Email { get; private set; }
 
-        /// <summary>
-        /// Identificador do plano do usuário 
-        /// </summary>
-        public EnumDTO<int> Plan { get; set; }
-        /// <summary>
-        /// Identificador da imagem de perfil
-        /// </summary>
-        public AvatarDTO Avatar { get; set; }
         /// <summary>
         /// Configurações da conta do usuário
         /// </summary>
-        public SettingsDTO Settings { get; set; }
+        public SettingsDTO Settings { get; private set; }
         /// <summary>
         /// Lista de favoritos para assistir.
         /// </summary>
-        public IEnumerable<AnimeDTO> Watchlist { get; set; }
+        public IEnumerable<AnimeDTO> Watchlist { get; private set; }
+
         /// <summary>
         /// Identificador do usuário
         /// </summary>
-        public long UserId { get; set; }
+        public UserDTO User { get; private set; }
 
-        private AccountDTO(string email, EnumDTO<int> plan, AvatarDTO avatar, SettingsDTO settings, IEnumerable<AnimeDTO> watchlist, long userId, long? id, DateTime creationDate, DateTime updateDate)
+        private AccountDTO(UserDTO user, string email, SettingsDTO settings, IEnumerable<AnimeDTO> watchlist, long? id, DateTime creationDate, DateTime updateDate)
             : base(id, creationDate, updateDate)
         {
             Email = email;
-            Plan = plan;
-            Avatar = avatar;
             Settings = settings;
             Watchlist = watchlist;
-            UserId = userId;
+            User = user;
         }
 
-        public static AccountDTO Create(string email, EnumDTO<int> plan, AvatarDTO avatar, SettingsDTO settings, IEnumerable<AnimeDTO> watchlist, long userId, long? id, DateTime creationDate, DateTime updateDate)
+        public static AccountDTO Create(UserDTO user, string email, SettingsDTO settings, IEnumerable<AnimeDTO> watchlist, long? id, DateTime creationDate, DateTime updateDate)
         {
-            return new AccountDTO(email, plan, avatar, settings, watchlist, userId, id, creationDate, updateDate);
+            return new AccountDTO(user, email, settings, watchlist, id, creationDate, updateDate);
         }
     }
 }

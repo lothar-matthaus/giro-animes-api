@@ -11,25 +11,25 @@ using Giro.Animes.Infra.Interfaces;
 
 namespace Giro.Animes.Application.Services
 {
-    public class UserService : ApplicationServiceBase<IUserDomainService>, IUserService
+    public class AccountService : ApplicationServiceBase<IAccountDomainService>, IAccountService
     {
         private readonly ILanguageDomainService _languageDomainService;
 
-        public UserService(IApplicationUser applicationUser, IUserDomainService domainService, INotificationService notificationService, ILanguageDomainService languageDomainService) :
+        public AccountService(IApplicationUser applicationUser, IAccountDomainService domainService, INotificationService notificationService, ILanguageDomainService languageDomainService) :
             base(applicationUser, notificationService, domainService)
         {
             _languageDomainService = languageDomainService;
         }
 
-        public async Task<UserDTO> GetUserAndAccountByUserIdAsync(long userId)
+        public async Task<AccountDTO> GetAccountAndUserByAccountIdAsync(long accountId)
         {
-            User user = await _domainService.GetUserAndAccountById(userId);
-            UserDTO userDTO = user?.Map();
+            Account account = await _domainService.GetAccountAndUserByAccountIdAsync(accountId);
+            AccountDTO userDTO = account?.Map();
 
             return userDTO;
         }
 
-        public async Task<UserDTO> CreateUserAsync(UserCreateRequest request)
+        public async Task<AccountDTO> CreateAccountAsync(AccountCreateRequest request)
         {
             // Cria as tasks para obter o idioma da interface e os idiomas favoritos
             Language interfaceLanguage = await _languageDomainService.GetLanguageByCode();
@@ -42,25 +42,24 @@ namespace Giro.Animes.Application.Services
             Password password = Password.Create(request.Password, request.ConfirmPassword);
             Email email = Email.Create(request.Email);
 
-            // Cria a conta do usuário
-            Account account = Account.Create(email, password, settings);
-
             // Cria o usuário com status inativo
-            User user = User.Create(request.Name, UserStatus.Inactive, UserRole.User, account);
+            User user = User.Create(request.Username, UserStatus.Inactive, UserRole.User);
+
+            // Cria a conta do usuário
+            Account account = Account.Create(user, email, password, settings);
 
             // Chama o serviço de domínio para demais validações e persistência
-            EntityResult<User> resultUser = await _domainService.CreateUser(user);
+            EntityResult<Account> resultAccount = await _domainService.CreateAccountAsync(account);
 
-            if (!resultUser.IsValid)
+            if (!resultAccount.IsValid)
             {
                 // Adiciona as notificações de erro
-                await _notificationService.AddNotification(resultUser.Errors);
+                await _notificationService.AddNotification(resultAccount.Errors);
                 return null;
             }
 
-
             // Mapeia o usuário para UserDTO e retorna
-            return user?.Map();
+            return account?.Map();
         }
     }
 }

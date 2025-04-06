@@ -13,14 +13,14 @@ namespace Giro.Animes.Application.Extensions.IoC
         public static void ConfigureApplicationServices(this IServiceCollection services)
         {
             services.AddScoped<IAuthorService, AuthorService>();
-            services.AddScoped<IUserService, UserService>();
+            services.AddScoped<IAccountService, AccountService>();
             services.AddScoped<INotificationService, NotificationService>();
         }
 
         public static void ConfigureDomainServices(this IServiceCollection services)
         {
             services.AddScoped<IAuthorDomainService, AuthorDomainService>();
-            services.AddScoped<IUserDomainService, UserDomainService>();
+            services.AddScoped<IAccountDomainService, AccountDomainService>();
             services.AddScoped<ILanguageDomainService, LanguageDomainService>();
             services.AddScoped<IMediaDomainService<Avatar>, MediaDomainService<IMediaRepository<Avatar>, Avatar>>();
         }
