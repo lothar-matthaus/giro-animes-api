@@ -56,9 +56,22 @@ namespace Giro.Animes.Application.Services
 
             UserTokenDTO tokenDTO = await _tokenService.GenerateUserToken(account);
 
-            _httpContextAccessor.HttpContext.Response.Cookies.Append("access_token", tokenDTO.Token);
+            SetCookie(tokenDTO);
 
             return AuthDTO.Create(account.User.Name, account.User.Status.Map());
+        }
+
+        private void SetCookie(UserTokenDTO userTokenDTO)
+        {
+            _httpContextAccessor.HttpContext.Response.Cookies.Append("access_token", userTokenDTO.Token, new CookieOptions
+            {
+                HttpOnly = true,
+                Expires = DateTimeOffset.UtcNow.AddMinutes(userTokenDTO.ExpirationTime),
+                Secure = true,
+                SameSite = SameSiteMode.None,
+                Domain = _httpContextAccessor.HttpContext.Request.Host.Host,
+                IsEssential = true
+            });
         }
     }
 }
