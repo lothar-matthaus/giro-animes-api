@@ -6,6 +6,9 @@
         public DateTime CreationDate { get; private set; }
         public DateTime UpdateDate { get; private set; }
 
+
+        protected BaseDTO()
+        { }
         protected BaseDTO(long? id, DateTime creationDate, DateTime updateDate)
         {
             Id = id;
