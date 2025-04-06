@@ -1,5 +1,4 @@
 ﻿using Giro.Animes.Application.DTOs.Base;
-using Giro.Animes.Domain.Enums.Base;
 
 namespace Giro.Animes.Application.Mappers
 {
@@ -8,31 +7,19 @@ namespace Giro.Animes.Application.Mappers
     /// </summary>
     internal static class EnumerationMapper
     {
+
         /// <summary>
-        /// Mapeia uma Enumeração para um EnumDTO 
+        /// Método responsável por mapear uma enumeração para um EnumDTO
         /// </summary>
         /// <typeparam name="TEnum"></typeparam>
-        /// <typeparam name="TKey"></typeparam>
+        /// <typeparam name="TEnum"></typeparam>
         /// <param name="enumeration"></param>
         /// <returns></returns>
-        public static EnumDTO<TKey> Map<TEnum, TKey>(this Enumeration<TEnum, TKey> enumeration) where TKey : IComparable where TEnum : Enumeration<TEnum, TKey>
+        public static EnumDTO<TEnum> Map<TEnum>(this TEnum enumeration) where TEnum : Enum
         {
-            EnumDTO<TKey> enumDTO = EnumDTO<TKey>.Create(enumeration.Value, enumeration.Name);
+            EnumDTO<TEnum> enumDTO = EnumDTO<TEnum>.Create(enumeration, enumeration.ToString());
 
             return enumDTO;
-        }
-
-        /// <summary>
-        /// Mapeia uma lista de Enumerações para uma lista de EnumDTO
-        /// </summary>
-        /// <typeparam name="TEnum"></typeparam>
-        /// <typeparam name="TKey"></typeparam>
-        /// <param name="enumerations"></param>
-        /// <returns></returns>
-        public static IEnumerable<EnumDTO<TKey>> Map<TEnum, TKey>(this IEnumerable<Enumeration<TEnum, TKey>> enumerations) where TKey : IComparable where TEnum : Enumeration<TEnum, TKey>
-        {
-            IEnumerable<EnumDTO<TKey>> result = enumerations.Select(e => e.Map());
-            return result;
         }
     }
 }

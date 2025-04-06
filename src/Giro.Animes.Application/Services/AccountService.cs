@@ -43,7 +43,7 @@ namespace Giro.Animes.Application.Services
             Email email = Email.Create(request.Email);
 
             // Cria o usuário com status inativo
-            User user = User.Create(request.Username, UserStatus.Inactive, UserRole.User);
+            User user = User.Create(request.Username, UserRole.User, UserPlan.Free);
 
             // Cria a conta do usuário
             Account account = Account.Create(user, email, password, settings);

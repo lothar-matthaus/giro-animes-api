@@ -1,5 +1,6 @@
 ﻿
 using Giro.Animes.Application.DTOs.Base;
+using Giro.Animes.Domain.Enums;
 
 namespace Giro.Animes.Application.DTOs
 {
@@ -56,7 +57,7 @@ namespace Giro.Animes.Application.DTOs
         /// <summary>
         /// Status do anime.
         /// </summary>
-        public EnumDTO<int> Status { get; private set; }
+        public EnumDTO<AnimeStatus> Status { get; private set; }
 
         /// <summary>
         /// Construtor privado para inicializar AnimeDTO com uma entidade Anime.
@@ -74,7 +75,7 @@ namespace Giro.Animes.Application.DTOs
         /// <param name="genres">Coleção de gêneros do anime.</param>
         /// <param name="studio">Estúdio que criou o anime.</param>
         /// <param name="status">Status do anime.</param>
-        private AnimeDTO(long? id, DateTime creationDate, DateTime updateDate, IEnumerable<AnimeTitleDTO> titles, IEnumerable<AnimeSinopseDTO> sinopses, IEnumerable<CoverDTO> covers, IEnumerable<AnimeScreenshotDTO> screenshots, IEnumerable<EpisodeDTO> episodes, IEnumerable<AuthorDTO> authors, IEnumerable<RatingDTO> rating, IEnumerable<GenreDTO> genres, StudioDTO studio, EnumDTO<int> status) :
+        private AnimeDTO(long? id, DateTime creationDate, DateTime updateDate, IEnumerable<AnimeTitleDTO> titles, IEnumerable<AnimeSinopseDTO> sinopses, IEnumerable<CoverDTO> covers, IEnumerable<AnimeScreenshotDTO> screenshots, IEnumerable<EpisodeDTO> episodes, IEnumerable<AuthorDTO> authors, IEnumerable<RatingDTO> rating, IEnumerable<GenreDTO> genres, StudioDTO studio, EnumDTO<AnimeStatus> status) :
             base(id, creationDate, updateDate)
         {
             Titles = titles;
@@ -106,7 +107,7 @@ namespace Giro.Animes.Application.DTOs
         /// <param name="studio">Estúdio que criou o anime.</param>
         /// <param name="status">Status do anime.</param>
         /// <returns>Nova instância de AnimeDTO.</returns>
-        public static AnimeDTO Create(long? id, DateTime creationDate, DateTime updateDate, IEnumerable<AnimeTitleDTO> titles, IEnumerable<AnimeSinopseDTO> sinopses, IEnumerable<CoverDTO> covers, IEnumerable<AnimeScreenshotDTO> screenshots, IEnumerable<EpisodeDTO> episodes, IEnumerable<AuthorDTO> authors, IEnumerable<RatingDTO> rating, IEnumerable<GenreDTO> genres, StudioDTO studio, EnumDTO<int> status)
+        public static AnimeDTO Create(long? id, DateTime creationDate, DateTime updateDate, IEnumerable<AnimeTitleDTO> titles, IEnumerable<AnimeSinopseDTO> sinopses, IEnumerable<CoverDTO> covers, IEnumerable<AnimeScreenshotDTO> screenshots, IEnumerable<EpisodeDTO> episodes, IEnumerable<AuthorDTO> authors, IEnumerable<RatingDTO> rating, IEnumerable<GenreDTO> genres, StudioDTO studio, EnumDTO<AnimeStatus> status)
         {
             return new AnimeDTO(id, creationDate, updateDate, titles, sinopses, covers, screenshots, episodes, authors, rating, genres, studio, status);
         }

@@ -20,10 +20,8 @@ namespace Giro.Animes.Application.Mappers
                 user.CreationDate,
                 user.UpdateDate,
                 user.Name,
-                user.Status.Map(),
                 user.Role.Map(),
-                user.Ratings?.Map(),
-                user.Account?.Map());
+                user.Ratings?.Map());
 
             return userDTO;
         }

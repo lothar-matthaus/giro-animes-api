@@ -1,4 +1,5 @@
 ﻿using Giro.Animes.Application.DTOs.Base;
+using Giro.Animes.Domain.Enums;
 
 namespace Giro.Animes.Application.DTOs
 {
@@ -20,7 +21,7 @@ namespace Giro.Animes.Application.DTOs
         /// <summary>
         /// Thema favorito do usuário no aplicativo.
         /// </summary>
-        public EnumDTO<int> Theme { get; private set; }
+        public EnumDTO<Theme> Theme { get; private set; }
 
         /// <summary>
         /// Propriedade de navegação para o idioma favorito do usuário.
@@ -49,7 +50,7 @@ namespace Giro.Animes.Application.DTOs
         /// <param name="interfaceLanguage">Propriedade de navegação para o idioma favorito do usuário.</param>
         /// <param name="animeLanguages">Idiomas em que os animes serão mostrados.</param>
         /// <param name="accountId">Identificador do usuário ao qual as configurações pertencem.</param>
-        private SettingsDTO(long? id, DateTime creationDate, DateTime updateDate, bool enableApplicationNotifications, bool enableEmailNotifications, EnumDTO<int> theme, LanguageDTO interfaceLanguage, IEnumerable<LanguageDTO> animeLanguages, long accountId) :
+        private SettingsDTO(long? id, DateTime creationDate, DateTime updateDate, bool enableApplicationNotifications, bool enableEmailNotifications, EnumDTO<Theme> theme, LanguageDTO interfaceLanguage, IEnumerable<LanguageDTO> animeLanguages, long accountId) :
             base(id, creationDate, updateDate)
         {
             EnableApplicationNotifications = enableApplicationNotifications;
@@ -73,7 +74,7 @@ namespace Giro.Animes.Application.DTOs
         /// <param name="animeLanguages">Idiomas em que os animes serão mostrados.</param>
         /// <param name="accountId">Identificador do usuário ao qual as configurações pertencem.</param>
         /// <returns>Uma nova instância de SettingsDTO.</returns>
-        public static SettingsDTO Create(long? id, DateTime creationDate, DateTime updateDate, bool enableApplicationNotifications, bool enableEmailNotifications, EnumDTO<int> theme, LanguageDTO interfaceLanguage, IEnumerable<LanguageDTO> animeLanguages, long accountId)
+        public static SettingsDTO Create(long? id, DateTime creationDate, DateTime updateDate, bool enableApplicationNotifications, bool enableEmailNotifications, EnumDTO<Theme> theme, LanguageDTO interfaceLanguage, IEnumerable<LanguageDTO> animeLanguages, long accountId)
             => new SettingsDTO(id, creationDate, updateDate, enableApplicationNotifications, enableEmailNotifications, theme, interfaceLanguage, animeLanguages, accountId);
     }
 }

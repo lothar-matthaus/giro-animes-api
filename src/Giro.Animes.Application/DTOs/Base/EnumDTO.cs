@@ -1,11 +1,11 @@
 ﻿namespace Giro.Animes.Application.DTOs.Base
 {
-    public class EnumDTO<TKey> where TKey : IComparable
+    public class EnumDTO<TEnum> where TEnum : Enum
     {
         /// <summary>
         /// Identificador do enum
         /// </summary>
-        public TKey Key { get; private set; }
+        public TEnum Key { get; private set; }
         /// <summary>
         /// Valor do enum em string
         /// </summary>
@@ -16,7 +16,7 @@
         /// </summary>
         /// <param name="key"></param>
         /// <param name="value"></param>
-        private EnumDTO(TKey key, string value)
+        private EnumDTO(TEnum key, string value)
         {
             Key = key;
             Value = value;
@@ -28,9 +28,9 @@
         /// <param name="key"></param>
         /// <param name="value"></param>
         /// <returns></returns>
-        public static EnumDTO<TKey> Create(TKey key, string value)
+        public static EnumDTO<TEnum> Create(TEnum key, string value)
         {
-            return new EnumDTO<TKey>(key, value);
+            return new EnumDTO<TEnum>(key, value);
         }
     }
 }

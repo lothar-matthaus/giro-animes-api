@@ -11,7 +11,6 @@ using Giro.Animes.Infra.DTOs;
 using Giro.Animes.Infra.Interfaces;
 using Giro.Animes.Infra.Interfaces.Services;
 using Microsoft.AspNetCore.Http;
-using System.Text.RegularExpressions;
 
 namespace Giro.Animes.Application.Services
 {
@@ -37,9 +36,9 @@ namespace Giro.Animes.Application.Services
                 return null;
             }
 
-            if(account.User.Status != UserStatus.Active)
+            if (!account.Email.IsConfirmed)
             {
-                await _notificationService.AddNotification("A conta de usuário está inativa ou bloqueada", "Login", "Status");
+                await _notificationService.AddNotification("A conta precisa de confirmação do e-mail cadastrado. Verifique sua caixa de entrada.", "Login", "Status");
                 return null;
             }
 
@@ -56,7 +55,7 @@ namespace Giro.Animes.Application.Services
 
             SetCookie(tokenDTO);
 
-            return AuthDTO.Create(account.User.Name, account.User.Status.Map());
+            return AuthDTO.Create(account.User.Name, account.Status.Map());
         }
 
         private void SetCookie(UserTokenDTO userTokenDTO)

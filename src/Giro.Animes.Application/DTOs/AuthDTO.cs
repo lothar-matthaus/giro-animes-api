@@ -1,9 +1,5 @@
 ﻿using Giro.Animes.Application.DTOs.Base;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Giro.Animes.Domain.Enums;
 
 namespace Giro.Animes.Application.DTOs
 {
@@ -14,13 +10,13 @@ namespace Giro.Animes.Application.DTOs
         /// </summary>
         public string UserName { get; private set; }
 
-        public EnumDTO<int> Status { get; private set; }
+        public EnumDTO<AccountStatus> Status { get; private set; }
         /// <summary>
         /// Cria uma nova instância de AuthDTO
         /// </summary>
         /// <param name="message"></param>
-        public AuthDTO(string username, EnumDTO<int> status)
-        { 
+        public AuthDTO(string username, EnumDTO<AccountStatus> status)
+        {
             UserName = username;
             Status = status;
         }
@@ -30,6 +26,6 @@ namespace Giro.Animes.Application.DTOs
         /// </summary>
         /// <param name="message"></param>
         /// <returns></returns>
-        public static AuthDTO Create(string username, EnumDTO<int> status) => new AuthDTO(username, status);
+        public static AuthDTO Create(string username, EnumDTO<AccountStatus> status) => new AuthDTO(username, status);
     }
 }
