@@ -17,6 +17,7 @@ namespace Giro.Animes.Infra.Data.Configurations.Types.Management
             builder.HasIndex(user => user.Name).IsUnique();
             builder.Property(user => user.Role).IsRequired();
             builder.Property(user => user.Plan).IsRequired();
+            builder.Navigation(user => user.Account).AutoInclude(false);
         }
     }
 }

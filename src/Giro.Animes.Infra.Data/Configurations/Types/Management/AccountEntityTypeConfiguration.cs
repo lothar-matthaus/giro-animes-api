@@ -48,6 +48,7 @@ namespace Giro.Animes.Infra.Data.Configurations.Types.Management
             });
 
             builder.Navigation(account => account.Settings).AutoInclude();
+            builder.Navigation(account => account.User).AutoInclude();
         }
     }
 }
