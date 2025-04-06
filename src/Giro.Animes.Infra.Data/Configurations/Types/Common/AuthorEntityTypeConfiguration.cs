@@ -15,7 +15,7 @@ namespace Giro.Animes.Infra.Data.Configurations.Types.Common
             builder.ToTable(Tables.Common.AUTHORS, Schemas.COMMON);
 
             builder.Property(author => author.Name).IsRequired(true).HasMaxLength(30);
-            builder.Property(author => author.PenName).IsRequired(false).HasMaxLength(30);
+            builder.Property(author => author.PenName).IsRequired(false);
             builder.Property(author => author.Website).IsRequired(false).HasDefaultValue(null);
             builder.Property(author => author.Instagram).IsRequired(false).HasDefaultValue(null);
             builder.Property(author => author.Twitter).IsRequired(false).HasDefaultValue(null);
