@@ -16,8 +16,7 @@ namespace Giro.Animes.API.Controllers
     {
         [HttpGet("{id}")]
         [Authorize()]
-        [ProducesResponseType<DetailResponse<UserDTO>>((int)HttpStatusCode.OK)]
-        [ProducesResponseType<DetailResponse<UserDTO>>((int)HttpStatusCode.BadRequest)]
+        [ProducesResponseType<DetailResponse<AuthorDTO>>((int)HttpStatusCode.OK)]
         [ProducesResponseType<ErrorResponse>((int)HttpStatusCode.InternalServerError)]
         public async Task<IActionResult> GetAuthorById([FromRoute] long id)
         {

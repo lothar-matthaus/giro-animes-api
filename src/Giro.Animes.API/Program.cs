@@ -24,10 +24,10 @@ builder.Services.AddControllers(options =>
 builder.Services.AddHttpContextAccessor();
 
 // Adiciona as configurações da aplicação
+builder.Services.AddApplicationUser();
 builder.Services.AddAppConfig();
 
 // Configura o usuário do contexto da requisição
-builder.Services.AddApplicationUser();
 // Configura o AutoMapper
 builder.Services.AddSwaggerConfig();
 
