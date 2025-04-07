@@ -75,7 +75,7 @@ namespace Giro.Animes.Infra.Data.Repositories.Base
         {
             IQueryable<TEntity> query = _dbSet.AsQueryable();
             int count = query.Count();
-            IEnumerable<TEntity> result = await query.OrderBy(entity => entity.Id).Skip((param.Page - 1) * param.RowsPerPage).Take(param.RowsPerPage).ToListAsync();
+            IEnumerable<TEntity> result = await query.OrderBy(entity => entity.Id).Skip((param.Page - 1) * param.RowsPerPage).Take(param.RowsPerPage).ToListAsync(cancellationToken);
 
             return (result, count);
         }

@@ -33,6 +33,15 @@ namespace Giro.Animes.Application.Constants
             {
                 public const string AUTHENTICATION_SUCCESS = "Autenticação realizada com sucesso";
             }
+
+            public static class Anime
+            {
+                public const string ANIME_NOT_FOUND = "Anime não encontrado";
+                public const string ANIME_FOUND = "Anime encontrado com sucesso";
+                public const string ANIMES_FOUND = "Animes encontrados com sucesso";
+                public const string ANIMES_NOT_FOUND = "Nenhum anime encontrado";
+                public const string ANIME_CREATED = "Anime criado com sucesso";
+            }
         }
     }
 }

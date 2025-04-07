@@ -21,7 +21,7 @@ namespace Giro.Animes.Application.Services
         public async Task<IPagedEnumerable<AuthorDTO>> GetAllAuthorsPagedAsync(IPagination param)
         {
             (IEnumerable<Author> authors, int count) = await _domainService.GetAllAuthorsPagedAsync(param);
-            IPagedEnumerable<AuthorDTO> pagedEnumerable = new PagedEnumerable<AuthorDTO>(authors?.Map(), param.Page, param.RowsPerPage, count);
+            IPagedEnumerable<AuthorDTO> pagedEnumerable = PagedEnumerable<AuthorDTO>.Create (authors?.Map(), param.Page, param.RowsPerPage, count);
 
             return pagedEnumerable;
         }

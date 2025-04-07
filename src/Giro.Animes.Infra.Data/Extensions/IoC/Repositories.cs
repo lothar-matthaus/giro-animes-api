@@ -15,6 +15,7 @@ namespace Giro.Animes.Infra.Data.Extensions.IoC
             services.AddScoped<ILanguageRepository, LanguageRepository>();
             services.AddScoped<IAuthorRepository, AuthorRepository>();
             services.AddScoped<IMediaRepository<Avatar>, MediaRepository<Avatar, GiroAnimesDbContext>>();
+            services.AddScoped<IAnimeRepository, AnimeRepository>();
         }
     }
 }

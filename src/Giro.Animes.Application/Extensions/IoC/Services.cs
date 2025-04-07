@@ -15,6 +15,7 @@ namespace Giro.Animes.Application.Extensions.IoC
             services.AddScoped<IAuthorService, AuthorService>();
             services.AddScoped<IAccountService, AccountService>();
             services.AddScoped<INotificationService, NotificationService>();
+            services.AddScoped<IAnimeService, AnimeService>();
             services.AddScoped<IAuthService, AuthService>();
         }
 
@@ -23,6 +24,7 @@ namespace Giro.Animes.Application.Extensions.IoC
             services.AddScoped<IAuthorDomainService, AuthorDomainService>();
             services.AddScoped<IAccountDomainService, AccountDomainService>();
             services.AddScoped<ILanguageDomainService, LanguageDomainService>();
+            services.AddScoped<IAnimeDomainService, AnimeDomainService>();
             services.AddScoped<IMediaDomainService<Avatar>, MediaDomainService<IMediaRepository<Avatar>, Avatar>>();
         }
     }

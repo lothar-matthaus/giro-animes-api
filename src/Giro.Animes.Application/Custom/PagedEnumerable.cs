@@ -9,7 +9,7 @@ namespace Giro.Animes.Application.Custom
         public int RowsPerPage { get; }
         public int TotalPages { get; }
         public int TotalCount { get; set; }
-        public PagedEnumerable(IEnumerable<TType> items, int page, int rowsPerPage, int totalCount)
+        private PagedEnumerable(IEnumerable<TType> items, int page, int rowsPerPage, int totalCount)
         {
             _items = items;
             Page = page;
@@ -25,6 +25,11 @@ namespace Giro.Animes.Application.Custom
         System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator()
         {
             return GetEnumerator();
+        }
+
+        public static PagedEnumerable<TType> Create(IEnumerable<TType> items, int page, int rowsPerPage, int totalCount)
+        {
+            return new PagedEnumerable<TType>(items, page, rowsPerPage, totalCount);
         }
     }
 }
