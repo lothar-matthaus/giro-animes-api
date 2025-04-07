@@ -9,9 +9,9 @@ namespace Giro.Animes.Infra
     public class ApplicationUser : IApplicationUser
     {
         private readonly IHttpContextAccessor _context;
-        public ApplicationUser(IServiceProvider serviceProvider)
+        public ApplicationUser(IHttpContextAccessor contextAccessor)
         {
-            _context = serviceProvider.GetRequiredService<IHttpContextAccessor>();
+            _context = contextAccessor;
 
             Id = long.Parse(_context.HttpContext.User.Claims.Where(cl => cl.Type.Equals(ClaimTypes.Sid)).Select(cl => cl.Value).FirstOrDefault() ?? "0");
             Nome = _context.HttpContext.User.Claims.Where(cl => cl.Type.Equals(ClaimTypes.Name)).Select(cl => cl.Value).FirstOrDefault() ?? "Guest";
