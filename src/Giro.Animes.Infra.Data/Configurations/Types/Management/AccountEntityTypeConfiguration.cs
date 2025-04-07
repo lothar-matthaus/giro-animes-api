@@ -32,21 +32,6 @@ namespace Giro.Animes.Infra.Data.Configurations.Types.Management
             builder.HasOne(account => account.User).WithOne(user => user.Account).HasForeignKey<User>(user => user.AccountId).OnDelete(DeleteBehavior.Cascade);
             builder.Property(account => account.Status).IsRequired(true);
 
-            builder.HasMany(account => account.Watchlist).WithMany(anime => anime.Accounts).UsingEntity<Watchlist>(
-            Tables.Content.WATCHLIST, // Nome da tabela de junção
-            join => join.HasOne(watch => watch.Anime)
-                  .WithMany()
-                  .HasForeignKey(join => join.AnimeId) // Nome da coluna FK para Genre
-                  .OnDelete(DeleteBehavior.Cascade),
-            join => join.HasOne(watch => watch.Account)
-                  .WithMany()
-                  .HasForeignKey(join => join.AccountId) // Nome da coluna FK para Description
-                  .OnDelete(DeleteBehavior.Cascade),
-            join =>
-            {
-                join.ToTable(Tables.Content.WATCHLIST, Schemas.CONTENT);
-            });
-
             builder.Navigation(account => account.Settings).AutoInclude();
             builder.Navigation(account => account.User).AutoInclude();
         }

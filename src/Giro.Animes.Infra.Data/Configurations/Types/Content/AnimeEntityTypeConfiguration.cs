@@ -36,6 +36,7 @@ namespace Giro.Animes.Infra.Data.Configurations.Types.Content
             {
                 authorsAnimes.ToTable(Tables.Content.AUTHOR_WORKS, Schemas.CONTENT);
             });
+            builder.Property(ani => ani.Status).IsRequired().HasDefaultValue(AnimeStatus.ToBeReleased);
 
             builder.HasMany(ani => ani.Genres).WithMany(gen => gen.Animes).UsingEntity<AnimesGenres>(
             Tables.Content.ANIMES_GENRES, // Nome da tabela de junção
@@ -56,9 +57,6 @@ namespace Giro.Animes.Infra.Data.Configurations.Types.Content
 
             builder.HasMany(ani => ani.Covers).WithOne(cover => cover.Anime).HasForeignKey(title => title.AnimeId).IsRequired(true);
             builder.HasMany(ani => ani.Episodes).WithOne(episode => episode.Anime).HasForeignKey(title => title.AnimeId).IsRequired(true);
-            builder.HasMany(ani => ani.Accounts).WithMany(episode => episode.Watchlist);
-
-            builder.Property(ani => ani.Status).IsRequired().HasDefaultValue(AnimeStatus.ToBeReleased);
         }
     }
 }

@@ -15,9 +15,9 @@ namespace Giro.Animes.Infra.Data.Contexts
     {
         private readonly IApplicationUser _user;
 
-        public GiroAnimesDbContext(DbContextOptions<GiroAnimesDbContext> options, IServiceProvider serviceProvider) : base(options)
+        public GiroAnimesDbContext(DbContextOptions<GiroAnimesDbContext> options, IApplicationUser applicationUser) : base(options)
         {
-            _user = serviceProvider.GetRequiredService<IApplicationUser>();
+            _user = applicationUser;
         }
 
         public override int SaveChanges()

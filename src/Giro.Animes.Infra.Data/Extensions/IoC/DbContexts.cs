@@ -17,6 +17,7 @@ namespace Giro.Animes.Infra.Data.Extensions.IoC
                 .UseNpgsql(dataBaseConfig.ConnectionString)
                 .EnableSensitiveDataLogging(dataBaseConfig.EnableSensitiveDataLogging)
                 .LogTo(Console.WriteLine, dataBaseConfig.LogLevel);
+
             });
 
             return services;
