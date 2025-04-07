@@ -4,8 +4,8 @@ namespace Giro.Animes.Domain.Entities.Joint
 {
     public class Watchlist : EntityBase
     {
-        public long AccountId { get; private set; }
-        public Account Account { get; private set; }
+        public long UserId { get; private set; }
+        public User User { get; private set; }
 
         public long AnimeId { get; private set; }
         public Anime Anime { get; private set; }

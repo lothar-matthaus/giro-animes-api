@@ -25,11 +25,6 @@ namespace Giro.Animes.Domain.Entities
         public Settings Settings { get; private set; }
 
         /// <summary>
-        /// Lista de favoritos para assistir.
-        /// </summary>
-        public IEnumerable<Anime> Watchlist { get; private set; }
-
-        /// <summary>
         /// Usuário atrelado a conta 
         /// </summary>
         public User User { get; private set; }

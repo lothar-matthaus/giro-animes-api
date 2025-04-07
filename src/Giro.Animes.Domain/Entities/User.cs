@@ -1,5 +1,6 @@
 ﻿using Giro.Animes.Domain.Constants;
 using Giro.Animes.Domain.Entities.Base;
+using Giro.Animes.Domain.Entities.Joint;
 using Giro.Animes.Domain.Enums;
 using Giro.Animes.Domain.ValueObjects;
 using System.Text.RegularExpressions;
@@ -64,6 +65,11 @@ namespace Giro.Animes.Domain.Entities
         /// Notas que o usuário deu para um determinado anime
         /// </summary>
         public IEnumerable<Rating> Ratings { get; private set; }
+
+        /// <summary>
+        /// Lista de animes que o usuário assistiu
+        /// </summary>
+        public ICollection<Anime> Watchlist { get; private set; }
 
         /// <summary>
         /// Construtor padrão do objeto de entidade
