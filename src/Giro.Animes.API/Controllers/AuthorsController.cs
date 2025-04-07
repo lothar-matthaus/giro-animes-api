@@ -27,6 +27,7 @@ namespace Giro.Animes.API.Controllers
 
 
         [HttpGet()]
+        [Authorize]
         [ProducesResponseType<DetailResponse<AuthorDTO>>((int)HttpStatusCode.OK)]
         [ProducesResponseType<ApiResponse>((int)HttpStatusCode.InternalServerError)]
         [ProducesResponseType<ApiResponse>((int)HttpStatusCode.BadRequest)]
