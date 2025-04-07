@@ -1,4 +1,5 @@
-﻿using Giro.Animes.Application.DTOs;
+﻿using Giro.Animes.Application.Constants;
+using Giro.Animes.Application.DTOs;
 using Giro.Animes.Application.Interfaces.Enumerations;
 using Giro.Animes.Application.Interfaces.Services;
 using Giro.Animes.Application.Requests;
@@ -14,14 +15,14 @@ namespace Giro.Animes.API.Controllers
     public class AuthorsController(IAuthorService applicationService) : GiroAnimesBaseController<IAuthorService>(applicationService)
     {
         [HttpGet("{id}")]
+        [Authorize()]
         [ProducesResponseType<DetailResponse<UserDTO>>((int)HttpStatusCode.OK)]
         [ProducesResponseType<DetailResponse<UserDTO>>((int)HttpStatusCode.BadRequest)]
         [ProducesResponseType<ErrorResponse>((int)HttpStatusCode.InternalServerError)]
         public async Task<IActionResult> GetAuthorById([FromRoute] long id)
         {
             AuthorDTO authorDTO = await _applicationService.GetAuthorByIdAsync(id);
-            DetailResponse<AuthorDTO> response = DetailResponse<AuthorDTO>.Create(authorDTO, true, HttpStatusCode.OK, "O autor foi encontrado com sucesso");
-            return StatusCode((int)HttpStatusCode.OK, response);
+            return await Ok(authorDTO, Messages.Response.Author.AUTHOR_FOUND);
         }
 
 
@@ -32,7 +33,7 @@ namespace Giro.Animes.API.Controllers
         public async Task<IActionResult> GetAllPaged([FromQuery] Pagination param)
         {
             IPagedEnumerable<AuthorDTO> authors = await _applicationService.GetAllAuthorsPagedAsync(param);
-            return await Ok(authors, param);
+            return await Ok(authors, param, Messages.Response.Author.AUTHORS_FOUND);
         }
     }
 }

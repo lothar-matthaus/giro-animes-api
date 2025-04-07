@@ -1,4 +1,5 @@
-﻿using Giro.Animes.Application.DTOs;
+﻿using Giro.Animes.Application.Constants;
+using Giro.Animes.Application.DTOs;
 using Giro.Animes.Application.Interfaces.Services;
 using Giro.Animes.Application.Requests.Auth;
 using Giro.Animes.Application.Responses;
@@ -24,7 +25,7 @@ namespace Giro.Animes.API.Controllers
         public async Task<IActionResult> Auth([FromBody] AuthRequest request)
         {
             AuthDTO authDTO = await _applicationService.Auth(request);
-            return await Ok(authDTO);
+            return await Ok(authDTO, Messages.Response.Auth.AUTHENTICATION_SUCCESS);
         }
     }
 }

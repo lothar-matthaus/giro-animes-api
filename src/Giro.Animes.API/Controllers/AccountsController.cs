@@ -1,4 +1,5 @@
-﻿using Giro.Animes.Application.DTOs;
+﻿using Giro.Animes.Application.Constants;
+using Giro.Animes.Application.DTOs;
 using Giro.Animes.Application.Interfaces.Services;
 using Giro.Animes.Application.Requests.User;
 using Giro.Animes.Application.Responses;
@@ -22,14 +23,14 @@ namespace Giro.Animes.API.Controllers
         /// <param name="id"></param>
         /// <returns></returns>
         [HttpGet("{id:long}")]
-        [AllowAnonymous]
+        [Authorize]
         [ProducesResponseType<DetailResponse<AccountDTO>>((int)HttpStatusCode.OK)]
         [ProducesResponseType<ErrorResponse>((int)HttpStatusCode.InternalServerError)]
         [ProducesResponseType<ApiResponse>((int)HttpStatusCode.BadRequest)]
         public async Task<IActionResult> GetAccount([FromRoute] long id)
         {
             AccountDTO accountDTO = await _applicationService.GetAccountAndUserByAccountIdAsync(id);
-            return await Ok(accountDTO);
+            return await Ok(accountDTO, Messages.Response.Account.ACCOUNT_FOUND);
         }
 
         /// <summary>
@@ -46,7 +47,7 @@ namespace Giro.Animes.API.Controllers
         public async Task<IActionResult> CreateAccount([FromBody] AccountCreateRequest request)
         {
             AccountDTO accountDTO = await _applicationService.CreateAccountAsync(request);
-            return StatusCode((int)HttpStatusCode.Created, accountDTO);
+            return await Ok(accountDTO, Messages.Response.Account.ACCOUNT_CREATED);
         }
     }
 }

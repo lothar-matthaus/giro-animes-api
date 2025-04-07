@@ -1,4 +1,5 @@
-﻿using Giro.Animes.Application.DTOs.Base;
+﻿using Giro.Animes.Application.Constants;
+using Giro.Animes.Application.DTOs.Base;
 using Giro.Animes.Application.Interfaces.Enumerations;
 using Giro.Animes.Application.Interfaces.Services.Base;
 using Giro.Animes.Application.Requests;
@@ -21,30 +22,30 @@ namespace Giro.Animes.Presentation.Controllers
             _applicationService = applicationService;
         }
 
-        public async Task<IActionResult> Ok<TData>(TData data) where TData : BaseDTO
+        public async Task<IActionResult> Ok<TData>(TData data, string message) where TData : BaseDTO
         {
             if (data is null)
             {
-                DetailResponse<TData> result = DetailResponse<TData>.Create(true, HttpStatusCode.OK, "Nenhum resultado encontrado");
+                DetailResponse<TData> result = DetailResponse<TData>.Create(true, HttpStatusCode.OK, Messages.Response.NOT_FOUND);
                 return StatusCode((int)HttpStatusCode.OK, result);
             }
 
-            DetailResponse<TData> response = DetailResponse<TData>.Create(data, true, HttpStatusCode.OK, "Consulta realizada com sucesso");
+            DetailResponse<TData> response = DetailResponse<TData>.Create(data, true, HttpStatusCode.OK, message);
             return await Task.Run(() =>
             {
                 return StatusCode((int)HttpStatusCode.OK, response);
             });
         }
 
-        public async Task<IActionResult> Ok<TData>(IPagedEnumerable<TData> data, Pagination pagination) where TData : BaseDTO
+        public async Task<IActionResult> Ok<TData>(IPagedEnumerable<TData> data, Pagination pagination, string message) where TData : BaseDTO
         {
             if (data is null)
             {
-                ListPagedResponse<TData> result = ListPagedResponse<TData>.Create(HttpStatusCode.OK, "A consulta não retornou resultados.", pagination.Page, pagination.RowsPerPage, data?.TotalCount ?? 0);
+                ListPagedResponse<TData> result = ListPagedResponse<TData>.Create(HttpStatusCode.OK, Messages.Response.NOT_FOUND, pagination.Page, pagination.RowsPerPage, data?.TotalCount ?? 0);
                 return StatusCode((int)HttpStatusCode.OK, result);
             }
 
-            ListPagedResponse<TData> response = ListPagedResponse<TData>.Create(data, true, HttpStatusCode.OK, "Consulta realizada com sucesso", pagination.Page, pagination.RowsPerPage, data.TotalCount);
+            ListPagedResponse<TData> response = ListPagedResponse<TData>.Create(data, true, HttpStatusCode.OK, message, pagination.Page, pagination.RowsPerPage, data.TotalCount);
 
             return await Task.Run(() =>
             {
