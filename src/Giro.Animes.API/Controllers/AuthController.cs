@@ -26,7 +26,7 @@ namespace Giro.Animes.API.Controllers
         [ProducesResponseType<DetailResponse<AuthDTO>>((int)HttpStatusCode.OK)]
         [ProducesResponseType<ErrorResponse>((int)HttpStatusCode.InternalServerError)]
         [ProducesResponseType<NotificationResponse>((int)HttpStatusCode.BadRequest)]
-        public async Task<IActionResult> Auth([FromBody] AuthRequest request)
+        public async Task<IActionResult> Auth([FromForm] AuthRequest request)
         {
             AuthDTO authDTO = await _applicationService.Auth(request);
             return await Ok(authDTO, Messages.Response.Auth.AUTHENTICATION_SUCCESS);
