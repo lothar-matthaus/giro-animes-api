@@ -18,9 +18,9 @@ namespace Giro.Animes.Application.Mappers
             return ratingDTO;
         }
 
-        public static IEnumerable<RatingDTO> Map(this IEnumerable<Rating> ratings)
+        public static IReadOnlyCollection<RatingDTO> Map(this IEnumerable<Rating> ratings)
         {
-            IEnumerable<RatingDTO> result = ratings?.Select(Map).ToList();
+            IReadOnlyCollection<RatingDTO> result = ratings?.Select(Map).ToList();
             return result;
         }
     }

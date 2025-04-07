@@ -26,7 +26,12 @@ namespace Giro.Animes.Application.DTOs
         /// <summary>
         /// Avaliações feitas pelo usuário.
         /// </summary>
-        public IEnumerable<RatingDTO> Ratings { get; private set; }
+        public IReadOnlyCollection<RatingDTO> Ratings { get; private set; }
+
+        /// <summary>
+        /// Lista de animes favoritos do usuário.
+        /// </summary>
+        public IReadOnlyCollection<AnimeDTO> Watchlist { get; private set; }
 
 
         /// <summary>
@@ -39,13 +44,14 @@ namespace Giro.Animes.Application.DTOs
         /// <param name="role">Papel do usuário.</param>
         /// <param name="ratings">Avaliações feitas pelo usuário.</param>
         /// <param name="account">Conta do usuário.</param>
-        private UserDTO(long? id, AccountDTO account, DateTime creationDate, DateTime updateDate, string name, EnumDTO<UserRole> role, IEnumerable<RatingDTO> ratings) :
+        private UserDTO(long? id, AccountDTO account, DateTime creationDate, DateTime updateDate, string name, EnumDTO<UserRole> role, IReadOnlyCollection<RatingDTO> ratings, IReadOnlyCollection<AnimeDTO> watchlist) :
             base(id, creationDate, updateDate)
         {
             Name = name;
             Role = role;
             Ratings = ratings;
             Account = account;
+            Watchlist = watchlist;
         }
 
         /// <summary>
@@ -59,7 +65,7 @@ namespace Giro.Animes.Application.DTOs
         /// <param name="ratings">Avaliações feitas pelo usuário.</param>
         /// <param name="account">Conta do usuário.</param>
         /// <returns>Uma nova instância de UserDTO.</returns>
-        public static UserDTO Create(long? id, AccountDTO account, DateTime creationDate, DateTime updateDate, string name, EnumDTO<UserRole> role, IEnumerable<RatingDTO> ratings)
-            => new UserDTO(id, account, creationDate, updateDate, name, role, ratings);
+        public static UserDTO Create(long? id, AccountDTO account, DateTime creationDate, DateTime updateDate, string name, EnumDTO<UserRole> role, IReadOnlyCollection<RatingDTO> ratings, IReadOnlyCollection<AnimeDTO> watchlist)
+            => new UserDTO(id, account, creationDate, updateDate, name, role, ratings, watchlist);
     }
 }

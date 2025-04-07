@@ -19,29 +19,24 @@ namespace Giro.Animes.Application.DTOs
         /// Status da conta do usuário
         /// </summary>
         public EnumDTO<AccountStatus> Status { get; private set; }
-        /// <summary>
-        /// Lista de favoritos para assistir.
-        /// </summary>
-        public IEnumerable<AnimeDTO> Watchlist { get; private set; }
 
         /// <summary>
         /// Identificador do usuário
         /// </summary>
         public UserDTO User { get; private set; }
 
-        private AccountDTO(UserDTO user, string email, SettingsDTO settings, EnumDTO<AccountStatus> status, IEnumerable<AnimeDTO> watchlist, long? id, DateTime creationDate, DateTime updateDate)
+        private AccountDTO(UserDTO user, string email, SettingsDTO settings, EnumDTO<AccountStatus> status, long? id, DateTime creationDate, DateTime updateDate)
             : base(id, creationDate, updateDate)
         {
             Email = email;
             Settings = settings;
-            Watchlist = watchlist;
             User = user;
             Status = status;
         }
 
-        public static AccountDTO Create(UserDTO user, string email, SettingsDTO settings, EnumDTO<AccountStatus> status, IEnumerable<AnimeDTO> watchlist, long? id, DateTime creationDate, DateTime updateDate)
+        public static AccountDTO Create(UserDTO user, string email, SettingsDTO settings, EnumDTO<AccountStatus> status, long? id, DateTime creationDate, DateTime updateDate)
         {
-            return new AccountDTO(user, email, settings, status, watchlist, id, creationDate, updateDate);
+            return new AccountDTO(user, email, settings, status, id, creationDate, updateDate);
         }
     }
 }

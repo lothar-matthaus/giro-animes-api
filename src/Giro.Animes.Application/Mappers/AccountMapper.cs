@@ -20,7 +20,6 @@ namespace Giro.Animes.Application.Mappers
                 account.Email.Value,
                 account.Settings.Map(),
                 account.Status.Map(),
-                account.Watchlist?.Map(),
                 account.Id,
                 account.CreationDate,
                 account.UpdateDate);

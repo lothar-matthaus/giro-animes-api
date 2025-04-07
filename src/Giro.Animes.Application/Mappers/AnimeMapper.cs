@@ -25,9 +25,9 @@ namespace Giro.Animes.Application.Mappers
             return animeDTO;
         }
 
-        public static IEnumerable<AnimeDTO> Map(this IEnumerable<Anime> animes)
+        public static IReadOnlyCollection<AnimeDTO> Map(this IEnumerable<Anime> animes)
         {
-            IEnumerable<AnimeDTO> result = animes.Select(Map);
+            IReadOnlyCollection<AnimeDTO> result = animes.Select(Map).ToList();
             return result;
         }
     }
