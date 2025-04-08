@@ -2,15 +2,14 @@
 
 namespace Giro.Animes.Domain.Entities.Joint
 {
-    public class EpisodeLanguages : EntityBase
+    public class SettingsAnimeAudioLanguage : EntityBase
     {
-        public long EpisodeId { get; private set; }
         public long LanguageId { get; private set; }
+        public long SettingsId { get; private set; }
+        public Settings Settings { get; set; }
+        public Language Language { get; set; }
 
-        public Language Language { get; private set; }
-        public Episode Episode { get; private set; }
-
-        public EpisodeLanguages()
+        public SettingsAnimeAudioLanguage()
         {
             CreationDate = DateTime.UtcNow;
             UpdateDate = DateTime.UtcNow;

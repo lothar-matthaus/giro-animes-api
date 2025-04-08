@@ -33,7 +33,12 @@ namespace Giro.Animes.Domain.Entities
         /// <summary>
         /// Idiomas em que os animes serão mostrados.
         /// </summary>
-        public ICollection<Language> AnimeLanguages { get; private set; }
+        public ICollection<Language> AnimeAudioLanguages { get; private set; }
+
+        /// <summary>
+        /// Idiomas em que as legendas dos animes serão mostradas.
+        /// </summary>
+        public ICollection<Language> AnimeSubtitleLanguages { get; set; }
         /// <summary>
         /// Identificador do usuário ao qual as configurações pertencem
         /// </summary>
@@ -60,7 +65,7 @@ namespace Giro.Animes.Domain.Entities
             EnableApplicationNotifications = false;
             Theme = Theme.Light;
             InterfaceLanguage = interfaceLanguage;
-            AnimeLanguages = animeLanguages.ToList();
+            AnimeAudioLanguages = animeLanguages.ToList();
         }
 
         /// <summary>
@@ -100,12 +105,12 @@ namespace Giro.Animes.Domain.Entities
         /// <param name="animeLanguages"></param>
         public void AddAnimeLanguages(IEnumerable<Language> animeLanguages)
         {
-            AnimeLanguages ??= new List<Language>();
+            AnimeAudioLanguages ??= new List<Language>();
             foreach (var language in animeLanguages)
             {
-                if (!AnimeLanguages.Contains(language))
+                if (!AnimeAudioLanguages.Contains(language))
                 {
-                    AnimeLanguages.Add(language);
+                    AnimeAudioLanguages.Add(language);
                 }
             }
         }

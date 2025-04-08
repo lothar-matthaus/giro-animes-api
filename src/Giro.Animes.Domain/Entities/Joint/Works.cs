@@ -30,7 +30,11 @@ namespace Giro.Animes.Domain.Entities.Joint
         /// <summary>
         /// Construtor padrão 
         /// </summary>
-        public Works() { }
+        public Works()
+        {
+            CreationDate = DateTime.UtcNow;
+            UpdateDate = DateTime.UtcNow;
+        }
 
     }
 }

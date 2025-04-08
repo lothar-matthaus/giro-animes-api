@@ -10,6 +10,10 @@ namespace Giro.Animes.Domain.Entities.Joint
         public long AnimeId { get; private set; }
         public Anime Anime { get; private set; }
 
-        public Watchlist() { }
+        public Watchlist()
+        {
+            CreationDate = DateTime.UtcNow;
+            UpdateDate = DateTime.UtcNow;
+        }
     }
 }

@@ -30,6 +30,10 @@ namespace Giro.Animes.Domain.Entities.Joint
         /// <summary>
         /// Initializes a new instance of the <see cref="AnimesGenres"/> class.
         /// </summary>
-        public AnimesGenres() { }
+        public AnimesGenres()
+        {
+            CreationDate = DateTime.UtcNow;
+            UpdateDate = DateTime.UtcNow;
+        }
     }
 }
