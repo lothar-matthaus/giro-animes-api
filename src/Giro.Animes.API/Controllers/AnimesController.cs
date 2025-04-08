@@ -22,7 +22,7 @@ namespace Giro.Animes.API.Controllers
         public async Task<IActionResult> GetAllPaged([FromQuery] Pagination pagination)
         {
             IPagedEnumerable<AnimeDTO> pagedResult = await _applicationService.GetAllPagedAsync(pagination, HttpContext.Request.HttpContext.RequestAborted);
-            return await Ok(pagedResult, pagination, Messages.Response.Anime.ANIMES_FOUND);
+            return await Ok(pagedResult, pagination, Messages.Response.Anime.ANIMES_FOUND, Messages.Response.Anime.ANIMES_NOT_FOUND);
         }
     }
 }

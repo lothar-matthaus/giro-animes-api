@@ -30,7 +30,7 @@ namespace Giro.Animes.API.Controllers
         public async Task<IActionResult> GetAccount([FromRoute] long id)
         {
             AccountDTO accountDTO = await _applicationService.GetAccountAndUserByAccountIdAsync(id);
-            return await Ok(accountDTO, Messages.Response.Account.ACCOUNT_FOUND);
+            return await Ok(accountDTO, Messages.Response.Account.ACCOUNT_FOUND, Messages.Response.Account.ACCOUNT_NOT_FOUND);
         }
     }
 }

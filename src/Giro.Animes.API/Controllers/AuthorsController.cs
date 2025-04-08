@@ -21,7 +21,7 @@ namespace Giro.Animes.API.Controllers
         public async Task<IActionResult> GetAuthorById([FromRoute] long id)
         {
             AuthorDTO authorDTO = await _applicationService.GetAuthorByIdAsync(id);
-            return await Ok(authorDTO, Messages.Response.Author.AUTHOR_FOUND);
+            return await Ok(authorDTO, Messages.Response.Author.AUTHOR_FOUND, Messages.Response.Author.AUTHOR_NOT_FOUND);
         }
 
 
@@ -33,7 +33,7 @@ namespace Giro.Animes.API.Controllers
         public async Task<IActionResult> GetAllPaged([FromQuery] Pagination param)
         {
             IPagedEnumerable<AuthorDTO> authors = await _applicationService.GetAllAuthorsPagedAsync(param);
-            return await Ok(authors, param, Messages.Response.Author.AUTHORS_FOUND);
+            return await Ok(authors, param, Messages.Response.Author.AUTHORS_FOUND, Messages.Response.Author.AUTHORS_NOT_FOUND);
         }
     }
 }

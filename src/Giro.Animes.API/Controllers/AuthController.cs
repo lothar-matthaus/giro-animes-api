@@ -29,7 +29,7 @@ namespace Giro.Animes.API.Controllers
         public async Task<IActionResult> Auth([FromForm] AuthRequest request)
         {
             AuthDTO authDTO = await _applicationService.Auth(request);
-            return await Ok(authDTO, Messages.Response.Auth.AUTHENTICATION_SUCCESS);
+            return await Ok(authDTO, Messages.Response.Auth.AUTHENTICATION_SUCCESS, Messages.Response.Auth.AUTHENTICATION_FAILED);
         }
 
         [HttpPost("register")]
@@ -40,7 +40,7 @@ namespace Giro.Animes.API.Controllers
         public async Task<IActionResult> Register([FromForm]AccountCreateRequest request)
         {
             AccountDTO accountDTO = await _accountService.CreateAccountAsync(request);
-            return await Ok(accountDTO, Messages.Response.Account.ACCOUNT_CREATED);
+            return await Ok(accountDTO, Messages.Response.Account.ACCOUNT_CREATED, Messages.Response.Account.ACCOUNT_NOT_CREATED);
         }
     }
 }
