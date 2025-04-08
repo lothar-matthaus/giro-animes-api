@@ -23,7 +23,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Giro.Animes.API", "src\Giro
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Giro.Animes.Admin.API", "src\Giro.Animes.Admin.API\Giro.Animes.Admin.API.csproj", "{55B221DA-6D68-45AC-BB8D-F682B9301869}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Giro.Animes.Shared", "src\Giro.Animes.Presentation\Giro.Animes.Shared.csproj", "{696926C1-C1E4-4754-A5A6-9ED3190D5F9F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Giro.Animes.Shared", "src\Giro.Animes.Shared\Giro.Animes.Shared.csproj", "{696926C1-C1E4-4754-A5A6-9ED3190D5F9F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
