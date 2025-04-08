@@ -1,6 +1,5 @@
 ﻿using Giro.Animes.Domain.Constants;
 using Giro.Animes.Domain.Entities.Base;
-using Giro.Animes.Domain.Entities.Joint;
 using Giro.Animes.Domain.Enums;
 using Giro.Animes.Domain.ValueObjects;
 using System.Text.RegularExpressions;

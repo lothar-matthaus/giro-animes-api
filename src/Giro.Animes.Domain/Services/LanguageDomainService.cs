@@ -11,7 +11,7 @@ namespace Giro.Animes.Domain.Services
             base(languageRepository)
         { }
 
-        public Task<Language> GetLanguageByCode(string code = "en-US")
+        public Task<Language> GetLanguageByCode(string code)
         {
             return _repository.GetLanguageByCode(code);
         }

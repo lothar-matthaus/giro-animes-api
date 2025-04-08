@@ -59,13 +59,15 @@ namespace Giro.Animes.Domain.Entities
         /// </summary>
         /// <param name="enableNotifications"></param>
         /// <param name="language"></param>
-        private Settings(Language interfaceLanguage, IEnumerable<Language> animeLanguages)
+        private Settings(Language interfaceLanguage, IEnumerable<Language> animeAudioLanguages, IEnumerable<Language> animeSubtitleLanguages)
         {
             EnableApplicationNotifications = true;
             EnableApplicationNotifications = false;
             Theme = Theme.Light;
             InterfaceLanguage = interfaceLanguage;
-            AnimeAudioLanguages = animeLanguages.ToList();
+            AnimeAudioLanguages = animeAudioLanguages.ToList();
+            AnimeSubtitleLanguages = animeSubtitleLanguages.ToList();
+
         }
 
         /// <summary>
@@ -74,7 +76,7 @@ namespace Giro.Animes.Domain.Entities
         /// <param name="enableNotifications"></param>
         /// <param name="language"></param>
         /// <returns></returns>
-        public static Settings Create(Language interfaceLanguage, IEnumerable<Language> animeLanguages) => new(interfaceLanguage, animeLanguages);
+        public static Settings Create(Language interfaceLanguage, IEnumerable<Language> animeAudioLanguages, IEnumerable<Language> animeSubtitleLanguages) => new(interfaceLanguage, animeAudioLanguages, animeSubtitleLanguages);
 
         #region Behaviors
         /// <summary>

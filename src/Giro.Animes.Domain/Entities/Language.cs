@@ -100,8 +100,9 @@ namespace Giro.Animes.Domain.Entities
         public IEnumerable<AnimeSinopse> AnimeSinopses { get; private set; }
         public IEnumerable<Cover> Covers { get; private set; }
         public IEnumerable<EpisodeSinopse> EpisodeSinopses { get; private set; }
-        public IEnumerable<Episode> Episodes { get; private set; }
         public IEnumerable<Biography> Biographies { get; private set; }
+        public IEnumerable<EpisodeFile> EpisodeFileAudio { get; private set; }
+        public IEnumerable<EpisodeFile> EpisodeFileSubtitle { get; private set; }
 
         /// <summary>
         /// Collection of language descriptions

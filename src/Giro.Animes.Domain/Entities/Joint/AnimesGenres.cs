@@ -13,7 +13,7 @@ namespace Giro.Animes.Domain.Entities.Joint
         public long AnimeId { get; private set; }
 
         /// <summary>
-        /// Gets or sets the identifier of the Genre.
+        /// Gets or sets the identifier of the Genre.w
         /// </summary>
         public long GenreId { get; set; }
 
