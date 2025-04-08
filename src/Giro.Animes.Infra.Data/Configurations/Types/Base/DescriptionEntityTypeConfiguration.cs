@@ -16,7 +16,9 @@ namespace Giro.Animes.Infra.Data.Configurations.Types.Base
         public override void Configure(EntityTypeBuilder<Derivate> builder)
         {
             builder.Property(des => des.Text).IsRequired(true).HasColumnName(nameof(Description));
-            builder.HasQueryFilter(builder => builder.LanguageId == builder.Language.Settings.FirstOrDefault(set => set.Account.User.Id == _user.Id).InterfaceLanguageId);
+            builder.HasQueryFilter(builder => string.IsNullOrEmpty(_user.InterfaceLanguage) ? 
+                (builder.LanguageId == builder.Language.Settings.FirstOrDefault(set => set.Account.User.Id == _user.Id).InterfaceLanguageId) : 
+                (builder.Language.Code.Equals(_user.InterfaceLanguage)));
             builder.Navigation(des => des.Language).AutoInclude();
 
             base.Configure(builder);
