@@ -27,11 +27,13 @@ namespace Giro.Animes.Application.Constants
                 public const string ACCOUNTS_FOUND = "Contas encontradas com sucesso";
                 public const string ACCOUNTS_NOT_FOUND = "Nenhuma conta encontrada";
                 public const string ACCOUNT_CREATED = "Conta criada com sucesso";
+                public const string ACCOUNT_NOT_CREATED = "Não foi possível criar a conta.";
             }
 
             public static class Auth
             {
                 public const string AUTHENTICATION_SUCCESS = "Autenticação realizada com sucesso";
+                public const string AUTHENTICATION_FAILED = "Falha na autenticação";
             }
 
             public static class Anime

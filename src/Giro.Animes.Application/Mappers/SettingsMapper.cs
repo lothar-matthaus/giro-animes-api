@@ -15,7 +15,8 @@ namespace Giro.Animes.Application.Mappers
                 settings.EnableEmailNotifications,
                 settings.Theme.Map(),
                 settings.InterfaceLanguage.Map(),
-                settings.AnimeLanguages.Map(),
+                settings.AnimeAudioLanguages.Map(),
+                settings.AnimeSubtitleLanguages.Map(),
                 settings.AccountId);
 
             return settingsDTO;

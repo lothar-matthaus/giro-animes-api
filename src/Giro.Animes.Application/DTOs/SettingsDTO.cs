@@ -31,7 +31,12 @@ namespace Giro.Animes.Application.DTOs
         /// <summary>
         /// Idiomas em que os animes serão mostrados.
         /// </summary>
-        public IEnumerable<LanguageDTO> AnimeLanguages { get; private set; }
+        public IEnumerable<LanguageDTO> AnimeAudioLanguages { get; private set; }
+
+        /// <summary>
+        /// Idiomas em que as legendas dos animes serão mostradas.
+        /// </summary>
+        public IEnumerable<LanguageDTO> AnimeSubtitleLanguages { get; private set; }
 
         /// <summary>
         /// Identificador do usuário ao qual as configurações pertencem.
@@ -48,16 +53,17 @@ namespace Giro.Animes.Application.DTOs
         /// <param name="enableEmailNotifications">Indica se as notificações por e-mail estão habilitadas para o usuário.</param>
         /// <param name="theme">Thema favorito do usuário no aplicativo.</param>
         /// <param name="interfaceLanguage">Propriedade de navegação para o idioma favorito do usuário.</param>
-        /// <param name="animeLanguages">Idiomas em que os animes serão mostrados.</param>
+        /// <param name="animeAudioLanguages">Idiomas em que os animes serão mostrados.</param>
         /// <param name="accountId">Identificador do usuário ao qual as configurações pertencem.</param>
-        private SettingsDTO(long? id, DateTime creationDate, DateTime updateDate, bool enableApplicationNotifications, bool enableEmailNotifications, EnumDTO<Theme> theme, LanguageDTO interfaceLanguage, IEnumerable<LanguageDTO> animeLanguages, long accountId) :
+        private SettingsDTO(long? id, DateTime creationDate, DateTime updateDate, bool enableApplicationNotifications, bool enableEmailNotifications, EnumDTO<Theme> theme, LanguageDTO interfaceLanguage, IEnumerable<LanguageDTO> animeAudioLanguages, IEnumerable<LanguageDTO> animeSubtitlesLanguages, long accountId) :
             base(id, creationDate, updateDate)
         {
             EnableApplicationNotifications = enableApplicationNotifications;
             EnableEmailNotifications = enableEmailNotifications;
             Theme = theme;
             InterfaceLanguage = interfaceLanguage;
-            AnimeLanguages = animeLanguages;
+            AnimeAudioLanguages = animeAudioLanguages;
+            AnimeSubtitleLanguages = animeSubtitlesLanguages;
             AccountId = accountId;
         }
 
@@ -71,10 +77,10 @@ namespace Giro.Animes.Application.DTOs
         /// <param name="enableEmailNotifications">Indica se as notificações por e-mail estão habilitadas para o usuário.</param>
         /// <param name="theme">Thema favorito do usuário no aplicativo.</param>
         /// <param name="interfaceLanguage">Propriedade de navegação para o idioma favorito do usuário.</param>
-        /// <param name="animeLanguages">Idiomas em que os animes serão mostrados.</param>
+        /// <param name="animeAudioLanguages">Idiomas em que os animes serão mostrados.</param>
         /// <param name="accountId">Identificador do usuário ao qual as configurações pertencem.</param>
         /// <returns>Uma nova instância de SettingsDTO.</returns>
-        public static SettingsDTO Create(long? id, DateTime creationDate, DateTime updateDate, bool enableApplicationNotifications, bool enableEmailNotifications, EnumDTO<Theme> theme, LanguageDTO interfaceLanguage, IEnumerable<LanguageDTO> animeLanguages, long accountId)
-            => new SettingsDTO(id, creationDate, updateDate, enableApplicationNotifications, enableEmailNotifications, theme, interfaceLanguage, animeLanguages, accountId);
+        public static SettingsDTO Create(long? id, DateTime creationDate, DateTime updateDate, bool enableApplicationNotifications, bool enableEmailNotifications, EnumDTO<Theme> theme, LanguageDTO interfaceLanguage, IEnumerable<LanguageDTO> animeAudioLanguages, IEnumerable<LanguageDTO> animeSubtitleLanguages, long accountId)
+            => new SettingsDTO(id, creationDate, updateDate, enableApplicationNotifications, enableEmailNotifications, theme, interfaceLanguage, animeAudioLanguages, animeSubtitleLanguages, accountId);
     }
 }
