@@ -24,6 +24,8 @@ namespace Giro.Animes.Infra.Data.Configurations.Types.Common
             builder.HasOne(stu => stu.Logo).WithOne(logo => logo.Studio).HasForeignKey<Logo>(logo => logo.StudioId).IsRequired(true);
             builder.HasMany(stu => stu.Animes).WithOne(ani => ani.Studio).HasForeignKey(ani => ani.StudioId);
 
+            builder.Navigation(stu => stu.Logo).AutoInclude();
+
             base.Configure(builder);
         }
     }

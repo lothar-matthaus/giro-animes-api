@@ -20,8 +20,6 @@ namespace Giro.Animes.Infra.Data.Configurations.Types.Common
             builder.ToTable(Tables.Common.BIOGRAPHIES, Schemas.COMMON);
             builder.HasOne(bio => bio.Author).WithMany(aut => aut.Biographies).HasForeignKey(bio => bio.AuthorId).IsRequired(true);
             builder.HasOne(bio => bio.Language).WithMany(aut => aut.Biographies).HasForeignKey(bio => bio.LanguageId).IsRequired(true);
-            builder.Navigation(bio => bio.Language).AutoInclude();
-            builder.HasQueryFilter(des => _user.Languages.Contains(des.Language.Code));
         }
     }
 }

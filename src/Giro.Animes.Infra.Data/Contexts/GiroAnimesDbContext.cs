@@ -6,7 +6,6 @@ using Giro.Animes.Infra.Data.Configurations.Types.Misc;
 using Giro.Animes.Infra.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
-using Microsoft.Extensions.DependencyInjection;
 using System.Text.Json;
 
 namespace Giro.Animes.Infra.Data.Contexts
@@ -48,7 +47,7 @@ namespace Giro.Animes.Infra.Data.Contexts
             modelBuilder.ApplyConfiguration(new AnimeTitleEntityTypeConfiguration(_user));
             modelBuilder.ApplyConfiguration(new CoverEntityTypeConfiguration(_user));
             modelBuilder.ApplyConfiguration(new BiographyEntityTypeConfiguration(_user));
-            modelBuilder.ApplyConfiguration(new EpisodeFileEntityTypeConfiguration());
+            modelBuilder.ApplyConfiguration(new EpisodeFileEntityTypeConfiguration(_user));
             modelBuilder.ApplyConfiguration(new EpisodeTitleEntityTypeConfiguration(_user));
             modelBuilder.ApplyConfiguration(new GenreDescriptionEntityTypeConfiguration(_user));
             modelBuilder.ApplyConfiguration(new GenreTitleEntityTypeConfiguration(_user));

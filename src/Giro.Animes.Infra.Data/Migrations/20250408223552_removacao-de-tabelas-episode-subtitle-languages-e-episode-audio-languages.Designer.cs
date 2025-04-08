@@ -3,6 +3,7 @@ using System;
 using Giro.Animes.Infra.Data.Contexts;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Giro.Animes.Infra.Data.Migrations
 {
     [DbContext(typeof(GiroAnimesDbContext))]
-    partial class GiroAnimesDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250408223552_removacao-de-tabelas-episode-subtitle-languages-e-episode-audio-languages")]
+    partial class removacaodetabelasepisodesubtitlelanguageseepisodeaudiolanguages
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -439,6 +442,12 @@ namespace Giro.Animes.Infra.Data.Migrations
                         .HasColumnType("integer")
                         .HasDefaultValue(0);
 
+                    b.Property<long?>("LanguageId")
+                        .HasColumnType("bigint");
+
+                    b.Property<long?>("LanguageId1")
+                        .HasColumnType("bigint");
+
                     b.Property<int>("Number")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("integer")
@@ -453,6 +462,10 @@ namespace Giro.Animes.Infra.Data.Migrations
 
                     b.HasIndex("AnimeId");
 
+                    b.HasIndex("LanguageId");
+
+                    b.HasIndex("LanguageId1");
+
                     b.ToTable("episodes", "content");
                 });
 
@@ -464,9 +477,6 @@ namespace Giro.Animes.Infra.Data.Migrations
                         .HasColumnOrder(1);
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
-
-                    b.Property<long>("AudioLanguageId")
-                        .HasColumnType("bigint");
 
                     b.Property<DateTime>("CreationDate")
                         .ValueGeneratedOnAdd()
@@ -484,7 +494,7 @@ namespace Giro.Animes.Infra.Data.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<long>("SubtitleLanguageId")
+                    b.Property<long>("LanguageId")
                         .HasColumnType("bigint");
 
                     b.Property<DateTime>("UpdateDate")
@@ -498,11 +508,9 @@ namespace Giro.Animes.Infra.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("AudioLanguageId");
-
                     b.HasIndex("EpisodeId");
 
-                    b.HasIndex("SubtitleLanguageId");
+                    b.HasIndex("LanguageId");
 
                     b.ToTable("episode_files", "content");
                 });
@@ -704,12 +712,6 @@ namespace Giro.Animes.Infra.Data.Migrations
                         .HasColumnType("TIMESTAMP")
                         .HasDefaultValueSql("CURRENT_TIMESTAMP");
 
-                    b.Property<long?>("EpisodeId")
-                        .HasColumnType("bigint");
-
-                    b.Property<long?>("EpisodeId1")
-                        .HasColumnType("bigint");
-
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(50)
@@ -726,10 +728,6 @@ namespace Giro.Animes.Infra.Data.Migrations
                         .HasDefaultValueSql("CURRENT_TIMESTAMP");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("EpisodeId");
-
-                    b.HasIndex("EpisodeId1");
 
                     b.ToTable("languages", "common");
                 });
@@ -1231,34 +1229,34 @@ namespace Giro.Animes.Infra.Data.Migrations
                         .WithMany("Episodes")
                         .HasForeignKey("AnimeId");
 
+                    b.HasOne("Giro.Animes.Domain.Entities.Language", null)
+                        .WithMany("EpisodeAudios")
+                        .HasForeignKey("LanguageId");
+
+                    b.HasOne("Giro.Animes.Domain.Entities.Language", null)
+                        .WithMany("EpisodeSubtitles")
+                        .HasForeignKey("LanguageId1");
+
                     b.Navigation("Anime");
                 });
 
             modelBuilder.Entity("Giro.Animes.Domain.Entities.EpisodeFile", b =>
                 {
-                    b.HasOne("Giro.Animes.Domain.Entities.Language", "AudioLanguage")
-                        .WithMany("EpisodeFileAudio")
-                        .HasForeignKey("AudioLanguageId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("Giro.Animes.Domain.Entities.Episode", "Episode")
                         .WithMany("Files")
                         .HasForeignKey("EpisodeId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Giro.Animes.Domain.Entities.Language", "SubtitleLanguage")
-                        .WithMany("EpisodeFileSubtitle")
-                        .HasForeignKey("SubtitleLanguageId")
+                    b.HasOne("Giro.Animes.Domain.Entities.Language", "Language")
+                        .WithMany("EpisodeFiles")
+                        .HasForeignKey("LanguageId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("AudioLanguage");
-
                     b.Navigation("Episode");
 
-                    b.Navigation("SubtitleLanguage");
+                    b.Navigation("Language");
                 });
 
             modelBuilder.Entity("Giro.Animes.Domain.Entities.EpisodeSinopse", b =>
@@ -1335,17 +1333,6 @@ namespace Giro.Animes.Infra.Data.Migrations
                     b.Navigation("Genre");
 
                     b.Navigation("Language");
-                });
-
-            modelBuilder.Entity("Giro.Animes.Domain.Entities.Language", b =>
-                {
-                    b.HasOne("Giro.Animes.Domain.Entities.Episode", null)
-                        .WithMany("AudioLanguages")
-                        .HasForeignKey("EpisodeId");
-
-                    b.HasOne("Giro.Animes.Domain.Entities.Episode", null)
-                        .WithMany("SubtitleLanaguages")
-                        .HasForeignKey("EpisodeId1");
                 });
 
             modelBuilder.Entity("Giro.Animes.Domain.Entities.Logo", b =>
@@ -1531,13 +1518,9 @@ namespace Giro.Animes.Infra.Data.Migrations
 
             modelBuilder.Entity("Giro.Animes.Domain.Entities.Episode", b =>
                 {
-                    b.Navigation("AudioLanguages");
-
                     b.Navigation("Files");
 
                     b.Navigation("Sinopses");
-
-                    b.Navigation("SubtitleLanaguages");
 
                     b.Navigation("Titles");
                 });
@@ -1557,11 +1540,13 @@ namespace Giro.Animes.Infra.Data.Migrations
 
                     b.Navigation("Covers");
 
-                    b.Navigation("EpisodeFileAudio");
+                    b.Navigation("EpisodeAudios");
 
-                    b.Navigation("EpisodeFileSubtitle");
+                    b.Navigation("EpisodeFiles");
 
                     b.Navigation("EpisodeSinopses");
+
+                    b.Navigation("EpisodeSubtitles");
 
                     b.Navigation("EpisodeTitles");
 

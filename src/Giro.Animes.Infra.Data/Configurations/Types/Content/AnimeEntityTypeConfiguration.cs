@@ -20,22 +20,6 @@ namespace Giro.Animes.Infra.Data.Configurations.Types.Content
             builder.HasMany(ani => ani.Sinopses).WithOne(sinopse => sinopse.Anime).HasForeignKey(sinopse => sinopse.AnimeId).IsRequired(true);
             builder.HasMany(ani => ani.Screenshots).WithOne(screenshot => screenshot.Anime).HasForeignKey(title => title.AnimeId).IsRequired(true);
 
-            builder.HasMany(ani => ani.Authors).WithMany(author => author.Works).UsingEntity<Works>(
-            Tables.Content.AUTHOR_WORKS, // Nome da tabela de junção
-            authorsAnimes => authorsAnimes.HasOne(authorsAnimes => authorsAnimes.Author)
-                  .WithMany()
-                  .HasForeignKey(authorsAnimes => authorsAnimes.AuthorId) // Nome da coluna FK para Genre
-                  .IsRequired(true)
-                  .OnDelete(DeleteBehavior.Cascade),
-            authorsAnimes => authorsAnimes.HasOne(authorsAnimes => authorsAnimes.Anime)
-                  .WithMany()
-                  .HasForeignKey(authorsAnimes => authorsAnimes.AnimeId) // Nome da coluna FK para Description
-                  .IsRequired(true)
-                  .OnDelete(DeleteBehavior.Cascade),
-            authorsAnimes =>
-            {
-                authorsAnimes.ToTable(Tables.Content.AUTHOR_WORKS, Schemas.CONTENT);
-            });
             builder.Property(ani => ani.Status).IsRequired().HasDefaultValue(AnimeStatus.ToBeReleased);
 
             builder.HasMany(ani => ani.Genres).WithMany(gen => gen.Animes).UsingEntity<AnimesGenres>(
@@ -56,7 +40,18 @@ namespace Giro.Animes.Infra.Data.Configurations.Types.Content
             });
 
             builder.HasMany(ani => ani.Covers).WithOne(cover => cover.Anime).HasForeignKey(title => title.AnimeId).IsRequired(true);
-            builder.HasMany(ani => ani.Episodes).WithOne(episode => episode.Anime).HasForeignKey(title => title.AnimeId).IsRequired(true);
+            builder.HasMany(ani => ani.Episodes).WithOne(episode => episode.Anime).HasForeignKey(title => title.AnimeId).IsRequired(false);
+
+            builder.Navigation(ani => ani.Titles).AutoInclude();
+            builder.Navigation(ani => ani.Sinopses).AutoInclude();
+            builder.Navigation(ani => ani.Screenshots).AutoInclude();
+            builder.Navigation(ani => ani.Authors).AutoInclude();
+            builder.Navigation(ani => ani.Genres).AutoInclude();
+            builder.Navigation(ani => ani.Covers).AutoInclude();
+            builder.Navigation(ani => ani.Episodes).AutoInclude();
+            builder.Navigation(ani => ani.Studio).AutoInclude();
+            builder.Navigation(ani => ani.Ratings).AutoInclude();
+
         }
     }
 }

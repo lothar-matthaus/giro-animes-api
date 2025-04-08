@@ -1,5 +1,4 @@
 ﻿using Giro.Animes.Domain.Entities;
-using Giro.Animes.Domain.Entities.Joint;
 using Giro.Animes.Domain.ValueObjects;
 using Giro.Animes.Infra.Data.Configurations.Types.Base;
 using Giro.Animes.Infra.Data.Constants;

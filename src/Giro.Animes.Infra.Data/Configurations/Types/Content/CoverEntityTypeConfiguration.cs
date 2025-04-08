@@ -21,7 +21,7 @@ namespace Giro.Animes.Infra.Data.Configurations.Types.Content
             builder.ToTable(Tables.Content.COVERS, Schemas.CONTENT);
             builder.HasOne(cover => cover.Anime).WithMany(x => x.Covers).HasForeignKey(cover => cover.AnimeId).IsRequired();
             builder.HasOne(cover => cover.Language).WithMany(lan => lan.Covers).HasForeignKey(cover => cover.LanguageId).IsRequired();
-            builder.HasQueryFilter(des => _user.Languages.Contains(des.Language.Code));
+            builder.HasQueryFilter(cover => cover.Language.Id == cover.Language.Settings.FirstOrDefault(setting => setting.Account.User.Id == _user.Id).InterfaceLanguageId);
         }
     }
 }

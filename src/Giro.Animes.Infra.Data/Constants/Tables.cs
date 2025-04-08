@@ -32,7 +32,8 @@
             public const string RATINGS = "ratings";
             public const string SETTINGS_ANIME_AUDIO_LANGUAGES = "settings_anime_audio_languages";
             public const string SETTINGS_ANIME_SUBTITLE_LANGUAGES = "settings_anime_subtitle_languages";
-            public const string EPISODE_LANGUAGES = "episode_languages";
+            public const string EPISODE_SUBTITLE_LANGUAGES = "episode_subtitle_languages";
+            public const string EPISODE_AUDIO_LANGUAGES = "episode_audio_languages";
         }
 
         public static class Management

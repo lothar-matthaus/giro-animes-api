@@ -15,6 +15,9 @@ namespace Giro.Animes.Infra.Data.Configurations.Types.Common
             builder.ToTable(Tables.Common.GENRES, Schemas.COMMON);
             builder.HasMany(gen => gen.Titles).WithOne(title => title.Genre);
             builder.HasMany(gen => gen.Descriptions).WithOne(description => description.Genre);
+
+            builder.Navigation(gen => gen.Titles).AutoInclude();
+            builder.Navigation(gen => gen.Descriptions).AutoInclude();
         }
     }
 }

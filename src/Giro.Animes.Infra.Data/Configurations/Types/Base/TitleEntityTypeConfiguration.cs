@@ -24,7 +24,8 @@ namespace Giro.Animes.Infra.Data.Configurations.Types.Base
         {
             builder.Property(title => title.Name).IsRequired(true);
             builder.HasOne(title => title.Language).WithMany().HasForeignKey(title => title.LanguageId);
-            builder.HasQueryFilter(des => _user.Languages.Contains(des.Language.Code));
+            builder.Navigation(builder => builder.Language).AutoInclude();
+            builder.HasQueryFilter(title => title.Language.Id == title.Language.Settings.FirstOrDefault(set => set.Account.User.Id == _user.Id).InterfaceLanguageId);
             base.Configure(builder);
         }
     }

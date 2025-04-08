@@ -21,22 +21,10 @@ namespace Giro.Animes.Infra.Data.Configurations.Types.Content
             builder.HasMany(ep => ep.Titles).WithOne(title => title.Episode).HasForeignKey(ept => ept.EpisodeId).IsRequired(true);
             builder.HasMany(ep => ep.Files).WithOne(file => file.Episode).HasForeignKey(file => file.EpisodeId);
             builder.HasMany(ep => ep.Sinopses).WithOne(sinopses => sinopses.Episode).HasForeignKey(sinopse => sinopse.EpisodeId).IsRequired(true);
-            builder.HasMany(ep => ep.SubtitleLanguages).WithMany(lan => lan.Episodes).UsingEntity<EpisodeLanguages>(
-            Tables.Content.EPISODE_LANGUAGES, // Nome da tabela de junção
-                   join => join.HasOne(join => join.Language)
-                  .WithMany()
-                  .HasForeignKey(join => join.EpisodeId) // Nome da coluna FK para Description
-                  .OnDelete(DeleteBehavior.Cascade),
-            join => join.HasOne(join => join.Episode)
-                  .WithMany()
-                  .HasForeignKey(join => join.LanguageId) // Nome da coluna FK para Genre
-                  .OnDelete(DeleteBehavior.Cascade),
-            join =>
-            {
-                join.ToTable(Tables.Content.EPISODE_LANGUAGES, Schemas.CONTENT);
-            });
-            builder.Navigation(ep => ep.Titles);
-            builder.Navigation(ep => ep.Files);
+
+            builder.Navigation(ep => ep.Titles).AutoInclude();
+            builder.Navigation(ep => ep.Sinopses).AutoInclude();
+            builder.Navigation(ep => ep.Files).AutoInclude();
         }
     }
 }
