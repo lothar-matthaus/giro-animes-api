@@ -16,7 +16,7 @@ namespace Giro.Animes.Infra.Data.Configurations.Types.Content
         public override void Configure(EntityTypeBuilder<AnimeSinopse> builder)
         {
             base.Configure(builder);
-            builder.ToTable(Tables.Content.SINOPSES, Schemas.CONTENT);
+            builder.ToTable(Tables.Content.ANIME_SINOPSES, Schemas.CONTENT);
             builder.HasOne(sin => sin.Language).WithMany(lan => lan.AnimeSinopses).HasForeignKey(sin => sin.LanguageId).IsRequired();
         }
     }

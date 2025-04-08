@@ -26,11 +26,12 @@
             public const string GENRE_TITLES = "genre_titles";
             public const string ANIMES_GENRES = "animes_genres";
             public const string LOGOS = "logos";
-            public const string SINOPSES = "sinopses";
+            public const string ANIME_SINOPSES = "anime_sinopses";
             public const string AUTHOR_WORKS = "author_works";
             public const string WATCHLIST = "watchlist";
             public const string RATINGS = "ratings";
-            public const string SETTINGS_ANIME_LANGUAGES = "settings_anime_languages";
+            public const string SETTINGS_ANIME_AUDIO_LANGUAGES = "settings_anime_audio_languages";
+            public const string SETTINGS_ANIME_SUBTITLE_LANGUAGES = "settings_anime_subtitle_languages";
             public const string EPISODE_LANGUAGES = "episode_languages";
         }
 

@@ -3,6 +3,7 @@ using System;
 using Giro.Animes.Infra.Data.Contexts;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Giro.Animes.Infra.Data.Migrations
 {
     [DbContext(typeof(GiroAnimesDbContext))]
-    partial class GiroAnimesDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250408015542_alteracao-nome-tabela-sinopse-para-anime-sinopses")]
+    partial class alteracaonometabelasinopseparaanimesinopses
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -1002,7 +1005,7 @@ namespace Giro.Animes.Infra.Data.Migrations
                     b.ToTable("episode_languages", "content");
                 });
 
-            modelBuilder.Entity("settings_anime_audio_languages", b =>
+            modelBuilder.Entity("settings_anime_languages", b =>
                 {
                     b.Property<long>("LanguageId")
                         .HasColumnType("bigint");
@@ -1020,28 +1023,7 @@ namespace Giro.Animes.Infra.Data.Migrations
 
                     b.HasIndex("SettingsId");
 
-                    b.ToTable("settings_anime_audio_languages", "content");
-                });
-
-            modelBuilder.Entity("settings_anime_subtitle_languages", b =>
-                {
-                    b.Property<long>("LanguageId")
-                        .HasColumnType("bigint");
-
-                    b.Property<long>("SettingsId")
-                        .HasColumnType("bigint");
-
-                    b.Property<DateTime>("CreationDate")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<DateTime>("UpdateDate")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.HasKey("LanguageId", "SettingsId");
-
-                    b.HasIndex("SettingsId");
-
-                    b.ToTable("settings_anime_subtitle_languages", "content");
+                    b.ToTable("settings_anime_languages", "content");
                 });
 
             modelBuilder.Entity("watchlist", b =>
@@ -1453,26 +1435,7 @@ namespace Giro.Animes.Infra.Data.Migrations
                     b.Navigation("Language");
                 });
 
-            modelBuilder.Entity("settings_anime_audio_languages", b =>
-                {
-                    b.HasOne("Giro.Animes.Domain.Entities.Language", "Language")
-                        .WithMany()
-                        .HasForeignKey("LanguageId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Giro.Animes.Domain.Entities.Settings", "Settings")
-                        .WithMany()
-                        .HasForeignKey("SettingsId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Language");
-
-                    b.Navigation("Settings");
-                });
-
-            modelBuilder.Entity("settings_anime_subtitle_languages", b =>
+            modelBuilder.Entity("settings_anime_languages", b =>
                 {
                     b.HasOne("Giro.Animes.Domain.Entities.Language", "Language")
                         .WithMany()
