@@ -33,10 +33,10 @@ namespace Giro.Animes.Application.Services
         {
             // Cria as tasks para obter o idioma da interface e os idiomas favoritos
             Language interfaceLanguage = await _languageDomainService.GetLanguageByCode();
-            IEnumerable<Language> favoriteLanguages = await _languageDomainService.GetLanguagesByCodes(_applicationUser.Languages);
+            IEnumerable<Language> defaultLanguages = await _languageDomainService.GetLanguagesByCodes();
 
             // Cria as configurações do usuário
-            Settings settings = Settings.Create(interfaceLanguage, favoriteLanguages);
+            Settings settings = Settings.Create(interfaceLanguage, defaultLanguages, defaultLanguages);
 
             // Cria os objetos de valor para senha e email
             Password password = Password.Create(request.Password, request.ConfirmPassword);

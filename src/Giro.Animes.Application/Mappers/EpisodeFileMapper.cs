@@ -15,7 +15,8 @@ namespace Giro.Animes.Application.Mappers
                 episodeFile.FileName,
                 episodeFile.Extension,
                 episodeFile.EpisodeId,
-                episodeFile.Language.Map()
+                episodeFile.AudioLanguage.Map(),
+                episodeFile.SubtitleLanguage.Map()
             );
 
             return episodeFileDTO;

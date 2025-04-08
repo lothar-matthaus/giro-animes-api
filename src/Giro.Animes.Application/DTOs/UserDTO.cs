@@ -16,7 +16,7 @@ namespace Giro.Animes.Application.DTOs
         /// <summary>
         /// Identificador da conta do usuário.
         /// </summary>
-        public AccountDTO  Account { get; private set; }
+        public AccountDTO Account { get; private set; }
 
         /// <summary>
         /// Papel do usuário.

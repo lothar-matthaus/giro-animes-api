@@ -8,11 +8,6 @@ using Giro.Animes.Domain.Entities;
 using Giro.Animes.Domain.Interfaces.Pagination;
 using Giro.Animes.Domain.Interfaces.Services;
 using Giro.Animes.Infra.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Giro.Animes.Application.Services
 {

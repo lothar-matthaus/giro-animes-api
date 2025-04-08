@@ -11,18 +11,24 @@
         public long EpisodeId { get; private set; }
 
         /// <summary>
-        /// Idioma do arquivo.
+        /// Idiomma do audio do arquivo.
         /// </summary>
-        public LanguageDTO Language { get; private set; }
+        public LanguageDTO AudioLanguage { get; private set; }
 
-        private EpisodeFileDTO(long? id, DateTime creationDate, DateTime updateDate, string url, string fileName, string extension, long episodeId, LanguageDTO language) :
+        /// <summary>
+        /// Idioma da legenda do arquivo.
+        /// </summary>
+        public LanguageDTO SubtitleLanguage { get; private set; }
+
+        private EpisodeFileDTO(long? id, DateTime creationDate, DateTime updateDate, string url, string fileName, string extension, long episodeId, LanguageDTO audioLanguage, LanguageDTO subtitleLanguage) :
             base(id, creationDate, updateDate, url, fileName, extension)
         {
             EpisodeId = episodeId;
-            Language = language;
+            AudioLanguage = audioLanguage;
+            SubtitleLanguage = subtitleLanguage;
         }
 
-        public static EpisodeFileDTO Create(long? id, DateTime creationDate, DateTime updateDate, string url, string fileName, string extension, long episodeId, LanguageDTO language)
-            => new EpisodeFileDTO(id, creationDate, updateDate, url, fileName, extension, episodeId, language);
+        public static EpisodeFileDTO Create(long? id, DateTime creationDate, DateTime updateDate, string url, string fileName, string extension, long episodeId, LanguageDTO audioLanguage, LanguageDTO subtitleLanguage)
+            => new EpisodeFileDTO(id, creationDate, updateDate, url, fileName, extension, episodeId, audioLanguage, subtitleLanguage);
     }
 }

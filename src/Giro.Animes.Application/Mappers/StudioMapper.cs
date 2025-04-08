@@ -18,7 +18,7 @@ namespace Giro.Animes.Application.Mappers
                 studio.Website,
                 studio.Twitter,
                 studio.Instagram,
-                studio.Logo.Map()
+                studio.Logo?.Map()
                 );
 
             return studioDTO;

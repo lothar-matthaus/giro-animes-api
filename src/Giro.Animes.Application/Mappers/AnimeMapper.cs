@@ -16,7 +16,7 @@ namespace Giro.Animes.Application.Mappers
                 anime.Covers.Map(),
                 anime.Screenshots?.Map(),
                 anime.Episodes?.Map(),
-                anime.Authors?.Map(),
+                anime.Authors.Map(),
                 anime.Ratings?.Map(),
                 anime.Genres.Map(),
                 anime.Studio.Map(),
