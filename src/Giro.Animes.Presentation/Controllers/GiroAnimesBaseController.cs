@@ -22,30 +22,30 @@ namespace Giro.Animes.Presentation.Controllers
             _applicationService = applicationService;
         }
 
-        public async Task<IActionResult> Ok<TData>(TData data, string message) where TData : BaseDTO
+        public async Task<IActionResult> Ok<TData>(TData data, string resultMessage, string emptyMessage) where TData : BaseDTO
         {
             if (data is null)
             {
-                DetailResponse<TData> result = DetailResponse<TData>.Create(true, HttpStatusCode.OK, Messages.Response.NOT_FOUND);
+                DetailResponse<TData> result = DetailResponse<TData>.Create(true, HttpStatusCode.OK, emptyMessage);
                 return StatusCode((int)HttpStatusCode.OK, result);
             }
 
-            DetailResponse<TData> response = DetailResponse<TData>.Create(data, true, HttpStatusCode.OK, message);
+            DetailResponse<TData> response = DetailResponse<TData>.Create(data, true, HttpStatusCode.OK, resultMessage);
             return await Task.Run(() =>
             {
                 return StatusCode((int)HttpStatusCode.OK, response);
             });
         }
 
-        public async Task<IActionResult> Ok<TData>(IPagedEnumerable<TData> data, Pagination pagination, string message) where TData : BaseDTO
+        public async Task<IActionResult> Ok<TData>(IPagedEnumerable<TData> data, Pagination pagination, string resultMessage, string emptyMessage) where TData : BaseDTO
         {
-            if (data is null)
+            if (data is null || !data.Any())
             {
-                ListPagedResponse<TData> result = ListPagedResponse<TData>.Create(HttpStatusCode.OK, Messages.Response.NOT_FOUND, pagination.Page, pagination.RowsPerPage, data?.TotalCount ?? 0);
+                ListPagedResponse<TData> result = ListPagedResponse<TData>.Create(HttpStatusCode.OK, emptyMessage, pagination.Page, pagination.RowsPerPage, data?.TotalCount ?? 0);
                 return StatusCode((int)HttpStatusCode.OK, result);
             }
 
-            ListPagedResponse<TData> response = ListPagedResponse<TData>.Create(data, true, HttpStatusCode.OK, message, pagination.Page, pagination.RowsPerPage, data.TotalCount);
+            ListPagedResponse<TData> response = ListPagedResponse<TData>.Create(data, true, HttpStatusCode.OK, resultMessage, pagination.Page, pagination.RowsPerPage, data.TotalCount);
 
             return await Task.Run(() =>
             {

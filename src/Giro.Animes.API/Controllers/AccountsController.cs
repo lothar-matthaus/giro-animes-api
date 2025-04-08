@@ -1,7 +1,6 @@
 ﻿using Giro.Animes.Application.Constants;
 using Giro.Animes.Application.DTOs;
 using Giro.Animes.Application.Interfaces.Services;
-using Giro.Animes.Application.Requests.User;
 using Giro.Animes.Application.Responses;
 using Giro.Animes.Application.Responses.Base;
 using Giro.Animes.Presentation.Controllers;

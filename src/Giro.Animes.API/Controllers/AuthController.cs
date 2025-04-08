@@ -37,7 +37,7 @@ namespace Giro.Animes.API.Controllers
         [ProducesResponseType<DetailResponse<AccountDTO>>((int)HttpStatusCode.Created)]
         [ProducesResponseType<ErrorResponse>((int)HttpStatusCode.InternalServerError)]
         [ProducesResponseType<NotificationResponse>((int)HttpStatusCode.BadRequest)]
-        public async Task<IActionResult> Register([FromForm]AccountCreateRequest request)
+        public async Task<IActionResult> Register([FromForm] AccountCreateRequest request)
         {
             AccountDTO accountDTO = await _accountService.CreateAccountAsync(request);
             return await Ok(accountDTO, Messages.Response.Account.ACCOUNT_CREATED, Messages.Response.Account.ACCOUNT_NOT_CREATED);

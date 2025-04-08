@@ -3,7 +3,7 @@ using Giro.Animes.Infra.Data.Extensions.IoC;
 using Giro.Animes.Infra.Extensions;
 using Giro.Animes.Infra.Extensions.IoC;
 using Giro.Animes.Infra.Extensions.IoC.Security;
-using Giro.Animes.Shared.Extensions;
+using Giro.Animes.Shared.Extensions.Swaggger;
 using Giro.Animes.Shared.Filters;
 using Giro.Animes.Shared.Middleware;
 
@@ -29,7 +29,7 @@ builder.Services.AddAppConfig();
 
 // Configura o usuário do contexto da requisição
 // Configura o AutoMapper
-builder.Services.AddSwaggerConfig();
+builder.Services.AddSwaggerConfig(builder.Configuration);
 
 // Configura a autenticação JWT
 builder.Services.AddJwtAuthorization(builder.Configuration);
