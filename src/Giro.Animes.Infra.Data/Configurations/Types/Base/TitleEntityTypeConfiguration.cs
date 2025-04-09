@@ -1,4 +1,5 @@
 ﻿using Giro.Animes.Domain.Entities.Base;
+using Giro.Animes.Domain.Enums;
 using Giro.Animes.Infra.Interfaces;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
@@ -24,9 +25,6 @@ namespace Giro.Animes.Infra.Data.Configurations.Types.Base
         {
             builder.Property(title => title.Name).IsRequired(true);
             builder.Navigation(builder => builder.Language).AutoInclude();
-            builder.HasQueryFilter(builder => string.IsNullOrEmpty(_user.InterfaceLanguage) ?
-                (builder.LanguageId == builder.Language.Settings.FirstOrDefault(set => set.Account.User.Id == _user.Id).InterfaceLanguageId) :
-                (builder.Language.Code.Equals(_user.InterfaceLanguage)));
             builder.Navigation(des => des.Language).AutoInclude();
             base.Configure(builder);
         }
