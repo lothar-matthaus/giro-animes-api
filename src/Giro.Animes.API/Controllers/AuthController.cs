@@ -1,5 +1,6 @@
 ﻿using Giro.Animes.Application.Constants;
 using Giro.Animes.Application.DTOs;
+using Giro.Animes.Application.DTOs.Detailed;
 using Giro.Animes.Application.Interfaces.Services;
 using Giro.Animes.Application.Requests.Auth;
 using Giro.Animes.Application.Requests.User;
@@ -32,14 +33,25 @@ namespace Giro.Animes.API.Controllers
             return await Ok(authDTO, Messages.Response.Auth.AUTHENTICATION_SUCCESS, Messages.Response.Auth.AUTHENTICATION_FAILED);
         }
 
+        [HttpPost("guest")]
+        [AllowAnonymous]
+        [ProducesResponseType<DetailResponse<AuthDTO>>((int)HttpStatusCode.OK)]
+        [ProducesResponseType<ErrorResponse>((int)HttpStatusCode.InternalServerError)]
+        [ProducesResponseType<NotificationResponse>((int)HttpStatusCode.BadRequest)]
+        public async Task<IActionResult> GuestAuth()
+        {
+            AuthDTO authDTO = await _applicationService.GuestAuth();
+            return await Ok(authDTO, Messages.Response.Auth.AUTHENTICATION_SUCCESS, Messages.Response.Auth.AUTHENTICATION_FAILED);
+        }
+
         [HttpPost("register")]
         [AllowAnonymous]
-        [ProducesResponseType<DetailResponse<AccountDTO>>((int)HttpStatusCode.Created)]
+        [ProducesResponseType<DetailResponse<DetailedAccountDTO>>((int)HttpStatusCode.Created)]
         [ProducesResponseType<ErrorResponse>((int)HttpStatusCode.InternalServerError)]
         [ProducesResponseType<NotificationResponse>((int)HttpStatusCode.BadRequest)]
         public async Task<IActionResult> Register([FromForm] AccountCreateRequest request)
         {
-            AccountDTO accountDTO = await _accountService.CreateAccountAsync(request);
+            DetailedAccountDTO accountDTO = await _accountService.CreateAccountAsync(request);
             return await Ok(accountDTO, Messages.Response.Account.ACCOUNT_CREATED, Messages.Response.Account.ACCOUNT_NOT_CREATED);
         }
     }
