@@ -1,6 +1,6 @@
 ﻿using Giro.Animes.Infra.Configs;
 using Giro.Animes.Infra.Interfaces.Configs;
-using Giro.Animes.Shared.Extensions.Swaggger;
+using Giro.Animes.Shared.Extensions.Swaggger.Filters;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -22,6 +22,7 @@ namespace Giro.Animes.Shared.Extensions.Swaggger
 
             services.AddSwaggerGen(c =>
             {
+                c.OperationFilter<SwaggerOptionalHeaderParams>(); // Adiciona parâmetros de cabeçalho opcionais
                 c.SwaggerDoc("v1", new OpenApiInfo
                 {
                     Title = apiInfo.Name,

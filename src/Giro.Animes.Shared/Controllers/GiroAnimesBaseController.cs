@@ -21,7 +21,7 @@ namespace Giro.Animes.Presentation.Controllers
             _applicationService = applicationService;
         }
 
-        public async Task<IActionResult> Ok<TData>(TData data, string resultMessage, string emptyMessage) where TData : BaseDTO
+        public async Task<IActionResult> Ok<TData>(TData data, string resultMessage, string emptyMessage) where TData : BaseSimpleDTO
         {
             if (data is null)
             {
@@ -36,7 +36,7 @@ namespace Giro.Animes.Presentation.Controllers
             });
         }
 
-        public async Task<IActionResult> Ok<TData>(IPagedEnumerable<TData> data, Pagination pagination, string resultMessage, string emptyMessage) where TData : BaseDTO
+        public async Task<IActionResult> Ok<TData>(IPagedEnumerable<TData> data, Pagination pagination, string resultMessage, string emptyMessage) where TData : BaseSimpleDTO
         {
             if (data is null || !data.Any())
             {
