@@ -1,5 +1,4 @@
 ﻿using Giro.Animes.Domain.Entities;
-using Giro.Animes.Domain.Entities.Joint;
 using Giro.Animes.Infra.Data.Configurations.Types.Base;
 using Giro.Animes.Infra.Data.Constants;
 using Microsoft.EntityFrameworkCore;
@@ -21,6 +20,9 @@ namespace Giro.Animes.Infra.Data.Configurations.Types.Content
             builder.HasMany(ep => ep.Titles).WithOne(title => title.Episode).HasForeignKey(ept => ept.EpisodeId).IsRequired(true);
             builder.HasMany(ep => ep.Files).WithOne(file => file.Episode).HasForeignKey(file => file.EpisodeId);
             builder.HasMany(ep => ep.Sinopses).WithOne(sinopses => sinopses.Episode).HasForeignKey(sinopse => sinopse.EpisodeId).IsRequired(true);
+
+            builder.Ignore(ep => ep.SubtitleLanaguages);
+            builder.Ignore(ep => ep.AudioLanguages);
 
             builder.Navigation(ep => ep.Titles).AutoInclude();
             builder.Navigation(ep => ep.Sinopses).AutoInclude();

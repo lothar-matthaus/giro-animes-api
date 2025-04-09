@@ -1,8 +1,8 @@
 ﻿using Giro.Animes.Infra.Data.Contexts;
 using Giro.Animes.Infra.Interfaces.Configs;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.DependencyInjection;
 using Microsoft.EntityFrameworkCore.Diagnostics;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace Giro.Animes.Infra.Data.Extensions.IoC
 {

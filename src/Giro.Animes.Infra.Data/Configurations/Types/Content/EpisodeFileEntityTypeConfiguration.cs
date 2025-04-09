@@ -23,7 +23,7 @@ namespace Giro.Animes.Infra.Data.Configurations.Types.Content
             builder.HasOne(file => file.SubtitleLanguage).WithMany(language => language.EpisodeFileSubtitle).HasForeignKey(file => file.SubtitleLanguageId).IsRequired();
             builder.Navigation(file => file.AudioLanguage).AutoInclude();
             builder.Navigation(file => file.SubtitleLanguage).AutoInclude();
-            
+
             builder.HasQueryFilter(file => file.AudioLanguage.Settings
             .FirstOrDefault(settings => settings.Account.User.Id == _user.Id).AnimeAudioLanguages
                 .Contains(file.AudioLanguage) || file.AudioLanguage.Settings
@@ -34,7 +34,7 @@ namespace Giro.Animes.Infra.Data.Configurations.Types.Content
                 .Contains(file.SubtitleLanguage) || file.SubtitleLanguage.Settings
             .FirstOrDefault(settings => settings.Account.User.Id == _user.Id).AnimeSubtitleLanguages
                 .Contains(file.SubtitleLanguage));
-            
+
             base.Configure(builder);
         }
     }

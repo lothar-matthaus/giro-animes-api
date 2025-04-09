@@ -23,7 +23,6 @@ namespace Giro.Animes.Infra.Data.Configurations.Types.Base
         public override void Configure(EntityTypeBuilder<Derivate> builder)
         {
             builder.Property(title => title.Name).IsRequired(true);
-            builder.HasOne(title => title.Language).WithMany().HasForeignKey(title => title.LanguageId);
             builder.Navigation(builder => builder.Language).AutoInclude();
             builder.HasQueryFilter(builder => string.IsNullOrEmpty(_user.InterfaceLanguage) ?
                 (builder.LanguageId == builder.Language.Settings.FirstOrDefault(set => set.Account.User.Id == _user.Id).InterfaceLanguageId) :
