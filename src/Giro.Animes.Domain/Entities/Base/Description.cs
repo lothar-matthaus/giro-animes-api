@@ -12,7 +12,7 @@ namespace Giro.Animes.Domain.Entities
         /// <summary>
         /// Idetificaddr do idioma da descrição
         /// </summary>
-        public long? LanguageId { get; private set; }
+        public long LanguageId { get; private set; }
         /// <summary>
         /// Idioma da descrição
         /// </summary>
