@@ -1,9 +1,11 @@
 ﻿using Giro.Animes.Application.DTOs;
 using Giro.Animes.Application.Interfaces.Services;
 using Giro.Animes.Application.Mappers;
+using Giro.Animes.Application.Mappers.Detailed;
 using Giro.Animes.Application.Requests.Auth;
 using Giro.Animes.Application.Services.Base;
 using Giro.Animes.Domain.Entities;
+using Giro.Animes.Domain.Enums;
 using Giro.Animes.Domain.Interfaces.Services;
 using Giro.Animes.Infra.DTOs;
 using Giro.Animes.Infra.Interfaces;
@@ -52,7 +54,15 @@ namespace Giro.Animes.Application.Services
 
             SetCookie(tokenDTO);
 
-            return AuthDTO.Create(account.User.Name, account.Status.Map(), account.Id.Value);
+            return AuthDTO.Create(account.User.Name, account.User.Role.Map(), account.Id.Value);
+        }
+
+        public async Task<AuthDTO> GuestAuth()
+        {
+            UserTokenDTO userTokenDTO = await _tokenService.GenerateGuestToken();
+
+            SetCookie(userTokenDTO);
+            return AuthDTO.Create("Guest", UserRole.Guest.Map(), 0);
         }
 
         private void SetCookie(UserTokenDTO userTokenDTO)

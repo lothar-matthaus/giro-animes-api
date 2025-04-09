@@ -1,4 +1,4 @@
-﻿using Giro.Animes.Application.DTOs;
+﻿using Giro.Animes.Application.DTOs.Detailed;
 using Giro.Animes.Application.Interfaces.Services.Base;
 using Giro.Animes.Application.Requests.User;
 
@@ -6,7 +6,7 @@ namespace Giro.Animes.Application.Interfaces.Services
 {
     public interface IAccountService : IApplicationServiceBase
     {
-        Task<AccountDTO> GetAccountAndUserByAccountIdAsync(long accountId);
-        Task<AccountDTO> CreateAccountAsync(AccountCreateRequest request);
+        Task<DetailedAccountDTO> GetAccountAndUserByAccountIdAsync(long accountId);
+        Task<DetailedAccountDTO> CreateAccountAsync(AccountCreateRequest request);
     }
 }

@@ -1,6 +1,7 @@
-﻿using Giro.Animes.Application.DTOs;
+﻿using Giro.Animes.Application.DTOs.Detailed;
 using Giro.Animes.Application.Interfaces.Services;
 using Giro.Animes.Application.Mappers;
+using Giro.Animes.Application.Mappers.Detailed;
 using Giro.Animes.Application.Requests.User;
 using Giro.Animes.Application.Services.Base;
 using Giro.Animes.Domain.Entities;
@@ -21,19 +22,19 @@ namespace Giro.Animes.Application.Services
             _languageDomainService = languageDomainService;
         }
 
-        public async Task<AccountDTO> GetAccountAndUserByAccountIdAsync(long accountId)
+        public async Task<DetailedAccountDTO> GetAccountAndUserByAccountIdAsync(long accountId)
         {
             Account account = await _domainService.GetAccountAndUserByAccountIdAsync(accountId);
-            AccountDTO userDTO = account?.Map(true);
+            DetailedAccountDTO userDTO = account?.Map(true);
 
             return userDTO;
         }
 
-        public async Task<AccountDTO> CreateAccountAsync(AccountCreateRequest request)
+        public async Task<DetailedAccountDTO> CreateAccountAsync(AccountCreateRequest request)
         {
             // Cria as tasks para obter o idioma da interface e os idiomas favoritos
             Language interfaceLanguage = await _languageDomainService.GetLanguageByCode();
-            IEnumerable<Language> defaultLanguages = await _languageDomainService.GetLanguagesByCodes();
+            IEnumerable<Language> defaultLanguages = await _languageDomainService.GetLanguagesByCodes("en-US");
 
             // Cria as configurações do usuário
             Settings settings = Settings.Create(interfaceLanguage, defaultLanguages, defaultLanguages);

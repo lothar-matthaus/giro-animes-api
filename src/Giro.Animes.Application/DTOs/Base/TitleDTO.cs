@@ -1,4 +1,5 @@
 ﻿using Giro.Animes.Application.DTOs.Base;
+using Giro.Animes.Application.DTOs.Detailed;
 
 namespace Giro.Animes.Application.DTOs
 {
@@ -15,9 +16,9 @@ namespace Giro.Animes.Application.DTOs
         /// <summary>
         /// Idioma do título.
         /// </summary>
-        public LanguageDTO Language { get; private set; }
+        public DetailedLanguageDTO Language { get; private set; }
 
-        protected TitleDTO(long? id, DateTime creationDate, DateTime updateDate, string name, LanguageDTO language) :
+        protected TitleDTO(long? id, DateTime creationDate, DateTime updateDate, string name, DetailedLanguageDTO language) :
             base(id, creationDate, updateDate)
         {
             Name = name;

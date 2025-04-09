@@ -1,8 +1,9 @@
 ﻿using Giro.Animes.Application.Custom;
-using Giro.Animes.Application.DTOs;
+using Giro.Animes.Application.DTOs.Detailed;
+using Giro.Animes.Application.DTOs.Simple;
 using Giro.Animes.Application.Interfaces.Enumerations;
 using Giro.Animes.Application.Interfaces.Services;
-using Giro.Animes.Application.Mappers;
+using Giro.Animes.Application.Mappers.Simple;
 using Giro.Animes.Application.Services.Base;
 using Giro.Animes.Domain.Entities;
 using Giro.Animes.Domain.Interfaces.Pagination;
@@ -23,10 +24,10 @@ namespace Giro.Animes.Application.Services
         /// <param name="pagination"></param>
         /// <param name="cancellationToken"></param>
         /// <returns></returns>
-        public async Task<IPagedEnumerable<AnimeDTO>> GetAllPagedAsync(IPagination pagination, CancellationToken cancellationToken)
+        public async Task<IPagedEnumerable<SimpleAnimeDTO>> GetAllPagedAsync(IPagination pagination, CancellationToken cancellationToken)
         {
             (IEnumerable<Anime> animes, int totalCount) = await _domainService.GetAllPagedAsync(pagination, cancellationToken);
-            IPagedEnumerable<AnimeDTO> result = PagedEnumerable<AnimeDTO>.Create(animes?.Map(), pagination.Page, pagination.RowsPerPage, totalCount);
+            IPagedEnumerable<SimpleAnimeDTO> result = PagedEnumerable<SimpleAnimeDTO>.Create(animes?.MapSimple(), pagination.Page, pagination.RowsPerPage, totalCount);
             return result;
         }
 
@@ -37,7 +38,7 @@ namespace Giro.Animes.Application.Services
         /// <param name="cancellationToken"></param>
         /// <returns></returns>
         /// <exception cref="NotImplementedException"></exception>
-        public Task<AnimeDTO> GetByIdAsync(long id, CancellationToken cancellationToken)
+        public Task<DetailedAnimeDTO> GetByIdAsync(long id, CancellationToken cancellationToken)
         {
             throw new NotImplementedException();
         }

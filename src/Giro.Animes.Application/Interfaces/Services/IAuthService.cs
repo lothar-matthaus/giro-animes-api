@@ -7,5 +7,6 @@ namespace Giro.Animes.Application.Interfaces.Services
     public interface IAuthService : IApplicationServiceBase
     {
         Task<AuthDTO> Auth(AuthRequest request);
+        Task<AuthDTO> GuestAuth();
     }
 }

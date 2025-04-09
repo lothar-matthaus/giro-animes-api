@@ -1,8 +1,9 @@
 ﻿using Giro.Animes.Application.Custom;
-using Giro.Animes.Application.DTOs;
+using Giro.Animes.Application.DTOs.Detailed;
 using Giro.Animes.Application.Interfaces.Enumerations;
 using Giro.Animes.Application.Interfaces.Services;
 using Giro.Animes.Application.Mappers;
+using Giro.Animes.Application.Mappers.Detailed;
 using Giro.Animes.Application.Services.Base;
 using Giro.Animes.Domain.Entities;
 using Giro.Animes.Domain.Interfaces.Pagination;
@@ -18,18 +19,18 @@ namespace Giro.Animes.Application.Services
         {
         }
 
-        public async Task<IPagedEnumerable<AuthorDTO>> GetAllAuthorsPagedAsync(IPagination param)
+        public async Task<IPagedEnumerable<DetailedAuthorDTO>> GetAllAuthorsPagedAsync(IPagination param)
         {
             (IEnumerable<Author> authors, int count) = await _domainService.GetAllAuthorsPagedAsync(param);
-            IPagedEnumerable<AuthorDTO> pagedEnumerable = PagedEnumerable<AuthorDTO>.Create(authors?.Map(), param.Page, param.RowsPerPage, count);
+            IPagedEnumerable<DetailedAuthorDTO> pagedEnumerable = PagedEnumerable<DetailedAuthorDTO>.Create(authors?.Map(), param.Page, param.RowsPerPage, count);
 
             return pagedEnumerable;
         }
 
-        public async Task<AuthorDTO> GetAuthorByIdAsync(long id)
+        public async Task<DetailedAuthorDTO> GetAuthorByIdAsync(long id)
         {
             Author author = await _domainService.GetAuthorByIdAsync(id);
-            AuthorDTO authorDTO = author?.Map();
+            DetailedAuthorDTO authorDTO = author?.Map();
 
             return authorDTO;
         }

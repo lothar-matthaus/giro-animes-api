@@ -4,7 +4,7 @@ using System.Net;
 
 namespace Giro.Animes.Application.Responses
 {
-    public class DetailResponse<TDto> : ApiResponse where TDto : BaseDTO
+    public class DetailResponse<TDto> : ApiResponse where TDto : BaseSimpleDTO
     {
         /// <summary>
         /// The data to be returned in the response.
