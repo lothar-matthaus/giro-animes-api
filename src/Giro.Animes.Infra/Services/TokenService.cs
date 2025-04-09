@@ -57,7 +57,7 @@ namespace Giro.Animes.Infra.Services
             }
         }
 
-        public async Task<UserTokenDTO> GenerateUserToken()
+        public async Task<UserTokenDTO> GenerateGuestToken()
         {
             try
             {

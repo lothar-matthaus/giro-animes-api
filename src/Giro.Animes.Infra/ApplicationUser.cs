@@ -16,9 +16,9 @@ namespace Giro.Animes.Infra
             Nome = _context.HttpContext.User.Claims.Where(cl => cl.Type.Equals(ClaimTypes.Name)).Select(cl => cl.Value).FirstOrDefault() ?? "Guest";
             Email = _context.HttpContext.User.Claims.Where(cl => cl.Type.Equals(ClaimTypes.Email)).Select(cl => cl.Value).FirstOrDefault() ?? "";
             Role = GetUserRole(_context.HttpContext.User.Claims.FirstOrDefault(cl => cl.Type == ClaimTypes.Role)?.Value);
-            InterfaceLanguage = _context.HttpContext.Request.Headers["Interface-Language"].ToString() ?? "en-US";
-            AudioAnimeLanguages = _context.HttpContext.Request.Headers["Audio-Anime-Languages"].ToString().Split(',').Select(x => x.Trim()).ToArray() ?? new string[] { };
-            SubtitleAnimeLanguages = _context.HttpContext.Request.Headers["Subtitle-Anime-Languages"].ToString().Split(',').Select(x => x.Trim()).ToArray() ?? new string[] { };
+            InterfaceLanguage = Role == UserRole.Guest ? _context.HttpContext.Request.Headers["Interface-Language"].ToString() : string.Empty;
+            AudioAnimeLanguages = Role == UserRole.Guest ? _context.HttpContext.Request.Headers["Audio-Anime-Languages"].ToString().Split(',').Select(x => x.Trim()).ToArray() : new string[0];
+            SubtitleAnimeLanguages = Role == UserRole.Guest ? _context.HttpContext.Request.Headers["Subtitle-Anime-Languages"].ToString().Split(',').Select(x => x.Trim()).ToArray() : new string[0];
         }
 
         private UserRole GetUserRole(string role)
