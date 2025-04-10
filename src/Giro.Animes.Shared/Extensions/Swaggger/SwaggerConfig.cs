@@ -1,6 +1,5 @@
 ﻿using Giro.Animes.Infra.Configs;
 using Giro.Animes.Infra.Interfaces.Configs;
-using Giro.Animes.Shared.Extensions.Swaggger.Filters;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -17,12 +16,10 @@ namespace Giro.Animes.Shared.Extensions.Swaggger
         /// <returns></returns>
         public static IServiceCollection AddSwaggerConfig(this IServiceCollection services, IConfiguration configuration)
         {
-            // TODO: Remover o uso do service provider aqui, pois isso pode causar problemas de desempenho e circularidade.
             IApiInfo apiInfo = new ApiInfo(configuration);
 
             services.AddSwaggerGen(c =>
             {
-                c.OperationFilter<SwaggerOptionalHeaderParams>(); // Adiciona parâmetros de cabeçalho opcionais
                 c.SwaggerDoc("v1", new OpenApiInfo
                 {
                     Title = apiInfo.Name,
