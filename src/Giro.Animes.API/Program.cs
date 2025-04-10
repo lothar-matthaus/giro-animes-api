@@ -6,6 +6,7 @@ using Giro.Animes.Infra.Extensions.IoC.Security;
 using Giro.Animes.Shared.Extensions.Swaggger;
 using Giro.Animes.Shared.Filters;
 using Giro.Animes.Shared.Middleware;
+using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -18,6 +19,10 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddControllers(options =>
 {
     options.Filters.Add<NotificationResultFilter>();
+}).AddJsonOptions(options =>
+{
+    options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles;
+    options.JsonSerializerOptions.WriteIndented = true;
 });
 
 // Configura o acesso ao contexto HTTP
