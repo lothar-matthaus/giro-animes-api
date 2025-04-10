@@ -31,8 +31,7 @@ namespace Giro.Animes.Infra.Data.Contexts
         public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
         {
             Audit();
-            int key = await base.SaveChangesAsync(cancellationToken);
-            return key;
+            return await base.SaveChangesAsync(cancellationToken);
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -47,43 +46,18 @@ namespace Giro.Animes.Infra.Data.Contexts
             modelBuilder.ApplyConfiguration(new AnimeEntityTypeConfiguration());
             modelBuilder.ApplyConfiguration(new AnimeScreenshotEntityTypeConfiguration());
             modelBuilder.ApplyConfiguration(new StudioEntityTypeConfiguration());
-            modelBuilder.ApplyConfiguration(new AnimeTitleEntityTypeConfiguration(_user));
-            modelBuilder.ApplyConfiguration(new CoverEntityTypeConfiguration(_user));
-            modelBuilder.ApplyConfiguration(new BiographyEntityTypeConfiguration(_user));
-            modelBuilder.ApplyConfiguration(new EpisodeFileEntityTypeConfiguration(_user));
-            modelBuilder.ApplyConfiguration(new EpisodeTitleEntityTypeConfiguration(_user));
-            modelBuilder.ApplyConfiguration(new GenreDescriptionEntityTypeConfiguration(_user));
-            modelBuilder.ApplyConfiguration(new GenreTitleEntityTypeConfiguration(_user));
+            modelBuilder.ApplyConfiguration(new AnimeTitleEntityTypeConfiguration());
+            modelBuilder.ApplyConfiguration(new CoverEntityTypeConfiguration());
+            modelBuilder.ApplyConfiguration(new BiographyEntityTypeConfiguration());
+            modelBuilder.ApplyConfiguration(new EpisodeFileEntityTypeConfiguration());
+            modelBuilder.ApplyConfiguration(new EpisodeTitleEntityTypeConfiguration());
+            modelBuilder.ApplyConfiguration(new GenreDescriptionEntityTypeConfiguration());
+            modelBuilder.ApplyConfiguration(new GenreTitleEntityTypeConfiguration());
             modelBuilder.ApplyConfiguration(new LogoEntityTypeConfiguration());
-            modelBuilder.ApplyConfiguration(new AnimeSinopseEntityTypeConfiguration(_user));
+            modelBuilder.ApplyConfiguration(new AnimeSinopseEntityTypeConfiguration());
             modelBuilder.ApplyConfiguration(new RatingEntityTypeConfiguration());
-            modelBuilder.ApplyConfiguration(new EpisodeSinopseEntityTypeConfiguration(_user));
+            modelBuilder.ApplyConfiguration(new EpisodeSinopseEntityTypeConfiguration());
             modelBuilder.ApplyConfiguration(new AuditLogEntityTypeConfiguration());
-
-            // 
-            modelBuilder.Entity<AnimeTitle>(title => title.HasQueryFilter(builder => _user.Role != UserRole.Guest ?
-                (builder.LanguageId == builder.Language.Settings.FirstOrDefault(set => set.Account.User.Id == _user.Id).InterfaceLanguageId) :
-                (builder.Language.Code.Equals(_user.InterfaceLanguage))));
-
-            modelBuilder.Entity<AnimeSinopse>(sinopse => sinopse.HasQueryFilter(builder => _user.Role != UserRole.Guest ?
-                (builder.LanguageId == builder.Language.Settings.FirstOrDefault(set => set.Account.User.Id == _user.Id).InterfaceLanguageId) :
-                (builder.Language.Code.Equals(_user.InterfaceLanguage))));
-
-            modelBuilder.Entity<EpisodeSinopse>(sinopse => sinopse.HasQueryFilter(builder => _user.Role != UserRole.Guest ?
-                (builder.LanguageId == builder.Language.Settings.FirstOrDefault(set => set.Account.User.Id == _user.Id).InterfaceLanguageId) :
-                (builder.Language.Code.Equals(_user.InterfaceLanguage))));
-
-            modelBuilder.Entity<GenreTitle>(title => title.HasQueryFilter(builder => _user.Role != UserRole.Guest ?
-                (builder.LanguageId == builder.Language.Settings.FirstOrDefault(set => set.Account.User.Id == _user.Id).InterfaceLanguageId) :
-                (builder.Language.Code.Equals(_user.InterfaceLanguage))));
-
-            modelBuilder.Entity<GenreDescription>(description => description.HasQueryFilter(builder => _user.Role != UserRole.Guest ?
-                (builder.LanguageId == builder.Language.Settings.FirstOrDefault(set => set.Account.User.Id == _user.Id).InterfaceLanguageId) :
-                (builder.Language.Code.Equals(_user.InterfaceLanguage))));
-
-            modelBuilder.Entity<Cover>(cover => cover.HasQueryFilter(builder => _user.Role != UserRole.Guest ?
-                (builder.LanguageId == builder.Language.Settings.FirstOrDefault(set => set.Account.User.Id == _user.Id).InterfaceLanguageId) :
-                (builder.Language.Code.Equals(_user.InterfaceLanguage))));
         }
 
         private void Audit()

@@ -9,10 +9,6 @@ namespace Giro.Animes.Infra.Data.Configurations.Types.Content
 {
     internal class EpisodeTitleEntityTypeConfiguration : TitleEntityTypeConfiguration<EpisodeTitle>
     {
-        public EpisodeTitleEntityTypeConfiguration(IApplicationUser user) : base(user)
-        {
-        }
-
         public override void Configure(EntityTypeBuilder<EpisodeTitle> builder)
         {
             base.Configure(builder);

@@ -9,12 +9,6 @@ namespace Giro.Animes.Infra.Data.Configurations.Types.Content
 {
     internal class EpisodeFileEntityTypeConfiguration : MediaEntityTypeConfiguration<EpisodeFile>
     {
-        private readonly IApplicationUser _user;
-
-        public EpisodeFileEntityTypeConfiguration(IApplicationUser user)
-        {
-            _user = user;
-        }
         public override void Configure(EntityTypeBuilder<EpisodeFile> builder)
         {
             builder.ToTable(Tables.Content.EPISODE_FILES, Schemas.CONTENT);
@@ -23,17 +17,6 @@ namespace Giro.Animes.Infra.Data.Configurations.Types.Content
             builder.HasOne(file => file.SubtitleLanguage).WithMany(language => language.EpisodeFileSubtitle).HasForeignKey(file => file.SubtitleLanguageId).IsRequired();
             builder.Navigation(file => file.AudioLanguage).AutoInclude();
             builder.Navigation(file => file.SubtitleLanguage).AutoInclude();
-
-            builder.HasQueryFilter(file => file.AudioLanguage.Settings
-            .FirstOrDefault(settings => settings.Account.User.Id == _user.Id).AnimeAudioLanguages
-                .Contains(file.AudioLanguage) || file.AudioLanguage.Settings
-            .FirstOrDefault(settings => settings.Account.User.Id == _user.Id).AnimeSubtitleLanguages
-                .Contains(file.AudioLanguage));
-            builder.HasQueryFilter(file => file.SubtitleLanguage.Settings
-            .FirstOrDefault(settings => settings.Account.User.Id == _user.Id).AnimeSubtitleLanguages
-                .Contains(file.SubtitleLanguage) || file.SubtitleLanguage.Settings
-            .FirstOrDefault(settings => settings.Account.User.Id == _user.Id).AnimeSubtitleLanguages
-                .Contains(file.SubtitleLanguage));
 
             base.Configure(builder);
         }

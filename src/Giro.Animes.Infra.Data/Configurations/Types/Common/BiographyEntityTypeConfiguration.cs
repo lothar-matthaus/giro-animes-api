@@ -10,10 +10,6 @@ namespace Giro.Animes.Infra.Data.Configurations.Types.Common
 {
     internal class BiographyEntityTypeConfiguration : DescriptionEntityTypeConfiguration<Biography>
     {
-        public BiographyEntityTypeConfiguration(IApplicationUser user) : base(user)
-        {
-        }
-
         public override void Configure(EntityTypeBuilder<Biography> builder)
         {
             base.Configure(builder);

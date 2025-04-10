@@ -9,10 +9,6 @@ namespace Giro.Animes.Infra.Data.Configurations.Types.Content
 {
     internal class GenreTitleEntityTypeConfiguration : TitleEntityTypeConfiguration<GenreTitle>
     {
-        public GenreTitleEntityTypeConfiguration(IApplicationUser user) : base(user)
-        {
-        }
-
         public override void Configure(EntityTypeBuilder<GenreTitle> builder)
         {
             base.Configure(builder);

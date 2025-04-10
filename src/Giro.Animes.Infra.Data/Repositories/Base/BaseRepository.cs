@@ -86,7 +86,7 @@ namespace Giro.Animes.Infra.Data.Repositories.Base
         /// <param name="id"></param>
         /// <param name="cancellationToken"></param>
         /// <returns></returns>
-        public async Task<TEntity> GetByIdAsync(long id, CancellationToken cancellationToken) => await _dbSet.FindAsync(id, cancellationToken);
+        public async Task<TEntity> GetByIdAsync(long id, CancellationToken cancellationToken) => await _dbSet.FirstOrDefaultAsync(ent => ent.Id == id, cancellationToken);
 
         /// <summary>
         /// Update an entity 

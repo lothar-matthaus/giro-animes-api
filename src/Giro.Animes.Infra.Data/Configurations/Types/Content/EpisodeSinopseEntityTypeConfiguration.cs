@@ -9,10 +9,6 @@ namespace Giro.Animes.Infra.Data.Configurations.Types.Content
 {
     internal class EpisodeSinopseEntityTypeConfiguration : DescriptionEntityTypeConfiguration<EpisodeSinopse>
     {
-        public EpisodeSinopseEntityTypeConfiguration(IApplicationUser user) : base(user)
-        {
-        }
-
         public override void Configure(EntityTypeBuilder<EpisodeSinopse> builder)
         {
             base.Configure(builder);
