@@ -17,6 +17,11 @@ namespace Giro.Animes.API.Controllers
         {
         }
 
+        /// <summary>
+        /// Busca todos os animes paginados, dado filtros específicos
+        /// </summary>
+        /// <param name="pagination"></param>
+        /// <returns></returns>
         [HttpGet]
         [ProducesResponseType<IPagedEnumerable<SimpleAnimeDTO>>((int)HttpStatusCode.OK)]
         [ProducesResponseType<ErrorResponse>((int)HttpStatusCode.InternalServerError)]
@@ -26,6 +31,11 @@ namespace Giro.Animes.API.Controllers
             return await Ok(pagedResult, pagination, Messages.Response.Anime.ANIMES_FOUND, Messages.Response.Anime.ANIMES_NOT_FOUND);
         }
 
+        /// <summary>
+        /// Busca um anime pelo id
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [HttpGet("{id:long}")]
         [ProducesResponseType<DetailedAnimeDTO>((int)HttpStatusCode.OK)]
         [ProducesResponseType<ErrorResponse>((int)HttpStatusCode.InternalServerError)]
