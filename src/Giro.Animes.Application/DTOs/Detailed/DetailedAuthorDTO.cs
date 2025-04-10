@@ -1,4 +1,5 @@
 ﻿using Giro.Animes.Application.DTOs.Base;
+using Giro.Animes.Application.DTOs.Simple;
 
 namespace Giro.Animes.Application.DTOs.Detailed
 {
@@ -46,14 +47,14 @@ namespace Giro.Animes.Application.DTOs.Detailed
         /// <summary>
         /// List of animes the author has worked on.
         /// </summary>
-        public IEnumerable<DetailedAnimeDTO> Works { get; private set; }
+        public IEnumerable<SimpleAnimeDTO> Works { get; private set; }
 
         /// <summary>
         /// List of biographies of the author.
         /// </summary>
         public IEnumerable<DetaledBiographyDTO> Biographies { get; private set; }
 
-        private DetailedAuthorDTO(long? id, string name, string penName, DateTime? birthDate, DateTime? deathDate, string website, string twitter, string instagram, IEnumerable<DetailedAnimeDTO> works, IEnumerable<DetaledBiographyDTO> biographies, DateTime creationDate, DateTime updateDate) :
+        private DetailedAuthorDTO(long? id, string name, string penName, DateTime? birthDate, DateTime? deathDate, string website, string twitter, string instagram, IEnumerable<SimpleAnimeDTO> works, IEnumerable<DetaledBiographyDTO> biographies, DateTime creationDate, DateTime updateDate) :
             base(id, creationDate, updateDate)
         {
             Name = name;
@@ -67,7 +68,7 @@ namespace Giro.Animes.Application.DTOs.Detailed
             Biographies = biographies;
         }
 
-        public static DetailedAuthorDTO Create(long? id, string name, string penName, DateTime? birthDate, DateTime? deathDate, string website, string twitter, string instagram, IEnumerable<DetailedAnimeDTO> works, IEnumerable<DetaledBiographyDTO> biographies, DateTime creationDate, DateTime updateDate)
+        public static DetailedAuthorDTO Create(long? id, string name, string penName, DateTime? birthDate, DateTime? deathDate, string website, string twitter, string instagram, IEnumerable<SimpleAnimeDTO> works, IEnumerable<DetaledBiographyDTO> biographies, DateTime creationDate, DateTime updateDate)
         {
             return new DetailedAuthorDTO(id, name, penName, birthDate, deathDate, website, twitter, instagram, works, biographies, creationDate, updateDate);
         }

@@ -1,5 +1,6 @@
 ﻿using Giro.Animes.Application.DTOs.Detailed;
 using Giro.Animes.Domain.Entities;
+using Giro.Animes.Application.Mappers.Simple;
 
 namespace Giro.Animes.Application.Mappers.Detailed
 {
@@ -16,7 +17,7 @@ namespace Giro.Animes.Application.Mappers.Detailed
                 author.Website,
                 author.Twitter,
                 author.Instagram,
-                author.Works?.Map(),
+                author.Works?.MapSimple(),
                 author.Biographies.Map(),
                 author.CreationDate,
                 author.UpdateDate);

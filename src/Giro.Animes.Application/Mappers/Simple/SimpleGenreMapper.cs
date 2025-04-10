@@ -22,7 +22,6 @@ namespace Giro.Animes.Application.Mappers.Simple
         {
             SimpleGenreDTO simpleGenreDTO = SimpleGenreDTO.Create(
                 genre.Titles.MapSimple(),
-                genre.Descriptions.MapSimple(),
                 genre.Id
             );
 

@@ -20,7 +20,7 @@ namespace Giro.Animes.Application.Mappers.Simple
         {
             SimpleAnimeDTO simpleAnimeDTO = SimpleAnimeDTO.Create(
                 anime.Titles.MapSimple(),
-                anime.Sinopses.MapSimple(),
+                anime.Sinopses?.MapSimple(),
                 anime.Covers.MapSimple(),
                 anime.Genres.MapSimple(),
                 anime.Authors.MapSimple(),

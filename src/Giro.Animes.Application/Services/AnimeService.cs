@@ -3,6 +3,7 @@ using Giro.Animes.Application.DTOs.Detailed;
 using Giro.Animes.Application.DTOs.Simple;
 using Giro.Animes.Application.Interfaces.Enumerations;
 using Giro.Animes.Application.Interfaces.Services;
+using Giro.Animes.Application.Mappers.Detailed;
 using Giro.Animes.Application.Mappers.Simple;
 using Giro.Animes.Application.Services.Base;
 using Giro.Animes.Domain.Entities;
@@ -38,9 +39,11 @@ namespace Giro.Animes.Application.Services
         /// <param name="cancellationToken"></param>
         /// <returns></returns>
         /// <exception cref="NotImplementedException"></exception>
-        public Task<DetailedAnimeDTO> GetByIdAsync(long id, CancellationToken cancellationToken)
+        public async Task<DetailedAnimeDTO> GetByIdAsync(long id, CancellationToken cancellationToken)
         {
-            throw new NotImplementedException();
+            Anime anime = await _domainService.GetByIdAsync(id, cancellationToken);
+
+            return anime.Map(); ;
         }
     }
 }
