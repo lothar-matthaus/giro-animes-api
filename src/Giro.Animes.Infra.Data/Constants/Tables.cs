@@ -41,6 +41,7 @@
             public const string ACCOUNTS = "accounts";
             public const string USERS = "users";
             public const string SETTINGS = "settings";
+            public const string PERMISSIONS = "permissions";
         }
 
         public static class Misc

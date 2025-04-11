@@ -55,6 +55,7 @@ namespace Giro.Animes.Infra.Data.Contexts
             modelBuilder.ApplyConfiguration(new RatingEntityTypeConfiguration());
             modelBuilder.ApplyConfiguration(new EpisodeSinopseEntityTypeConfiguration());
             modelBuilder.ApplyConfiguration(new AuditLogEntityTypeConfiguration());
+            modelBuilder.ApplyConfiguration(new PermissionEntityTypeConfiguration());
         }
 
         private void Audit()

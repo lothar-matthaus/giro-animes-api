@@ -18,8 +18,9 @@ namespace Giro.Animes.Infra.Data.Configurations.Types.Management
             builder.HasIndex(user => user.Name).IsUnique();
             builder.Property(user => user.Role).IsRequired();
             builder.Property(user => user.Plan).IsRequired();
-            builder.Navigation(user => user.Account).AutoInclude(false);
+            builder.HasOne(user => user.Avatar).WithOne(Avatar => Avatar.User).HasForeignKey<Avatar>(avatar => avatar.UserId).OnDelete(DeleteBehavior.Cascade);
 
+            // Configuração de relacionamento entre User e Animes favoritos
             builder.HasMany(user => user.Watchlist).WithMany(anime => anime.Users).UsingEntity<Watchlist>(
             Tables.Content.WATCHLIST, // Nome da tabela de junção
             join => join.HasOne(watch => watch.Anime)

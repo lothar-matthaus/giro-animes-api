@@ -12,10 +12,6 @@ namespace Giro.Animes.Infra.Data.Repositories.Base
         /// </summary>
         /// 
         protected readonly DbSet<TEntity> _dbSet;
-        /// <summary>
-        /// DbContext for the repository
-        /// </summary>
-        protected readonly TDbContext _dbContext;
 
         /// <summary>
         /// Base repository constructor
@@ -24,8 +20,7 @@ namespace Giro.Animes.Infra.Data.Repositories.Base
         /// <exception cref="ArgumentNullException"></exception>
         public BaseRepository(TDbContext dbContext)
         {
-            _dbContext = dbContext ?? throw new ArgumentNullException(nameof(dbContext));
-            _dbSet = _dbContext.Set<TEntity>();
+            _dbSet = dbContext.Set<TEntity>();
         }
 
         /// <summary>
@@ -37,16 +32,6 @@ namespace Giro.Animes.Infra.Data.Repositories.Base
         public async Task AddAsync(TEntity entity, CancellationToken cancellationToken)
         {
             await _dbSet.AddAsync(entity, cancellationToken);
-        }
-
-        /// <summary>
-        /// Commit changes to the database
-        /// </summary>
-        /// <returns></returns>
-        public Task<int> Commit()
-        {
-            Task<int> key = _dbContext.SaveChangesAsync(CancellationToken.None);
-            return key;
         }
 
         /// <summary>
