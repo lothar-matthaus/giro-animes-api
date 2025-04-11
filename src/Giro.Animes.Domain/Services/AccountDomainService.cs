@@ -37,11 +37,6 @@ namespace Giro.Animes.Domain.Services
             await _repository.AddAsync(account, CancellationToken.None);
             EntityResult<Account> result = EntityResult<Account>.Create(account, notifications);
 
-            if (result.IsValid)
-            {
-                await _repository.Commit();
-            }
-
             return result;
         }
 

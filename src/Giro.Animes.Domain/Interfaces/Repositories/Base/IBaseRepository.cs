@@ -10,6 +10,5 @@ namespace Giro.Animes.Domain.Interfaces.Repositories.Base
         void Delete(TEntity entity);
         Task<TEntity> GetByIdAsync(long id, CancellationToken cancellationToken);
         Task<(IEnumerable<TEntity>, int)> GetAllPagedAsync(IPagination param, CancellationToken cancellationToken);
-        Task<int> Commit();
     }
 }
