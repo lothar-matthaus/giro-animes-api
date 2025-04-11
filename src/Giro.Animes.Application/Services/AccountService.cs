@@ -29,7 +29,7 @@ namespace Giro.Animes.Application.Services
             return userDTO;
         }
 
-        public async Task<DetailedAccountDTO> CreateAccountAsync(AccountCreateRequest request)
+        public async Task CreateAccountAsync(AccountCreateRequest request)
         {
             // Cria as tasks para obter o idioma da interface e os idiomas favoritos
             Language interfaceLanguage = await _languageDomainService.GetLanguageByCode();
@@ -55,11 +55,8 @@ namespace Giro.Animes.Application.Services
             {
                 // Adiciona as notificações de erro
                 await _notificationService.AddNotification(resultAccount.Errors);
-                return null;
+                return;
             }
-
-            // Mapeia o usuário para UserDTO e retorna
-            return account?.Map();
         }
     }
 }

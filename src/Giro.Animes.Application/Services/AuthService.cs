@@ -25,6 +25,11 @@ namespace Giro.Animes.Application.Services
             _tokenService = tokenService;
         }
 
+        /// <summary>
+        /// Realiza a autenticação do usuário
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
         public async Task<AuthDTO> Auth(AuthRequest request)
         {
             Account account = await _domainService.GetAccountByLogin(request.Login);
@@ -53,27 +58,35 @@ namespace Giro.Animes.Application.Services
 
             SetCookie(tokenDTO);
 
-            return AuthDTO.Create(account.User.Name, account.User.Role.Map(), account.Id.Value);
+            return AuthDTO.Create(account.User.Name, account.User.Role.Map(), tokenDTO.ExpirationTime, account.Id.Value);
         }
 
+        /// <summary>
+        /// Gera um token de autenticação para o usuário convidado
+        /// </summary>
+        /// <returns></returns>
         public async Task<AuthDTO> GuestAuth()
         {
             UserTokenDTO userTokenDTO = await _tokenService.GenerateGuestToken();
 
             SetCookie(userTokenDTO);
-            return AuthDTO.Create("Guest", UserRole.Guest.Map(), 0);
+            return AuthDTO.Create("Guest", UserRole.Guest.Map(), userTokenDTO.ExpirationTime, 0);
         }
 
+        /// <summary>
+        /// Define o token de autenticação no cookie do usuário
+        /// </summary>
+        /// <param name="userTokenDTO"></param>
         private void SetCookie(UserTokenDTO userTokenDTO)
         {
             _httpContextAccessor.HttpContext.Response.Cookies.Append("access_token", userTokenDTO.Token, new CookieOptions
             {
                 HttpOnly = true,
-                Expires = DateTimeOffset.UtcNow.AddMinutes(userTokenDTO.ExpirationTime),
+                Expires = DateTime.Now.AddMinutes(userTokenDTO.ExpirationTime),
                 Secure = true,
-                SameSite = SameSiteMode.None,
+                SameSite = SameSiteMode.Strict,
                 Domain = _httpContextAccessor.HttpContext.Request.Host.Host,
-                IsEssential = true
+                IsEssential = true,
             });
         }
     }
