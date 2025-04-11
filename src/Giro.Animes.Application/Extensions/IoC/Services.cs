@@ -26,6 +26,7 @@ namespace Giro.Animes.Application.Extensions.IoC
             services.AddScoped<ILanguageDomainService, LanguageDomainService>();
             services.AddScoped<IAnimeDomainService, AnimeDomainService>();
             services.AddScoped<IMediaDomainService<Avatar>, MediaDomainService<IMediaRepository<Avatar>, Avatar>>();
+            services.AddScoped<IPermissionDomainService, PermissionDomainService>();
         }
     }
 }
