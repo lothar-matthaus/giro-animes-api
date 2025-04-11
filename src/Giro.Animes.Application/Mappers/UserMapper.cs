@@ -1,4 +1,5 @@
 ﻿using Giro.Animes.Application.DTOs.Detailed;
+using Giro.Animes.Application.DTOs.Simple;
 using Giro.Animes.Domain.Entities;
 
 namespace Giro.Animes.Application.Mappers
@@ -36,6 +37,26 @@ namespace Giro.Animes.Application.Mappers
         public static IEnumerable<DetailedUserDTO> Map(this IEnumerable<User> users)
         {
             IEnumerable<DetailedUserDTO> result = users.Select(user => user.Map());
+            return result;
+        }
+
+        public static SimpleUserDTO MapSimple(this User user)
+        {
+            SimpleUserDTO userDTO = SimpleUserDTO.Create(
+                user.Name,
+                user.Role.Map(),
+                user.Plan.Map(),
+                user.Id.Value,
+                user.AccountId,
+                user.Ratings?.MapSimple(),
+                user.Watchlist?.MapSimple());
+
+            return userDTO;
+        }
+
+        public static IEnumerable<SimpleUserDTO> MapSimple(this IEnumerable<User> users)
+        {
+            IEnumerable<SimpleUserDTO> result = users.Select(user => user.MapSimple());
             return result;
         }
     }

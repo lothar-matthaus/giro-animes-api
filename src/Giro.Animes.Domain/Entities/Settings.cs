@@ -33,12 +33,12 @@ namespace Giro.Animes.Domain.Entities
         /// <summary>
         /// Idiomas em que os animes serão mostrados.
         /// </summary>
-        public ICollection<Language> AnimeAudioLanguages { get; private set; }
+        public ICollection<Language> AudioLanguages { get; private set; }
 
         /// <summary>
         /// Idiomas em que as legendas dos animes serão mostradas.
         /// </summary>
-        public ICollection<Language> AnimeSubtitleLanguages { get; set; }
+        public ICollection<Language> SubtitleLanguages { get; set; }
         /// <summary>
         /// Identificador do usuário ao qual as configurações pertencem
         /// </summary>
@@ -59,14 +59,14 @@ namespace Giro.Animes.Domain.Entities
         /// </summary>
         /// <param name="enableNotifications"></param>
         /// <param name="language"></param>
-        private Settings(Language interfaceLanguage, IEnumerable<Language> animeAudioLanguages, IEnumerable<Language> animeSubtitleLanguages)
+        private Settings(Language interfaceLanguage, IEnumerable<Language> audioLanguages, IEnumerable<Language> subtitleLanguages)
         {
             EnableApplicationNotifications = true;
             EnableApplicationNotifications = false;
             Theme = Theme.Light;
             InterfaceLanguage = interfaceLanguage;
-            AnimeAudioLanguages = animeAudioLanguages.ToList();
-            AnimeSubtitleLanguages = animeSubtitleLanguages.ToList();
+            AudioLanguages = audioLanguages.ToList();
+            SubtitleLanguages = subtitleLanguages.ToList();
 
         }
 
@@ -76,7 +76,7 @@ namespace Giro.Animes.Domain.Entities
         /// <param name="enableNotifications"></param>
         /// <param name="language"></param>
         /// <returns></returns>
-        public static Settings Create(Language interfaceLanguage, IEnumerable<Language> animeAudioLanguages, IEnumerable<Language> animeSubtitleLanguages) => new(interfaceLanguage, animeAudioLanguages, animeSubtitleLanguages);
+        public static Settings Create(Language interfaceLanguage, IEnumerable<Language> audioLanguages, IEnumerable<Language> subtitleLanguages) => new(interfaceLanguage, audioLanguages, subtitleLanguages);
 
         #region Behaviors
         /// <summary>
@@ -104,15 +104,31 @@ namespace Giro.Animes.Domain.Entities
         /// <summary>
         /// Altera os idiomas de animes que devem aparecer para o usuário.
         /// </summary>
-        /// <param name="animeLanguages"></param>
-        public void AddAnimeLanguages(IEnumerable<Language> animeLanguages)
+        /// <param name="audioLanguages"></param>
+        public void AddAudioLanguages(IEnumerable<Language> audioLanguages)
         {
-            AnimeAudioLanguages ??= new List<Language>();
-            foreach (var language in animeLanguages)
+            AudioLanguages ??= new List<Language>();
+            foreach (var language in audioLanguages)
             {
-                if (!AnimeAudioLanguages.Contains(language))
+                if (!AudioLanguages.Contains(language))
                 {
-                    AnimeAudioLanguages.Add(language);
+                    AudioLanguages.Add(language);
+                }
+            }
+        }
+
+        /// <summary>
+        /// Altera os idiomas de legendas que devem aparecer para o usuário.
+        /// </summary>
+        /// <param name="subtitleLanguages">Lista de idiomas para as legendas</param>
+        public void AddSubtitleLanguages(IEnumerable<Language> subtitleLanguages)
+        {
+            AudioLanguages ??= new List<Language>();
+            foreach (var language in subtitleLanguages)
+            {
+                if (!AudioLanguages.Contains(language))
+                {
+                    AudioLanguages.Add(language);
                 }
             }
         }

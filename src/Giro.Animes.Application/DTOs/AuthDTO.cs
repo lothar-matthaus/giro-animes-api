@@ -3,7 +3,7 @@ using Giro.Animes.Domain.Enums;
 
 namespace Giro.Animes.Application.DTOs
 {
-    public class AuthDTO : BaseDTO
+    public class AuthDTO : BaseSimpleDTO
     {
         /// <summary>
         /// Mensagem de retorno
@@ -24,7 +24,7 @@ namespace Giro.Animes.Application.DTOs
         /// Cria uma nova instância de AuthDTO
         /// </summary>
         /// <param name="message"></param>
-        public AuthDTO(string username, EnumDTO<UserRole> role, double expiration, long id) : base(id, DateTime.Now, DateTime.Now)
+        public AuthDTO(string username, EnumDTO<UserRole> role, double expiration, long id) : base(id)
         {
             UserName = username;
             Role = role;

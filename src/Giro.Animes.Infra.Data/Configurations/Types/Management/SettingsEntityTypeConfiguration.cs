@@ -21,7 +21,7 @@ namespace Giro.Animes.Infra.Data.Configurations.Types.Management
 
             builder.HasOne(settings => settings.Account).WithOne(acc => acc.Settings).HasForeignKey<Settings>(set => set.AccountId).IsRequired(true);
             builder.HasOne(settings => settings.InterfaceLanguage).WithMany(language => language.Settings).HasForeignKey(settings => settings.InterfaceLanguageId).IsRequired(true).OnDelete(DeleteBehavior.ClientSetNull);
-            builder.HasMany(settings => settings.AnimeAudioLanguages).WithMany(lan => lan.SettingsAnimeAudio).UsingEntity<SettingsAnimeAudioLanguage>(
+            builder.HasMany(settings => settings.AudioLanguages).WithMany(lan => lan.SettingsAnimeAudio).UsingEntity<SettingsAnimeAudioLanguage>(
                 Tables.Content.SETTINGS_ANIME_AUDIO_LANGUAGES, join =>
             join.HasOne(join => join.Language)
                   .WithMany()
@@ -36,7 +36,7 @@ namespace Giro.Animes.Infra.Data.Configurations.Types.Management
                 join.ToTable(Tables.Content.SETTINGS_ANIME_AUDIO_LANGUAGES, Schemas.CONTENT);
             });
 
-            builder.HasMany(settings => settings.AnimeSubtitleLanguages).WithMany(lan => lan.SettingsAnimeSubtitle).UsingEntity<SettingsAnimeSubtitleLanguage>(
+            builder.HasMany(settings => settings.SubtitleLanguages).WithMany(lan => lan.SettingsAnimeSubtitle).UsingEntity<SettingsAnimeSubtitleLanguage>(
                 Tables.Content.SETTINGS_ANIME_SUBTITLE_LANGUAGES, join =>
             join.HasOne(join => join.Language)
                   .WithMany()
@@ -51,8 +51,8 @@ namespace Giro.Animes.Infra.Data.Configurations.Types.Management
                 join.ToTable(Tables.Content.SETTINGS_ANIME_SUBTITLE_LANGUAGES, Schemas.CONTENT);
             });
 
-            builder.Navigation(settings => settings.AnimeAudioLanguages).AutoInclude();
-            builder.Navigation(settings => settings.AnimeSubtitleLanguages).AutoInclude();
+            builder.Navigation(settings => settings.AudioLanguages).AutoInclude();
+            builder.Navigation(settings => settings.SubtitleLanguages).AutoInclude();
             builder.Navigation(settings => settings.InterfaceLanguage).AutoInclude();
         }
     }

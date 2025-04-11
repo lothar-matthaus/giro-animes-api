@@ -1,4 +1,5 @@
 ﻿using Giro.Animes.Application.DTOs.Base;
+using Giro.Animes.Application.DTOs.Simple;
 using Giro.Animes.Domain.Enums;
 
 namespace Giro.Animes.Application.DTOs.Detailed
@@ -13,7 +14,7 @@ namespace Giro.Animes.Application.DTOs.Detailed
         /// <summary>
         /// Configurações da conta do usuário
         /// </summary>
-        public DetailedSettingsDTO Settings { get; private set; }
+        public SimpleSettingsDTO Settings { get; private set; }
 
         /// <summary>
         /// Status da conta do usuário
@@ -23,20 +24,41 @@ namespace Giro.Animes.Application.DTOs.Detailed
         /// <summary>
         /// Identificador do usuário
         /// </summary>
-        public DetailedUserDTO User { get; private set; }
+        public SimpleUserDTO User { get; private set; }
 
-        private DetailedAccountDTO(DetailedUserDTO user, string email, DetailedSettingsDTO settings, EnumDTO<AccountStatus> status, long? id, DateTime creationDate, DateTime updateDate)
-            : base(id, creationDate, updateDate)
+        /// <summary>
+        /// Construtor privado para garantir a construção pelo método fábrica Create
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="email"></param>
+        /// <param name="settings"></param>
+        /// <param name="status"></param>
+        /// <param name="user"></param>
+        /// <param name="creationDate"></param>
+        /// <param name="updateDate"></param>
+        private DetailedAccountDTO(long id, string email, SimpleSettingsDTO settings, EnumDTO<AccountStatus> status, SimpleUserDTO user, DateTime creationDate, DateTime updateDate) : 
+            base(id, creationDate, updateDate)
         {
             Email = email;
             Settings = settings;
-            User = user;
             Status = status;
+            User = user;
         }
 
-        public static DetailedAccountDTO Create(DetailedUserDTO user, string email, DetailedSettingsDTO settings, EnumDTO<AccountStatus> status, long? id, DateTime creationDate, DateTime updateDate)
+        /// <summary>
+        /// Método fábrica para criar uma instância de DetailedAccountDTO 
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="email"></param>
+        /// <param name="settings"></param>
+        /// <param name="status"></param>
+        /// <param name="user"></param>
+        /// <param name="creationDate"></param>
+        /// <param name="updateDate"></param>
+        /// <returns></returns>
+        public static DetailedAccountDTO Create(long id, string email, SimpleSettingsDTO settings, EnumDTO<AccountStatus> status, SimpleUserDTO user, DateTime creationDate, DateTime updateDate)
         {
-            return new DetailedAccountDTO(user, email, settings, status, id, creationDate, updateDate);
+            return new DetailedAccountDTO(id, email, settings, status, user, creationDate, updateDate);
         }
     }
 }

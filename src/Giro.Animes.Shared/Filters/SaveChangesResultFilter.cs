@@ -16,7 +16,6 @@ namespace Giro.Animes.Shared.Filters
         }
         public async Task OnResultExecutionAsync(ResultExecutingContext context, ResultExecutionDelegate next)
         {
-
             if (_dbContext.ChangeTracker.HasChanges() && !_notificationService.HasNotifications())
             {
                 _dbContext.SaveChanges();

@@ -21,14 +21,24 @@ namespace Giro.Animes.Application.Services
             _languageDomainService = languageDomainService;
         }
 
+        /// <summary>
+        /// Obtém uma conta e o usuário associado a ela pelo ID da conta
+        /// </summary>
+        /// <param name="accountId"></param>
+        /// <returns></returns>
         public async Task<DetailedAccountDTO> GetAccountAndUserByAccountIdAsync(long accountId)
         {
             Account account = await _domainService.GetAccountAndUserByAccountIdAsync(accountId);
-            DetailedAccountDTO userDTO = account?.Map(true);
+            DetailedAccountDTO accountDTO = account?.Map();
 
-            return userDTO;
+            return accountDTO;
         }
 
+        /// <summary>
+        /// Cria uma nova conta de usuário
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
         public async Task CreateAccountAsync(AccountCreateRequest request)
         {
             // Cria as tasks para obter o idioma da interface e os idiomas favoritos
