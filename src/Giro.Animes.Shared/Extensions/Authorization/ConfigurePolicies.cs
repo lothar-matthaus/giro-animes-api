@@ -16,26 +16,23 @@ namespace Giro.Animes.Shared.Extensions.Authorization
         {
             services.AddAuthorization(options =>
             {
-                options.AddPolicy(Policies.Animes.CAN_GET_ALL, policy =>
+                // Define as políticas dinamicamente
+                var policies = new Dictionary<string, string[]>
                 {
-                    policy.RequireClaim(Policies.CLAIM_NAME, Policies.Animes.CAN_GET_ALL);
-                });
+                        { Policies.Animes.CAN_GET_ALL, new[] { Policies.Animes.CAN_GET_ALL } },
+                        { Policies.Animes.CAN_GET_DETAIL, new[] { Policies.Animes.CAN_GET_ALL } }
+                };
 
-                options.AddPolicy(Policies.Animes.CAN_GET_DETAIL, policy =>
+                foreach (var (policyName, claims) in policies)
                 {
-                    policy.RequireClaim(Policies.CLAIM_NAME, Policies.Animes.CAN_GET_ALL);
-                });
-
-                // 
-                options.AddPolicy(Policies.Authors.CAN_GET_ALL, policy =>
-                {
-                    policy.RequireClaim(Policies.CLAIM_NAME, Policies.Authors.CAN_GET_ALL);
-                });
-
-                options.AddPolicy(Policies.Authors.CAN_GET_DETAIL, policy =>
-                {
-                    policy.RequireClaim(Policies.CLAIM_NAME, Policies.Authors.CAN_GET_DETAIL);
-                });
+                    options.AddPolicy(policyName, policy =>
+                    {
+                        foreach (var claim in claims)
+                        {
+                            policy.RequireClaim(Policies.CLAIM_NAME, claim);
+                        }
+                    });
+                }
             });
 
             return services;
