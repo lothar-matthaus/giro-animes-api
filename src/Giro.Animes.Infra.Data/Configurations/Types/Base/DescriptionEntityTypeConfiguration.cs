@@ -1,6 +1,4 @@
 ﻿using Giro.Animes.Domain.Entities;
-using Giro.Animes.Domain.Enums;
-using Giro.Animes.Infra.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 

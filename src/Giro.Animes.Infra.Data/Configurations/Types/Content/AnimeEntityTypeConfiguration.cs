@@ -15,13 +15,13 @@ namespace Giro.Animes.Infra.Data.Configurations.Types.Content
             base.Configure(builder);
 
             builder.ToTable(Tables.Content.ANIMES, Schemas.CONTENT);
+            builder.Property(ani => ani.Status).IsRequired().HasDefaultValue(AnimeStatus.ToBeReleased);
+            builder.Property(ani => ani.Views).IsRequired(true).HasDefaultValue(0);
+
             builder.HasOne(ani => ani.Studio).WithMany(studio => studio.Animes).HasForeignKey(anime => anime.StudioId).IsRequired();
             builder.HasMany(ani => ani.Titles).WithOne(title => title.Anime).HasForeignKey(title => title.AnimeId).IsRequired(true);
             builder.HasMany(ani => ani.Sinopses).WithOne(sinopse => sinopse.Anime).HasForeignKey(sinopse => sinopse.AnimeId).IsRequired(true);
             builder.HasMany(ani => ani.Screenshots).WithOne(screenshot => screenshot.Anime).HasForeignKey(title => title.AnimeId).IsRequired(true);
-
-            builder.Property(ani => ani.Status).IsRequired().HasDefaultValue(AnimeStatus.ToBeReleased);
-
             builder.HasMany(ani => ani.Genres).WithMany(gen => gen.Animes).UsingEntity<AnimesGenres>(
             Tables.Content.ANIMES_GENRES, // Nome da tabela de junção
             animesGenres => animesGenres.HasOne(animesGenres => animesGenres.Genre)

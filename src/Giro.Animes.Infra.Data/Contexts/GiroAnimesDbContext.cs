@@ -1,7 +1,4 @@
-﻿using Giro.Animes.Domain.Entities;
-using Giro.Animes.Domain.Entities.Audit;
-using Giro.Animes.Domain.Entities.Base;
-using Giro.Animes.Domain.Enums;
+﻿using Giro.Animes.Domain.Entities.Audit;
 using Giro.Animes.Infra.Data.Configurations.Types.Common;
 using Giro.Animes.Infra.Data.Configurations.Types.Content;
 using Giro.Animes.Infra.Data.Configurations.Types.Management;
@@ -69,15 +66,17 @@ namespace Giro.Animes.Infra.Data.Contexts
                                      e.State == EntityState.Deleted))
             {
                 // Aqui você pode montar os dados que deseja registrar
-                var auditEntry = AuditLog.Create(
 
-                    entry.Entity.GetType().Name,
-                    entry.State.ToString(),
-                    _user.Id, // Você pode obter isso via DI ou HttpContext
-                    (entry.State != EntityState.Deleted || entry.State != EntityState.Modified) ? null : JsonSerializer.Serialize(entry.CurrentValues.ToObject())
-             );
+                if (entry.State == EntityState.Deleted)
+                {
+                    var auditEntry = AuditLog.Create(
+                        entry.Entity.GetType().Name,
+                        entry.State.ToString(),
+                        _user.Id,
+                        JsonSerializer.Serialize(entry.Entity));
 
-                auditEntries.Add(auditEntry);
+                    auditEntries.Add(auditEntry);
+                }
             }
 
             this.AddRange(auditEntries);
