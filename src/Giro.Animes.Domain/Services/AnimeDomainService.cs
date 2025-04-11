@@ -3,6 +3,7 @@ using Giro.Animes.Domain.Interfaces.Pagination;
 using Giro.Animes.Domain.Interfaces.Repositories;
 using Giro.Animes.Domain.Interfaces.Services;
 using Giro.Animes.Domain.Services.Base;
+using Giro.Animes.Domain.ValueObjects;
 
 namespace Giro.Animes.Domain.Services
 {
@@ -21,5 +22,18 @@ namespace Giro.Animes.Domain.Services
         {
             return await _repository.GetByIdAsync(id, cancellationToken);
         }
-    }
+
+        public async Task<EntityResult<Anime>> IncrementView(long id, CancellationToken cancellationToken)
+        {
+            Anime anime = await _repository.GetByIdAsync(id, cancellationToken);
+
+            if (anime is null)
+                return EntityResult<Anime>.Create(null, new List<Notification> { Notification.Create("Anime", "", "Anime não encontrado") });
+
+            anime.IncrementView();
+            _repository.Update(anime);
+
+            return EntityResult<Anime>.Create(anime, null);
+        }
+}
 }

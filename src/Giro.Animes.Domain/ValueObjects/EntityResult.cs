@@ -3,7 +3,7 @@
     public record EntityResult<TEntity>
     {
         public TEntity Entity { get; private set; }
-        public IEnumerable<Notification> Errors { get; private set; } = new List<Notification>();
+        public IEnumerable<Notification> Errors { get; private set; }
         public bool IsValid => !Errors.Any();
 
         /// <summary>
@@ -13,7 +13,7 @@
         public EntityResult(TEntity entity, IEnumerable<Notification> errors)
         {
             Entity = entity;
-            Errors = errors;
+            Errors = errors ?? new List<Notification>();
         }
 
         /// <summary>

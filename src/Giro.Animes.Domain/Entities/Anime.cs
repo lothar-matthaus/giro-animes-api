@@ -61,6 +61,11 @@ namespace Giro.Animes.Domain.Entities
         public IEnumerable<User> Users { get; private set; }
 
         /// <summary>
+        /// Número de visualizações do anime
+        /// </summary>
+        public long Views { get; private set; } = 0;
+
+        /// <summary>
         /// Indica o status do anime 
         /// </summary>
         public AnimeStatus Status { get; private set; }
@@ -101,5 +106,8 @@ namespace Giro.Animes.Domain.Entities
         public static Anime Create(IEnumerable<AnimeTitle> titles, IEnumerable<Cover> covers, IEnumerable<Author> authors, IEnumerable<AnimeSinopse> sinopses, IEnumerable<Genre> genres, Studio studio, AnimeStatus status)
             => new(titles, covers, authors, sinopses, genres, studio, status);
 
+        #region Behaviors
+        public void IncrementView() => ++Views;
+        #endregion
     }
 }
