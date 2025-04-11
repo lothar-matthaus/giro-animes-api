@@ -3,6 +3,7 @@ using Giro.Animes.Infra.Data.Extensions.IoC;
 using Giro.Animes.Infra.Extensions;
 using Giro.Animes.Infra.Extensions.IoC;
 using Giro.Animes.Infra.Extensions.IoC.Security;
+using Giro.Animes.Shared.Extensions.Authorization;
 using Giro.Animes.Shared.Extensions.Swaggger;
 using Giro.Animes.Shared.Filters;
 using Giro.Animes.Shared.Middleware;
@@ -40,6 +41,7 @@ builder.Services.AddSwaggerConfig(builder.Configuration);
 // Configura a autenticação JWT
 builder.Services.AddJwtAuthorization(builder.Configuration);
 
+builder.Services.AddAuthorizationWithPolicies();
 #region Contexts
 builder.Services.AddGiroAnimesDbContext();
 #endregion

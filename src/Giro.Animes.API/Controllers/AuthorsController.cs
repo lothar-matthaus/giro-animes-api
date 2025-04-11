@@ -6,6 +6,7 @@ using Giro.Animes.Application.Requests;
 using Giro.Animes.Application.Responses;
 using Giro.Animes.Application.Responses.Base;
 using Giro.Animes.Presentation.Controllers;
+using Giro.Animes.Shared.Constants;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Net;
@@ -15,7 +16,7 @@ namespace Giro.Animes.API.Controllers
     public class AuthorsController(IAuthorService applicationService) : GiroAnimesBaseController<IAuthorService>(applicationService)
     {
         [HttpGet("{id}")]
-        [Authorize()]
+        [Authorize(Policy = Policies.Authors.CAN_GET_DETAIL)]
         [ProducesResponseType<DetailResponse<DetailedAuthorDTO>>((int)HttpStatusCode.OK)]
         [ProducesResponseType<ErrorResponse>((int)HttpStatusCode.InternalServerError)]
         public async Task<IActionResult> GetAuthorById([FromRoute] long id)
@@ -25,8 +26,8 @@ namespace Giro.Animes.API.Controllers
         }
 
 
-        [HttpGet()]
-        [Authorize]
+        [HttpGet]
+        [Authorize(Policy = Policies.Authors.CAN_GET_ALL)]
         [ProducesResponseType<DetailResponse<DetailedAuthorDTO>>((int)HttpStatusCode.OK)]
         [ProducesResponseType<ApiResponse>((int)HttpStatusCode.InternalServerError)]
         [ProducesResponseType<ApiResponse>((int)HttpStatusCode.BadRequest)]
