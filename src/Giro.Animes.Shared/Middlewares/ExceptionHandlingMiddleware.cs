@@ -27,7 +27,7 @@ namespace Giro.Animes.Shared.Middleware
                         await HandleExceptions(context, "Ocorreu um erro ao salvar as alterações no banco de dados.", HttpStatusCode.InternalServerError);
                         break;
                     case ArgumentException:
-                        await HandleExceptions(context, ex.Message, HttpStatusCode.BadRequest);
+                        await HandleExceptions(context, "O valor do argumento não pode ser nulo ou vazio.", HttpStatusCode.BadRequest);
                         break;
                     case NotImplementedException:
                         await HandleExceptions(context, "O recurso buscado é inexistente ou ainda não foi implementado.", HttpStatusCode.NotImplemented);
