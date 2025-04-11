@@ -1,7 +1,7 @@
 ﻿using Giro.Animes.Application.DTOs.Detailed;
 using Giro.Animes.Domain.Entities;
 
-namespace Giro.Animes.Application.Mappers.Detailed
+namespace Giro.Animes.Application.Mappers
 {
     /// <summary>
     /// Classe responsável por mapear a entidade Biography para o DTO BiographyDTO.

@@ -3,7 +3,6 @@ using Giro.Animes.Application.DTOs.Detailed;
 using Giro.Animes.Application.Interfaces.Enumerations;
 using Giro.Animes.Application.Interfaces.Services;
 using Giro.Animes.Application.Mappers;
-using Giro.Animes.Application.Mappers.Detailed;
 using Giro.Animes.Application.Services.Base;
 using Giro.Animes.Domain.Entities;
 using Giro.Animes.Domain.Interfaces.Pagination;

@@ -1,7 +1,8 @@
 ﻿using Giro.Animes.Application.DTOs.Detailed;
+using Giro.Animes.Application.DTOs.Simple;
 using Giro.Animes.Domain.Entities;
 
-namespace Giro.Animes.Application.Mappers.Detailed
+namespace Giro.Animes.Application.Mappers
 {
     /// <summary>
     /// Mapeador de títulos de episódios.
@@ -27,6 +28,28 @@ namespace Giro.Animes.Application.Mappers.Detailed
         public static IEnumerable<DetailedEpisodeTitleDTO> Map(this IEnumerable<EpisodeTitle> episodeTitles)
         {
             IEnumerable<DetailedEpisodeTitleDTO> result = episodeTitles?.Select(Map);
+            return result;
+        }
+
+        /// <summary>
+        /// Mapeia um título de episódio para um DTO simples.
+        /// </summary>
+        /// <param name="episodeTitle"></param>
+        /// <returns></returns>
+        public static SimpleEpisodeTitleDTO MapSimple(this EpisodeTitle episodeTitle)
+        {
+            SimpleEpisodeTitleDTO simpleEpisodeTitleDTO = SimpleEpisodeTitleDTO.Create(episodeTitle.Name, episodeTitle.Language.MapSimple(), episodeTitle.Id, episodeTitle.EpisodeId);
+            return simpleEpisodeTitleDTO;
+        }
+
+        /// <summary>
+        /// Mapeia uma coleção de títulos de episódios para uma coleção de DTOs simples.
+        /// </summary>
+        /// <param name="episodeTitles"></param>
+        /// <returns></returns>
+        public static IEnumerable<SimpleEpisodeTitleDTO> MapSimple(this IEnumerable<EpisodeTitle> episodeTitles)
+        {
+            IEnumerable<SimpleEpisodeTitleDTO> result = episodeTitles?.Select(MapSimple);
             return result;
         }
     }

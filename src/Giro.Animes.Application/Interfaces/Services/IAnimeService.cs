@@ -10,5 +10,6 @@ namespace Giro.Animes.Application.Interfaces.Services
     {
         Task<DetailedAnimeDTO> GetByIdAsync(long id, CancellationToken cancellationToken);
         Task<IPagedEnumerable<SimpleAnimeDTO>> GetAllPagedAsync(IPagination pagination, CancellationToken cancellationToken);
+        Task IncrementViewAsync(long id, CancellationToken requestAborted);
     }
 }

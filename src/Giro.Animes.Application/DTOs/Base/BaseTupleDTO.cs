@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Giro.Animes.Application.DTOs.Base
+﻿namespace Giro.Animes.Application.DTOs.Base
 {
     /// <summary>
     /// Classe base para DTOs de tuplas.
@@ -21,7 +15,7 @@ namespace Giro.Animes.Application.DTOs.Base
         /// </summary>
         /// <param name="id"></param>
         /// <param name="name"></param>
-        protected BaseTupleDTO(long id, string name) :base(id)
+        protected BaseTupleDTO(long id, string name) : base(id)
         {
             Name = name;
         }

@@ -2,36 +2,36 @@
 
 namespace Giro.Animes.Application.DTOs.Simple
 {
-    public class SimpleAnimeDescriptionDTO : SimpleDescriptionDTO
+    public class SimpleAnimeSinopse : SimpleDescriptionDTO
     {
         /// <summary>
-        /// ID do anime associado a esta descrição.
+        /// Identificador do anime
         /// </summary>
         public long AnimeId { get; private set; }
 
         /// <summary>
-        /// Construtor privado para garantir que o objeto só pode ser criado através do método de fábrica.
+        /// Cria uma nova instância de <see cref="SimpleAnimeSinopse"/>
         /// </summary>
         /// <param name="id"></param>
         /// <param name="animeId"></param>
         /// <param name="description"></param>
         /// <param name="language"></param>
-        private SimpleAnimeDescriptionDTO(long id, long animeId, string description, SimpleLanguageDTO language) : base(description, language, id)
+        private SimpleAnimeSinopse(long id, long animeId, string description, SimpleLanguageDTO language) : base(description, language, id)
         {
             AnimeId = animeId;
         }
 
         /// <summary>
-        /// Método de fábrica para criar um SimpleAnimeDescriptionDTO.
+        /// Cria uma nova instância de <see cref="SimpleAnimeSinopse"/>
         /// </summary>
         /// <param name="id"></param>
         /// <param name="animeId"></param>
         /// <param name="description"></param>
         /// <param name="language"></param>
         /// <returns></returns>
-        public static SimpleAnimeDescriptionDTO Create(long id, long animeId, string description, SimpleLanguageDTO language)
+        public static SimpleAnimeSinopse Create(long id, long animeId, string description, SimpleLanguageDTO language)
         {
-            return new SimpleAnimeDescriptionDTO(id, animeId, description, language);
+            return new SimpleAnimeSinopse(id, animeId, description, language);
         }
     }
 }

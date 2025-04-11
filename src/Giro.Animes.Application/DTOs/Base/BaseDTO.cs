@@ -5,7 +5,7 @@
         public DateTime CreationDate { get; private set; }
         public DateTime UpdateDate { get; private set; }
 
-        protected BaseDTO(long? id, DateTime creationDate, DateTime updateDate) :base(id)
+        protected BaseDTO(long? id, DateTime creationDate, DateTime updateDate) : base(id)
         {
             CreationDate = creationDate;
             UpdateDate = updateDate;

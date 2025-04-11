@@ -1,6 +1,6 @@
 ﻿using Giro.Animes.Application.DTOs.Base;
 
-namespace Giro.Animes.Application.Mappers.Detailed
+namespace Giro.Animes.Application.Mappers
 {
     /// <summary>
     /// Classe responsável por mapear Enumerações para EnumDTO

@@ -3,13 +3,14 @@ using Giro.Animes.Application.DTOs.Detailed;
 using Giro.Animes.Application.DTOs.Simple;
 using Giro.Animes.Application.Interfaces.Enumerations;
 using Giro.Animes.Application.Interfaces.Services;
-using Giro.Animes.Application.Mappers.Detailed;
-using Giro.Animes.Application.Mappers.Simple;
+using Giro.Animes.Application.Mappers;
 using Giro.Animes.Application.Services.Base;
 using Giro.Animes.Domain.Entities;
 using Giro.Animes.Domain.Interfaces.Pagination;
 using Giro.Animes.Domain.Interfaces.Services;
+using Giro.Animes.Domain.ValueObjects;
 using Giro.Animes.Infra.Interfaces;
+using System.Runtime.InteropServices;
 
 namespace Giro.Animes.Application.Services
 {
@@ -44,6 +45,16 @@ namespace Giro.Animes.Application.Services
             Anime anime = await _domainService.GetByIdAsync(id, cancellationToken);
 
             return anime.Map(); ;
+        }
+
+        public async Task IncrementViewAsync(long id, CancellationToken cancellationToken)
+        {
+            EntityResult<Anime> result = await _domainService.IncrementView(id, cancellationToken);
+
+            if (!result.IsValid)
+            {
+                await _notificationService.AddNotification(result.Errors);
+            }
         }
     }
 }
