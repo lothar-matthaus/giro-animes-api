@@ -19,6 +19,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddControllers(options =>
 {
     options.Filters.Add<NotificationResultFilter>();
+    options.Filters.Add<SaveChangesResultFilter>();
 }).AddJsonOptions(options =>
 {
     options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles;

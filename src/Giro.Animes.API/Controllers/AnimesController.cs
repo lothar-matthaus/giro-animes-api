@@ -39,10 +39,18 @@ namespace Giro.Animes.API.Controllers
         [HttpGet("{id:long}")]
         [ProducesResponseType<DetailedAnimeDTO>((int)HttpStatusCode.OK)]
         [ProducesResponseType<ErrorResponse>((int)HttpStatusCode.InternalServerError)]
-        public async Task<IActionResult> Get([FromRoute]long id)
+        public async Task<IActionResult> Get([FromRoute] long id)
         {
             DetailedAnimeDTO anime = await _applicationService.GetByIdAsync(id, HttpContext.Request.HttpContext.RequestAborted);
             return await Ok(anime, Messages.Response.Anime.ANIME_FOUND, Messages.Response.Anime.ANIME_NOT_FOUND);
+        }
+
+        [HttpPatch("{id:long}/view")]
+        [ProducesResponseType<string>((int)HttpStatusCode.OK)]
+        public async Task<IActionResult> IncrementView([FromRoute] long id)
+        {
+            await _applicationService.IncrementViewAsync(id, HttpContext.Request.HttpContext.RequestAborted);
+            return StatusCode((int) HttpStatusCode.OK, Messages.Response.SUCCESS);
         }
     }
 }
