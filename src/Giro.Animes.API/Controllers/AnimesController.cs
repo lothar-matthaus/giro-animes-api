@@ -5,7 +5,10 @@ using Giro.Animes.Application.Interfaces.Enumerations;
 using Giro.Animes.Application.Interfaces.Services;
 using Giro.Animes.Application.Requests;
 using Giro.Animes.Application.Responses;
+using Giro.Animes.Domain.Common.Filters;
 using Giro.Animes.Presentation.Controllers;
+using Giro.Animes.Shared.Constants;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Net;
 
@@ -25,9 +28,10 @@ namespace Giro.Animes.API.Controllers
         [HttpGet]
         [ProducesResponseType<IPagedEnumerable<SimpleAnimeDTO>>((int)HttpStatusCode.OK)]
         [ProducesResponseType<ErrorResponse>((int)HttpStatusCode.InternalServerError)]
-        public async Task<IActionResult> GetAllPaged([FromQuery] Pagination pagination)
+        [Authorize(Policy = Policies.Animes.CAN_GET_ALL)]
+        public async Task<IActionResult> GetAllPaged([FromQuery] Pagination<AnimeFilter> pagination)
         {
-            IPagedEnumerable<SimpleAnimeDTO> pagedResult = await _applicationService.GetAllPagedAsync(pagination, HttpContext.Request.HttpContext.RequestAborted);
+            IPagedEnumerable<SimpleAnimeDTO> pagedResult = await _applicationService.GetAllPagedAsync(pagination, HttpContext.RequestAborted);
             return await Ok(pagedResult, pagination, Messages.Response.Anime.ANIMES_FOUND, Messages.Response.Anime.ANIMES_NOT_FOUND);
         }
 
@@ -39,6 +43,7 @@ namespace Giro.Animes.API.Controllers
         [HttpGet("{id:long}")]
         [ProducesResponseType<DetailedAnimeDTO>((int)HttpStatusCode.OK)]
         [ProducesResponseType<ErrorResponse>((int)HttpStatusCode.InternalServerError)]
+        [Authorize(Policy = Policies.Animes.CAN_GET_DETAIL)]
         public async Task<IActionResult> Get([FromRoute] long id)
         {
             DetailedAnimeDTO anime = await _applicationService.GetByIdAsync(id, HttpContext.Request.HttpContext.RequestAborted);

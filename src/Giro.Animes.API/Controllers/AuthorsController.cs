@@ -5,6 +5,7 @@ using Giro.Animes.Application.Interfaces.Services;
 using Giro.Animes.Application.Requests;
 using Giro.Animes.Application.Responses;
 using Giro.Animes.Application.Responses.Base;
+using Giro.Animes.Domain.Common.Filters;
 using Giro.Animes.Presentation.Controllers;
 using Giro.Animes.Shared.Constants;
 using Microsoft.AspNetCore.Authorization;
@@ -31,9 +32,9 @@ namespace Giro.Animes.API.Controllers
         [ProducesResponseType<DetailResponse<DetailedAuthorDTO>>((int)HttpStatusCode.OK)]
         [ProducesResponseType<ApiResponse>((int)HttpStatusCode.InternalServerError)]
         [ProducesResponseType<ApiResponse>((int)HttpStatusCode.BadRequest)]
-        public async Task<IActionResult> GetAllPaged([FromQuery] Pagination param)
+        public async Task<IActionResult> GetAllPaged([FromQuery] Pagination<AuthorFilter> param)
         {
-            IPagedEnumerable<DetailedAuthorDTO> authors = await _applicationService.GetAllAuthorsPagedAsync(param);
+            IPagedEnumerable<DetailedAuthorDTO> authors = await _applicationService.GetAllAuthorsPagedAsync(param, HttpContext.RequestAborted);
             return await Ok(authors, param, Messages.Response.Author.AUTHORS_FOUND, Messages.Response.Author.AUTHORS_NOT_FOUND);
         }
     }
