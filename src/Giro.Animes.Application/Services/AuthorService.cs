@@ -4,6 +4,7 @@ using Giro.Animes.Application.Interfaces.Enumerations;
 using Giro.Animes.Application.Interfaces.Services;
 using Giro.Animes.Application.Mappers;
 using Giro.Animes.Application.Services.Base;
+using Giro.Animes.Domain.Common.Filters;
 using Giro.Animes.Domain.Entities;
 using Giro.Animes.Domain.Interfaces.Pagination;
 using Giro.Animes.Domain.Interfaces.Services;
@@ -18,9 +19,9 @@ namespace Giro.Animes.Application.Services
         {
         }
 
-        public async Task<IPagedEnumerable<DetailedAuthorDTO>> GetAllAuthorsPagedAsync(IPagination param)
+        public async Task<IPagedEnumerable<DetailedAuthorDTO>> GetAllAuthorsPagedAsync(IPagination<AuthorFilter> param, CancellationToken cancellationToken)
         {
-            (IEnumerable<Author> authors, int count) = await _domainService.GetAllAuthorsPagedAsync(param);
+            (IEnumerable<Author> authors, int count) = await _domainService.GetAllAuthorsPagedAsync(param, cancellationToken);
             IPagedEnumerable<DetailedAuthorDTO> pagedEnumerable = PagedEnumerable<DetailedAuthorDTO>.Create(authors?.Map(), param.Page, param.RowsPerPage, count);
 
             return pagedEnumerable;

@@ -22,6 +22,7 @@
                 public const string ACCOUNTS_NOT_FOUND = "Nenhuma conta encontrada";
                 public const string ACCOUNT_CREATED = "Conta criada com sucesso";
                 public const string ACCOUNT_NOT_CREATED = "Não foi possível criar a conta.";
+                public const string ACCOUNT_UPDATED = "Conta atualizada com sucesso";
             }
 
             public static class Auth

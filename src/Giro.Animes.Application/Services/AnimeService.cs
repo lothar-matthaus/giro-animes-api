@@ -5,6 +5,7 @@ using Giro.Animes.Application.Interfaces.Enumerations;
 using Giro.Animes.Application.Interfaces.Services;
 using Giro.Animes.Application.Mappers;
 using Giro.Animes.Application.Services.Base;
+using Giro.Animes.Domain.Common.Filters;
 using Giro.Animes.Domain.Entities;
 using Giro.Animes.Domain.Interfaces.Pagination;
 using Giro.Animes.Domain.Interfaces.Services;
@@ -26,7 +27,7 @@ namespace Giro.Animes.Application.Services
         /// <param name="pagination"></param>
         /// <param name="cancellationToken"></param>
         /// <returns></returns>
-        public async Task<IPagedEnumerable<SimpleAnimeDTO>> GetAllPagedAsync(IPagination pagination, CancellationToken cancellationToken)
+        public async Task<IPagedEnumerable<SimpleAnimeDTO>> GetAllPagedAsync(IPagination<AnimeFilter> pagination, CancellationToken cancellationToken)
         {
             (IEnumerable<Anime> animes, int totalCount) = await _domainService.GetAllPagedAsync(pagination, cancellationToken);
             IPagedEnumerable<SimpleAnimeDTO> result = PagedEnumerable<SimpleAnimeDTO>.Create(animes?.MapSimple(), pagination.Page, pagination.RowsPerPage, totalCount);

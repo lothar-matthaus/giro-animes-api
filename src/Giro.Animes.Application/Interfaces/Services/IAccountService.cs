@@ -1,5 +1,6 @@
 ﻿using Giro.Animes.Application.DTOs.Detailed;
 using Giro.Animes.Application.Interfaces.Services.Base;
+using Giro.Animes.Application.Requests.Account;
 using Giro.Animes.Application.Requests.User;
 
 namespace Giro.Animes.Application.Interfaces.Services
@@ -8,5 +9,6 @@ namespace Giro.Animes.Application.Interfaces.Services
     {
         Task<DetailedAccountDTO> GetAccountAndUserByAccountIdAsync(long accountId);
         Task CreateAccountAsync(AccountCreateRequest request);
+        Task UpdateAccountAsync(AccountUpdateRequest request, CancellationToken cancellationToken);  
     }
 }

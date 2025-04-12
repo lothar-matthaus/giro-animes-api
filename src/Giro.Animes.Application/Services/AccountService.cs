@@ -1,6 +1,7 @@
 ﻿using Giro.Animes.Application.DTOs.Detailed;
 using Giro.Animes.Application.Interfaces.Services;
 using Giro.Animes.Application.Mappers;
+using Giro.Animes.Application.Requests.Account;
 using Giro.Animes.Application.Requests.User;
 using Giro.Animes.Application.Services.Base;
 using Giro.Animes.Domain.Entities;
@@ -21,6 +22,7 @@ namespace Giro.Animes.Application.Services
             _languageDomainService = languageDomainService;
         }
 
+        /// TODO: Alterar assinatura para buscar por user ID, uma vez que o account ID pode ser alterado durante a requisição. Utilizar o Id, oriundo do ApplicationUser do JWT
         /// <summary>
         /// Obtém uma conta e o usuário associado a ela pelo ID da conta
         /// </summary>
@@ -67,6 +69,18 @@ namespace Giro.Animes.Application.Services
                 await _notificationService.AddNotification(resultAccount.Errors);
                 return;
             }
+        }
+
+        /// <summary>
+        /// Atualiza os dados da conta do usuário
+        /// </summary>
+        /// <param name="request"></param>
+        /// <param name="cancellationToken"></param>
+        /// <returns></returns>
+        /// <exception cref="NotImplementedException"></exception>
+        public Task UpdateAccountAsync(AccountUpdateRequest request, CancellationToken cancellationToken)
+        {
+            throw new NotImplementedException();
         }
     }
 }
