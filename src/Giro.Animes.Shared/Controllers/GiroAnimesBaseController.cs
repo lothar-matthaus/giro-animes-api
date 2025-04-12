@@ -3,6 +3,7 @@ using Giro.Animes.Application.Interfaces.Enumerations;
 using Giro.Animes.Application.Interfaces.Services.Base;
 using Giro.Animes.Application.Requests;
 using Giro.Animes.Application.Responses;
+using Giro.Animes.Domain.Common.Filters;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Net;
@@ -36,7 +37,7 @@ namespace Giro.Animes.Presentation.Controllers
             });
         }
 
-        public async Task<IActionResult> Ok<TData>(IPagedEnumerable<TData> data, Pagination pagination, string resultMessage, string emptyMessage) where TData : BaseSimpleDTO
+        public async Task<IActionResult> Ok<TData, TFilter>(IPagedEnumerable<TData> data, Pagination<TFilter> pagination, string resultMessage, string emptyMessage) where TData : BaseSimpleDTO where TFilter : BaseFilter
         {
             if (data is null || !data.Any())
             {
