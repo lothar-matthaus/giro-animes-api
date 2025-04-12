@@ -51,21 +51,6 @@ namespace Giro.Animes.Infra.Data.Repositories.Base
         }
 
         /// <summary>
-        /// Get all entities paged
-        /// </summary>
-        /// <param name="param"></param>
-        /// <param name="cancellationToken"></param>
-        /// <returns></returns>
-        public async Task<(IEnumerable<TEntity>, int)> GetAllPagedAsync(IPagination param, CancellationToken cancellationToken)
-        {
-            IQueryable<TEntity> query = _dbSet.AsQueryable();
-            int count = query.Count();
-            IEnumerable<TEntity> result = await query.OrderBy(entity => entity.Id).Skip((param.Page - 1) * param.RowsPerPage).Take(param.RowsPerPage).ToListAsync(cancellationToken);
-
-            return (result, count);
-        }
-
-        /// <summary>
         /// Get an entity by id
         /// </summary>
         /// <param name="id"></param>
