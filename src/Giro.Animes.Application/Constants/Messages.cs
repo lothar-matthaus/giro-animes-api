@@ -23,6 +23,9 @@
                 public const string ACCOUNT_CREATED = "Conta criada com sucesso";
                 public const string ACCOUNT_NOT_CREATED = "Não foi possível criar a conta.";
                 public const string ACCOUNT_UPDATED = "Conta atualizada com sucesso";
+                public const string PASSWORD_UPDATED = "Senha atualizada com sucesso";
+                public const string SETTINGS_UPDATED = "Configurações atualizadas com sucesso";
+                public const string SETTINGS_NOT_UPDATED = "Não foi possível atualizar as configurações";
             }
 
             public static class Auth
@@ -38,6 +41,14 @@
                 public const string ANIMES_FOUND = "Animes encontrados com sucesso";
                 public const string ANIMES_NOT_FOUND = "Nenhum anime encontrado";
                 public const string ANIME_CREATED = "Anime criado com sucesso";
+            }
+
+            public static class Language
+            {
+                public const string LANGUAGE_NOT_FOUND = "Idioma não encontrado";
+                public const string LANGUAGE_FOUND = "Idioma encontrado com sucesso";
+                public const string LANGUAGES_FOUND = "Idiomas encontrados com sucesso";
+                public const string LANGUAGES_NOT_FOUND = "Nenhum idioma encontrado";
             }
         }
     }

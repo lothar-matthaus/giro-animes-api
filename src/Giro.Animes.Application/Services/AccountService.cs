@@ -1,4 +1,6 @@
-﻿using Giro.Animes.Application.DTOs.Detailed;
+﻿using Giro.Animes.Application.Constants;
+using Giro.Animes.Application.DTOs.Detailed;
+using Giro.Animes.Application.DTOs.Simple;
 using Giro.Animes.Application.Interfaces.Services;
 using Giro.Animes.Application.Mappers;
 using Giro.Animes.Application.Requests.Account;
@@ -22,15 +24,14 @@ namespace Giro.Animes.Application.Services
             _languageDomainService = languageDomainService;
         }
 
-        /// TODO: Alterar assinatura para buscar por user ID, uma vez que o account ID pode ser alterado durante a requisição. Utilizar o Id, oriundo do ApplicationUser do JWT
         /// <summary>
         /// Obtém uma conta e o usuário associado a ela pelo ID da conta
         /// </summary>
         /// <param name="accountId"></param>
         /// <returns></returns>
-        public async Task<DetailedAccountDTO> GetAccountAndUserByAccountIdAsync(long accountId)
+        public async Task<DetailedAccountDTO> GetAccountAndUserByUserIdAsync(CancellationToken cancellationToken)
         {
-            Account account = await _domainService.GetAccountAndUserByAccountIdAsync(accountId);
+            Account account = await _domainService.GetAccountAndUserByUserIdAsync(_applicationUser.Id, cancellationToken);
             DetailedAccountDTO accountDTO = account?.Map();
 
             return accountDTO;
@@ -78,9 +79,101 @@ namespace Giro.Animes.Application.Services
         /// <param name="cancellationToken"></param>
         /// <returns></returns>
         /// <exception cref="NotImplementedException"></exception>
-        public Task UpdateAccountAsync(AccountUpdateRequest request, CancellationToken cancellationToken)
+        public async Task<SimpleAccountDTO> UpdateAccountAsync(AccountUpdateRequest request, CancellationToken cancellationToken)
         {
-            throw new NotImplementedException();
+            EntityResult<Account> result = await _domainService.UpdateAccountAsync(_applicationUser.Id, request.Email, cancellationToken);
+
+            if (!result.IsValid)
+            {
+                await _notificationService.AddNotification(result.Errors);
+                return null;
+            }
+
+            return result.Entity.MapSimple();
         }
+
+        /// <summary>
+        /// Atualiza a senha da conta do usuário
+        /// </summary>
+        /// <param name="request"></param>
+        /// <param name="cancellationToken"></param>
+        /// <returns></returns>
+        public async Task UpdatePasswordAsync(AccountPasswordUpdateRequest request, CancellationToken cancellationToken)
+        {
+            Password newPassword = Password.Create(request.Password, request.ConfirmPassword);
+
+            EntityResult<Account> result = await _domainService.UpdatePasswordAsync(_applicationUser.Id, request.CurrentPassword, request.Password, request.ConfirmPassword, cancellationToken);
+
+            if (result is null)
+            {
+                await _notificationService.AddNotification(Notification.Create("Account", "Id", Messages.Response.Account.ACCOUNTS_NOT_FOUND));
+                return;
+            }
+
+            if (!result.IsValid)
+            {
+                await _notificationService.AddNotification(result.Errors);
+                return;
+            }
+
+            return;
+        }
+        public async Task<SimpleSettingsDTO> UpdateSettingsAsync(AccountSettingsUpdateRequest request, CancellationToken cancellationToken)
+        {
+            EntityResult<Settings> updateResult = await _domainService.UpdateSettingsAsync(
+                _applicationUser.Id,
+                (Theme)request.Theme,
+                request.EnableApplicationNotifications,
+                request.EnableEmailNotifications,
+                request.InterfaceLanguage,
+                request.AudioLanguages,
+                request.SubtitleLanguages,
+                cancellationToken);
+
+            if (!updateResult.IsValid)
+            {
+                await _notificationService.AddNotification(updateResult.Errors);
+                return null;
+            }
+
+            // Retorna o DTO atualizado
+            return updateResult.Entity.MapSimple();
+        }
+
+        /// <summary>
+        /// Valida se o idioma existe
+        /// </summary>
+        /// <param name="language"></param>
+        /// <param name="context"></param>
+        /// <param name="errorMessage"></param>
+        /// <returns></returns>
+        private bool ValidateLanguage(Language language, string context, string errorMessage)
+        {
+            if (language is null)
+            {
+                _notificationService.AddNotification(Notification.Create(context, "Id", errorMessage));
+                return false;
+            }
+            return true;
+        }
+
+        /// <summary>
+        /// Valida se os idiomas existem
+        /// </summary>
+        /// <param name="languages"></param>
+        /// <param name="context"></param>
+        /// <param name="errorMessage"></param>
+        /// <returns></returns>
+        private bool ValidateLanguages(IEnumerable<Language> languages, string context, string errorMessage)
+        {
+            if (languages is null || !languages.Any())
+            {
+                _notificationService.AddNotification(Notification.Create(context, "Id", errorMessage));
+                return false;
+            }
+            return true;
+        }
+
+
     }
 }

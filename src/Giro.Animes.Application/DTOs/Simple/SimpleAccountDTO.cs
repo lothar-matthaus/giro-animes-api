@@ -41,7 +41,7 @@ namespace Giro.Animes.Application.DTOs.Simple
         /// <param name="id"></param>
         /// <param name="creationDate"></param>
         /// <param name="updateDate"></param>
-        private SimpleAccountDTO(SimpleUserDTO user, string email, SimpleSettingsDTO settings, EnumDTO<AccountStatus> status, long? id, DateTime creationDate, DateTime updateDate)
+        private SimpleAccountDTO(SimpleUserDTO user, string email, SimpleSettingsDTO settings, EnumDTO<AccountStatus> status, long? id)
             : base(id)
         {
             Email = email;
@@ -61,9 +61,9 @@ namespace Giro.Animes.Application.DTOs.Simple
         /// <param name="creationDate"></param>
         /// <param name="updateDate"></param>
         /// <returns></returns>
-        public static SimpleAccountDTO Create(SimpleUserDTO user, string email, SimpleSettingsDTO settings, EnumDTO<AccountStatus> status, long? id, DateTime creationDate, DateTime updateDate)
+        public static SimpleAccountDTO Create(SimpleUserDTO user, string email, SimpleSettingsDTO settings, EnumDTO<AccountStatus> status, long? id)
         {
-            return new SimpleAccountDTO(user, email, settings, status, id, creationDate, updateDate);
+            return new SimpleAccountDTO(user, email, settings, status, id);
         }
     }
 }

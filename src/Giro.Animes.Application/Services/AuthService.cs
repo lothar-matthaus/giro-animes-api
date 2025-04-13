@@ -40,17 +40,17 @@ namespace Giro.Animes.Application.Services
                 return null;
             }
 
-            if (!account.Email.IsConfirmed)
-            {
-                await _notificationService.AddNotification("A conta precisa de confirmação do e-mail cadastrado. Verifique sua caixa de entrada.", "Login", "Status");
-                return null;
-            }
-
             bool isValidPassword = account.Password.VerifyPassword(request.Password, account.Password.Salt);
 
             if (!isValidPassword)
             {
                 await _notificationService.AddNotification("Login ou senha inválidos", "Login", "Senha");
+                return null;
+            }
+
+            if (!account.IsConfirmed)
+            {
+                await _notificationService.AddNotification("A conta precisa ser confirmada. Verifique sua caixa de entrada.", "Login", "Status");
                 return null;
             }
 
