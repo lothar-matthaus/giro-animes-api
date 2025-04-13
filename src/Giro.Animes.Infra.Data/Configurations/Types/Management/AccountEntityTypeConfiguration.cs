@@ -19,6 +19,9 @@ namespace Giro.Animes.Infra.Data.Configurations.Types.Management
                 email.Property(email => email.Value).HasColumnName(nameof(Account.Email)).HasMaxLength(100).IsRequired(true);
             });
 
+            builder.HasOne(account => account.Settings).WithOne().HasForeignKey<Settings>(set => set.AccountId).IsRequired(true);
+
+
             builder.OwnsOne(account => account.Password, password =>
             {
                 password.Property(password => password.Value).HasColumnName(nameof(Password)).IsRequired(true).HasMaxLength(256);

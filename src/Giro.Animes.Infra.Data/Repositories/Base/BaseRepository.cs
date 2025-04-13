@@ -1,5 +1,4 @@
 ﻿using Giro.Animes.Domain.Entities.Base;
-using Giro.Animes.Domain.Interfaces.Pagination;
 using Giro.Animes.Domain.Interfaces.Repositories.Base;
 using Microsoft.EntityFrameworkCore;
 

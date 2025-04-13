@@ -35,6 +35,8 @@ namespace Giro.Animes.Infra.Data.Configurations.Types.Management
             {
                 join.ToTable(Tables.Content.WATCHLIST, Schemas.CONTENT);
             });
+
+            builder.Ignore(user => user.Account);
         }
     }
 }

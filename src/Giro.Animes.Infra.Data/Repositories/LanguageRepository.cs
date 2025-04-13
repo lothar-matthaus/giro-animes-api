@@ -3,7 +3,6 @@ using Giro.Animes.Domain.Interfaces.Repositories;
 using Giro.Animes.Infra.Data.Contexts;
 using Giro.Animes.Infra.Data.Repositories.Base;
 using Microsoft.EntityFrameworkCore;
-using System.Linq;
 
 namespace Giro.Animes.Infra.Data.Repositories
 {
@@ -33,7 +32,7 @@ namespace Giro.Animes.Infra.Data.Repositories
         /// <returns></returns>
         public async Task<Language> GetLanguageByIdAsync(long languageId, CancellationToken cancellationToken)
         {
-            return await _dbSet.FindAsync(languageId, cancellationToken);
+            return await _dbSet.FindAsync(languageId, cancellationToken).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -56,7 +55,7 @@ namespace Giro.Animes.Infra.Data.Repositories
         /// <returns></returns>
         public async Task<IEnumerable<Language>> GetLanguagesByIdsAsync(IEnumerable<long> ids, CancellationToken cancellationToken)
         {
-            return await _dbSet.Where(language => ids.Contains(language.Id.Value)).ToListAsync(cancellationToken);
+            return await _dbSet.Where(language => ids.Contains(language.Id.Value)).ToListAsync(cancellationToken).ConfigureAwait(false);
         }
     }
 }
