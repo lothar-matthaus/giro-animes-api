@@ -16,9 +16,19 @@ namespace Giro.Animes.Domain.Services
             return _repository.GetLanguageByCode(code);
         }
 
+        public async Task<Language> GetLanguageByIdAsync(long languageId, CancellationToken cancellationToken)
+        {
+            return await _repository.GetLanguageByIdAsync(languageId, cancellationToken);
+        }
+
         public Task<IEnumerable<Language>> GetLanguagesByCodes(params string[] languageCodes)
         {
             return _repository.GetLanguagesByCodes(languageCodes);
+        }
+
+        public async Task<IEnumerable<Language>> GetLanguagesByIdsAsync(IEnumerable<long> ids, CancellationToken cancellationToken)
+        {
+            return await _repository.GetLanguagesByIdsAsync(ids,cancellationToken );
         }
     }
 }

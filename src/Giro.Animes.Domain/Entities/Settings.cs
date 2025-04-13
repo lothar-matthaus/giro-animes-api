@@ -65,8 +65,8 @@ namespace Giro.Animes.Domain.Entities
             EnableApplicationNotifications = false;
             Theme = Theme.Light;
             InterfaceLanguage = interfaceLanguage;
-            AudioLanguages = audioLanguages.ToList();
-            SubtitleLanguages = subtitleLanguages.ToList();
+            AudioLanguages = [.. audioLanguages];
+            SubtitleLanguages = [.. subtitleLanguages];
 
         }
 
@@ -86,20 +86,15 @@ namespace Giro.Animes.Domain.Entities
         public void ChangeFavoriteTheme(Theme theme) => Theme = theme;
 
         /// <summary>
-        /// Alterna as notificações do usuário no aplicativo
+        /// Altera as configurações de notificação do usuário
         /// </summary>
-        public void ToggleNotifications() => EnableApplicationNotifications = !EnableApplicationNotifications;
-
-        /// <summary>
-        /// Alterna as notificações por e-mail do usuário 
-        /// </summary>
-        public void ToggleEmailNotifications() => EnableEmailNotifications = !EnableEmailNotifications;
-
-        /// <summary>
-        /// Altera o idioma favorito do usuário 
-        /// </summary>
-        /// <param name="language"></param>
-        public void ChangeFavoriteLanguage(Language interfaceLanguage) => InterfaceLanguage = interfaceLanguage;
+        /// <param name="enableApplicationNotifications"></param>
+        /// <param name="enableEmailNotifications"></param>
+        public void ChangeNotificationSettings(bool enableApplicationNotifications, bool enableEmailNotifications)
+        {
+            EnableApplicationNotifications = enableApplicationNotifications;
+            EnableEmailNotifications = enableEmailNotifications;
+        }
 
         /// <summary>
         /// Altera os idiomas de animes que devem aparecer para o usuário.
@@ -107,7 +102,7 @@ namespace Giro.Animes.Domain.Entities
         /// <param name="audioLanguages"></param>
         public void AddAudioLanguages(IEnumerable<Language> audioLanguages)
         {
-            AudioLanguages ??= new List<Language>();
+            AudioLanguages ??= [];
             foreach (var language in audioLanguages)
             {
                 if (!AudioLanguages.Contains(language))
@@ -123,7 +118,7 @@ namespace Giro.Animes.Domain.Entities
         /// <param name="subtitleLanguages">Lista de idiomas para as legendas</param>
         public void AddSubtitleLanguages(IEnumerable<Language> subtitleLanguages)
         {
-            AudioLanguages ??= new List<Language>();
+            AudioLanguages ??= [];
             foreach (var language in subtitleLanguages)
             {
                 if (!AudioLanguages.Contains(language))
@@ -141,6 +136,8 @@ namespace Giro.Animes.Domain.Entities
         {
             InterfaceLanguage = language;
         }
+
+       
         #endregion
     }
 }

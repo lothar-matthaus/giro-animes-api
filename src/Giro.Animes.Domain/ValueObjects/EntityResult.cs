@@ -13,7 +13,7 @@
         public EntityResult(TEntity entity, IEnumerable<Notification> errors)
         {
             Entity = entity;
-            Errors = errors ?? new List<Notification>();
+            Errors = errors ?? [];
         }
 
         /// <summary>

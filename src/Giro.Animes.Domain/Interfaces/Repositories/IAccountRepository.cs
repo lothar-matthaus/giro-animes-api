@@ -9,5 +9,6 @@ namespace Giro.Animes.Domain.Interfaces.Repositories
         Task<bool> EmailAlreadyExists(string email, CancellationToken cancellationToken);
         Task<Account> GetAccountByEmail(string email, CancellationToken cancellationToken);
         Task<Account> GetAccountByUsername(string username, CancellationToken cancellationToken);
+        Task<Account> GetAccountByUserIdAsync(long userId, CancellationToken cancellationToken);
     }
 }

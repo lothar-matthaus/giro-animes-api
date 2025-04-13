@@ -2,6 +2,17 @@
 {
     internal static class Message
     {
+        public static class Account
+        {
+            public const string ACCOUNT_NOT_FOUND = "Conta não encontrada";
+        }
+
+        public static class Language
+        {
+            public const string LANGUAGE_NOT_FOUND = "Idioma não encontrado";
+            public const string LANGUAGES_NOT_FOUND = "Idiomas não encontrados";
+        }
+
         internal static class Validation
         {
             public static class General
@@ -14,6 +25,7 @@
             {
                 public const string INVALID_PASSWORD = "A senha deve conter no mínimo 8 caracteres, incluindo pelo menos uma letra maiúscula, um número e um caractere especial (@, $, !, %, *, ?, &).";
                 public const string INVALID_PASSWORD_CONFIRM = "As senhas não conferem. Por favor, verifique se ambas as senhas são idênticas e tente novamente.";
+                public const string INVALID_CURRENT_PASSWORD = "A senha atual está incorreta. Por favor, verifique e tente novamente.";
             }
 
             public static class Anime

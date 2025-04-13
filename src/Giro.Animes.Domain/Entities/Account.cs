@@ -25,6 +25,11 @@ namespace Giro.Animes.Domain.Entities
         public Settings Settings { get; private set; }
 
         /// <summary>
+        /// Indica se a conta foi confirmada
+        /// </summary>
+        public bool IsConfirmed { get; private set; } = false;
+
+        /// <summary>
         /// Usuário atrelado a conta 
         /// </summary>
         public User User { get; private set; }
@@ -58,5 +63,26 @@ namespace Giro.Animes.Domain.Entities
         /// <param name="user"> </param>
         /// <returns></returns>
         public static Account Create(User user, Email email, Password password, Settings settings) => new Account(user, email, password, settings);
+
+        #region Behaviors
+        public void TryChangeEmail(Email email)
+        {
+            if (email.IsValid)
+                Email = email;
+        }
+
+        public void TryChangePassword(Password password)
+        {
+            if (password.IsValid)
+                Password = password;
+        }
+
+        internal void TryChangeSettings(Settings settings)
+        {
+            if (settings.IsValid)
+                Settings = settings;
+        }
+
+        #endregion
     }
 }

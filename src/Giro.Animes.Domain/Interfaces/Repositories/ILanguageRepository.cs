@@ -7,5 +7,7 @@ namespace Giro.Animes.Domain.Interfaces.Repositories
     {
         Task<Language> GetLanguageByCode(string code);
         Task<IEnumerable<Language>> GetLanguagesByCodes(params string[] codes);
+        Task<IEnumerable<Language>> GetLanguagesByIdsAsync(IEnumerable<long> ids, CancellationToken cancellationToken);
+        Task<Language> GetLanguageByIdAsync(long languageId, CancellationToken cancellationToken);
     }
 }
