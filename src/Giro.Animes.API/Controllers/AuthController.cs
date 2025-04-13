@@ -50,7 +50,7 @@ namespace Giro.Animes.API.Controllers
         [ProducesResponseType<NotificationResponse>((int)HttpStatusCode.BadRequest)]
         public async Task<IActionResult> Register([FromForm] AccountCreateRequest request)
         {
-            await _accountService.CreateAccountAsync(request);
+            await _accountService.CreateAccountAsync(request, HttpContext.RequestAborted);
             return StatusCode((int)HttpStatusCode.Created, Messages.Response.Account.ACCOUNT_CREATED);
         }
     }

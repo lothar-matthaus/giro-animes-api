@@ -8,7 +8,7 @@ namespace Giro.Animes.Domain.Interfaces.Services
     public interface IAccountDomainService : IDomainServiceBase
     {
         Task<Account> GetAccountAndUserByUserIdAsync(long userId, CancellationToken cancellationToken);
-        Task<EntityResult<Account>> CreateAccountAsync(Account account);
+        Task<EntityResult<Account>> CreateAccountAsync(string username, string email, string password, string confirmPassword, CancellationToken cancellationToken);
         Task<EntityResult<Account>> AuthByLoginAsync(string login, string password, CancellationToken cancellationToken);
         Task<EntityResult<Account>> UpdateAccountAsync(long userId, string email, CancellationToken cancellationToken);
         Task<EntityResult<Account>> UpdatePasswordAsync(long userId, string currentPassword, string newPassword, string newPasswordConfirm, CancellationToken cancellationToken);

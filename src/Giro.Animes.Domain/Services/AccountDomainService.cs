@@ -25,24 +25,56 @@ namespace Giro.Animes.Domain.Services
         /// </summary>
         /// <param name="account"></param>
         /// <returns></returns>
-        public async Task<EntityResult<Account>> CreateAccountAsync(Account account)
+        public async Task<EntityResult<Account>> CreateAccountAsync(string username, string email, string password, string confirmPassword, CancellationToken cancellationToken)
         {
-            bool usernameAlreadyExists = await _repository.UsernameAlreadyExists(account.User.Name, CancellationToken.None);
-            bool emailAlreadyExists = await _repository.EmailAlreadyExists(account.Email.Value, CancellationToken.None);
+            bool usernameAlreadyExists = await _repository.UsernameAlreadyExists(username, cancellationToken);
+            bool emailAlreadyExists = await _repository.EmailAlreadyExists(email, cancellationToken);
 
-            IEnumerable<Notification> notifications = new List<Notification>()
+            Language interfaceLanguage = await _languageRepository.GetLanguageByCode("en-US");
+            IEnumerable<Language> defaultLanguages = await _languageRepository.GetLanguagesByCodes("en-US");
+
+            List<Notification> notifications = new List<Notification>();
+
+            if(interfaceLanguage is null)
+            {
+                notifications.Add(Notification.Create(nameof(Account), "InterfaceLanguage", Message.Language.LANGUAGE_NOT_FOUND));
+            }
+
+            if (defaultLanguages is null || !defaultLanguages.Any())
+            {
+                notifications.Add(Notification.Create(nameof(Settings), "DefaultLanguages", Message.Language.LANGUAGES_NOT_FOUND));
+            }
+
+            if (notifications.Any())
+            {
+                return EntityResult<Account>.Create(null, notifications);
+            }
+
+            Email newEmail = Email.Create(email);
+            Password newPassword = Password.Create(password, confirmPassword);
+            User user = User.Create(username, UserRole.User, UserPlan.Free);
+            Settings settings = Settings.Create(interfaceLanguage, defaultLanguages, defaultLanguages);
+
+            Account account = Account.Create(user, newEmail, newPassword, settings);
+
+            notifications = new List<Notification>()
                         .Concat(account.User.IsValid ? [] : account.User.GetErrors())
                         .Concat(account.IsValid ? Enumerable.Empty<Notification>() : account.GetErrors())
                         .Concat(account.Password.IsValid ? Enumerable.Empty<Notification>() : account.Password.GetErrors())
                         .Concat(account.Email.IsValid ? Enumerable.Empty<Notification>() : account.Email.GetErrors())
+                        .Concat(account.IsValid ? Enumerable.Empty<Notification>() : account.GetErrors())
                         .Concat(usernameAlreadyExists ? new List<Notification> { Notification.Create(account.GetType().Name, "Username", Message.Validation.User.USERNAME_ALREADY_EXISTS) } : Enumerable.Empty<Notification>())
                         .Concat(emailAlreadyExists ? new List<Notification> { Notification.Create(account.GetType().Name, "Email", Message.Validation.User.EMAIL_ALREADY_EXISTS) } : Enumerable.Empty<Notification>())
                         .ToList();
 
-            await _repository.AddAsync(account, CancellationToken.None);
-            EntityResult<Account> result = EntityResult<Account>.Create(account, notifications);
+            if(notifications.Any())
+            {
+                return EntityResult<Account>.Create(account, notifications);
+            }
 
-            return result;
+            await _repository.AddAsync(account, cancellationToken);
+
+            return EntityResult<Account>.Create(account, notifications);
         }
 
         /// <summary>

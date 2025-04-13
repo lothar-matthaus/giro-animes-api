@@ -9,7 +9,7 @@ namespace Giro.Animes.Application.Interfaces.Services
     public interface IAccountService : IApplicationServiceBase
     {
         Task<DetailedAccountDTO> GetAccountAndUserByUserIdAsync(CancellationToken cancellationToken);
-        Task CreateAccountAsync(AccountCreateRequest request);
+        Task CreateAccountAsync(AccountCreateRequest request, CancellationToken cancellationToken);
         Task<SimpleAccountDTO> UpdateAccountAsync(AccountUpdateRequest request, CancellationToken cancellationToken);
         Task UpdatePasswordAsync(AccountPasswordUpdateRequest request, CancellationToken cancellationToken);
         Task<SimpleSettingsDTO> UpdateSettingsAsync(AccountSettingsUpdateRequest request, CancellationToken cancellationToken);

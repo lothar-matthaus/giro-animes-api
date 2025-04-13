@@ -41,27 +41,10 @@ namespace Giro.Animes.Application.Services
         /// </summary>
         /// <param name="request"></param>
         /// <returns></returns>
-        public async Task CreateAccountAsync(AccountCreateRequest request)
+        public async Task CreateAccountAsync(AccountCreateRequest request, CancellationToken cancellationToken)
         {
-            // Cria as tasks para obter o idioma da interface e os idiomas favoritos
-            Language interfaceLanguage = await _languageDomainService.GetLanguageByCode();
-            IEnumerable<Language> defaultLanguages = await _languageDomainService.GetLanguagesByCodes("en-US");
-
-            // Cria as configurações do usuário
-            Settings settings = Settings.Create(interfaceLanguage, defaultLanguages, defaultLanguages);
-
-            // Cria os objetos de valor para senha e email
-            Password password = Password.Create(request.Password, request.ConfirmPassword);
-            Email email = Email.Create(request.Email);
-
-            // Cria o usuário com status inativo
-            User user = User.Create(request.Username, UserRole.User, UserPlan.Free);
-
-            // Cria a conta do usuário
-            Account account = Account.Create(user, email, password, settings);
-
             // Chama o serviço de domínio para demais validações e persistência
-            EntityResult<Account> resultAccount = await _domainService.CreateAccountAsync(account);
+            EntityResult<Account> resultAccount = await _domainService.CreateAccountAsync(request.Username, request.Email, request.Password, request.ConfirmPassword, cancellationToken);
 
             if (!resultAccount.IsValid)
             {
@@ -69,6 +52,8 @@ namespace Giro.Animes.Application.Services
                 await _notificationService.AddNotification(resultAccount.Errors);
                 return;
             }
+
+            return;
         }
 
         /// <summary>
@@ -111,15 +96,7 @@ namespace Giro.Animes.Application.Services
         }
         public async Task<SimpleSettingsDTO> UpdateSettingsAsync(AccountSettingsUpdateRequest request, CancellationToken cancellationToken)
         {
-            EntityResult<Settings> updateResult = await _domainService.UpdateSettingsAsync(
-                _applicationUser.Id,
-                (Theme)request.Theme,
-                request.EnableApplicationNotifications,
-                request.EnableEmailNotifications,
-                request.InterfaceLanguage,
-                request.AudioLanguages,
-                request.SubtitleLanguages,
-                cancellationToken);
+            EntityResult<Settings> updateResult = await _domainService.UpdateSettingsAsync(_applicationUser.Id, (Theme)request.Theme, request.EnableApplicationNotifications, request.EnableEmailNotifications, request.InterfaceLanguage, request.AudioLanguages, request.SubtitleLanguages, cancellationToken);
 
             if (!updateResult.IsValid)
             {
@@ -130,41 +107,5 @@ namespace Giro.Animes.Application.Services
             // Retorna o DTO atualizado
             return updateResult.Entity.MapSimple();
         }
-
-        /// <summary>
-        /// Valida se o idioma existe
-        /// </summary>
-        /// <param name="language"></param>
-        /// <param name="context"></param>
-        /// <param name="errorMessage"></param>
-        /// <returns></returns>
-        private bool ValidateLanguage(Language language, string context, string errorMessage)
-        {
-            if (language is null)
-            {
-                _notificationService.AddNotification(Notification.Create(context, "Id", errorMessage));
-                return false;
-            }
-            return true;
-        }
-
-        /// <summary>
-        /// Valida se os idiomas existem
-        /// </summary>
-        /// <param name="languages"></param>
-        /// <param name="context"></param>
-        /// <param name="errorMessage"></param>
-        /// <returns></returns>
-        private bool ValidateLanguages(IEnumerable<Language> languages, string context, string errorMessage)
-        {
-            if (languages is null || !languages.Any())
-            {
-                _notificationService.AddNotification(Notification.Create(context, "Id", errorMessage));
-                return false;
-            }
-            return true;
-        }
-
-
     }
 }
