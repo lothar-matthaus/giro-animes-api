@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Giro.Animes.Shared.Constants
+﻿namespace Giro.Animes.Shared.Constants
 {
     public static class Policies
     {
@@ -29,11 +23,11 @@ namespace Giro.Animes.Shared.Constants
 
         public static class Account
         {
-            public const string CAN_GET_ALL = "Account:CanGetAll";
-            public const string CAN_GET_DETAIL = "Account:CanGetDetail";
-            public const string CAN_CREATE = "Account:CanCreate";
-            public const string CAN_UPDATE = "Account:CanUpdate";
-            public const string CAN_DELETE = "Account:CanDelete";
+            public const string CAN_GET_ALL = "Accounts:CanGetAll";
+            public const string CAN_GET_DETAIL = "Accounts:CanGetDetail";
+            public const string CAN_CREATE = "Accounts:CanCreate";
+            public const string CAN_UPDATE = "Accounts:CanUpdate";
+            public const string CAN_DELETE = "Accounts:CanDelete";
         }
     }
 }

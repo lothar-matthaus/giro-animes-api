@@ -1,13 +1,6 @@
-﻿using Giro.Animes.Domain.Enums;
-using Giro.Animes.Shared.Constants;
-using Microsoft.AspNetCore.Authorization.Infrastructure;
+﻿using Giro.Animes.Shared.Constants;
 using Microsoft.Extensions.DependencyInjection;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Giro.Animes.Shared.Extensions.Authorization
 {
