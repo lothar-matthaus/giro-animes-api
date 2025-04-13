@@ -60,16 +60,37 @@ namespace Giro.Animes.Domain.Services
         /// </summary>
         /// <param name="login"></param>
         /// <returns></returns>
-        public async Task<Account> GetAccountByLogin(string login)
+        public async Task<EntityResult<Account>> AuthByLoginAsync(string login, string password, CancellationToken cancellationToken)
         {
-            if (Regex.IsMatch(login, Patterns.Account.EMAIL))
+            Account account = Regex.IsMatch(login, Patterns.Account.EMAIL)
+                ? await _repository.GetAccountByEmail(login, cancellationToken)
+                : await _repository.GetAccountByUsername(login, cancellationToken);
+
+            if (account is null)
             {
-                return await _repository.GetAccountByEmail(login, CancellationToken.None);
+                return EntityResult<Account>.Create(null, new[]
+                {
+                    Notification.Create(nameof(Account), string.Empty, Message.Account.LOGIN_OR_PASSWORD_INVALID)
+                });
             }
-            else
+
+            if (!account.Password.VerifyPassword(password))
             {
-                return await _repository.GetAccountByUsername(login, CancellationToken.None);
+                return EntityResult<Account>.Create(account,
+                [
+                    Notification.Create(nameof(Account), string.Empty, Message.Account.LOGIN_OR_PASSWORD_INVALID)
+                ]);
             }
+
+            if (!account.IsConfirmed)
+            {
+                return EntityResult<Account>.Create(account,
+                [
+                    Notification.Create(nameof(Account), string.Empty, Message.Account.ACCOUNT_NOT_CONFIRMED)
+                ]);
+            }
+
+            return EntityResult<Account>.Create(account, Enumerable.Empty<Notification>());
         }
 
         /// Adcionar evento de domínio para notificar o usuário da mudança de e-mail
@@ -113,29 +134,19 @@ namespace Giro.Animes.Domain.Services
         {
             // Obter conta do usuário
             Account account = await _repository.GetAccountByUserIdAsync(userId, cancellationToken);
-            EntityResult<Account> entityResult;
 
             Password password = Password.Create(newPassword, newPasswordConfirm);
-            
-            bool isPasswordMatch = account.Password.VerifyPassword(currentPassword, account.Password.Salt);
 
-            IEnumerable<Notification> notifications = (password.IsValid ? Enumerable.Empty<Notification>() : password.GetErrors())
-                        .Concat(isPasswordMatch ? [] : new List<Notification> { Notification.Create(nameof(Account), "Password", Message.Validation.Account.INVALID_CURRENT_PASSWORD) })
-                        .Concat(password.IsValid ? [] : password.GetErrors())
-                        .ToList();
-
-            if (notifications.Any())
-            {
-                entityResult = EntityResult<Account>.Create(account, notifications);
-                return entityResult;
-            }
+            IEnumerable<Notification> notifications = Enumerable.Empty<Notification>()
+            .Concat(!password.IsValid ? password.GetErrors() : [])
+            .Concat(!account.Password.VerifyPassword(currentPassword) ? new[] { Notification.Create(nameof(Account), "Password", Message.Validation.Account.INVALID_CURRENT_PASSWORD) } : [])
+            .ToList();
 
             // Atualizar senha
             account.TryChangePassword(password);
             _repository.Update(account);
 
-            entityResult = EntityResult<Account>.Create(account, notifications);
-            return entityResult;
+            return EntityResult<Account>.Create(account, notifications);
         }
 
         /// <summary>
@@ -156,17 +167,10 @@ namespace Giro.Animes.Domain.Services
             Account account = await _repository.GetAccountByUserIdAsync(userId, cancellationToken);
 
             // Buscar idiomas em paralelo
-            Task<Language> interfaceLanguageTask = _languageRepository.GetByIdAsync(interfaceLanguageId, cancellationToken);
-            Task<IEnumerable<Language>> audioLanguagesTask = _languageRepository.GetLanguagesByIdsAsync(audioLanguagesIds, cancellationToken);
-            Task<IEnumerable<Language>> subtitleLanguagesTask = _languageRepository.GetLanguagesByIdsAsync(subtitleLangugesIds, cancellationToken);
+            Language interfaceLanguage = await _languageRepository.GetByIdAsync(interfaceLanguageId, cancellationToken);
+            IEnumerable<Language> audioLanguages = await _languageRepository.GetLanguagesByIdsAsync(audioLanguagesIds, cancellationToken);
+            IEnumerable<Language> subtitleLanguages = await _languageRepository.GetLanguagesByIdsAsync(subtitleLangugesIds, cancellationToken);
 
-            // Aguardar todas as tarefas
-            await Task.WhenAll(interfaceLanguageTask, audioLanguagesTask, subtitleLanguagesTask);
-
-            // Obter resultados
-            Language interfaceLanguage = interfaceLanguageTask.Result;
-            IEnumerable<Language> audioLanguages = audioLanguagesTask.Result;
-            IEnumerable<Language> subtitleLanguages = subtitleLanguagesTask.Result;
 
             // Validar resultados
             var notifications = new List<Notification>();
@@ -183,22 +187,20 @@ namespace Giro.Animes.Domain.Services
                 notifications.Add(Notification.Create(nameof(Settings), "SubtitleLanguages", Message.Language.LANGUAGES_NOT_FOUND));
             }
 
-            if (notifications.Any())
-            {
-                return EntityResult<Settings>.Create(null, notifications);
-            }
-
             // Atualizar configurações
             Settings newSettings = account.Settings;
 
             newSettings.ChangeInterfaceLanguage(interfaceLanguage);
-            newSettings.AddAudioLanguages(audioLanguages);
-            newSettings.AddSubtitleLanguages(subtitleLanguages);
+            newSettings.ChangeAudioLanguages(audioLanguages);
+            newSettings.ChangeSubtitleLanguages(subtitleLanguages);
             newSettings.ChangeFavoriteTheme(theme);
             newSettings.ChangeNotificationSettings(enableApplicationNotifications, enableEmailNotifications);
 
-            // Validar configurações
-            notifications = newSettings.IsValid ? new List<Notification>() : newSettings.GetErrors().ToList();
+            if (!newSettings.IsValid)
+            {
+                notifications.AddRange(newSettings.GetErrors());
+                return EntityResult<Settings>.Create(newSettings, notifications);
+            }
 
             // Persistir alterações
             account.TryChangeSettings(newSettings);

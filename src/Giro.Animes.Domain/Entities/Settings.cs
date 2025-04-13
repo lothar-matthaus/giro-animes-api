@@ -100,44 +100,21 @@ namespace Giro.Animes.Domain.Entities
         /// Altera os idiomas de animes que devem aparecer para o usuário.
         /// </summary>
         /// <param name="audioLanguages"></param>
-        public void AddAudioLanguages(IEnumerable<Language> audioLanguages)
-        {
-            AudioLanguages ??= [];
-            foreach (var language in audioLanguages)
-            {
-                if (!AudioLanguages.Contains(language))
-                {
-                    AudioLanguages.Add(language);
-                }
-            }
-        }
+        public void ChangeAudioLanguages(IEnumerable<Language> audioLanguages) => AudioLanguages = [.. audioLanguages];
 
         /// <summary>
         /// Altera os idiomas de legendas que devem aparecer para o usuário.
         /// </summary>
         /// <param name="subtitleLanguages">Lista de idiomas para as legendas</param>
-        public void AddSubtitleLanguages(IEnumerable<Language> subtitleLanguages)
-        {
-            AudioLanguages ??= [];
-            foreach (var language in subtitleLanguages)
-            {
-                if (!AudioLanguages.Contains(language))
-                {
-                    AudioLanguages.Add(language);
-                }
-            }
-        }
+        public void ChangeSubtitleLanguages(IEnumerable<Language> subtitleLanguages) => SubtitleLanguages = [.. subtitleLanguages];
 
         /// <summary>
         /// Remove um idioma da lista de idiomas de animes
         /// </summary>
         /// <param name="language"></param>
-        public void ChangeInterfaceLanguage(Language language)
-        {
-            InterfaceLanguage = language;
-        }
+        public void ChangeInterfaceLanguage(Language language) => InterfaceLanguage = language;
 
-       
+
         #endregion
     }
 }

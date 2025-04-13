@@ -7,6 +7,6 @@ namespace Giro.Animes.Domain.Interfaces.Repositories
 {
     public interface IAuthorRepository : IBaseRepository<Author>
     {
-        Task<(IEnumerable<Author>, int)> GetAllPagedAsync(IPagination<AuthorFilter> param, CancellationToken cancellationToken);    
+        Task<(IEnumerable<Author>, int)> GetAllPagedAsync(IPagination<AuthorFilter> param, CancellationToken cancellationToken);
     }
 }

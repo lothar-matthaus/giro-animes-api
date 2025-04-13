@@ -28,7 +28,7 @@ namespace Giro.Animes.Domain.Services
 
         public async Task<IEnumerable<Language>> GetLanguagesByIdsAsync(IEnumerable<long> ids, CancellationToken cancellationToken)
         {
-            return await _repository.GetLanguagesByIdsAsync(ids,cancellationToken );
+            return await _repository.GetLanguagesByIdsAsync(ids, cancellationToken);
         }
     }
 }

@@ -91,9 +91,6 @@ namespace Giro.Animes.Domain.Entities
         /// <summary>
         /// Collection of language settings
         /// </summary>
-        public IEnumerable<Settings> Settings { get; private set; }
-        public IEnumerable<Settings> SettingsAnimeAudio { get; private set; }
-        public IEnumerable<Settings> SettingsAnimeSubtitle { get; private set; }
         public IEnumerable<EpisodeTitle> EpisodeTitles { get; private set; }
         public IEnumerable<GenreTitle> GenreTitles { get; private set; }
         public IEnumerable<GenreDescription> GenreDescriptions { get; private set; }

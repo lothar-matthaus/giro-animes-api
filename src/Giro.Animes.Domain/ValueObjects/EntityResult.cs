@@ -14,6 +14,9 @@
         {
             Entity = entity;
             Errors = errors ?? [];
+
+            if (entity is null)
+                Errors = Errors.Append(Notification.Create("EntityResult", "Entity", $"'{typeof(TEntity).Name}' não foi encontrada na base de dados."));
         }
 
         /// <summary>

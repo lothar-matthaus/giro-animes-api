@@ -29,12 +29,12 @@ namespace Giro.Animes.Domain.Services
             Anime anime = await _repository.GetByIdAsync(id, cancellationToken);
 
             if (anime is null)
-                return EntityResult<Anime>.Create(null, new List<Notification> { Notification.Create("Anime", "", "Anime não encontrado") });
+                return EntityResult<Anime>.Create(anime, new List<Notification> { Notification.Create("Anime", "IncrementView", "Anime não encontrado") });
 
             anime.IncrementView();
             _repository.Update(anime);
 
             return EntityResult<Anime>.Create(anime, null);
         }
-}
+    }
 }

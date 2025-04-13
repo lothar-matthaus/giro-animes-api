@@ -93,9 +93,9 @@ namespace Giro.Animes.Domain.ValueObjects
         /// <param name="salt"></param>
         /// <param name="hash"></param>
         /// <returns></returns>
-        public bool VerifyPassword(string password, string salt)
+        public bool VerifyPassword(string password)
         {
-            return GeneratePasswordHash(password, salt) == Value;
+            return GeneratePasswordHash(password, Salt) == Value;
         }
 
         #endregion
