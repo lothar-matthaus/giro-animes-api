@@ -49,7 +49,7 @@ namespace Giro.Animes.Infra.Services
                     Issuer = _jwtSettings.Issuer,
                     Audience = _jwtSettings.Audience,
                     NotBefore = DateTime.UtcNow,
-                    Expires = DateTime.UtcNow.AddHours(1),
+                    Expires = DateTime.UtcNow.AddMinutes(_jwtSettings.TokenExpirationMinutes),
                     SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
                 };
 
@@ -58,10 +58,7 @@ namespace Giro.Animes.Infra.Services
 
                 var userTokenDTO = UserTokenDTO.Create(account.User.Name, tokenString, tokenDescriptor.Expires.Value.Subtract(DateTime.UtcNow).TotalSeconds, account.User.Role.ToString());
 
-                return await Task.Run(() =>
-                {
-                    return userTokenDTO;
-                });
+                return userTokenDTO;
             }
             catch (Exception ex)
             {
@@ -87,8 +84,8 @@ namespace Giro.Animes.Infra.Services
                     Issuer = _jwtSettings.Issuer,
                     Audience = _jwtSettings.Audience,
                     NotBefore = DateTime.UtcNow,
-                    Expires = DateTime.UtcNow.AddHours(1),
-                    SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
+                    Expires = DateTime.UtcNow.AddMinutes(_jwtSettings.TokenExpirationMinutes),
+                    SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature),
                 };
 
                 var token = tokenHandler.CreateToken(tokenDescriptor);
