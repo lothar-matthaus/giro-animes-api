@@ -4,6 +4,5 @@
     {
         public long? GenreId { get; set; }
         public long? AuthorId { get; set; }
-        public bool OrderByMostViewed { get; set; } = false;
     }
 }

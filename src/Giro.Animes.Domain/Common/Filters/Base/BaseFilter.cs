@@ -4,6 +4,6 @@
     {
         public string SortBy { get; set; } = "Id";
         public bool OrderByDescending { get; set; } = false;
-        public string Search { get; set; } = string.Empty;
+        public string Name { get; set; } = string.Empty;
     }
 }

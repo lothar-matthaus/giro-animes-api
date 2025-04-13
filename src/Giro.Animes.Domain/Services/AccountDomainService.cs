@@ -35,7 +35,7 @@ namespace Giro.Animes.Domain.Services
 
             List<Notification> notifications = new List<Notification>();
 
-            if(interfaceLanguage is null)
+            if (interfaceLanguage is null)
             {
                 notifications.Add(Notification.Create(nameof(Account), "InterfaceLanguage", Message.Language.LANGUAGE_NOT_FOUND));
             }
@@ -67,7 +67,7 @@ namespace Giro.Animes.Domain.Services
                         .Concat(emailAlreadyExists ? new List<Notification> { Notification.Create(account.GetType().Name, "Email", Message.Validation.User.EMAIL_ALREADY_EXISTS) } : Enumerable.Empty<Notification>())
                         .ToList();
 
-            if(notifications.Any())
+            if (notifications.Any())
             {
                 return EntityResult<Account>.Create(account, notifications);
             }

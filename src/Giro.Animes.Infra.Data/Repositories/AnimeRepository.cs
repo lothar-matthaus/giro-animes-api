@@ -5,6 +5,7 @@ using Giro.Animes.Domain.Interfaces.Repositories;
 using Giro.Animes.Infra.Data.Contexts;
 using Giro.Animes.Infra.Data.Repositories.Base;
 using Microsoft.EntityFrameworkCore;
+using System.Linq.Dynamic.Core;
 
 namespace Giro.Animes.Infra.Data.Repositories
 {
@@ -20,19 +21,17 @@ namespace Giro.Animes.Infra.Data.Repositories
 
             query = query.Where(anime => anime.Genres.Any(genre => (pagination.Filters.GenreId == null || genre.Id == pagination.Filters.GenreId)) &&
                                          anime.Authors.Any(author => (pagination.Filters.AuthorId == null || author.Id == pagination.Filters.AuthorId)) &&
-                                         anime.Titles.Any(title => (string.IsNullOrWhiteSpace(pagination.Filters.Search) || title.Name.ToLower().Contains(pagination.Filters.Search.ToLower()))));
+                                         anime.Titles.Any(title => (string.IsNullOrWhiteSpace(pagination.Filters.Name) || title.Name.ToLower().Contains(pagination.Filters.Name.ToLower()))));
+
+            query = pagination.Filters.OrderByDescending ?
+                query.OrderBy(string.Format("{0} {1}", pagination.Filters.SortBy, "DESC")) :
+                query.OrderBy(pagination.Filters.SortBy);
 
             // Obter o total de itens antes da paginação
             int totalItems = await query.CountAsync(cancellationToken);
 
-            if (pagination.Filters.OrderByMostViewed)
-            {
-                query = query.OrderByDescending(anime => anime.Views);
-            }
-
             // Aplicar paginação
             query = query
-                .OrderByDescending(anime => anime.UpdateDate)
                 .Skip(pagination.RowsPerPage * (pagination.Page - 1))
                 .Take(pagination.RowsPerPage);
 
