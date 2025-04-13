@@ -1,6 +1,5 @@
 ﻿using Giro.Animes.Application.Constants;
 using Giro.Animes.Application.DTOs;
-using Giro.Animes.Application.DTOs.Detailed;
 using Giro.Animes.Application.Interfaces.Services;
 using Giro.Animes.Application.Requests.Auth;
 using Giro.Animes.Application.Requests.User;

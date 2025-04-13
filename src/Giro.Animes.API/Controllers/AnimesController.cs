@@ -55,7 +55,7 @@ namespace Giro.Animes.API.Controllers
         public async Task<IActionResult> IncrementView([FromRoute] long id)
         {
             await _applicationService.IncrementViewAsync(id, HttpContext.Request.HttpContext.RequestAborted);
-            return StatusCode((int) HttpStatusCode.OK, Messages.Response.SUCCESS);
+            return StatusCode((int)HttpStatusCode.OK, Messages.Response.SUCCESS);
         }
     }
 }
