@@ -22,6 +22,11 @@ namespace Giro.Animes.Infra.Data.Repositories
             return await _dbSet.Include(account => account.User).FirstOrDefaultAsync(account => account.Email.Value.Equals(email), cancellationToken).ConfigureAwait(false);
         }
 
+        public Task<Account> GetAccountByUserIdAsync(long userId, CancellationToken cancellationToken)
+        {
+            return _dbSet.Include(account => account.User).FirstOrDefaultAsync(account => account.User.Id == userId, cancellationToken);
+        }
+
         public async Task<Account> GetAccountByUsername(string username, CancellationToken cancellationToken)
         {
             return await _dbSet.Include(account => account.User).FirstOrDefaultAsync(account => account.User.Name.Equals(username)).ConfigureAwait(false);

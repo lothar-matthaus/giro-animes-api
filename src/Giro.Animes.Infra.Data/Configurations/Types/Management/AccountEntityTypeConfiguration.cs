@@ -17,7 +17,6 @@ namespace Giro.Animes.Infra.Data.Configurations.Types.Management
             builder.OwnsOne(account => account.Email, email =>
             {
                 email.Property(email => email.Value).HasColumnName(nameof(Account.Email)).HasMaxLength(100).IsRequired(true);
-                email.Property(email => email.IsConfirmed).HasColumnName(nameof(Account.Email.IsConfirmed)).IsRequired(true).HasDefaultValue(false);
             });
 
             builder.OwnsOne(account => account.Password, password =>
@@ -30,6 +29,7 @@ namespace Giro.Animes.Infra.Data.Configurations.Types.Management
 
             builder.HasOne(account => account.User).WithOne(user => user.Account).HasForeignKey<User>(user => user.AccountId).OnDelete(DeleteBehavior.Cascade);
             builder.Property(account => account.Status).IsRequired(true);
+            builder.Property(account => account.IsConfirmed).IsRequired(true).HasDefaultValue(false);
 
             builder.Navigation(account => account.Settings).AutoInclude();
             builder.Navigation(account => account.User).AutoInclude();
