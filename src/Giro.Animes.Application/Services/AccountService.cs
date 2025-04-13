@@ -1,5 +1,4 @@
-﻿using Giro.Animes.Application.Constants;
-using Giro.Animes.Application.DTOs.Detailed;
+﻿using Giro.Animes.Application.DTOs.Detailed;
 using Giro.Animes.Application.DTOs.Simple;
 using Giro.Animes.Application.Interfaces.Services;
 using Giro.Animes.Application.Mappers;
@@ -100,15 +99,7 @@ namespace Giro.Animes.Application.Services
         /// <returns></returns>
         public async Task UpdatePasswordAsync(AccountPasswordUpdateRequest request, CancellationToken cancellationToken)
         {
-            Password newPassword = Password.Create(request.Password, request.ConfirmPassword);
-
             EntityResult<Account> result = await _domainService.UpdatePasswordAsync(_applicationUser.Id, request.CurrentPassword, request.Password, request.ConfirmPassword, cancellationToken);
-
-            if (result is null)
-            {
-                await _notificationService.AddNotification(Notification.Create("Account", "Id", Messages.Response.Account.ACCOUNTS_NOT_FOUND));
-                return;
-            }
 
             if (!result.IsValid)
             {

@@ -1,6 +1,4 @@
-﻿using Giro.Animes.Domain.Interfaces.Pagination;
-
-namespace Giro.Animes.Application.Interfaces.Enumerations
+﻿namespace Giro.Animes.Application.Interfaces.Enumerations
 {
     public interface IPagedEnumerable<TType> : IEnumerable<TType> where TType : class
     {

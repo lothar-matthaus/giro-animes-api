@@ -11,7 +11,6 @@ using Giro.Animes.Domain.Interfaces.Pagination;
 using Giro.Animes.Domain.Interfaces.Services;
 using Giro.Animes.Domain.ValueObjects;
 using Giro.Animes.Infra.Interfaces;
-using System.Runtime.InteropServices;
 
 namespace Giro.Animes.Application.Services
 {

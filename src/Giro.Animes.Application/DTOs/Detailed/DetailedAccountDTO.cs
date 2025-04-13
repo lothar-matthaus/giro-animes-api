@@ -36,7 +36,7 @@ namespace Giro.Animes.Application.DTOs.Detailed
         /// <param name="user"></param>
         /// <param name="creationDate"></param>
         /// <param name="updateDate"></param>
-        private DetailedAccountDTO(long id, string email, SimpleSettingsDTO settings, EnumDTO<AccountStatus> status, SimpleUserDTO user, DateTime creationDate, DateTime updateDate) : 
+        private DetailedAccountDTO(long id, string email, SimpleSettingsDTO settings, EnumDTO<AccountStatus> status, SimpleUserDTO user, DateTime creationDate, DateTime updateDate) :
             base(id, creationDate, updateDate)
         {
             Email = email;

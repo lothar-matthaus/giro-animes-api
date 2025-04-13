@@ -1,9 +1,6 @@
 ﻿using Giro.Animes.Application.DTOs.Base;
 using Giro.Animes.Application.Responses.Base;
-using Giro.Animes.Domain.Common.Filters;
-using Giro.Animes.Domain.Interfaces.Pagination;
 using System.Net;
-using System.Text.Json.Serialization;
 
 namespace Giro.Animes.Application.Responses
 {

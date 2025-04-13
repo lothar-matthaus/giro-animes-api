@@ -6,6 +6,7 @@ using Giro.Animes.Application.Services.Base;
 using Giro.Animes.Domain.Entities;
 using Giro.Animes.Domain.Enums;
 using Giro.Animes.Domain.Interfaces.Services;
+using Giro.Animes.Domain.ValueObjects;
 using Giro.Animes.Infra.DTOs;
 using Giro.Animes.Infra.Interfaces;
 using Giro.Animes.Infra.Interfaces.Services;
@@ -30,35 +31,21 @@ namespace Giro.Animes.Application.Services
         /// </summary>
         /// <param name="request"></param>
         /// <returns></returns>
-        public async Task<AuthDTO> Auth(AuthRequest request)
+        public async Task<AuthDTO> AuthAsync(AuthRequest request, CancellationToken cancellationToken)
         {
-            Account account = await _domainService.GetAccountByLogin(request.Login);
+            EntityResult<Account> result = await _domainService.AuthByLoginAsync(request.Login, request.Password, cancellationToken);
 
-            if (account is null)
+            if (!result.IsValid)
             {
-                await _notificationService.AddNotification("Login ou senha inválidos", "Login", "Senha");
+                await _notificationService.AddNotification(result.Errors);
                 return null;
             }
 
-            bool isValidPassword = account.Password.VerifyPassword(request.Password, account.Password.Salt);
-
-            if (!isValidPassword)
-            {
-                await _notificationService.AddNotification("Login ou senha inválidos", "Login", "Senha");
-                return null;
-            }
-
-            if (!account.IsConfirmed)
-            {
-                await _notificationService.AddNotification("A conta precisa ser confirmada. Verifique sua caixa de entrada.", "Login", "Status");
-                return null;
-            }
-
-            UserTokenDTO tokenDTO = await _tokenService.GenerateUserToken(account);
+            UserTokenDTO tokenDTO = await _tokenService.GenerateUserToken(result.Entity);
 
             SetCookie(tokenDTO);
 
-            return AuthDTO.Create(account.User.Name, account.User.Role.Map(), tokenDTO.ExpirationTime, account.Id.Value);
+            return AuthDTO.Create(result.Entity.User.Name, result.Entity.User.Role.Map(), tokenDTO.ExpirationTime, result.Entity.Id.Value);
         }
 
         /// <summary>
