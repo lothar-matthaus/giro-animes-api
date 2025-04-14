@@ -26,6 +26,23 @@ namespace Giro.Animes.Application.Services
             _tokenService = tokenService;
         }
 
+        public async Task<AuthDTO> AuthAdminAsync(AuthRequest request, CancellationToken cancellationToken)
+        {
+            EntityResult<Account> result = await _domainService.AuthAdminByLoginAsync(request.Login, request.Password, cancellationToken);
+
+            if (!result.IsValid)
+            {
+                await _notificationService.AddNotification(result.Errors);
+                return null;
+            }
+
+            UserTokenDTO tokenDTO = await _tokenService.GenerateUserToken(result.Entity);
+
+            SetCookie(tokenDTO);
+
+            return AuthDTO.Create(result.Entity.User.Name, result.Entity.User.Role.Map(), tokenDTO.ExpirationTime, result.Entity.Id.Value);
+        }
+
         /// <summary>
         /// Realiza a autenticação do usuário
         /// </summary>

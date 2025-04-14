@@ -137,7 +137,7 @@ namespace Giro.Animes.Application.Services
         {
             Anime anime = await _domainService.GetByIdAsync(id, cancellationToken);
 
-            return anime.Map();
+            return anime?.Map();
         }
 
         public async Task IncrementViewAsync(long id, CancellationToken cancellationToken)
