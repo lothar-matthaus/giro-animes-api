@@ -1,4 +1,5 @@
 ﻿using Giro.Animes.Application.Constants;
+using Giro.Animes.Application.DTOs.Base;
 using Giro.Animes.Application.DTOs.Detailed;
 using Giro.Animes.Application.Interfaces.Enumerations;
 using Giro.Animes.Application.Interfaces.Services;
@@ -36,6 +37,16 @@ namespace Giro.Animes.API.Controllers
         {
             IPagedEnumerable<DetailedAuthorDTO> authors = await _applicationService.GetAllAuthorsPagedAsync(param, HttpContext.RequestAborted);
             return await Ok(authors, param, Messages.Response.Author.AUTHORS_FOUND, Messages.Response.Author.AUTHORS_NOT_FOUND);
+        }
+
+        [HttpGet("Combox")]
+        [Authorize(Policy = Policies.Authors.CAN_GET_ALL)]
+        [ProducesResponseType<ListPagedResponse<SimpleComboxDTO>>((int)HttpStatusCode.OK)]
+        [ProducesResponseType<ApiResponse>((int)HttpStatusCode.InternalServerError)]
+        public async Task<IActionResult> GetAllCombox()
+        {
+            IEnumerable<SimpleComboxDTO> authors = await _applicationService.GetAllAuthorsComboxAsync(HttpContext.RequestAborted);
+            return await Ok(authors, Messages.Response.Author.AUTHORS_FOUND, Messages.Response.Author.AUTHORS_NOT_FOUND);
         }
     }
 }
