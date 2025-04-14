@@ -24,7 +24,11 @@ namespace Giro.Animes.Shared.Extensions.Authorization
                     {
                         foreach (var claim in claims)
                         {
-                            policy.RequireClaim(Policies.CLAIM_NAME, claim);
+                            policy.RequireAssertion(context =>
+                            {
+                                return context.User.HasClaim(c => c.Type == Policies.CLAIM_NAME && c.Value == claim) ||
+                                       context.User.HasClaim(c => c.Type == Policies.CLAIM_NAME && c.Value == $"{claim.Split(":")[0]}:{Policies.CAN_DO_ALL}");
+                            });
                         }
                     });
                 }

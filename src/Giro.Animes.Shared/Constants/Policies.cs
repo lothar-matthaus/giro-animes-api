@@ -3,6 +3,7 @@
     public static class Policies
     {
         public const string CLAIM_NAME = "Permission";
+        public const string CAN_DO_ALL = "CanDoAll";
         public static class Animes
         {
             public const string CAN_GET_ALL = "Animes:CanGetAll";
