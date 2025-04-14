@@ -19,6 +19,11 @@ namespace Giro.Animes.Infra.Data.Repositories
             throw new NotImplementedException();
         }
 
+        public async Task<IEnumerable<Author>> GetAuthorsByIdsAsync(IEnumerable<long> ids, CancellationToken cancellationToken)
+        {
+            return await _dbSet.Where(x => ids.Contains(Convert.ToInt64(x.Id))).ToListAsync(cancellationToken);
+        }
+
         public async new Task<Author> GetByIdAsync(long id, CancellationToken cancellationToken)
         {
             return await _dbSet.Include(author => author.Works)

@@ -9,7 +9,7 @@ namespace Giro.Animes.Infra.Data.Extensions.IoC
 {
     public static class Repositories
     {
-        public static void AddRepositories(this IServiceCollection services)
+        public static IServiceCollection AddRepositories(this IServiceCollection services)
         {
             services.AddScoped<IAccountRepository, AccountRepository>();
             services.AddScoped<ILanguageRepository, LanguageRepository>();
@@ -17,6 +17,10 @@ namespace Giro.Animes.Infra.Data.Extensions.IoC
             services.AddScoped<IMediaRepository<Avatar>, MediaRepository<Avatar, GiroAnimesDbContext>>();
             services.AddScoped<IAnimeRepository, AnimeRepository>();
             services.AddScoped<IPermissionRepository, PermissionRepository>();
+            services.AddScoped<IGenreRepository, GenreRepository>();
+            services.AddScoped<IStudioRepository, StudioRepository>();
+
+            return services;
         }
     }
 }
