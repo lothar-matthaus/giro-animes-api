@@ -14,4 +14,9 @@
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.6.2" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Giro.Animes.Application\Giro.Animes.Application.csproj" />
+    <ProjectReference Include="..\Giro.Animes.Shared\Giro.Animes.Shared.csproj" />
+  </ItemGroup>
+
 </Project>
