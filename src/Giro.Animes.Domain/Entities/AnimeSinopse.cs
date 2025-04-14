@@ -26,9 +26,8 @@
         /// <param name="text">Texto da descrição do anime</param>
         /// <param name="language">Idioma da descrição</param>
         /// <param name="anime">Anime ao qual a descrição pertence</param>
-        private AnimeSinopse(string text, Language language, Anime anime) : base(text, language)
+        private AnimeSinopse(string text, Language language) : base(text, language)
         {
-            Anime = anime;
         }
 
         /// <summary>
@@ -38,6 +37,6 @@
         /// <param name="language">Idioma da descrição</param>
         /// <param name="anime">Anime ao qual a descrição pertence</param>
         /// <returns>Uma nova instância de Sinopse</returns>
-        public static AnimeSinopse Create(string text, Language language, Anime anime) => new AnimeSinopse(text, language, anime);
+        public static AnimeSinopse Create(string text, Language language) => new AnimeSinopse(text, language);
     }
 }

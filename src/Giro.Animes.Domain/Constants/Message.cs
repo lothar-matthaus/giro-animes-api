@@ -15,6 +15,23 @@
             public const string LANGUAGES_NOT_FOUND = "Idiomas não encontrados";
         }
 
+        public static class Studio
+        {
+            public const string STUDIO_NOT_FOUND = "Estúdio não encontrado";
+            public const string STUDIOS_NOT_FOUND = "Estúdios não encontrados";
+        }
+        public static class Author
+        {
+            public const string AUTHOR_NOT_FOUND = "Autor não encontrado";
+            public const string AUTHORS_NOT_FOUND = "Autores não encontrados";
+        }
+
+        public static class Genre
+        {
+            public const string GENRE_NOT_FOUND = "Gênero não encontrado";
+            public const string GENRES_NOT_FOUND = "Gêneros não encontrados";
+        }
+
         internal static class Validation
         {
             public static class General
@@ -32,7 +49,11 @@
 
             public static class Anime
             {
-                public const string TITLE_LENGHT = "O título do anime deve conter entre 3 e 100 caracteres";
+                public const string TITLE_REQUIRED = "O anime precisa ter ao menos um título.";
+                public const string AUTHOR_REQUIRED = "O anime precisa ter ao menos um autor.";
+                public const string GENRE_REQUIRED = "O anime precisa ter ao menos um gênero.";
+                public const string STUDIO_REQUIRED = "O anime precisa ter um estúdio associado.";
+                public const string INVALID_STATUS = "O status do anime é inválido.";
             }
 
             public static class Language
@@ -67,6 +88,17 @@
             {
                 public const string INVALID_NAME = "O nome do estúdio deve conter apenas letras separadas por espaços";
                 public const string INVALID_NAME_LENGHT = "O nome do autor deve conter entre 3 e 50 caracteres";
+            }
+            public static class Description
+            {
+                public const string LANGUAGE_REQUIRED = "O idioma da descrição é obrigatório";
+            }
+
+            public static class Title
+            {
+                public const string ANIME_REQUIRED = "O anime é obrigatório";
+                public const string LANGUAGE_REQUIRED = "O idioma do título é obrigatório";
+                public const string TITLE_LENGHT = "O título deve conter entre 3 e 100 caracteres";
             }
         }
     }

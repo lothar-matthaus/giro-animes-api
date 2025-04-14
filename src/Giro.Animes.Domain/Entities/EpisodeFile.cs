@@ -43,13 +43,13 @@
         /// <summary>
         /// Construtor privado com parâmetros. Garante a construção do objeto através do método Create.
         /// </summary>
-        /// <param name="episode">Episódio ao qual o arquivo pertence.</param>
-        /// <param name="url">URL do arquivo.</param>
-        /// <param name="fileName">Nome do arquivo.</param>
-        /// <param name="extension">Extensão do arquivo.</param>
-        /// <param name="language">Idioma do arquivo.</param>
-        private EpisodeFile(Episode episode, string url, string fileName, string extension, Language audioLanguage, Language subtitleLanguage)
-            : base(url, fileName, extension)
+        /// <param name="file"></param>
+        /// <param name="extension"></param>
+        /// <param name="episode"></param>
+        /// <param name="audioLanguage"></param>
+        /// <param name="subtitleLanguage"></param>
+        private EpisodeFile(byte[] file, string extension, Episode episode, Language audioLanguage, Language subtitleLanguage)
+            : base(extension, file)
         {
             Episode = episode;
             AudioLanguage = audioLanguage;
@@ -57,14 +57,15 @@
         }
 
         /// <summary>
-        /// Método estático para criar um objeto EpisodeFile com validações de propriedades e retorno do objeto.
+        /// 
         /// </summary>
-        /// <param name="episode">Episódio ao qual o arquivo pertence.</param>
-        /// <param name="url">URL do arquivo.</param>
-        /// <param name="fileName">Nome do arquivo.</param>
-        /// <param name="extension">Extensão do arquivo.</param>
-        /// <param name="language">Idioma do arquivo.</param>
-        /// <returns>Uma nova instância de EpisodeFile.</returns>
-        public static EpisodeFile Create(Episode episode, string url, string fileName, string extension, Language audioLanguage, Language episodeLanguage) => new EpisodeFile(episode, url, fileName, extension, audioLanguage, episodeLanguage);
+        /// <param name="episode"></param>
+        /// <param name="url"></param>
+        /// <param name="fileName"></param>
+        /// <param name="extension"></param>
+        /// <param name="audioLanguage"></param>
+        /// <param name="episodeLanguage"></param>
+        /// <returns></returns>
+        public static EpisodeFile Create(byte[] file, Episode episode, string extension, Language audioLanguage, Language episodeLanguage) => new EpisodeFile(file, extension, episode, audioLanguage, episodeLanguage);
     }
 }

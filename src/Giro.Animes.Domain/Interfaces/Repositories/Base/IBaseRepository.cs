@@ -8,5 +8,6 @@ namespace Giro.Animes.Domain.Interfaces.Repositories.Base
         void Update(TEntity entity);
         void Delete(TEntity entity);
         Task<TEntity> GetByIdAsync(long id, CancellationToken cancellationToken);
+        Task<IEnumerable<TEntity>> GetAllAsync(CancellationToken cancellationToken);
     }
 }

@@ -23,7 +23,7 @@
         /// Construtor da classe ProfilePicture a partir do valor da foto e do formato
         /// </summary>
         /// <param name="extension">Extensão do arquivo </param>
-        private Avatar(User user, string extension, byte[] file = null) : base(string.Empty, Guid.NewGuid().ToString(), extension, file)
+        private Avatar(User user, string extension, byte[] file = null) : base(extension, file)
         {
             User = user;
         }

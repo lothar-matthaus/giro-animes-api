@@ -74,11 +74,10 @@ namespace Giro.Animes.Domain.Entities
         /// </summary>
         /// <param name="fileName"></param>
         /// <param name="extension"></param>
-        protected Media(string url, string fileName, string extension, byte[] file = null)
+        protected Media(string extension, byte[] file = null)
         {
-            FileName = fileName;
-            Extension = extension;
-            Url = url;
+            FileName = Guid.NewGuid().ToString();
+            Extension = extension.Split("/")[1];
             File = file;
         }
 

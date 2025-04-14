@@ -23,20 +23,19 @@
         /// <summary>
         /// Construtor com parâmetros. Garante a construção do objeto pelo método Create.
         /// </summary>
-        /// <param name="fileName">Nome do arquivo da captura de tela.</param>
-        /// <param name="extension">Extensão do arquivo da captura de tela.</param>
-        private AnimeScreenshot(string url, string fileName, string extension, Anime anime) : base(url, fileName, extension)
+        /// <param name="file"></param>
+        /// <param name="extension"></param>
+        /// <param name="anime"></param>
+        private AnimeScreenshot(byte[] file, string extension) : base(file, extension)
         {
-            Anime = anime;
         }
 
         /// <summary>
-        /// Método estático para criar um objeto AnimeScreenshot com validações de propriedades e retorno do objeto.
+        /// Método estático para criar uma nova instância de AnimeScreenshot. 
         /// </summary>
-        /// <param name="fileName">Nome do arquivo da captura de tela.</param>
-        /// <param name="extension">Extensão do arquivo da captura de tela.</param>
-        /// <param name="anime">Propriedade de navegação para o anime da captura de tela.</param>
-        /// <returns>Uma nova instância de AnimeScreenshot.</returns>
-        public static AnimeScreenshot Create(string url, string fileName, string extension, Anime anime) => new AnimeScreenshot(url, fileName, extension, anime);
+        /// <param name="file"></param>
+        /// <param name="extension"></param>
+        /// <returns></returns>
+        public static AnimeScreenshot Create(byte[] file, string extension) => new AnimeScreenshot(file, extension);
     }
 }

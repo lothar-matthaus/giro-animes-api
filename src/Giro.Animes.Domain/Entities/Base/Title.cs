@@ -26,7 +26,7 @@ namespace Giro.Animes.Domain.Entities.Base
 
                 Validate(
                     isInvalidIf: !Regex.IsMatch(value, Patterns.Anime.TITLE),
-                    ifInvalid: () => Notification.Create(GetType().Name, "Title", Message.Validation.Anime.TITLE_LENGHT),
+                    ifInvalid: () => Notification.Create(GetType().Name, "Title", string.Format(Message.Validation.Title.TITLE_LENGHT, value)),
                     ifValid: () => _name = value);
             }
         }
@@ -39,7 +39,20 @@ namespace Giro.Animes.Domain.Entities.Base
         /// <summary>
         /// Idioma do título
         /// </summary>
-        public Language Language { get; private set; }
+        #region Language
+        private Language _language;
+        public Language Language
+        {
+            get { return _language; }
+            set
+            {
+                Validate(isInvalidIf: value == null,
+                    ifInvalid: () => Notification.Create(GetType().Name, "Language", Message.Validation.Title.LANGUAGE_REQUIRED),
+                    ifValid: () => _language = value);
+            }
+        }
+        #endregion
+
 
         /// <summary>
         /// Construtor padrão para garantir a construção do objeto pelo EntityFramework

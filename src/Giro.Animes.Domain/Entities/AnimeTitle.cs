@@ -1,4 +1,6 @@
-﻿using Giro.Animes.Domain.Entities.Base;
+﻿using Giro.Animes.Domain.Constants;
+using Giro.Animes.Domain.Entities.Base;
+using Giro.Animes.Domain.ValueObjects;
 
 namespace Giro.Animes.Domain.Entities
 {
@@ -10,9 +12,23 @@ namespace Giro.Animes.Domain.Entities
         public long AnimeId { get; private set; }
 
         /// <summary>
-        /// Propriedade de navegação para o anime do título
+        /// Anime ao qual o título pertence
         /// </summary>
-        public Anime Anime { get; private set; }
+        #region Anime
+        private Anime _anime;
+        public Anime Anime
+        {
+            get { return _anime; }
+            set
+            {
+                Validate(
+                    isInvalidIf: value == null,
+                    ifInvalid: () => Notification.Create(GetType().Name, "Anime", string.Format(Message.Validation.Title.ANIME_REQUIRED, "Anime")),
+                    ifValid: () => _anime = value);
+            }
+        }
+        #endregion
+
 
         /// <summary>
         /// Construtor padrão para garantir a construção do objeto pelo EntityFramework
@@ -24,10 +40,8 @@ namespace Giro.Animes.Domain.Entities
         /// </summary>
         /// <param name="name">Nome do título do anime</param>
         /// <param name="language">Idioma do título</param>
-        /// <param name="anime">Anime ao qual o título pertence</param>
-        private AnimeTitle(string name, Language language, Anime anime) : base(name, language)
+        private AnimeTitle(string name, Language language) : base(name, language)
         {
-            Anime = anime;
         }
 
         /// <summary>
@@ -35,8 +49,7 @@ namespace Giro.Animes.Domain.Entities
         /// </summary>
         /// <param name="name">Nome do título do anime</param>
         /// <param name="language">Idioma do título</param>
-        /// <param name="anime">Anime ao qual o título pertence</param>
         /// <returns>Uma nova instância de AnimeTitle</returns>
-        public static AnimeTitle Create(string name, Language language, Anime anime) => new AnimeTitle(name, language, anime);
+        public static AnimeTitle Create(string name, Language language) => new AnimeTitle(name, language);
     }
 }

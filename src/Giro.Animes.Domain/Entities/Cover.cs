@@ -35,20 +35,21 @@
         /// <param name="fileName">Nome do arquivo da capa.</param>
         /// <param name="extension">Extensão do arquivo da capa.</param>
         /// <param name="url">Caminho onde o arquivo está hospedado.</param>
-        private Cover(string url, string fileName, string extension, Anime anime, Language language) : base(url, fileName, extension)
+        private Cover(byte[] file, string extension, Language language) : base(extension, file)
         {
             Language = language;
-            Anime = anime;
         }
 
         /// <summary>
-        /// Método para a construção do objeto.
+        /// Método para criar uma nova capa.
         /// </summary>
-        /// <param name="fileName">Nome do arquivo da capa.</param>
-        /// <param name="extension">Extensão do arquivo da capa.</param>
-        /// <param name="language">Idioma da capa.</param>
-        /// <param name="anime">Anime ao qual a capa pertence.</param>
-        /// <returns>Uma nova instância de Cover.</returns>
-        public static Cover Create(string url, string fileName, string extension, Language language, Anime anime) => new Cover(url, fileName, extension, anime, language);
+        /// <param name="file"></param>
+        /// <param name="extension"></param>
+        /// <param name="language"></param>
+        /// <returns></returns>
+        public static Cover Create(byte[] file, string extension, Language language)
+        {
+            return new Cover(file, extension, language);
+        }
     }
 }

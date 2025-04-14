@@ -22,8 +22,9 @@
         /// </summary>
         /// <param name="fileName"></param>
         /// <param name="extension"></param>
-        private Logo(string url, string fileName, string extension) : base(url, fileName, extension)
+        private Logo(byte[] file, string extension, Studio studio) : base(extension, file)
         {
+            Studio = studio;
         }
 
         /// <summary>
@@ -32,6 +33,6 @@
         /// <param name="fileName"></param>
         /// <param name="extension"></param>
         /// <returns></returns>
-        public static Logo Create(string url, string fileName, string extension) => new Logo(url, fileName, extension);
+        public static Logo Create(byte[] file, string extension, Studio studio) => new Logo(file, extension, studio);
     }
 }

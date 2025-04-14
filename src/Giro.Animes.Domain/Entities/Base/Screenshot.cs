@@ -15,6 +15,6 @@
         /// <param name="url"></param>
         /// <param name="fileName"></param>
         /// <param name="extension"></param>
-        public Screenshot(string url, string fileName, string extension) : base(url, fileName, extension) { }
+        public Screenshot(byte[] file, string extension) : base(extension, file) { }
     }
 }

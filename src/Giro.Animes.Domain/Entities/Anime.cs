@@ -1,14 +1,28 @@
-﻿using Giro.Animes.Domain.Entities.Base;
+﻿using Giro.Animes.Domain.Constants;
+using Giro.Animes.Domain.Entities.Base;
 using Giro.Animes.Domain.Enums;
+using Giro.Animes.Domain.ValueObjects;
 
 namespace Giro.Animes.Domain.Entities
 {
     public class Anime : EntityBase
     {
         /// <summary>
-        /// Lista de títulos do anime
+        /// Título do anime, em diferentes idiomas
         /// </summary>
-        public IEnumerable<AnimeTitle> Titles { get; private set; }
+        #region Titles
+        private IEnumerable<AnimeTitle> _titles;
+        public IEnumerable<AnimeTitle> Titles
+        {
+            get { return _titles; }
+            set
+            {
+                Validate(isInvalidIf: value == null || !value.Any(),
+                    ifInvalid: () => Notification.Create(GetType().Name, "Titles", Message.Validation.Anime.TITLE_REQUIRED),
+                    ifValid: () => _titles = value);
+            }
+        }
+        #endregion
 
         /// <summary>
         /// Descrições do anime, em diferentes idiomas
@@ -33,7 +47,19 @@ namespace Giro.Animes.Domain.Entities
         /// <summary>
         /// Lista de autores do anime
         /// </summary>
-        public IEnumerable<Author> Authors { get; private set; }
+        #region Authors
+        private IEnumerable<Author> _authors;
+        public IEnumerable<Author> Authors
+        {
+            get { return _authors; }
+            set
+            {
+                Validate(isInvalidIf: value == null || !value.Any(),
+                    ifInvalid: () => Notification.Create(GetType().Name, "Authors", Message.Validation.Anime.AUTHOR_REQUIRED),
+                    ifValid: () => _authors = value);
+            }
+        }
+        #endregion
 
         /// <summary>
         /// Notas dos usuário recebidas neste anime
@@ -41,19 +67,43 @@ namespace Giro.Animes.Domain.Entities
         public IEnumerable<Rating> Ratings { get; private set; }
 
         /// <summary>
-        /// Gêneros que o anime possui
+        /// Gêneros do anime
         /// </summary>
-        public IEnumerable<Genre> Genres { get; private set; }
+        #region Genres
+        private IEnumerable<Genre> _genres;
+        public IEnumerable<Genre> Genres
+        {
+            get { return _genres; }
+            set
+            {
+                Validate(
+                    isInvalidIf: value == null || !value.Any(),
+                    ifInvalid: () => Notification.Create(GetType().Name, "Genres", Message.Validation.Anime.GENRE_REQUIRED),
+                    ifValid: () => _genres = value);
+            }
+        }
+        #endregion
+
 
         /// <summary>
         /// Identificador do estúdio de animação
         /// </summary>
         public long StudioId { get; private set; }
 
-        /// <summary>
-        /// Studio que criou o anime
-        /// </summary>
-        public Studio Studio { get; private set; }
+        #region Studio
+        private Studio _studio;
+        public Studio Studio
+        {
+            get { return _studio; }
+            set
+            {
+                Validate(
+                    isInvalidIf: value == null,
+                    ifInvalid: () => Notification.Create(GetType().Name, "Studio", Message.Validation.Anime.STUDIO_REQUIRED),
+                    ifValid: () => _studio = value);
+            }
+        }
+        #endregion
 
         /// <summary>
         /// Contas de usuário que o anime é favoritado
@@ -66,9 +116,22 @@ namespace Giro.Animes.Domain.Entities
         public long Views { get; private set; } = 0;
 
         /// <summary>
-        /// Indica o status do anime 
+        /// Status do anime
         /// </summary>
-        public AnimeStatus Status { get; private set; }
+        #region Status
+        private AnimeStatus _status;
+        public AnimeStatus Status
+        {
+            get { return _status; }
+            set
+            {
+                Validate(
+                    isInvalidIf: !Enum.IsDefined(value),
+                    ifInvalid: () => Notification.Create(GetType().Name, "Studio", Message.Validation.Anime.INVALID_STATUS),
+                    ifValid: () => _status = value);
+            }
+        }
+        #endregion
 
         public Anime()
         {
