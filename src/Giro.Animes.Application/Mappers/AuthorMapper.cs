@@ -1,4 +1,5 @@
-﻿using Giro.Animes.Application.DTOs.Detailed;
+﻿using Giro.Animes.Application.DTOs.Base;
+using Giro.Animes.Application.DTOs.Detailed;
 using Giro.Animes.Application.DTOs.Simple;
 using Giro.Animes.Domain.Entities;
 
@@ -59,6 +60,17 @@ namespace Giro.Animes.Application.Mappers
         {
             IEnumerable<SimpleAuthorDTO> simpleAuthorDTOs = authors?.Select(author => author.MapSimple());
             return simpleAuthorDTOs;
+        }
+
+        /// <summary>
+        /// Método de extensão para mapear uma coleção de autores para uma coleção de SimpleComboxDTOs.
+        /// </summary>
+        /// <param name="authors"></param>
+        /// <returns></returns>
+        public static IEnumerable<SimpleComboxDTO> MapCombox(this IEnumerable<Author> authors)
+        {
+            IEnumerable<SimpleComboxDTO> comboxDTOs = authors?.Select(author => SimpleComboxDTO.Create(author.Id.Value, author.Name));
+            return comboxDTOs;
         }
     }
 }

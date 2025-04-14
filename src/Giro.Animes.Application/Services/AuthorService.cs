@@ -1,4 +1,5 @@
 ﻿using Giro.Animes.Application.Custom;
+using Giro.Animes.Application.DTOs.Base;
 using Giro.Animes.Application.DTOs.Detailed;
 using Giro.Animes.Application.Interfaces.Enumerations;
 using Giro.Animes.Application.Interfaces.Services;
@@ -17,6 +18,14 @@ namespace Giro.Animes.Application.Services
         public AuthorService(IApplicationUser applicationUser, INotificationService notificationService, IAuthorDomainService domainService) :
             base(applicationUser, notificationService, domainService)
         {
+        }
+
+        public async Task<IEnumerable<SimpleComboxDTO>> GetAllAuthorsComboxAsync(CancellationToken cancellationToken)
+        {
+            IEnumerable<Author> authors = await _domainService.GetAllAuthorsAsync(cancellationToken);
+            IEnumerable<SimpleComboxDTO> comboxDTOs = authors?.MapCombox();
+
+            return comboxDTOs;
         }
 
         public async Task<IPagedEnumerable<DetailedAuthorDTO>> GetAllAuthorsPagedAsync(IPagination<AuthorFilter> param, CancellationToken cancellationToken)

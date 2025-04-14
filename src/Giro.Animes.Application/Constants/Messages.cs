@@ -41,6 +41,7 @@
                 public const string ANIMES_FOUND = "Animes encontrados com sucesso";
                 public const string ANIMES_NOT_FOUND = "Nenhum anime encontrado";
                 public const string ANIME_CREATED = "Anime criado com sucesso";
+                public const string ANIME_NOT_CREATED = "Não foi possível criar o anime";
             }
 
             public static class Language
