@@ -11,7 +11,7 @@ using System.Net;
 namespace Giro.Animes.Presentation.Controllers
 {
     [ApiController]
-    [Route("api/[controller]/")]
+    [Route("api/admin/[controller]/")]
     [Authorize()]
     public abstract class GiroAnimesBaseController<TApplicationService> : ControllerBase where TApplicationService : IApplicationServiceBase
     {
@@ -22,7 +22,7 @@ namespace Giro.Animes.Presentation.Controllers
             _applicationService = applicationService;
         }
 
-        public async Task<IActionResult> Ok<TData>(TData data, string resultMessage, string emptyMessage) where TData : BaseSimpleDTO
+        public async Task<IActionResult> Ok<TData>(TData data, string resultMessage, string emptyMessage = "") where TData : BaseSimpleDTO
         {
             if (data is null)
             {
@@ -31,6 +31,22 @@ namespace Giro.Animes.Presentation.Controllers
             }
 
             DetailResponse<TData> response = DetailResponse<TData>.Create(data, true, HttpStatusCode.OK, resultMessage);
+            return await Task.Run(() =>
+            {
+                return StatusCode((int)HttpStatusCode.OK, response);
+            });
+        }
+
+        public async Task<IActionResult> Ok<TData>(IEnumerable<TData> data, string resultMessage, string emptyMessage) where TData : BaseSimpleDTO
+        {
+            if (data is null || !data.Any())
+            {
+                ListPagedResponse<TData> result = ListPagedResponse<TData>.Create(HttpStatusCode.OK, emptyMessage, 0, 0, 0);
+                return StatusCode((int)HttpStatusCode.OK, result);
+            }
+
+            ListPagedResponse<TData> response = ListPagedResponse<TData>.Create(data, true, HttpStatusCode.OK, resultMessage, 1, data.Count(), data.Count());
+
             return await Task.Run(() =>
             {
                 return StatusCode((int)HttpStatusCode.OK, response);
