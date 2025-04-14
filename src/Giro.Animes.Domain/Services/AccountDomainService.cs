@@ -240,5 +240,23 @@ namespace Giro.Animes.Domain.Services
 
             return EntityResult<Settings>.Create(newSettings, notifications);
         }
+
+        public async Task<EntityResult<Account>> AuthAdminByLoginAsync(string login, string password, CancellationToken cancellationToken)
+        {
+            EntityResult<Account> accountResult = await AuthByLoginAsync(login, password, cancellationToken);
+
+            if (!accountResult.IsValid)
+                return accountResult;
+
+            if(accountResult.Entity.User.Role != UserRole.Administrator || accountResult.Entity.User.Role != UserRole.Publisher)
+            {
+                return EntityResult<Account>.Create(accountResult.Entity, new List<Notification>
+                {
+                    Notification.Create(nameof(Account), string.Empty, Message.User.USER_ROLE_NOT_ALLOWED)
+                });
+            }
+
+            return accountResult;
+        }
     }
 }

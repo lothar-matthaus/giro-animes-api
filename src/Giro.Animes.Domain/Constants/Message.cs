@@ -9,6 +9,11 @@
             public const string ACCOUNT_NOT_CONFIRMED = "A conta precisa ser confirmada. Verifique sua caixa de entrada.";
         }
 
+        public static class User
+        {
+            public const string USER_ROLE_NOT_ALLOWED = "O usuário não tem permissão para acessar este recurso.";
+        }
+
         public static class Language
         {
             public const string LANGUAGE_NOT_FOUND = "Idioma não encontrado";
