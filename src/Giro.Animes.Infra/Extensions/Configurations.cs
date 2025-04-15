@@ -13,6 +13,7 @@ namespace Giro.Animes.Infra.Extensions
             services.AddSingleton<IDataBaseConfig, DataBaseConfig>();
             services.AddSingleton<IMediaConfig, MediaConfig>();
             services.AddSingleton<IApiInfo, ApiInfo>();
+            services.AddSingleton<ICookieConfig, CookieConfig>();
 
             return services;
         }

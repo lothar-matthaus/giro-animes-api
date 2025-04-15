@@ -4,6 +4,7 @@ using Giro.Animes.Domain.Interfaces.Services;
 using Giro.Animes.Infra.DTOs;
 using Giro.Animes.Infra.Interfaces.Configs;
 using Giro.Animes.Infra.Interfaces.Services;
+using Microsoft.AspNetCore.Http;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
@@ -14,11 +15,15 @@ namespace Giro.Animes.Infra.Services
     public class TokenService : ITokenService
     {
         private readonly IJwtSettings _jwtSettings;
+        private readonly ICookieConfig _cookieConfig;
+        private readonly IHttpContextAccessor _httpContextAccessor;
         private readonly IPermissionDomainService _permissionDomainService;
 
-        public TokenService(IJwtSettings appConfig, IPermissionDomainService permissionDomainService)
+        public TokenService(IJwtSettings appConfig, ICookieConfig cookieConfig, IHttpContextAccessor httpContextAccessor, IPermissionDomainService permissionDomainService)
         {
             _jwtSettings = appConfig;
+            _cookieConfig = cookieConfig;
+            _httpContextAccessor = httpContextAccessor;
             _permissionDomainService = permissionDomainService;
         }
 
@@ -58,6 +63,8 @@ namespace Giro.Animes.Infra.Services
 
                 var userTokenDTO = UserTokenDTO.Create(account.User.Name, tokenString, tokenDescriptor.Expires.Value.Subtract(DateTime.UtcNow).TotalSeconds, account.User.Role.ToString());
 
+                SetCookie(userTokenDTO);
+
                 return userTokenDTO;
             }
             catch (Exception ex)
@@ -92,6 +99,8 @@ namespace Giro.Animes.Infra.Services
                 var tokenString = tokenHandler.WriteToken(token);
                 var userTokenDTO = UserTokenDTO.Create("Guest", tokenString, tokenDescriptor.Expires.Value.Subtract(DateTime.UtcNow).TotalSeconds, UserRole.Guest.ToString());
 
+                SetCookie(userTokenDTO);
+
                 return await Task.Run(() =>
                 {
                     return userTokenDTO;
@@ -102,6 +111,20 @@ namespace Giro.Animes.Infra.Services
                 throw new InvalidOperationException("Não foi possível gerar o token de convidado. Tente novamente mais tarde.", ex);
             }
 
+        }
+
+        private void SetCookie(UserTokenDTO userTokenDTO)
+        {
+            _httpContextAccessor?.HttpContext?.Response.Cookies.Append(_cookieConfig.Name, userTokenDTO.Token, new CookieOptions
+            {
+                HttpOnly = _cookieConfig.HttpOnly,
+                Expires = DateTime.Now.AddMinutes(userTokenDTO.ExpirationTime),
+                Secure = _cookieConfig.Secure,
+                SameSite = _cookieConfig.SameSite,
+                Domain = _httpContextAccessor.HttpContext.Request.Host.Host,
+                IsEssential = true,
+                Path = _cookieConfig.Path  
+            });
         }
     }
 }
