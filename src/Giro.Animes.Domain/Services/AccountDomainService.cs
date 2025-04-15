@@ -248,7 +248,7 @@ namespace Giro.Animes.Domain.Services
             if (!accountResult.IsValid)
                 return accountResult;
 
-            if(accountResult.Entity.User.Role != UserRole.Administrator || accountResult.Entity.User.Role != UserRole.Publisher)
+            if(accountResult.Entity.User.Role != UserRole.Administrator && accountResult.Entity.User.Role != UserRole.Publisher)
             {
                 return EntityResult<Account>.Create(accountResult.Entity, new List<Notification>
                 {

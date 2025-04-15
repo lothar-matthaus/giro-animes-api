@@ -36,14 +36,21 @@ namespace Giro.Animes.Domain.Services
             IEnumerable<Genre> genresList = await _genreRepository.GetAllByIdsAsync(genres, cancellation);
             Studio studio = await _studioRepository.GetByIdAsync(studioId, cancellation);
 
-            if(studio is null)
-                return EntityResult<Anime>.Create(null, new List<Notification> { Notification.Create("Anime", "CreateAnime", Message.Studio.STUDIO_NOT_FOUND) });
+            List<Notification> notifications = new List<Notification>();
 
-            if(authorsList is null)
-                return EntityResult<Anime>.Create(null, new List<Notification> { Notification.Create("Anime", "CreateAnime", Message.Author.AUTHOR_NOT_FOUND) });
+            if (studio is null)
+                notifications.Add(Notification.Create("Anime", "CreateAnime", Message.Studio.STUDIO_NOT_FOUND));
 
-            if(genresList is null)
-                return EntityResult<Anime>.Create(null, new List<Notification> { Notification.Create("Anime", "CreateAnime", Message.Genre.GENRE_NOT_FOUND) });
+            if(authorsList is null || !authorsList.Any())
+                notifications.Add(Notification.Create("Anime", "CreateAnime", Message.Author.AUTHOR_NOT_FOUND));
+
+            if (genresList is null || !genresList.Any())
+                notifications.Add(Notification.Create("Anime", "CreateAnime", Message.Genre.GENRES_NOT_FOUND));
+
+            if (notifications.Any())
+            {
+                return EntityResult<Anime>.Create(null, notifications);
+            }
 
             Anime anime = Anime.Create(titles, covers, authorsList, sinopses, genresList, studio, status);
 
