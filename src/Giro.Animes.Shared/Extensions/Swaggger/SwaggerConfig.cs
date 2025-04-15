@@ -20,7 +20,6 @@ namespace Giro.Animes.Shared.Extensions.Swaggger
 
             services.AddSwaggerGen(c =>
             {
-                c.OperationFilter<FileUploadOperation>();
                 c.SwaggerDoc("v1", new OpenApiInfo
                 {
                     Title = apiInfo.Name,

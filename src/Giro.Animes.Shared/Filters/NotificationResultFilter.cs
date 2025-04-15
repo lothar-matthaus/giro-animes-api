@@ -26,35 +26,19 @@ namespace Giro.Animes.Shared.Filters
 
             if (notifications.Any() && !context.HttpContext.Response.HasStarted)
             {
-                if (notifications.Count() == 1)
+                var errorResponse = NotificationResponse.Create(
+                    notifications,
+                    false,
+                    HttpStatusCode.BadRequest,
+                    "Houve um ou mais erros de validação"
+                );
+
+                context.Result = new ObjectResult(errorResponse)
                 {
-                    Notification notification = notifications.First();
-                    ErrorResponse errorResponse = ErrorResponse.Create(HttpStatusCode.BadRequest, notification.Message);
-
-                    context.Result = new ObjectResult(errorResponse)
-                    {
-                        StatusCode = StatusCodes.Status400BadRequest,
-                        ContentTypes = { "application/json" },
-                        DeclaredType = typeof(ErrorResponse)
-                    };
-                }
-                else
-                {
-
-                    var errorResponse = NotificationResponse.Create(
-                        notifications,
-                        false,
-                        HttpStatusCode.BadRequest,
-                        "Houve um ou mais erros de validação"
-                    );
-
-                    context.Result = new ObjectResult(errorResponse)
-                    {
-                        StatusCode = StatusCodes.Status400BadRequest,
-                        ContentTypes = { "application/json" },
-                        DeclaredType = typeof(NotificationResponse)
-                    };
-                }
+                    StatusCode = StatusCodes.Status400BadRequest,
+                    ContentTypes = { "application/json" },
+                    DeclaredType = typeof(NotificationResponse)
+                };
             }
             await next();
         }
