@@ -37,9 +37,6 @@ namespace Giro.Animes.Application.Services
             }
 
             UserTokenDTO tokenDTO = await _tokenService.GenerateUserToken(result.Entity);
-
-            SetCookie(tokenDTO);
-
             return AuthDTO.Create(result.Entity.User.Name, result.Entity.User.Role.Map(), tokenDTO.ExpirationTime, result.Entity.Id.Value);
         }
 
@@ -59,9 +56,6 @@ namespace Giro.Animes.Application.Services
             }
 
             UserTokenDTO tokenDTO = await _tokenService.GenerateUserToken(result.Entity);
-
-            SetCookie(tokenDTO);
-
             return AuthDTO.Create(result.Entity.User.Name, result.Entity.User.Role.Map(), tokenDTO.ExpirationTime, result.Entity.Id.Value);
         }
 
@@ -72,26 +66,7 @@ namespace Giro.Animes.Application.Services
         public async Task<AuthDTO> GuestAuth()
         {
             UserTokenDTO userTokenDTO = await _tokenService.GenerateGuestToken();
-
-            SetCookie(userTokenDTO);
             return AuthDTO.Create("Guest", UserRole.Guest.Map(), userTokenDTO.ExpirationTime, 0);
-        }
-
-        /// <summary>
-        /// Define o token de autenticação no cookie do usuário
-        /// </summary>
-        /// <param name="userTokenDTO"></param>
-        private void SetCookie(UserTokenDTO userTokenDTO)
-        {
-            _httpContextAccessor.HttpContext.Response.Cookies.Append("access_token", userTokenDTO.Token, new CookieOptions
-            {
-                HttpOnly = true,
-                Expires = DateTime.Now.AddMinutes(userTokenDTO.ExpirationTime),
-                Secure = true,
-                SameSite = SameSiteMode.Strict,
-                Domain = _httpContextAccessor.HttpContext.Request.Host.Host,
-                IsEssential = true,
-            });
         }
     }
 }
