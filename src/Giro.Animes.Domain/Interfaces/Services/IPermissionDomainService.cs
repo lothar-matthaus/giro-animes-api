@@ -6,6 +6,6 @@ namespace Giro.Animes.Domain.Interfaces.Services
 {
     public interface IPermissionDomainService : IDomainServiceBase
     {
-        Task<IEnumerable<Permission>> GetAllByUserRoleAsync(UserRole role, CancellationToken cancellationToken);
+        Task<IEnumerable<Permission>> GetAllByGuest( CancellationToken cancellationToken);
     }
 }

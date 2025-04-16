@@ -71,6 +71,11 @@ namespace Giro.Animes.Domain.Entities
         public ICollection<Anime> Watchlist { get; private set; }
 
         /// <summary>
+        /// Lista de animes que o usuário está assistindo
+        /// </summary>
+        public ICollection<Permission> Permissions { get; private set; }
+
+        /// <summary>
         /// Construtor padrão do objeto de entidade
         /// </summary>
         public User()
@@ -83,11 +88,12 @@ namespace Giro.Animes.Domain.Entities
         /// <param name="userName"></param>
         /// <param name="user"></param>
         /// <param name="userPlan"></param>
-        private User(string userName, UserRole user, UserPlan userPlan)
+        private User(string userName, UserRole user, UserPlan userPlan, IEnumerable<Permission> permissions)
         {
             Name = userName;
             Role = user;
             Plan = userPlan;
+            Permissions = permissions.ToList();
         }
 
         /// <summary>
@@ -106,7 +112,7 @@ namespace Giro.Animes.Domain.Entities
         /// <param name="role"></param>
         /// <param name="userPlan"></param>
         /// <returns></returns>
-        public static User Create(string userName, UserRole role, UserPlan userPlan) => new User(userName, role, userPlan);
+        public static User Create(string userName, UserRole role, UserPlan userPlan, IEnumerable<Permission> permissions) => new User(userName, role, userPlan, permissions);
 
     }
 }

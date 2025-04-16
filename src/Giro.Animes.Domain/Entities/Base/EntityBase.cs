@@ -35,7 +35,6 @@ namespace Giro.Animes.Domain.Entities.Base
         /// </summary>
         protected EntityBase()
         {
-
         }
 
         #region Métodos de validação de entidade

@@ -36,7 +36,7 @@
 
         public static class Cover
         {
-            public const string ALLOWED_EXTENSIONS = @"^image\/(jpeg|jpg|gif)$";
+            public const string ALLOWED_EXTENSIONS = @"^image\/(jpeg|avif|jpg|gif)$";
             public const string FILE_NAME_LENGTH = @"^.{3,100}$";
         }
 

@@ -5,6 +5,7 @@ using Giro.Animes.Domain.Interfaces.Repositories;
 using Giro.Animes.Domain.Interfaces.Services;
 using Giro.Animes.Domain.Services.Base;
 using Giro.Animes.Domain.ValueObjects;
+using System.Security;
 using System.Text.RegularExpressions;
 
 namespace Giro.Animes.Domain.Services
@@ -12,11 +13,13 @@ namespace Giro.Animes.Domain.Services
     public class AccountDomainService : DomainServiceBase<IAccountRepository, Account>, IAccountDomainService
     {
         private readonly ILanguageRepository _languageRepository;
+        private readonly IPermissionRepository _permissionRepository;
 
-        public AccountDomainService(IAccountRepository userRepository, ILanguageRepository languageRepository) :
+        public AccountDomainService(IAccountRepository userRepository, ILanguageRepository languageRepository, IPermissionRepository permissionRepository) :
             base(userRepository)
         {
             _languageRepository = languageRepository;
+            _permissionRepository = permissionRepository;
         }
 
         /// TODO: Adicionar evento de domínio para enviar e-mail de confirmação e notificação
@@ -32,6 +35,7 @@ namespace Giro.Animes.Domain.Services
 
             Language interfaceLanguage = await _languageRepository.GetLanguageByCode("en-US");
             IEnumerable<Language> defaultLanguages = await _languageRepository.GetLanguagesByCodes("en-US");
+            IEnumerable<Permission> permissions = await _permissionRepository.GetAllByDefaultAsync(cancellationToken);
 
             List<Notification> notifications = new List<Notification>();
 
@@ -52,7 +56,7 @@ namespace Giro.Animes.Domain.Services
 
             Email newEmail = Email.Create(email);
             Password newPassword = Password.Create(password, confirmPassword);
-            User user = User.Create(username, UserRole.User, UserPlan.Free);
+            User user = User.Create(username, UserRole.User, UserPlan.Free, permissions);
             Settings settings = Settings.Create(interfaceLanguage, defaultLanguages, defaultLanguages);
 
             Account account = Account.Create(user, newEmail, newPassword, settings);

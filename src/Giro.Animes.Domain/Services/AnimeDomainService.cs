@@ -54,6 +54,8 @@ namespace Giro.Animes.Domain.Services
 
             Anime anime = Anime.Create(titles, covers, authorsList, sinopses, genresList, studio, status);
 
+            await _repository.AddAsync(anime, cancellation);
+
             return EntityResult<Anime>.Create(anime, anime.GetErrors());
         }
 

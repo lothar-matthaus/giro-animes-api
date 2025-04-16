@@ -12,9 +12,9 @@ namespace Giro.Animes.Domain.Services
         {
         }
 
-        public async Task<IEnumerable<Permission>> GetAllByUserRoleAsync(UserRole role, CancellationToken cancellationToken)
+        public async Task<IEnumerable<Permission>> GetAllByGuest(CancellationToken cancellationToken)
         {
-            return await _repository.GetAllByRoleAsync(role, cancellationToken);
+            return await _repository.GetAllByGuestAsync(cancellationToken);
         }
     }
 }
