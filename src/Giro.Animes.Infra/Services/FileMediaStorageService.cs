@@ -21,7 +21,16 @@ namespace Giro.Animes.Infra.Services
 
         public Task<Stream> DownloadAsync(Media media)
         {
-            throw new NotImplementedException();
+            string basePath = _mediaConfig.Path(media.GetType().Name);
+            string fileName = $"{media.FileName}.{media.Extension}";
+            string fullPath = $"{basePath}/{fileName}";
+
+            if (!File.Exists(fullPath))
+                throw new FileNotFoundException($"File not found: {fullPath}");
+
+            FileStream fileStream = new FileStream(fullPath, FileMode.Open, FileAccess.Read);
+
+            return Task.FromResult<Stream>(fileStream);
         }
 
         public Task Rollback()
@@ -56,7 +65,7 @@ namespace Giro.Animes.Infra.Services
 
                     string basePath = _mediaConfig.Path(media.GetType().Name);
                     string fileName = $"{media.FileName}.{media.Extension}";
-                    string fullPath = Path.Combine(basePath, fileName);
+                    string fullPath = $"{basePath}/{fileName}";
 
                     fileStream = new FileStream(fullPath, FileMode.Create);
                     fileStream.Write(media.File, 0, media.File.Length);

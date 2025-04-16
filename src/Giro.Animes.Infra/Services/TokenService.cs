@@ -2,13 +2,17 @@
 using Giro.Animes.Domain.Enums;
 using Giro.Animes.Domain.Interfaces.Services;
 using Giro.Animes.Infra.DTOs;
+using Giro.Animes.Infra.Interfaces;
 using Giro.Animes.Infra.Interfaces.Configs;
 using Giro.Animes.Infra.Interfaces.Services;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
+using System.Runtime.CompilerServices;
 using System.Security.Claims;
 using System.Text;
+using System.Threading;
 
 namespace Giro.Animes.Infra.Services
 {
@@ -19,7 +23,7 @@ namespace Giro.Animes.Infra.Services
         private readonly IHttpContextAccessor _httpContextAccessor;
         private readonly IPermissionDomainService _permissionDomainService;
 
-        public TokenService(IJwtSettings appConfig, ICookieConfig cookieConfig, IHttpContextAccessor httpContextAccessor, IPermissionDomainService permissionDomainService)
+        public TokenService(IJwtSettings appConfig, ICookieConfig cookieConfig, IHttpContextAccessor httpContextAccessor, IPermissionDomainService permissionDomainService, IApplicationUser user)
         {
             _jwtSettings = appConfig;
             _cookieConfig = cookieConfig;
@@ -28,19 +32,18 @@ namespace Giro.Animes.Infra.Services
         }
 
         // Busca as permissões do usuário no banco de dados e adiciona as claims ao token
-        private async Task<Claim[]> GetClaimsByUserRole(UserRole role)
+        private async Task<Claim[]> GetPermissionsByDefault(IEnumerable<Permission> permissions)
         {
-            IEnumerable<Permission> permissions = await _permissionDomainService.GetAllByUserRoleAsync(role, CancellationToken.None);
             return permissions.Select(permission => new Claim("Permission", $"{permission.Resource}:{permission.Action}")).ToArray();
         }
 
-        public async Task<UserTokenDTO> GenerateUserToken(Account account)
+        public async Task<UserTokenDTO> GenerateUserToken(Account account, CancellationToken cancellationToken)
         {
             try
             {
                 var tokenHandler = new JwtSecurityTokenHandler();
                 var key = Encoding.ASCII.GetBytes(_jwtSettings.SecretKey);
-                Claim[] claims = await GetClaimsByUserRole(account.User.Role);
+                Claim[] claims = await GetPermissionsByDefault(account.User.Permissions);
 
                 var tokenDescriptor = new SecurityTokenDescriptor
                 {
@@ -73,13 +76,13 @@ namespace Giro.Animes.Infra.Services
             }
         }
 
-        public async Task<UserTokenDTO> GenerateGuestToken()
+        public async Task<UserTokenDTO> GenerateGuestToken(CancellationToken cancellationToken)
         {
             try
             {
                 var tokenHandler = new JwtSecurityTokenHandler();
                 var key = Encoding.ASCII.GetBytes(_jwtSettings.SecretKey);
-                Claim[] claims = await GetClaimsByUserRole(UserRole.Guest);
+                Claim[] claims = await GetPermissionsByDefault(await _permissionDomainService.GetAllByGuest(cancellationToken));
 
                 var tokenDescriptor = new SecurityTokenDescriptor
                 {
@@ -123,7 +126,7 @@ namespace Giro.Animes.Infra.Services
                 SameSite = _cookieConfig.SameSite,
                 Domain = _httpContextAccessor.HttpContext.Request.Host.Host,
                 IsEssential = true,
-                Path = _cookieConfig.Path  
+                Path = _cookieConfig.Path
             });
         }
     }

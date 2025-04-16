@@ -5,7 +5,7 @@ namespace Giro.Animes.Infra.Interfaces.Services
 {
     public interface ITokenService
     {
-        Task<UserTokenDTO> GenerateUserToken(Account account);
-        Task<UserTokenDTO> GenerateGuestToken();
+        Task<UserTokenDTO> GenerateUserToken(Account account, CancellationToken cancellationToken);
+        Task<UserTokenDTO> GenerateGuestToken(CancellationToken cancellationToken);
     }
 }
