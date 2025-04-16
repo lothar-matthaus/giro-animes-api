@@ -14,7 +14,8 @@ namespace Giro.Animes.Infra.Data.Configurations.Types.Management
 
             builder.Property(p => p.Resource).IsRequired();
             builder.Property(p => p.Action).IsRequired();
-            builder.Property(p => p.Role).IsRequired();
+            builder.Property(p => p.IsDefault).IsRequired();
+            builder.Property(p => p.IsGuest).IsRequired();
 
             base.Configure(builder);
         }

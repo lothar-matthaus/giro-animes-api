@@ -8,7 +8,7 @@ namespace Giro.Animes.Infra.Data.Configurations.Types.Base
     {
         public virtual void Configure(EntityTypeBuilder<Derivate> builder)
         {
-            builder.Property(entityBase => entityBase.Id).HasColumnOrder(1).IsRequired();
+            builder.Property(entityBase => entityBase.Id).UseIdentityByDefaultColumn();
             builder.HasKey(entityBase => entityBase.Id);
             builder.Ignore(entityBase => entityBase.IsValid);
 

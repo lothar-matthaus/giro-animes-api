@@ -30,18 +30,19 @@
             public const string AUTHOR_WORKS = "author_works";
             public const string WATCHLIST = "watchlist";
             public const string RATINGS = "ratings";
-            public const string SETTINGS_ANIME_AUDIO_LANGUAGES = "settings_anime_audio_languages";
-            public const string SETTINGS_ANIME_SUBTITLE_LANGUAGES = "settings_anime_subtitle_languages";
             public const string EPISODE_SUBTITLE_LANGUAGES = "episode_subtitle_languages";
             public const string EPISODE_AUDIO_LANGUAGES = "episode_audio_languages";
         }
 
         public static class Management
         {
+            public const string SETTINGS_ANIME_AUDIO_LANGUAGES = "settings_anime_audio_languages";
+            public const string SETTINGS_ANIME_SUBTITLE_LANGUAGES = "settings_anime_subtitle_languages";
             public const string ACCOUNTS = "accounts";
             public const string USERS = "users";
             public const string SETTINGS = "settings";
             public const string PERMISSIONS = "permissions";
+            public const string USER_PERMISSIONS = "user_permissions";
         }
 
         public static class Misc

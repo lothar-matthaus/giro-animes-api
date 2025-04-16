@@ -13,9 +13,13 @@ namespace Giro.Animes.Infra.Data.Repositories
         {
         }
 
-        public async Task<IEnumerable<Permission>> GetAllByRoleAsync(UserRole role, CancellationToken cancellationToken = default)
+        public async Task<IEnumerable<Permission>> GetAllByDefaultAsync(CancellationToken cancellationToken)
         {
-            return await _dbSet.Where(x => x.Role == role).ToListAsync(cancellationToken);
+            return await _dbSet.Where(permission => permission.IsDefault).AsNoTracking().ToListAsync(cancellationToken);
+        }
+        public async Task<IEnumerable<Permission>> GetAllByGuestAsync(CancellationToken cancellationToken)
+        {
+            return await _dbSet.Where(permission => permission.IsGuest).AsNoTracking().ToListAsync(cancellationToken);
         }
     }
 }
