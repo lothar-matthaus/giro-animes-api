@@ -39,7 +39,7 @@ namespace Giro.Animes.API.Controllers
         [ProducesResponseType<NotificationResponse>((int)HttpStatusCode.BadRequest)]
         public async Task<IActionResult> GuestAuth()
         {
-            AuthDTO authDTO = await _applicationService.GuestAuth();
+            AuthDTO authDTO = await _applicationService.GuestAuth(HttpContext.RequestAborted);
             return await Ok(authDTO, Messages.Response.Auth.AUTHENTICATION_SUCCESS, Messages.Response.Auth.AUTHENTICATION_FAILED);
         }
 
