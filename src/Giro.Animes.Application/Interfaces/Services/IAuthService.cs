@@ -8,6 +8,6 @@ namespace Giro.Animes.Application.Interfaces.Services
     {
         Task<AuthDTO> AuthAsync(AuthRequest request, CancellationToken cancellationToken);
         Task<AuthDTO> AuthAdminAsync(AuthRequest request, CancellationToken cancellationToken);
-        Task<AuthDTO> GuestAuth();
+        Task<AuthDTO> GuestAuth(CancellationToken cancellationToken);
     }
 }

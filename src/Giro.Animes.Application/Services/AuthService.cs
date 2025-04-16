@@ -36,7 +36,7 @@ namespace Giro.Animes.Application.Services
                 return null;
             }
 
-            UserTokenDTO tokenDTO = await _tokenService.GenerateUserToken(result.Entity);
+            UserTokenDTO tokenDTO = await _tokenService.GenerateUserToken(result.Entity, cancellationToken);
             return AuthDTO.Create(result.Entity.User.Name, result.Entity.User.Role.Map(), tokenDTO.ExpirationTime, result.Entity.Id.Value);
         }
 
@@ -55,7 +55,7 @@ namespace Giro.Animes.Application.Services
                 return null;
             }
 
-            UserTokenDTO tokenDTO = await _tokenService.GenerateUserToken(result.Entity);
+            UserTokenDTO tokenDTO = await _tokenService.GenerateUserToken(result.Entity, cancellationToken);
             return AuthDTO.Create(result.Entity.User.Name, result.Entity.User.Role.Map(), tokenDTO.ExpirationTime, result.Entity.Id.Value);
         }
 
@@ -63,9 +63,9 @@ namespace Giro.Animes.Application.Services
         /// Gera um token de autenticação para o usuário convidado
         /// </summary>
         /// <returns></returns>
-        public async Task<AuthDTO> GuestAuth()
+        public async Task<AuthDTO> GuestAuth(CancellationToken cancellationToken)
         {
-            UserTokenDTO userTokenDTO = await _tokenService.GenerateGuestToken();
+            UserTokenDTO userTokenDTO = await _tokenService.GenerateGuestToken(cancellationToken);
             return AuthDTO.Create("Guest", UserRole.Guest.Map(), userTokenDTO.ExpirationTime, 0);
         }
     }
