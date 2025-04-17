@@ -2,6 +2,7 @@
 using Giro.Animes.Application.Responses;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 using System.Net;
 
 namespace Giro.Animes.Shared.Middleware
@@ -23,6 +24,9 @@ namespace Giro.Animes.Shared.Middleware
             {
                 switch (ex)
                 {
+                    case SecurityTokenException:
+                        await HandleExceptions(context, "Token inválido ou expirado.", HttpStatusCode.Unauthorized);
+                        break;
                     case DbUpdateException:
                         await HandleExceptions(context, "Ocorreu um erro ao salvar as alterações no banco de dados.", HttpStatusCode.InternalServerError);
                         break;
