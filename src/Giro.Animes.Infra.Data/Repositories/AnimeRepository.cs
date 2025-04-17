@@ -36,7 +36,7 @@ namespace Giro.Animes.Infra.Data.Repositories
                 .Take(pagination.RowsPerPage);
 
             // Executar a consulta e obter os resultados
-            IEnumerable<Anime> result = await query.ToListAsync(cancellationToken);
+            IEnumerable<Anime> result = await query.AsNoTracking().ToListAsync(cancellationToken);
 
             return (result, totalItems);
         }
