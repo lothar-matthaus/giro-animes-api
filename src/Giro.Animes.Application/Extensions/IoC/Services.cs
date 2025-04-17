@@ -18,6 +18,7 @@ namespace Giro.Animes.Application.Extensions.IoC
             services.AddScoped<INotificationService, NotificationService>();
             services.AddScoped<IAnimeService, AnimeService>();
             services.AddScoped<IAuthService, AuthService>();
+            services.AddScoped<IMediaService, MediaService>();
 
             return services;
         }

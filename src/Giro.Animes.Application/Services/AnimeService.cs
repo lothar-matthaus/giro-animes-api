@@ -21,11 +21,13 @@ namespace Giro.Animes.Application.Services
 {
     internal class AnimeService : ApplicationServiceBase<IAnimeDomainService>, IAnimeService
     {
+        private readonly ITokenService _tokenService;
         private readonly IFileMediaStorageService _storageService;
 
-        public AnimeService(IApplicationUser applicationUser, INotificationService notificationService, IAnimeDomainService domainService, IFileMediaStorageService storageService) : 
+        public AnimeService(IApplicationUser applicationUser, INotificationService notificationService, ITokenService tokenService, IAnimeDomainService domainService, IFileMediaStorageService storageService) : 
             base(applicationUser, notificationService, domainService)
         {
+            _tokenService = tokenService;
             _storageService = storageService;
         }
 
@@ -122,6 +124,13 @@ namespace Giro.Animes.Application.Services
         public async Task<IPagedEnumerable<SimpleAnimeDTO>> GetAllPagedAsync(IPagination<AnimeFilter> pagination, CancellationToken cancellationToken)
         {
             (IEnumerable<Anime> animes, int totalCount) = await _domainService.GetAllPagedAsync(pagination, cancellationToken);
+
+            foreach(Anime anime in animes)
+            {
+                anime.Covers.Select(cover => cover.SetUrl(_tokenService.GenerateMediaToken(cover))).ToList();
+                anime.Screenshots.Select(screenshot => screenshot.SetUrl(_tokenService.GenerateMediaToken(screenshot))).ToList();
+            }
+
             IPagedEnumerable<SimpleAnimeDTO> result = PagedEnumerable<SimpleAnimeDTO>.Create(animes?.MapSimple(), pagination.Page, pagination.RowsPerPage, totalCount);
             return result;
         }
