@@ -47,13 +47,13 @@ namespace Giro.Animes.Domain.Entities
             set
             {
                 Validate(
-                    isInvalidIf: string.IsNullOrWhiteSpace(value),
+                    isInvalidIf: string.IsNullOrWhiteSpace(value.Split("/")[1]),
                     ifInvalid: () => Notification.Create(GetType().Name, "Extension", string.Format(Message.Validation.General.REQUIRED, "Extension")),
-                    ifValid: () => _extension = value
+                    ifValid: () => _extension = string.Empty
                 );
 
                 Validate(
-                    isInvalidIf: !Regex.IsMatch(Patterns.Cover.ALLOWED_EXTENSIONS, value),
+                    isInvalidIf: !Regex.IsMatch(Patterns.Cover.ALLOWED_EXTENSIONS, value.Split("/")[1]),
                     ifInvalid: () => Notification.Create(GetType().Name, "Extension", Message.Validation.Cover.INVALID_EXTENSION),
                     ifValid: () => _extension = value
                 );
@@ -77,7 +77,7 @@ namespace Giro.Animes.Domain.Entities
         protected Media(string extension, byte[] file = null)
         {
             FileName = Guid.NewGuid().ToString();
-            Extension = extension.Split("/")[1];
+            Extension = extension;
             File = file;
         }
 
