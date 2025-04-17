@@ -20,13 +20,15 @@ namespace Giro.Animes.Infra.Services
     {
         private readonly IJwtSettings _jwtSettings;
         private readonly ICookieConfig _cookieConfig;
+        private readonly IMediaConfig _mediaConfig;
         private readonly IHttpContextAccessor _httpContextAccessor;
         private readonly IPermissionDomainService _permissionDomainService;
 
-        public TokenService(IJwtSettings appConfig, ICookieConfig cookieConfig, IHttpContextAccessor httpContextAccessor, IPermissionDomainService permissionDomainService, IApplicationUser user)
+        public TokenService(IJwtSettings appConfig, ICookieConfig cookieConfig, IMediaConfig mediaConfig, IHttpContextAccessor httpContextAccessor, IPermissionDomainService permissionDomainService, IApplicationUser user)
         {
             _jwtSettings = appConfig;
             _cookieConfig = cookieConfig;
+            _mediaConfig = mediaConfig;
             _httpContextAccessor = httpContextAccessor;
             _permissionDomainService = permissionDomainService;
         }
@@ -128,6 +130,67 @@ namespace Giro.Animes.Infra.Services
                 IsEssential = true,
                 Path = _cookieConfig.Path
             });
+        }
+
+        public async Task<(string, string, string)> GetMediaByMediaToken(string token, CancellationToken cancellationToken)
+        {
+            var tokenHandler = new JwtSecurityTokenHandler();
+            var key = Encoding.ASCII.GetBytes(_jwtSettings.SecretKey);
+
+            try
+            {
+                tokenHandler.ValidateToken(token, new TokenValidationParameters
+                {
+                    ValidateIssuer = true,
+                    ValidateAudience = true,
+                    ValidateLifetime = true, // Valida a expiração do token
+                    ValidateIssuerSigningKey = true,
+                    IssuerSigningKey = new SymmetricSecurityKey(key)
+                }, out SecurityToken validatedToken);
+
+                var jwtToken = (JwtSecurityToken)validatedToken;
+                var filePath = jwtToken.Claims.First(x => x.Type == "fullPath").Value;
+                var contentType = jwtToken.Claims.First(x => x.Type == "contentType").Value;
+
+                if (!System.IO.File.Exists(filePath))
+                    throw new FileNotFoundException("Arquivo não encontrado.", filePath);
+
+                return (filePath, contentType, Path.GetFileName(filePath));
+            }
+            catch (SecurityTokenExpiredException)
+            {
+                throw;
+            }
+        }
+
+        public string GenerateMediaToken(Media media)
+        {
+            var tokenHandler = new JwtSecurityTokenHandler();
+            var key = Encoding.ASCII.GetBytes(_jwtSettings.SecretKey);
+            try
+            {
+                var tokenDescriptor = new SecurityTokenDescriptor
+                {
+                    Subject = new ClaimsIdentity(new[]
+                    {
+                        new Claim("fullPath", $"{media.Url}"),
+                        new Claim("contentType", media.Extension)
+                    }),
+                    Expires = DateTime.UtcNow.AddMinutes(_jwtSettings.TokenExpirationMinutes),
+                    SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature),
+                    Issuer = _jwtSettings.Issuer,
+                    Audience = _jwtSettings.Audience,
+                    NotBefore = DateTime.UtcNow,
+                };
+
+                var token = tokenHandler.CreateToken(tokenDescriptor);
+                var tokenString = tokenHandler.WriteToken(token);
+                return $"{_mediaConfig.Host}{"api/Medias/Download?token="}{tokenString}";
+            }
+            catch (Exception)
+            {
+                throw;
+            }
         }
     }
 }

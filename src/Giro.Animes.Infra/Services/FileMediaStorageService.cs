@@ -33,6 +33,29 @@ namespace Giro.Animes.Infra.Services
             return Task.FromResult<Stream>(fileStream);
         }
 
+        public async Task<byte[]> DownloadAsync(string path, CancellationToken cancellationToken)
+        {
+            FileStream fileStream = null;
+
+            if (!File.Exists(path))
+            {
+                return null;
+            }
+
+            try
+            {
+                fileStream = new FileStream(path, FileMode.Open, FileAccess.Read);
+                byte[] buffer = new byte[fileStream.Length];
+                await fileStream.ReadAsync(buffer, 0, (int)fileStream.Length, cancellationToken);
+
+                return buffer;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
         public Task Rollback()
         {
             FileStream fileStream = null;
