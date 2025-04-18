@@ -1,18 +1,16 @@
 ﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using System.Linq.Expressions;
 
 namespace Giro.Animes.Application.Requests.Anime
 {
-    public class AnimeCreateRequest
+    public class AnimeCreateOrUpdateRequest
     {
-       public ICollection<AnimeTitleRequest> Titles { get; set; } = new List<AnimeTitleRequest>();
-       public IEnumerable<AnimeSinopseRequest> Sinopses { get; set; } = new List<AnimeSinopseRequest>();
-       public IEnumerable<long> Genres { get; set; } = new List<long>();
-       public IEnumerable<CoverRequest> Covers { get; set; } = new List<CoverRequest>();
-       public IEnumerable<ScreenshotRequest> Screenshots { get; set; } = new List<ScreenshotRequest>();
-       public IEnumerable<long> Authors { get; set; } = new List<long>();
-       public long StudioId { get; set; }
+        public ICollection<AnimeTitleRequest> Titles { get; set; } = new List<AnimeTitleRequest>();
+        public IEnumerable<AnimeSinopseRequest> Sinopses { get; set; } = new List<AnimeSinopseRequest>();
+        public IEnumerable<long> Genres { get; set; } = new List<long>();
+        public IEnumerable<CoverRequest> Covers { get; set; } = new List<CoverRequest>();
+        public IEnumerable<ScreenshotRequest> Screenshots { get; set; } = new List<ScreenshotRequest>();
+        public IEnumerable<long> Authors { get; set; } = new List<long>();
+        public long StudioId { get; set; }
     }
 
     public class AnimeTitleRequest

@@ -58,7 +58,6 @@ namespace Giro.Animes.Infra.Services
 
         public Task Rollback()
         {
-            FileStream fileStream = null;
             try
             {
                 foreach (Media media in _medias)
@@ -87,7 +86,7 @@ namespace Giro.Animes.Infra.Services
                     EnsureDirectory(media);
 
                     string basePath = _mediaConfig.Path(media.GetType().Name);
-                    string fileName = $"{media.FileName}.{media.Extension}";
+                    string fileName = $"{media.FileName}.{media.Extension.Split("/")[1]}";
                     string fullPath = $"{basePath}/{fileName}";
 
                     fileStream = new FileStream(fullPath, FileMode.Create);

@@ -1,14 +1,7 @@
 ﻿using Giro.Animes.Application.DTOs;
 using Giro.Animes.Application.Interfaces.Services;
 using Giro.Animes.Application.Interfaces.Services.Base;
-using Giro.Animes.Application.Services.Base;
-using Giro.Animes.Domain.Interfaces.Services;
 using Giro.Animes.Infra.Interfaces.Services;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Giro.Animes.Application.Services
 {
@@ -29,7 +22,7 @@ namespace Giro.Animes.Application.Services
         {
             (var path, var type, var name) = await tokenService.GetMediaByMediaToken(token, cancellationToken);
 
-            if(string.IsNullOrEmpty(path) || string.IsNullOrEmpty(type) || string.IsNullOrEmpty(name))
+            if (string.IsNullOrEmpty(path) || string.IsNullOrEmpty(type) || string.IsNullOrEmpty(name))
             {
                 await notificationService.AddNotification("Token enviado inválido ou expirado. Verifique a resposta dos dados oriudos da mídia requisitada", "Download", "Token");
                 return null;

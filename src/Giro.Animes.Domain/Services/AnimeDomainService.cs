@@ -7,7 +7,6 @@ using Giro.Animes.Domain.Interfaces.Repositories;
 using Giro.Animes.Domain.Interfaces.Services;
 using Giro.Animes.Domain.Services.Base;
 using Giro.Animes.Domain.ValueObjects;
-using System.Linq;
 
 namespace Giro.Animes.Domain.Services
 {
@@ -41,7 +40,7 @@ namespace Giro.Animes.Domain.Services
             if (studio is null)
                 notifications.Add(Notification.Create("Anime", "CreateAnime", Message.Studio.STUDIO_NOT_FOUND));
 
-            if(authorsList is null || !authorsList.Any())
+            if (authorsList is null || !authorsList.Any())
                 notifications.Add(Notification.Create("Anime", "CreateAnime", Message.Author.AUTHOR_NOT_FOUND));
 
             if (genresList is null || !genresList.Any())
@@ -74,10 +73,10 @@ namespace Giro.Animes.Domain.Services
         public async Task<EntityResult<AnimeTitle>> CreateAnimeTitleAsync(string title, long languageId, CancellationToken cancellationToken)
         {
             Language language = await _languageRepository.GetLanguageByIdAsync(languageId, cancellationToken);
-            
+
             if (language is null)
                 return EntityResult<AnimeTitle>.Create(null, new List<Notification> { Notification.Create("AnimeTitle", "CreateAnimeTitle", Message.Language.LANGUAGE_NOT_FOUND) });
-            
+
             AnimeTitle animeTitle = AnimeTitle.Create(title, language);
 
             return EntityResult<AnimeTitle>.Create(animeTitle, animeTitle.GetErrors());
@@ -89,9 +88,9 @@ namespace Giro.Animes.Domain.Services
 
             if (language is null)
                 return EntityResult<Cover>.Create(null, new List<Notification> { Notification.Create("Cover", "CreateCover", Message.Language.LANGUAGE_NOT_FOUND) });
-            
+
             Cover animeCover = Cover.Create(cover, extension, language);
-            
+
             return EntityResult<Cover>.Create(animeCover, animeCover.GetErrors());
         }
 

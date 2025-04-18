@@ -8,10 +8,10 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Net;
 
-namespace Giro.Animes.Presentation.Controllers
+namespace Giro.Animes.Shared.Controllers
 {
     [ApiController]
-    [Route("api/[controller]/")]
+    [Route("api/v{version:apiVersion}/[controller]/")]
     [Authorize()]
     public abstract class GiroAnimesBaseController<TApplicationService> : ControllerBase where TApplicationService : IApplicationServiceBase
     {

@@ -1,5 +1,4 @@
 ﻿using Giro.Animes.Domain.Entities;
-using Giro.Animes.Domain.Enums;
 using Giro.Animes.Domain.Interfaces.Repositories;
 using Giro.Animes.Domain.Interfaces.Services;
 using Giro.Animes.Domain.Services.Base;

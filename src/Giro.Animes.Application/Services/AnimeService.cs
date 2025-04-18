@@ -15,7 +15,6 @@ using Giro.Animes.Domain.Interfaces.Services;
 using Giro.Animes.Domain.ValueObjects;
 using Giro.Animes.Infra.Interfaces;
 using Giro.Animes.Infra.Interfaces.Services;
-using Microsoft.AspNetCore.WebUtilities;
 
 namespace Giro.Animes.Application.Services
 {
@@ -24,20 +23,19 @@ namespace Giro.Animes.Application.Services
         private readonly ITokenService _tokenService;
         private readonly IFileMediaStorageService _storageService;
 
-        public AnimeService(IApplicationUser applicationUser, INotificationService notificationService, ITokenService tokenService, IAnimeDomainService domainService, IFileMediaStorageService storageService) : 
+        public AnimeService(IApplicationUser applicationUser, INotificationService notificationService, ITokenService tokenService, IAnimeDomainService domainService, IFileMediaStorageService storageService) :
             base(applicationUser, notificationService, domainService)
         {
             _tokenService = tokenService;
             _storageService = storageService;
         }
 
-        public async Task<DetailedAnimeDTO> CreateAnimeAsync(AnimeCreateRequest request, CancellationToken cancellationToken)
+        public async Task<DetailedAnimeDTO> CreateAnimeAsync(AnimeCreateOrUpdateRequest request, CancellationToken cancellationToken)
         {
             IList<AnimeTitle> titles = new List<AnimeTitle>();
             IList<AnimeSinopse> sinopses = new List<AnimeSinopse>();
             IList<Cover> covers = new List<Cover>();
             IList<AnimeScreenshot> screenshots = new List<AnimeScreenshot>();
-
 
             // Cria os título de animes
             foreach (AnimeTitleRequest title in request.Titles)
@@ -68,7 +66,7 @@ namespace Giro.Animes.Application.Services
             }
 
             // Cria as capas de animes]
-            foreach(CoverRequest cover in request.Covers)
+            foreach (CoverRequest cover in request.Covers)
             {
                 byte[] fileBytes = cover.File.ReadAsBytes();
 
@@ -87,11 +85,11 @@ namespace Giro.Animes.Application.Services
             await _storageService.UploadAsync(covers.ToArray());
 
             // Cria os screenshots de animes
-            foreach(ScreenshotRequest screenshot in request.Screenshots)
+            foreach (ScreenshotRequest screenshot in request.Screenshots)
             {
                 byte[] fileBytes = screenshot.File.ReadAsBytes();
                 EntityResult<AnimeScreenshot> screenshotResult = await _domainService.CreateScreenshotAsync(fileBytes, screenshot.Extension, cancellationToken);
-                
+
                 if (!screenshotResult.IsValid)
                 {
                     await _notificationService.AddNotification(screenshotResult.Errors);
@@ -105,7 +103,7 @@ namespace Giro.Animes.Application.Services
             await _storageService.UploadAsync(screenshots.ToArray());
 
             EntityResult<Anime> animeResult = await _domainService.CreateAnimeAsync(titles, sinopses, covers, screenshots, request.Authors, request.Genres, AnimeStatus.Unknown, request.StudioId, cancellationToken);
-            
+
             if (!animeResult.IsValid)
             {
                 await _notificationService.AddNotification(animeResult.Errors);
@@ -125,10 +123,10 @@ namespace Giro.Animes.Application.Services
         {
             (IEnumerable<Anime> animes, int totalCount) = await _domainService.GetAllPagedAsync(pagination, cancellationToken);
 
-            foreach(Anime anime in animes)
+            foreach (Anime anime in animes)
             {
-                anime.Covers.Select(cover => cover.SetUrl(_tokenService.GenerateMediaToken(cover))).ToList();
-                anime.Screenshots.Select(screenshot => screenshot.SetUrl(_tokenService.GenerateMediaToken(screenshot))).ToList();
+                anime.Covers?.Select(cover => cover.SetUrl(_tokenService.GenerateMediaToken(cover))).ToList();
+                anime.Screenshots?.Select(screenshot => screenshot.SetUrl(_tokenService.GenerateMediaToken(screenshot))).ToList();
             }
 
             IPagedEnumerable<SimpleAnimeDTO> result = PagedEnumerable<SimpleAnimeDTO>.Create(animes?.MapSimple(), pagination.Page, pagination.RowsPerPage, totalCount);

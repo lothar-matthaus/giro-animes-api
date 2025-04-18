@@ -5,7 +5,6 @@ using Giro.Animes.Domain.Interfaces.Repositories.Base;
 using Giro.Animes.Domain.Interfaces.Services;
 using Giro.Animes.Domain.Services;
 using Microsoft.Extensions.DependencyInjection;
-using System.Runtime.Serialization;
 
 namespace Giro.Animes.Application.Extensions.IoC
 {

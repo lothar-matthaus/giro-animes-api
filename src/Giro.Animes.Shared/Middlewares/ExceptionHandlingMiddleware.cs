@@ -1,5 +1,6 @@
 ﻿
 using Giro.Animes.Application.Responses;
+using Giro.Animes.Infra.Interfaces.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
@@ -9,8 +10,11 @@ namespace Giro.Animes.Shared.Middleware
 {
     public class ExceptionHandlingMiddleware : IMiddleware
     {
-        public ExceptionHandlingMiddleware()
+        private readonly IFileMediaStorageService _fileMediaStorageService;
+
+        public ExceptionHandlingMiddleware(IFileMediaStorageService fileMediaStorageService)
         {
+            _fileMediaStorageService = fileMediaStorageService;
         }
 
         public async Task InvokeAsync(HttpContext context, RequestDelegate next)
@@ -22,6 +26,7 @@ namespace Giro.Animes.Shared.Middleware
 
             catch (Exception ex)
             {
+                await _fileMediaStorageService.Rollback();
                 switch (ex)
                 {
                     case SecurityTokenException:

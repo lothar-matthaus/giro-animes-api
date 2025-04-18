@@ -5,14 +5,11 @@ using Giro.Animes.Infra.DTOs;
 using Giro.Animes.Infra.Interfaces;
 using Giro.Animes.Infra.Interfaces.Configs;
 using Giro.Animes.Infra.Interfaces.Services;
-using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
-using System.Runtime.CompilerServices;
 using System.Security.Claims;
 using System.Text;
-using System.Threading;
 
 namespace Giro.Animes.Infra.Services
 {
