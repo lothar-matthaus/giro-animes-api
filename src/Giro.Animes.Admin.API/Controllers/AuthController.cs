@@ -3,7 +3,7 @@ using Giro.Animes.Application.DTOs;
 using Giro.Animes.Application.Interfaces.Services;
 using Giro.Animes.Application.Requests.Auth;
 using Giro.Animes.Application.Responses;
-using Giro.Animes.Presentation.Controllers;
+using Giro.Animes.Shared.Controllers;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Net;

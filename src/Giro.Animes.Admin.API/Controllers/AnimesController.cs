@@ -7,8 +7,8 @@ using Giro.Animes.Application.Requests;
 using Giro.Animes.Application.Requests.Anime;
 using Giro.Animes.Application.Responses;
 using Giro.Animes.Domain.Common.Filters;
-using Giro.Animes.Presentation.Controllers;
 using Giro.Animes.Shared.Constants;
+using Giro.Animes.Shared.Controllers;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Net;
@@ -56,7 +56,7 @@ namespace Giro.Animes.API.Controllers
         [ProducesResponseType<ErrorResponse>((int)HttpStatusCode.InternalServerError)]
         [ProducesResponseType<NotificationResponse>((int)HttpStatusCode.BadRequest)]
         [Authorize(Policy = Policies.Animes.CAN_CREATE)]
-        public async Task<IActionResult> CreateAnime([FromForm] AnimeCreateRequest request)
+        public async Task<IActionResult> CreateAnime([FromForm] AnimeCreateOrUpdateRequest request)
         {
             DetailedAnimeDTO detailedAnimeDTO = await _applicationService.CreateAnimeAsync(request, HttpContext.RequestAborted);
             return await Ok(detailedAnimeDTO, Messages.Response.Anime.ANIME_CREATED);
