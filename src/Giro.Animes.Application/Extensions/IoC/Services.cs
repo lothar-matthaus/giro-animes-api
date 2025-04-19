@@ -1,6 +1,9 @@
 ﻿using Giro.Animes.Application.Interfaces.Services;
 using Giro.Animes.Application.Services;
 using Giro.Animes.Domain.Entities;
+using Giro.Animes.Domain.Events.Dispatcher;
+using Giro.Animes.Domain.Interfaces.DomainEvents.Base;
+using Giro.Animes.Domain.Interfaces.DomainEvents.Dispatcher;
 using Giro.Animes.Domain.Interfaces.Repositories.Base;
 using Giro.Animes.Domain.Interfaces.Services;
 using Giro.Animes.Domain.Services;
