@@ -14,11 +14,11 @@ namespace Giro.Animes.Infra.Data.Repositories
 
         public async Task<IEnumerable<Permission>> GetAllByDefaultAsync(CancellationToken cancellationToken)
         {
-            return await _dbSet.Where(permission => permission.IsDefault).AsNoTracking().ToListAsync(cancellationToken);
+            return await _dbSet.Where(permission => permission.IsDefault).ToListAsync(cancellationToken);
         }
         public async Task<IEnumerable<Permission>> GetAllByGuestAsync(CancellationToken cancellationToken)
         {
-            return await _dbSet.Where(permission => permission.IsGuest).AsNoTracking().ToListAsync(cancellationToken);
+            return await _dbSet.Where(permission => permission.IsGuest).ToListAsync(cancellationToken);
         }
     }
 }

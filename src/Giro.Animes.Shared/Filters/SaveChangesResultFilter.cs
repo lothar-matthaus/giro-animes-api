@@ -9,23 +9,17 @@ namespace Giro.Animes.Shared.Filters
     {
         private readonly GiroAnimesDbContext _dbContext;
         private readonly INotificationService _notificationService;
-        private readonly IFileMediaStorageService _fileMediaStorageService;
 
-        public SaveChangesResultFilter(GiroAnimesDbContext dbContext, INotificationService notificationService, IFileMediaStorageService fileMediaStorageService)
+        public SaveChangesResultFilter(GiroAnimesDbContext dbContext, INotificationService notificationService)
         {
             _dbContext = dbContext;
             _notificationService = notificationService;
-            _fileMediaStorageService = fileMediaStorageService;
         }
         public async Task OnResultExecutionAsync(ResultExecutingContext context, ResultExecutionDelegate next)
         {
             if (_dbContext.ChangeTracker.HasChanges() && !_notificationService.HasNotifications())
             {
                 _dbContext.SaveChanges();
-            }
-            else if (_notificationService.HasNotifications())
-            {
-                await _fileMediaStorageService.Rollback();
             }
 
             await next();
