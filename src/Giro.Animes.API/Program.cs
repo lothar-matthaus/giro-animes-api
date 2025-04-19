@@ -10,6 +10,7 @@ using Giro.Animes.Shared.Extensions.Authorization;
 using Giro.Animes.Shared.Extensions.Swaggger;
 using Giro.Animes.Shared.Filters;
 using Giro.Animes.Shared.Middleware;
+using Giro.Animes.Shared.Middlewares;
 using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -77,7 +78,12 @@ builder.Services.AddServices();
 #endregion
 
 #region Middlewares
+builder.Services.AddTransient<DomainEventsHandlingMiddleware>();
 builder.Services.AddTransient<ExceptionHandlingMiddleware>();
+#endregion
+
+#region Eventos de domínio
+builder.Services.AddDomainEvents();
 #endregion
 
 var app = builder.Build();
@@ -89,6 +95,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerConfig();
 }
 
+app.UseMiddleware<DomainEventsHandlingMiddleware>();
 app.UseMiddleware<ExceptionHandlingMiddleware>();
 app.UseRouting();
 app.UseHttpsRedirection();
