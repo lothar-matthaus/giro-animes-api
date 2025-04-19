@@ -1,4 +1,5 @@
 ﻿using Giro.Animes.Domain.Interfaces;
+using Giro.Animes.Domain.Interfaces.Events;
 using Giro.Animes.Domain.ValueObjects;
 
 namespace Giro.Animes.Domain.Entities.Base
@@ -21,6 +22,11 @@ namespace Giro.Animes.Domain.Entities.Base
         public DateTime UpdateDate { get; protected set; }
 
         /// <summary>
+        /// Lista de eventos de domínio associados à entidade
+        /// </summary>
+        public IReadOnlyCollection<IDomainEvent> DomainEvents => _domainEvents.ToList().AsReadOnly();
+
+        /// <summary>
         /// Indica se a entidade é válida ou não 
         /// </summary>
         public bool IsValid => !_errors.Any();
@@ -29,6 +35,7 @@ namespace Giro.Animes.Domain.Entities.Base
         /// Lista de erros de validação da entidade 
         /// </summary>
         private IList<Notification> _errors = new List<Notification>();
+        protected IList<IDomainEvent> _domainEvents = new List<IDomainEvent>();
 
         /// <summary>
         /// Construtor padrão

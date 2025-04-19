@@ -1,5 +1,6 @@
 ﻿using Giro.Animes.Domain.Entities.Base;
 using Giro.Animes.Domain.Enums;
+using Giro.Animes.Domain.Events;
 using Giro.Animes.Domain.ValueObjects;
 
 namespace Giro.Animes.Domain.Entities
@@ -53,6 +54,8 @@ namespace Giro.Animes.Domain.Entities
             Status = AccountStatus.Active;
             Settings = settings;
             User = user;
+
+            _domainEvents.Add(AccountCreatedDomainEvent.Create(User.Name));
         }
 
         /// <summary>
