@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Giro.Animes.Infra.Data.Configurations.Types.Base
 {
-    internal class EntityBaseTypeConfiguration<Derivate> : IEntityTypeConfiguration<Derivate> where Derivate : EntityBase
+    public class EntityBaseTypeConfiguration<Derivate> : IEntityTypeConfiguration<Derivate> where Derivate : EntityBase
     {
         public virtual void Configure(EntityTypeBuilder<Derivate> builder)
         {

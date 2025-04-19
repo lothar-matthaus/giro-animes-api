@@ -48,6 +48,7 @@
         public static class Misc
         {
             public const string AUDIT_LOGS = "audit_logs";
+            public const string EMAIL_TEMPLATES = "email_templates";
         }
     }
 }
