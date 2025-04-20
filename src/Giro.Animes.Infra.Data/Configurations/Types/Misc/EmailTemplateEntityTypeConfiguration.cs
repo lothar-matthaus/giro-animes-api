@@ -18,10 +18,10 @@ namespace Giro.Animes.Infra.Data.Configurations.Types.Misc
             builder.ToTable(Tables.Misc.EMAIL_TEMPLATES, Schemas.MISC);
 
             builder.Property(template => template.TemplateName).IsRequired().HasMaxLength(255);
+            builder.Property(template => template.TemplateDescription).IsRequired();
             builder.Property(template => template.Subject).IsRequired().HasMaxLength(255);
             builder.Property(template => template.Body).IsRequired();
-            builder.Property(template => template.TemplateType).IsRequired();
-            builder.Property(template => template.TemplateType).IsRequired().HasDefaultValue(0);
+            builder.Property(template => template.Type).IsRequired();
 
             builder.HasOne(template => template.Language).WithMany().HasForeignKey(template => template.LanguageId).OnDelete(DeleteBehavior.Restrict).IsRequired();
 

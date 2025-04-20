@@ -19,6 +19,7 @@ namespace Giro.Animes.Infra.Data.Extensions.IoC
             services.AddScoped<IPermissionRepository, PermissionRepository>();
             services.AddScoped<IGenreRepository, GenreRepository>();
             services.AddScoped<IStudioRepository, StudioRepository>();
+            services.AddScoped<IEmailTemplateRepository, EmailTemplateRepository>();
 
             return services;
         }
