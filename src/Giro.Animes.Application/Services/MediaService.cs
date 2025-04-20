@@ -20,7 +20,7 @@ namespace Giro.Animes.Application.Services
 
         public async Task<FileDTO> DownloadAsync(string token, CancellationToken cancellationToken)
         {
-            (var path, var type, var name) = await tokenService.GetMediaByMediaToken(token, cancellationToken);
+            (var path, var type, var name) = await tokenService.GetMediaMetadataByMediaToken(token, cancellationToken);
 
             if (string.IsNullOrEmpty(path) || string.IsNullOrEmpty(type) || string.IsNullOrEmpty(name))
             {
