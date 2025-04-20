@@ -9,25 +9,44 @@ namespace Giro.Animes.Domain.Events
 {
     public record AccountCreatedDomainEvent : IDomainEvent
     {
+        /// <summary>
+        /// Nome de usuário do usuário. Necessário para enviar o template de boas-vindas.
+        /// </summary>
         public string Username { get; private set; }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="AccountCreatedDomainEvent"/> class.
+        /// Email do usuário. Necessário para enviar o template de boas-vindas.
+        /// </summary>
+        public string Email { get; private set; }
+
+        /// <summary>
+        /// Idioma associado a interface de usuário. Necessário para enviar o template no idioma correto.
+        /// </summary>
+        public long LanguageId { get; set; }
+
+        /// <summary>
+        /// Construtor privado para evitar a criação de instâncias fora da classe.
         /// </summary>
         /// <param name="username"></param>
-        private AccountCreatedDomainEvent(string username)
+        /// <param name="email"></param>
+        /// <param name="languageId"></param>
+        private AccountCreatedDomainEvent(string username, string email, long languageId)
         {
             Username = username;
+            Email = email;
+            LanguageId = languageId;
         }
 
         /// <summary>
-        /// Creates a new instance of the <see cref="AccountCreatedDomainEvent"/> class.
+        /// Cria uma instância do evento de domínio AccountCreatedDomainEvent.
         /// </summary>
         /// <param name="username"></param>
+        /// <param name="email"></param>
+        /// <param name="languageId"></param>
         /// <returns></returns>
-        public static AccountCreatedDomainEvent Create(string username)
+        public static AccountCreatedDomainEvent Create(string username, string email, long languageId)
         {
-            return new AccountCreatedDomainEvent(username);
+            return new AccountCreatedDomainEvent(username, email, languageId);
         }
     }
 }

@@ -55,7 +55,7 @@ namespace Giro.Animes.Domain.Entities
             Settings = settings;
             User = user;
 
-            _domainEvents.Add(AccountCreatedDomainEvent.Create(User.Name));
+            _domainEvents.Add(AccountCreatedDomainEvent.Create(User.Name, email.Value, Settings.InterfaceLanguage.Id.Value));
         }
 
         /// <summary>

@@ -26,7 +26,7 @@ namespace Giro.Animes.Domain.Events.Dispatcher
                 var handler = _serviceProvider.GetService(handlerType);
 
                 var handleMethod = handlerType.GetMethod("HandleAsync");
-                await (Task)handleMethod.Invoke(handler, [evento]);
+                await (Task)handleMethod?.Invoke(handler, [evento]);
             }
         }
     }
