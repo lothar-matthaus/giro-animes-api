@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
+using System.Security.Principal;
 using System.Text;
 
 namespace Giro.Animes.Infra.Services
@@ -16,14 +17,16 @@ namespace Giro.Animes.Infra.Services
     public class TokenService : ITokenService
     {
         private readonly IJwtSettings _jwtSettings;
+        private readonly IApiInfo _apiInfo;
         private readonly ICookieConfig _cookieConfig;
         private readonly IMediaConfig _mediaConfig;
         private readonly IHttpContextAccessor _httpContextAccessor;
         private readonly IPermissionDomainService _permissionDomainService;
 
-        public TokenService(IJwtSettings appConfig, ICookieConfig cookieConfig, IMediaConfig mediaConfig, IHttpContextAccessor httpContextAccessor, IPermissionDomainService permissionDomainService, IApplicationUser user)
+        public TokenService(IJwtSettings appConfig, IApiInfo apiInfo, ICookieConfig cookieConfig, IMediaConfig mediaConfig, IHttpContextAccessor httpContextAccessor, IPermissionDomainService permissionDomainService, IApplicationUser user)
         {
             _jwtSettings = appConfig;
+            _apiInfo = apiInfo;
             _cookieConfig = cookieConfig;
             _mediaConfig = mediaConfig;
             _httpContextAccessor = httpContextAccessor;
@@ -129,7 +132,7 @@ namespace Giro.Animes.Infra.Services
             });
         }
 
-        public async Task<(string, string, string)> GetMediaByMediaToken(string token, CancellationToken cancellationToken)
+        public async Task<(string, string, string)> GetMediaMetadataByMediaToken(string token, CancellationToken cancellationToken)
         {
             var tokenHandler = new JwtSecurityTokenHandler();
             var key = Encoding.ASCII.GetBytes(_jwtSettings.SecretKey);
@@ -182,7 +185,39 @@ namespace Giro.Animes.Infra.Services
 
                 var token = tokenHandler.CreateToken(tokenDescriptor);
                 var tokenString = tokenHandler.WriteToken(token);
-                return $"{_mediaConfig.Host}{"api/Medias/Download?token="}{tokenString}";
+                return $"{_apiInfo.Host}api/v{_apiInfo.Version[0]}/{"/medias/download?token="}{tokenString}";
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        public async Task<UserTokenDTO> GenerateAccountActivationToken(string username, AccountStatus status, CancellationToken cancellationToken)
+        {
+            try
+            {
+                var tokenHandler = new JwtSecurityTokenHandler();
+                var key = Encoding.ASCII.GetBytes(_jwtSettings.SecretKey);
+
+                var tokenDescriptor = new SecurityTokenDescriptor
+                {
+                    Subject = new ClaimsIdentity(new[]
+                    {
+                        new Claim("account_status", status.ToString()),
+                        new Claim(ClaimTypes.Name, username),
+                    }),
+                    Issuer = _jwtSettings.Issuer,
+                    Audience = _jwtSettings.Audience,
+                    NotBefore = DateTime.UtcNow,
+                    Expires = DateTime.UtcNow.AddMinutes(_jwtSettings.TokenExpirationMinutes),
+                    SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
+                };
+
+                var token = tokenHandler.CreateToken(tokenDescriptor);
+                var tokenString = tokenHandler.WriteToken(token);
+                var userTokenDTO = UserTokenDTO.Create(username, tokenString, tokenDescriptor.Expires.Value.Subtract(DateTime.UtcNow).TotalSeconds, UserRole.Guest.ToString());
+                return userTokenDTO;
             }
             catch (Exception)
             {

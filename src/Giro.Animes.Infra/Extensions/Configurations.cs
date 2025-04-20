@@ -14,6 +14,7 @@ namespace Giro.Animes.Infra.Extensions
             services.AddSingleton<IMediaConfig, MediaConfig>();
             services.AddSingleton<IApiInfo, ApiInfo>();
             services.AddSingleton<ICookieConfig, CookieConfig>();
+            services.AddSingleton<ISmtpConfig, SmtpConfig>();
 
             return services;
         }

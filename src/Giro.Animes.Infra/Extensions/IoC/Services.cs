@@ -10,6 +10,7 @@ namespace Giro.Animes.Infra.Extensions.IoC
         {
             services.AddScoped<IFileMediaStorageService, FileMediaStorageService>();
             services.AddScoped<ITokenService, TokenService>();
+            services.AddScoped<IEmailService, EmailService>();
 
             return services;
         }

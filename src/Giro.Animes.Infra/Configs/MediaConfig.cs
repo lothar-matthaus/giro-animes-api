@@ -13,11 +13,6 @@ namespace Giro.Animes.Infra.Configs
         }
 
         /// <summary>
-        /// Host URL for media files.
-        /// </summary>
-        public string Host => configuration.GetSection("Media:Host").Value ?? "";
-
-        /// <summary>
         /// Returns the allowed file extensions for a specific media type.
         /// </summary>
         /// <param name="name"></param>
