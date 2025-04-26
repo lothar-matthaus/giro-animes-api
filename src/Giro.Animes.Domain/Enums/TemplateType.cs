@@ -20,6 +20,7 @@ namespace Giro.Animes.Domain.Enums
         SubscriptionRenewal = 9,
         SubscriptionUpgrade = 10,
         SubscriptionDowngrade = 11,
-        WatchlistAnimeUpdated = 12
+        WatchlistAnimeUpdated = 12,
+        AccountConfirmed = 13
     }
 }

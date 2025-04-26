@@ -46,22 +46,33 @@ namespace Giro.Animes.Domain.Entities
         public Language Language { get; private set; }
 
         /// <summary>
+        /// Identificador do estilo do template de e-mail.
+        /// </summary>
+        public long StyleId { get; private set; }
+
+        /// <summary>
+        /// Representa o estilo do template de e-mail.
+        /// </summary>
+        public EmailTemplateStyle Style { get; private set; }
+
+        /// <summary>
         /// Construtor padrão sem parâmetros. Necessário para o Entity Framework.
         /// </summary>
         public EmailTemplate()
         {
-            
+
         }
 
         /// <summary>
-        /// Construtor privado com parâmetros. Garanta a construção do objeto através do método de Create.
+        /// Construtor privado com parâmetros. Garante a construção através do método Create.
         /// </summary>
         /// <param name="subject"></param>
         /// <param name="body"></param>
         /// <param name="type"></param>
         /// <param name="templateName"></param>
         /// <param name="templateDescription"></param>
-        private EmailTemplate (string subject, string body, TemplateType type, string templateName, string templateDescription, Language language)
+        /// <param name="language"></param>
+        private EmailTemplate(string subject, string body, TemplateType type, string templateName, string templateDescription, Language language, EmailTemplateStyle style)
         {
             Subject = subject;
             Body = body;
@@ -69,20 +80,22 @@ namespace Giro.Animes.Domain.Entities
             TemplateName = templateName;
             TemplateDescription = templateDescription;
             Language = language;
+            Style = style;
         }
 
         /// <summary>
-        /// Método de criação do objeto EmailTemplate.
+        /// Método de validação do template de e-mail.
         /// </summary>
         /// <param name="subject"></param>
         /// <param name="body"></param>
         /// <param name="type"></param>
         /// <param name="templateName"></param>
         /// <param name="templateDescription"></param>
+        /// <param name="language"></param>
         /// <returns></returns>
-        public static EmailTemplate Create(string subject, string body, TemplateType type, string templateName, string templateDescription, Language language)
+        public static EmailTemplate Create(string subject, string body, TemplateType type, string templateName, string templateDescription, Language language, EmailTemplateStyle style)
         {
-            return new EmailTemplate(subject, body, type, templateName, templateDescription, language);
+            return new EmailTemplate(subject, body, type, templateName, templateDescription, language, style);
         }
     }
 }

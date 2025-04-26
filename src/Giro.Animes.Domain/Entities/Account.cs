@@ -80,12 +80,22 @@ namespace Giro.Animes.Domain.Entities
                 Password = password;
         }
 
-        internal void TryChangeSettings(Settings settings)
+        public void TryChangeSettings(Settings settings)
         {
             if (settings.IsValid)
                 Settings = settings;
         }
 
+        public void ConfirmEmail()
+        {
+            if(!IsConfirmed)
+            {
+                IsConfirmed = true;
+                _domainEvents.Add(AccountConfirmedDomainEvent.Create(User.Name, Email.Value, Settings.InterfaceLanguageId));
+            }
+
+            return;
+        }
         #endregion
     }
 }

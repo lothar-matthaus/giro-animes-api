@@ -11,9 +11,9 @@ namespace Giro.Animes.Domain.Services
         {
         }
 
-        public async Task<IEnumerable<Permission>> GetAllByGuest(CancellationToken cancellationToken)
+        public async Task<IEnumerable<Permission>> GetAllGuestPermissions(CancellationToken cancellationToken)
         {
-            return await _repository.GetAllByGuestAsync(cancellationToken);
+            return await _repository.GetAllGuestPermissions(cancellationToken);
         }
     }
 }

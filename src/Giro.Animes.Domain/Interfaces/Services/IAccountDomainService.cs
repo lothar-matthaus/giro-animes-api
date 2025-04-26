@@ -14,5 +14,6 @@ namespace Giro.Animes.Domain.Interfaces.Services
         Task<EntityResult<Account>> UpdateAccountAsync(long userId, string email, CancellationToken cancellationToken);
         Task<EntityResult<Account>> UpdatePasswordAsync(long userId, string currentPassword, string newPassword, string newPasswordConfirm, CancellationToken cancellationToken);
         Task<EntityResult<Settings>> UpdateSettingsAsync(long userId, Theme theme, bool enableApplicationNotifications, bool enableEmailNotifications, long interfaceLanguageId, IEnumerable<long> audioLanguagesIds, IEnumerable<long> subtitleLangugesIds, CancellationToken cancellationToken);
+        Task<EntityResult<Account>> ConfirmEmailAsync(string username, CancellationToken cancellationToken);
     }
 }

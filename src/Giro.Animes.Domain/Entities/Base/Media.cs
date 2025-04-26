@@ -8,9 +8,15 @@ namespace Giro.Animes.Domain.Entities
     public abstract class Media : EntityBase
     {
         /// <summary>
-        /// Url da mídia
+        /// Url para download ou visualização da mídia
         /// </summary>
-        public string Url { get; private set; }
+        public string DownloadUrl { get; private set; }
+
+        /// <summary>
+        /// Caminho físico da mídia
+        /// </summary>
+        public string Path { get; private set; }
+
         /// <summary>
         /// Nome do arquivo da capa
         /// </summary>
@@ -82,13 +88,24 @@ namespace Giro.Animes.Domain.Entities
         }
 
         /// <summary>
-        /// Define uma nova url para a mídia
+        /// Define o caminho físico da mídia. É criado após a criação do objeto no MediaService
+        /// </summary>
+        /// <param name="path"></param>
+        /// <returns></returns>
+        public Media SetMediaPath(string path)
+        {
+            Path = path;
+            return this;
+        }
+
+        /// <summary>
+        /// Define uma nova url para download ou visualização da mídia
         /// </summary>
         /// <param name="url"></param>
         /// <returns></returns>
-        public Media SetUrl(string url)
+        public Media SetDownloadUrl(string downloadUrl)
         {
-            Url = url;
+            DownloadUrl = downloadUrl;
             return this;
         }
     }

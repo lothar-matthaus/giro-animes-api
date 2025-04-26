@@ -34,7 +34,7 @@ namespace Giro.Animes.Domain.Services
 
             Language interfaceLanguage = await _languageRepository.GetLanguageByCode("en-US");
             IEnumerable<Language> defaultLanguages = await _languageRepository.GetLanguagesByCodes("en-US");
-            IEnumerable<Permission> permissions = await _permissionRepository.GetAllByDefaultAsync(cancellationToken);
+            IEnumerable<Permission> permissions = await _permissionRepository.GetAllPermissionsForNewAccounts(cancellationToken);
 
             List<Notification> notifications = new List<Notification>();
 
@@ -244,6 +244,13 @@ namespace Giro.Animes.Domain.Services
             return EntityResult<Settings>.Create(newSettings, notifications);
         }
 
+        /// <summary>
+        /// Autentica um usuário administrador pelo login (e-mail ou nome de usuário)
+        /// </summary>
+        /// <param name="login"></param>
+        /// <param name="password"></param>
+        /// <param name="cancellationToken"></param>
+        /// <returns></returns>
         public async Task<EntityResult<Account>> AuthAdminByLoginAsync(string login, string password, CancellationToken cancellationToken)
         {
             EntityResult<Account> accountResult = await AuthByLoginAsync(login, password, cancellationToken);
@@ -260,6 +267,40 @@ namespace Giro.Animes.Domain.Services
             }
 
             return accountResult;
+        }
+
+        /// <summary>
+        /// Confirma o e-mail da conta do usuário
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="token"></param>
+        /// <param name="cancellationToken"></param>
+        /// <returns></returns>
+        /// <exception cref="NotImplementedException"></exception>
+        public async Task<EntityResult<Account>> ConfirmEmailAsync(string username, CancellationToken cancellationToken)
+        {
+            Account account = await _repository.GetAccountByUsername(username, cancellationToken);
+
+            if (account is null)
+            {
+                return EntityResult<Account>.Create(null, new[]
+                {
+                    Notification.Create(nameof(Account), string.Empty, Message.Account.ACCOUNT_NOT_FOUND)
+                });
+            }
+
+            if (account.IsConfirmed)
+            {
+                return EntityResult<Account>.Create(account, new[]
+                {
+                    Notification.Create(nameof(Account), string.Empty, Message.Account.ACCOUNT_ALREADY_CONFIRMED)
+                });
+            }
+
+            account.ConfirmEmail();
+            _repository.Update(account);
+
+            return EntityResult<Account>.Create(account, Enumerable.Empty<Notification>());
         }
     }
 }

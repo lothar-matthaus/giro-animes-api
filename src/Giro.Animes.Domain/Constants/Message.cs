@@ -7,6 +7,7 @@
             public const string ACCOUNT_NOT_FOUND = "Conta não encontrada";
             public const string LOGIN_OR_PASSWORD_INVALID = "Usuário ou senha inválidos";
             public const string ACCOUNT_NOT_CONFIRMED = "A conta precisa ser confirmada. Verifique sua caixa de entrada.";
+            public const string ACCOUNT_ALREADY_CONFIRMED = "A conta já foi confirmada.";
         }
 
         public static class User
