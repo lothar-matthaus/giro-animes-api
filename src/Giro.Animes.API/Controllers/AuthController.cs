@@ -53,5 +53,13 @@ namespace Giro.Animes.API.Controllers
             await _accountService.CreateAccountAsync(request, HttpContext.RequestAborted);
             return StatusCode((int)HttpStatusCode.Created, Messages.Response.Account.ACCOUNT_CREATED);
         }
+
+        [HttpGet("confirm-email")]
+        [AllowAnonymous]
+        public async Task<IActionResult> ConfirmEmail([FromQuery] string token)
+        {
+            await _accountService.ConfirmEmailAsync(token, HttpContext.RequestAborted);
+            return Redirect("google.com");
+        }
     }
 }
