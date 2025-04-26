@@ -30,7 +30,7 @@ namespace Giro.Animes.Shared.Middleware
                 switch (ex)
                 {
                     case SecurityTokenException:
-                        await HandleExceptions(context, "Token inválido ou expirado.", HttpStatusCode.Unauthorized);
+                        await HandleExceptions(context, ex.Message, HttpStatusCode.BadRequest);
                         break;
                     case DbUpdateException:
                         await HandleExceptions(context, "Ocorreu um erro ao salvar as alterações no banco de dados.", HttpStatusCode.InternalServerError);

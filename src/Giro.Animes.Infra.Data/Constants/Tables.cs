@@ -49,6 +49,7 @@
         {
             public const string AUDIT_LOGS = "audit_logs";
             public const string EMAIL_TEMPLATES = "email_templates";
+            public const string EMAIL_TEMPLATE_STYLES = "email_template_styles";
         }
     }
 }

@@ -8,10 +8,11 @@ namespace Giro.Animes.Infra.Data.Configurations.Types.Base
         public override void Configure(EntityTypeBuilder<Derivate> builder)
         {
 
-            builder.Property(med => med.Url).IsRequired(true);
+            builder.Property(med => med.Path).IsRequired(true);
             builder.Property(med => med.FileName).IsRequired(true);
             builder.Property(med => med.Extension).IsRequired(true);
             builder.Ignore(builder => builder.File);
+            builder.Ignore(builder => builder.DownloadUrl);
 
             base.Configure(builder);
         }

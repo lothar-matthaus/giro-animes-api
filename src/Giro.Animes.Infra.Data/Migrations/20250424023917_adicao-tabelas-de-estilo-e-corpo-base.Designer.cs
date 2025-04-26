@@ -3,6 +3,7 @@ using System;
 using Giro.Animes.Infra.Data.Contexts;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Giro.Animes.Infra.Data.Migrations
 {
     [DbContext(typeof(GiroAnimesDbContext))]
-    partial class GiroAnimesDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250424023917_adicao-tabelas-de-estilo-e-corpo-base")]
+    partial class adicaotabelasdeestiloecorpobase
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -329,6 +332,47 @@ namespace Giro.Animes.Infra.Data.Migrations
                     b.ToTable("avatars", "content");
                 });
 
+            modelBuilder.Entity("Giro.Animes.Domain.Entities.BaseEmailTemplate", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
+
+                    b.Property<string>("Body")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<DateTime>("CreationDate")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("TIMESTAMP")
+                        .HasDefaultValueSql("CURRENT_TIMESTAMP");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<long>("LanguageID")
+                        .HasColumnType("bigint");
+
+                    b.Property<long>("StyleId")
+                        .HasColumnType("bigint");
+
+                    b.Property<DateTime>("UpdateDate")
+                        .ValueGeneratedOnAddOrUpdate()
+                        .HasColumnType("TIMESTAMP")
+                        .HasDefaultValueSql("CURRENT_TIMESTAMP");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("LanguageID");
+
+                    b.HasIndex("StyleId");
+
+                    b.ToTable("base_email_templates", "misc");
+                });
+
             modelBuilder.Entity("Giro.Animes.Domain.Entities.Biography", b =>
                 {
                     b.Property<long>("Id")
@@ -420,6 +464,9 @@ namespace Giro.Animes.Infra.Data.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
 
+                    b.Property<long>("BaseTemplateId")
+                        .HasColumnType("bigint");
+
                     b.Property<string>("Body")
                         .IsRequired()
                         .HasColumnType("text");
@@ -458,6 +505,8 @@ namespace Giro.Animes.Infra.Data.Migrations
                         .HasDefaultValueSql("CURRENT_TIMESTAMP");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("BaseTemplateId");
 
                     b.HasIndex("LanguageId");
 
@@ -1298,6 +1347,25 @@ namespace Giro.Animes.Infra.Data.Migrations
                     b.Navigation("User");
                 });
 
+            modelBuilder.Entity("Giro.Animes.Domain.Entities.BaseEmailTemplate", b =>
+                {
+                    b.HasOne("Giro.Animes.Domain.Entities.Language", "Language")
+                        .WithMany()
+                        .HasForeignKey("LanguageID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Giro.Animes.Domain.Entities.EmailTemplateStyle", "Style")
+                        .WithMany()
+                        .HasForeignKey("StyleId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Language");
+
+                    b.Navigation("Style");
+                });
+
             modelBuilder.Entity("Giro.Animes.Domain.Entities.Biography", b =>
                 {
                     b.HasOne("Giro.Animes.Domain.Entities.Author", "Author")
@@ -1338,6 +1406,12 @@ namespace Giro.Animes.Infra.Data.Migrations
 
             modelBuilder.Entity("Giro.Animes.Domain.Entities.EmailTemplate", b =>
                 {
+                    b.HasOne("Giro.Animes.Domain.Entities.BaseEmailTemplate", "BaseTemplate")
+                        .WithMany()
+                        .HasForeignKey("BaseTemplateId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
                     b.HasOne("Giro.Animes.Domain.Entities.Language", "Language")
                         .WithMany()
                         .HasForeignKey("LanguageId")
@@ -1347,8 +1421,10 @@ namespace Giro.Animes.Infra.Data.Migrations
                     b.HasOne("Giro.Animes.Domain.Entities.EmailTemplateStyle", "Style")
                         .WithMany()
                         .HasForeignKey("StyleId")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
+
+                    b.Navigation("BaseTemplate");
 
                     b.Navigation("Language");
 
