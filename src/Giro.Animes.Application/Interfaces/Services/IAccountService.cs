@@ -13,5 +13,6 @@ namespace Giro.Animes.Application.Interfaces.Services
         Task<SimpleAccountDTO> UpdateAccountAsync(AccountUpdateRequest request, CancellationToken cancellationToken);
         Task UpdatePasswordAsync(AccountPasswordUpdateRequest request, CancellationToken cancellationToken);
         Task<SimpleSettingsDTO> UpdateSettingsAsync(AccountSettingsUpdateRequest request, CancellationToken cancellationToken);
+        Task ConfirmEmailAsync(string token, CancellationToken requestAborted);
     }
 }

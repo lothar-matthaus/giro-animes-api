@@ -16,7 +16,7 @@ namespace Giro.Animes.Application.Mappers
         /// <returns></returns>
         public static DetailedCoverDTO Map(this Cover cover)
         {
-            DetailedCoverDTO coverDTO = DetailedCoverDTO.Create(cover.Id, cover.CreationDate, cover.UpdateDate, cover.AnimeId, cover.Language.Map(), cover.Url, cover.FileName, cover.Extension);
+            DetailedCoverDTO coverDTO = DetailedCoverDTO.Create(cover.Id, cover.CreationDate, cover.UpdateDate, cover.AnimeId, cover.Language.Map(), cover.Path, cover.FileName, cover.Extension);
             return coverDTO;
         }
 
@@ -39,7 +39,7 @@ namespace Giro.Animes.Application.Mappers
         public static SimpleCoverDTO MapSimple(this Cover cover)
         {
             SimpleCoverDTO simpleCoverDTO = SimpleCoverDTO.Create(
-                cover.Url,
+                cover.Path,
                 cover.AnimeId,
                 cover.Language.MapSimple(),
                 cover.Id

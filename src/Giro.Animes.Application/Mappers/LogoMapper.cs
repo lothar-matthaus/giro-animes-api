@@ -12,7 +12,7 @@ namespace Giro.Animes.Application.Mappers
                 logo.CreationDate,
                 logo.UpdateDate,
                 logo.StudioId,
-                logo.Url,
+                logo.Path,
                 logo.FileName,
                 logo.Extension
                 );

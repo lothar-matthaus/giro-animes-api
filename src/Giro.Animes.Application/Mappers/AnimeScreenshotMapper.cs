@@ -16,7 +16,7 @@ namespace Giro.Animes.Application.Mappers
         /// <returns></returns>
         public static DetailedAnimeScreenshotDTO Map(this AnimeScreenshot screenshot)
         {
-            DetailedAnimeScreenshotDTO animeScreenshot = DetailedAnimeScreenshotDTO.Create(screenshot.Id, screenshot.CreationDate, screenshot.UpdateDate, screenshot.AnimeId, screenshot.Url, screenshot.FileName, screenshot.Extension);
+            DetailedAnimeScreenshotDTO animeScreenshot = DetailedAnimeScreenshotDTO.Create(screenshot.Id, screenshot.CreationDate, screenshot.UpdateDate, screenshot.AnimeId, screenshot.Path, screenshot.FileName, screenshot.Extension);
             return animeScreenshot;
         }
 
@@ -38,7 +38,7 @@ namespace Giro.Animes.Application.Mappers
         /// <returns></returns>
         public static SimpleAnimeScreenshotDTO MapSimple(this AnimeScreenshot screenshot)
         {
-            SimpleAnimeScreenshotDTO animeScreenshot = SimpleAnimeScreenshotDTO.Create(screenshot.Url, screenshot.Id, screenshot.AnimeId);
+            SimpleAnimeScreenshotDTO animeScreenshot = SimpleAnimeScreenshotDTO.Create(screenshot.Path, screenshot.Id, screenshot.AnimeId);
             return animeScreenshot;
         }
 

@@ -10,21 +10,24 @@ using Giro.Animes.Domain.Enums;
 using Giro.Animes.Domain.Interfaces.Services;
 using Giro.Animes.Domain.ValueObjects;
 using Giro.Animes.Infra.Interfaces;
+using Giro.Animes.Infra.Interfaces.Services;
 
 namespace Giro.Animes.Application.Services
 {
     public class AccountService : ApplicationServiceBase<IAccountDomainService>, IAccountService
     {
         private readonly ILanguageDomainService _languageDomainService;
+        private readonly ITokenService _tokenService;
 
-        public AccountService(IApplicationUser applicationUser, IAccountDomainService domainService, INotificationService notificationService, ILanguageDomainService languageDomainService) :
+        public AccountService(IApplicationUser applicationUser, IAccountDomainService domainService, ITokenService tokenService, INotificationService notificationService, ILanguageDomainService languageDomainService) :
             base(applicationUser, notificationService, domainService)
         {
             _languageDomainService = languageDomainService;
+            _tokenService = tokenService;
         }
 
         /// <summary>
-        /// Obtém uma conta e o usuário associado a ela pelo ID da conta
+        /// Obtém uma conta e o usuário associado a ela pelo ID do usuário
         /// </summary>
         /// <param name="accountId"></param>
         /// <returns></returns>
@@ -94,6 +97,13 @@ namespace Giro.Animes.Application.Services
 
             return;
         }
+
+        /// <summary>
+        /// Atualiza as configurações da conta do usuário
+        /// </summary>
+        /// <param name="request"></param>
+        /// <param name="cancellationToken"></param>
+        /// <returns></returns>
         public async Task<SimpleSettingsDTO> UpdateSettingsAsync(AccountSettingsUpdateRequest request, CancellationToken cancellationToken)
         {
             EntityResult<Settings> updateResult = await _domainService.UpdateSettingsAsync(_applicationUser.Id, (Theme)request.Theme, request.EnableApplicationNotifications, request.EnableEmailNotifications, request.InterfaceLanguage, request.AudioLanguages, request.SubtitleLanguages, cancellationToken);
@@ -106,6 +116,20 @@ namespace Giro.Animes.Application.Services
 
             // Retorna o DTO atualizado
             return updateResult.Entity.MapSimple();
+        }
+
+        public  async Task ConfirmEmailAsync(string token, CancellationToken cancellationToken)
+        {
+            string username = await _tokenService.ValidateAccountActivationToken(token);
+
+            EntityResult<Account> result = await _domainService.ConfirmEmailAsync(username, cancellationToken);
+            if (!result.IsValid)
+            {
+                await _notificationService.AddNotification(result.Errors);
+                return;
+            }
+
+            return;
         }
     }
 }

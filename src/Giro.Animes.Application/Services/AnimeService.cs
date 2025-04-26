@@ -125,8 +125,15 @@ namespace Giro.Animes.Application.Services
 
             foreach (Anime anime in animes)
             {
-                anime.Covers?.Select(cover => cover.SetUrl(_tokenService.GenerateMediaToken(cover))).ToList();
-                anime.Screenshots?.Select(screenshot => screenshot.SetUrl(_tokenService.GenerateMediaToken(screenshot))).ToList();
+                foreach (var cover in anime.Covers ?? Enumerable.Empty<Cover>())
+                {
+                    cover.SetDownloadUrl(await _tokenService.GenerateDownloadMediaToken(cover));
+                }
+
+                foreach (var screenshot in anime.Screenshots ?? Enumerable.Empty<AnimeScreenshot>())
+                {
+                    screenshot.SetDownloadUrl(await _tokenService.GenerateDownloadMediaToken(screenshot));
+                }
             }
 
             IPagedEnumerable<SimpleAnimeDTO> result = PagedEnumerable<SimpleAnimeDTO>.Create(animes?.MapSimple(), pagination.Page, pagination.RowsPerPage, totalCount);
