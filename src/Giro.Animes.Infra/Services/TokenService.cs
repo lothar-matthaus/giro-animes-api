@@ -9,7 +9,6 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
-using System.Security.Principal;
 using System.Text;
 
 namespace Giro.Animes.Infra.Services
@@ -33,49 +32,107 @@ namespace Giro.Animes.Infra.Services
             _permissionDomainService = permissionDomainService;
         }
 
-        // Busca as permissões do usuário no banco de dados e adiciona as claims ao token
-        private async Task<Claim[]> GetPermissionsByDefault(IEnumerable<Permission> permissions)
+        /// <summary>
+        /// Valida o token JWT e retorna as claims
+        /// </summary>
+        /// <param name="token"></param>
+        /// <returns></returns>
+        private Task<Claim[]> ValidateToken(string token)
         {
-            return permissions.Select(permission => new Claim("Permission", $"{permission.Resource}:{permission.Action}")).ToArray();
+            var tokenHandler = new JwtSecurityTokenHandler();
+            var key = Encoding.ASCII.GetBytes(_jwtSettings.SecretKey);
+
+            try
+            {
+                // Configurações de validação do token
+                var validationParameters = new TokenValidationParameters
+                {
+                    ValidateIssuer = _jwtSettings.ValidateIssuer,
+                    ValidIssuer = _jwtSettings.Issuer,
+                    ValidateAudience = _jwtSettings.ValidateAudience,
+                    ValidAudience = _jwtSettings.Audience,
+                    ValidateLifetime = _jwtSettings.ValidateLifetime, // Valida a expiração do token
+                    ClockSkew = TimeSpan.Zero, // Remove tolerância de tempo para expiração
+                    ValidateIssuerSigningKey = _jwtSettings.ValidateIssuerSigningKey,
+                    IssuerSigningKey = new SymmetricSecurityKey(key)
+                };
+
+                // Valida o token e retorna as claims
+                tokenHandler.ValidateToken(token, validationParameters, out SecurityToken validatedToken);
+
+                if (validatedToken is not JwtSecurityToken jwtToken ||
+                    !jwtToken.Header.Alg.Equals(SecurityAlgorithms.HmacSha256, StringComparison.InvariantCultureIgnoreCase))
+                {
+                    throw new SecurityTokenException("Token inválido ou algoritmo de assinatura não suportado.");
+                }
+
+
+
+                return Task.FromResult(jwtToken.Claims.ToArray());
+            }
+            catch (SecurityTokenExpiredException ex)
+            {
+                throw new SecurityTokenException("O token expirou.", ex);
+            }
+            catch (SecurityTokenException ex)
+            {
+                throw new SecurityTokenException("Falha na validação do token.", ex);
+            }
+        }
+
+        /// <summary>
+        /// Gera um token JWT com as claims do usuário.
+        /// </summary>
+        /// <param name="tokenHandler">Instância do manipulador de tokens JWT.</param>
+        /// <param name="claims">Claims do usuário para o token.</param>
+        /// <returns>Um SecurityTokenDescriptor configurado.</returns>
+        private Task<SecurityTokenDescriptor> GenerateToken(JwtSecurityTokenHandler tokenHandler, Claim[] claims)
+        {
+            if (tokenHandler == null)
+                throw new ArgumentNullException(nameof(tokenHandler), "O manipulador de token não pode ser nulo.");
+
+            if (claims == null || claims.Length == 0)
+                throw new ArgumentException("As claims não podem ser nulas ou vazias.", nameof(claims));
+
+            var key = Encoding.ASCII.GetBytes(_jwtSettings.SecretKey);
+
+            var tokenDescriptor = new SecurityTokenDescriptor
+            {
+                Subject = new ClaimsIdentity(claims),
+                Issuer = _jwtSettings.Issuer,
+                Audience = _jwtSettings.Audience,
+                NotBefore = DateTime.UtcNow,
+                Expires = DateTime.UtcNow.AddMinutes(_jwtSettings.TokenExpirationMinutes),
+                SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
+            };
+
+            return Task.FromResult(tokenDescriptor);
+        }
+        // Busca as permissões do usuário no banco de dados e adiciona as claims ao token
+        private Task<Claim[]> GetPermissions(IEnumerable<Permission> permissions)
+        {
+            return Task.FromResult(permissions.Select(permission => new Claim("Permission", $"{permission.Resource}:{permission.Action}")).ToArray());
         }
 
         public async Task<UserTokenDTO> GenerateUserToken(Account account, CancellationToken cancellationToken)
         {
-            try
-            {
-                var tokenHandler = new JwtSecurityTokenHandler();
-                var key = Encoding.ASCII.GetBytes(_jwtSettings.SecretKey);
-                Claim[] claims = await GetPermissionsByDefault(account.User.Permissions);
-
-                var tokenDescriptor = new SecurityTokenDescriptor
-                {
-                    Subject = new ClaimsIdentity(new[]
-                    {
+            var tokenHandler = new JwtSecurityTokenHandler();
+            Claim[] claims = await GetPermissions(account.User.Permissions);
+            claims.Union(new[] {
                         new Claim(ClaimTypes.Name, account.User.Name),
                         new Claim(ClaimTypes.Role, account.User.Role.ToString()),
                         new Claim(ClaimTypes.Sid, account.User.Id.ToString()),
-                        new Claim(ClaimTypes.Email, account?.Email.Value),
-                    }.Union(claims)),
-                    Issuer = _jwtSettings.Issuer,
-                    Audience = _jwtSettings.Audience,
-                    NotBefore = DateTime.UtcNow,
-                    Expires = DateTime.UtcNow.AddMinutes(_jwtSettings.TokenExpirationMinutes),
-                    SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
-                };
+                        new Claim(ClaimTypes.Email, account?.Email.Value)
+                });
 
-                var token = tokenHandler.CreateToken(tokenDescriptor);
-                var tokenString = tokenHandler.WriteToken(token);
+            SecurityTokenDescriptor tokenDescriptor = await GenerateToken(tokenHandler, claims);
+            SecurityToken token = tokenHandler.CreateToken(tokenDescriptor);
+            string tokenString = tokenHandler.WriteToken(token);
 
-                var userTokenDTO = UserTokenDTO.Create(account.User.Name, tokenString, tokenDescriptor.Expires.Value.Subtract(DateTime.UtcNow).TotalSeconds, account.User.Role.ToString());
+            UserTokenDTO userTokenDTO = UserTokenDTO.Create(account.User.Name, tokenString, tokenDescriptor.Expires.Value.Subtract(DateTime.UtcNow).TotalSeconds, account.User.Role.ToString());
+            SetCookie(userTokenDTO);
 
-                SetCookie(userTokenDTO);
-
-                return userTokenDTO;
-            }
-            catch (Exception ex)
-            {
-                throw new InvalidOperationException("Erro ao gerar o token do usuário. Contate o adminstrador para mais detalhes.", ex);
-            }
+            return userTokenDTO;
         }
 
         public async Task<UserTokenDTO> GenerateGuestToken(CancellationToken cancellationToken)
@@ -84,32 +141,21 @@ namespace Giro.Animes.Infra.Services
             {
                 var tokenHandler = new JwtSecurityTokenHandler();
                 var key = Encoding.ASCII.GetBytes(_jwtSettings.SecretKey);
-                Claim[] claims = await GetPermissionsByDefault(await _permissionDomainService.GetAllByGuest(cancellationToken));
-
-                var tokenDescriptor = new SecurityTokenDescriptor
+                Claim[] claims = await GetPermissions(await _permissionDomainService.GetAllGuestPermissions(cancellationToken));
+                claims.Union(new[]
                 {
-                    Subject = new ClaimsIdentity(new[]
-                    {
-                        new Claim(ClaimTypes.Name, "Guest"),
-                        new Claim(ClaimTypes.Role, UserRole.Guest.ToString()),
-                }.Union(claims)),
-                    Issuer = _jwtSettings.Issuer,
-                    Audience = _jwtSettings.Audience,
-                    NotBefore = DateTime.UtcNow,
-                    Expires = DateTime.UtcNow.AddMinutes(_jwtSettings.TokenExpirationMinutes),
-                    SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature),
-                };
+                    new Claim(ClaimTypes.Name, "Guest"),
+                    new Claim(ClaimTypes.Role, UserRole.Guest.ToString()),
+                });
 
-                var token = tokenHandler.CreateToken(tokenDescriptor);
-                var tokenString = tokenHandler.WriteToken(token);
-                var userTokenDTO = UserTokenDTO.Create("Guest", tokenString, tokenDescriptor.Expires.Value.Subtract(DateTime.UtcNow).TotalSeconds, UserRole.Guest.ToString());
+                SecurityTokenDescriptor tokenDescriptor = await GenerateToken(tokenHandler, claims);
+                SecurityToken token = tokenHandler.CreateToken(tokenDescriptor);
+                string tokenString = tokenHandler.WriteToken(token);
+                UserTokenDTO userTokenDTO = UserTokenDTO.Create("Guest", tokenString, tokenDescriptor.Expires.Value.Subtract(DateTime.UtcNow).TotalSeconds, UserRole.Guest.ToString());
 
                 SetCookie(userTokenDTO);
 
-                return await Task.Run(() =>
-                {
-                    return userTokenDTO;
-                });
+                return userTokenDTO;
             }
             catch (Exception ex)
             {
@@ -134,95 +180,61 @@ namespace Giro.Animes.Infra.Services
 
         public async Task<(string, string, string)> GetMediaMetadataByMediaToken(string token, CancellationToken cancellationToken)
         {
-            var tokenHandler = new JwtSecurityTokenHandler();
-            var key = Encoding.ASCII.GetBytes(_jwtSettings.SecretKey);
+            Claim[] claims = await ValidateToken(token);
 
-            try
-            {
-                tokenHandler.ValidateToken(token, new TokenValidationParameters
-                {
-                    ValidateIssuer = true,
-                    ValidateAudience = true,
-                    ValidateLifetime = true, // Valida a expiração do token
-                    ValidateIssuerSigningKey = true,
-                    IssuerSigningKey = new SymmetricSecurityKey(key)
-                }, out SecurityToken validatedToken);
+            var filePath = claims.First(x => x.Type == "fullPath").Value;
+            var contentType = claims.First(x => x.Type == "contentType").Value;
 
-                var jwtToken = (JwtSecurityToken)validatedToken;
-                var filePath = jwtToken.Claims.First(x => x.Type == "fullPath").Value;
-                var contentType = jwtToken.Claims.First(x => x.Type == "contentType").Value;
+            if (!System.IO.File.Exists(filePath))
+                throw new FileNotFoundException("Arquivo não encontrado.", filePath);
 
-                if (!System.IO.File.Exists(filePath))
-                    throw new FileNotFoundException("Arquivo não encontrado.", filePath);
-
-                return (filePath, contentType, Path.GetFileName(filePath));
-            }
-            catch (SecurityTokenExpiredException)
-            {
-                throw;
-            }
+            return (filePath, contentType, Path.GetFileName(filePath));
         }
 
-        public string GenerateMediaToken(Media media)
+        public async Task<string> GenerateDownloadMediaToken(Media media)
         {
             var tokenHandler = new JwtSecurityTokenHandler();
             var key = Encoding.ASCII.GetBytes(_jwtSettings.SecretKey);
-            try
-            {
-                var tokenDescriptor = new SecurityTokenDescriptor
-                {
-                    Subject = new ClaimsIdentity(new[]
-                    {
-                        new Claim("fullPath", $"{media.Url}"),
-                        new Claim("contentType", media.Extension)
-                    }),
-                    Expires = DateTime.UtcNow.AddMinutes(_jwtSettings.TokenExpirationMinutes),
-                    SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature),
-                    Issuer = _jwtSettings.Issuer,
-                    Audience = _jwtSettings.Audience,
-                    NotBefore = DateTime.UtcNow,
-                };
 
-                var token = tokenHandler.CreateToken(tokenDescriptor);
-                var tokenString = tokenHandler.WriteToken(token);
-                return $"{_apiInfo.Host}api/v{_apiInfo.Version[0]}/{"/medias/download?token="}{tokenString}";
-            }
-            catch (Exception)
+            Claim[] claims = new[]
             {
-                throw;
-            }
+                new Claim("fullPath", $"{media.Path}"),
+                new Claim("contentType", media.Extension)
+            };
+
+            SecurityTokenDescriptor tokenDescriptor = await GenerateToken(tokenHandler, claims);
+            SecurityToken token = tokenHandler.CreateToken(tokenDescriptor);
+            string tokenString = tokenHandler.WriteToken(token);
+
+            return $"{_apiInfo.Host}api/v{_apiInfo.Version[0]}/{"/medias/download?token="}{tokenString}";
         }
 
-        public async Task<UserTokenDTO> GenerateAccountActivationToken(string username, AccountStatus status, CancellationToken cancellationToken)
+        public async Task<UserTokenDTO> GenerateAccountActivationToken(string username, CancellationToken cancellationToken)
         {
-            try
-            {
-                var tokenHandler = new JwtSecurityTokenHandler();
-                var key = Encoding.ASCII.GetBytes(_jwtSettings.SecretKey);
 
-                var tokenDescriptor = new SecurityTokenDescriptor
-                {
-                    Subject = new ClaimsIdentity(new[]
-                    {
-                        new Claim("account_status", status.ToString()),
-                        new Claim(ClaimTypes.Name, username),
-                    }),
-                    Issuer = _jwtSettings.Issuer,
-                    Audience = _jwtSettings.Audience,
-                    NotBefore = DateTime.UtcNow,
-                    Expires = DateTime.UtcNow.AddMinutes(_jwtSettings.TokenExpirationMinutes),
-                    SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
-                };
+            var tokenHandler = new JwtSecurityTokenHandler();
 
-                var token = tokenHandler.CreateToken(tokenDescriptor);
-                var tokenString = tokenHandler.WriteToken(token);
-                var userTokenDTO = UserTokenDTO.Create(username, tokenString, tokenDescriptor.Expires.Value.Subtract(DateTime.UtcNow).TotalSeconds, UserRole.Guest.ToString());
-                return userTokenDTO;
-            }
-            catch (Exception)
+            Claim[] claims = new[]
             {
-                throw;
-            }
+                    new Claim(ClaimTypes.Name, username),
+                    new Claim(ClaimTypes.Role, UserRole.User.ToString()),
+                    new Claim(ClaimTypes.Sid, Guid.NewGuid().ToString())
+            };
+
+            SecurityTokenDescriptor tokenDescriptor = await GenerateToken(tokenHandler, claims);
+            SecurityToken token = tokenHandler.CreateToken(tokenDescriptor);
+
+            string tokenString = tokenHandler.WriteToken(token);
+            UserTokenDTO userTokenDTO = UserTokenDTO.Create(username, tokenString, tokenDescriptor.Expires.Value.Subtract(DateTime.UtcNow).TotalSeconds, UserRole.Guest.ToString());
+
+            return userTokenDTO;
+        }
+
+        public async Task<string> ValidateAccountActivationToken(string token)
+        {
+            Claim[] claims = await ValidateToken(token);
+
+            return claims.First(x => x.Type == JwtRegisteredClaimNames.UniqueName).Value;
         }
     }
 }

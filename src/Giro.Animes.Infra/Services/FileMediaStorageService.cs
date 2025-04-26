@@ -62,9 +62,9 @@ namespace Giro.Animes.Infra.Services
             {
                 foreach (Media media in _medias)
                 {
-                    if (File.Exists(media.Url))
+                    if (File.Exists(media.Path))
                     {
-                        File.Delete(media.Url);
+                        File.Delete(media.Path);
                     }
                 }
 
@@ -91,7 +91,7 @@ namespace Giro.Animes.Infra.Services
 
                     fileStream = new FileStream(fullPath, FileMode.Create);
                     fileStream.Write(media.File, 0, media.File.Length);
-                    media.SetUrl(fullPath);
+                    media.SetMediaPath(fullPath);
                     fileStream.Close();
 
                     _medias.Add(media);
@@ -119,7 +119,7 @@ namespace Giro.Animes.Infra.Services
 
                 fileStream = new FileStream(fullPath, FileMode.Create);
                 fileStream.Write(media.File, 0, media.File.Length);
-                media.SetUrl(fullPath);
+                media.SetMediaPath(fullPath);
                 fileStream.Close();
 
                 _medias.Add(media);
