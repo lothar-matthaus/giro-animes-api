@@ -8,7 +8,6 @@ namespace Giro.Animes.Infra.Extensions.IoC
     {
         public static IServiceCollection AddServices(this IServiceCollection services)
         {
-            services.AddScoped<IFileMediaStorageService, FileMediaStorageService>();
             services.AddScoped<ITokenService, TokenService>();
             services.AddScoped<IEmailService, EmailService>();
 

@@ -1,4 +1,5 @@
-﻿using Giro.Animes.Domain.Enums;
+﻿using Giro.Animes.Domain.Entities;
+using Giro.Animes.Domain.Enums;
 using Giro.Animes.Infra.Interfaces;
 using Microsoft.AspNetCore.Http;
 using System.Security.Claims;
@@ -16,6 +17,7 @@ namespace Giro.Animes.Infra
             Nome = _context.HttpContext.User.Claims.Where(cl => cl.Type.Equals(ClaimTypes.Name)).Select(cl => cl.Value).FirstOrDefault() ?? "Guest";
             Email = _context.HttpContext.User.Claims.Where(cl => cl.Type.Equals(ClaimTypes.Email)).Select(cl => cl.Value).FirstOrDefault() ?? "";
             Role = GetUserRole(_context.HttpContext.User.Claims.FirstOrDefault(cl => cl.Type == ClaimTypes.Role)?.Value);
+            Languages = _context.HttpContext.Request.Headers["Accept-Language"].ToString().Split(',').Select(l => l.Trim()).ToArray() ?? new[] { "en-US" };
         }
 
         private UserRole GetUserRole(string role)
@@ -27,5 +29,6 @@ namespace Giro.Animes.Infra
         public string Nome { get; }
         public string Email { get; }
         public UserRole Role { get; }
+        public string[] Languages { get; }
     }
 }

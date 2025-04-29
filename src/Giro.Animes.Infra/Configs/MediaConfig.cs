@@ -1,5 +1,6 @@
 ﻿using Giro.Animes.Infra.Interfaces.Configs;
 using Microsoft.Extensions.Configuration;
+using System.Xml.Linq;
 
 namespace Giro.Animes.Infra.Configs
 {
@@ -11,6 +12,11 @@ namespace Giro.Animes.Infra.Configs
         {
             this.configuration = configuration;
         }
+
+        /// <summary>
+        /// Returns the host URL for media files.
+        /// </summary>
+        public string Host => configuration.GetSection("Media:Host").Value ?? "";
 
         /// <summary>
         /// Returns the allowed file extensions for a specific media type.

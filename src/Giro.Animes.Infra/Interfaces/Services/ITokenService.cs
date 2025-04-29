@@ -8,9 +8,7 @@ namespace Giro.Animes.Infra.Interfaces.Services
     {
         Task<UserTokenDTO> GenerateUserToken(Account account, CancellationToken cancellationToken);
         Task<UserTokenDTO> GenerateGuestToken(CancellationToken cancellationToken);
-        Task<UserTokenDTO> GenerateAccountActivationToken(string username, CancellationToken cancellationToken);
-        Task<(string, string, string)> GetMediaMetadataByMediaToken(string token, CancellationToken cancellationToken);
-        Task<string> GenerateDownloadMediaToken(Media media);
+        Task<UserTokenDTO> GenerateAccountActivationToken(string username);
         Task<string> ValidateAccountActivationToken(string token);
     }
 }

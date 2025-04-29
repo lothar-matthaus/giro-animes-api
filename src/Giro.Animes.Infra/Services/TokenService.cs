@@ -16,18 +16,14 @@ namespace Giro.Animes.Infra.Services
     public class TokenService : ITokenService
     {
         private readonly IJwtSettings _jwtSettings;
-        private readonly IApiInfo _apiInfo;
         private readonly ICookieConfig _cookieConfig;
-        private readonly IMediaConfig _mediaConfig;
         private readonly IHttpContextAccessor _httpContextAccessor;
         private readonly IPermissionDomainService _permissionDomainService;
 
-        public TokenService(IJwtSettings appConfig, IApiInfo apiInfo, ICookieConfig cookieConfig, IMediaConfig mediaConfig, IHttpContextAccessor httpContextAccessor, IPermissionDomainService permissionDomainService, IApplicationUser user)
+        public TokenService(IJwtSettings appConfig, ICookieConfig cookieConfig, IHttpContextAccessor httpContextAccessor, IPermissionDomainService permissionDomainService, IApplicationUser user)
         {
             _jwtSettings = appConfig;
-            _apiInfo = apiInfo;
             _cookieConfig = cookieConfig;
-            _mediaConfig = mediaConfig;
             _httpContextAccessor = httpContextAccessor;
             _permissionDomainService = permissionDomainService;
         }
@@ -66,26 +62,22 @@ namespace Giro.Animes.Infra.Services
                     throw new SecurityTokenException("Token inválido ou algoritmo de assinatura não suportado.");
                 }
 
-
-
                 return Task.FromResult(jwtToken.Claims.ToArray());
             }
-            catch (SecurityTokenExpiredException ex)
+            catch (Exception)
             {
-                throw new SecurityTokenException("O token expirou.", ex);
-            }
-            catch (SecurityTokenException ex)
-            {
-                throw new SecurityTokenException("Falha na validação do token.", ex);
+                throw;
             }
         }
 
         /// <summary>
-        /// Gera um token JWT com as claims do usuário.
+        /// Gera um descriptor de token JWT com base nas claims fornecidas.
         /// </summary>
         /// <param name="tokenHandler">Instância do manipulador de tokens JWT.</param>
-        /// <param name="claims">Claims do usuário para o token.</param>
-        /// <returns>Um SecurityTokenDescriptor configurado.</returns>
+        /// <param name="claims">Claims do usuário que serão incluídas no token.</param>
+        /// <returns>Um <see cref="SecurityTokenDescriptor"/> configurado com as informações do token.</returns>
+        /// <exception cref="ArgumentNullException">Lançado se o manipulador de token for nulo.</exception>
+        /// <exception cref="ArgumentException">Lançado se as claims forem nulas ou vazias.</exception>
         private Task<SecurityTokenDescriptor> GenerateToken(JwtSecurityTokenHandler tokenHandler, Claim[] claims)
         {
             if (tokenHandler == null)
@@ -103,7 +95,9 @@ namespace Giro.Animes.Infra.Services
                 Audience = _jwtSettings.Audience,
                 NotBefore = DateTime.UtcNow,
                 Expires = DateTime.UtcNow.AddMinutes(_jwtSettings.TokenExpirationMinutes),
-                SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
+                SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature),
+                IssuedAt = DateTime.Now,
+                CompressionAlgorithm = "HmacSha256Signature"
             };
 
             return Task.FromResult(tokenDescriptor);
@@ -177,41 +171,8 @@ namespace Giro.Animes.Infra.Services
                 Path = _cookieConfig.Path
             });
         }
-
-        public async Task<(string, string, string)> GetMediaMetadataByMediaToken(string token, CancellationToken cancellationToken)
+        public async Task<UserTokenDTO> GenerateAccountActivationToken(string username)
         {
-            Claim[] claims = await ValidateToken(token);
-
-            var filePath = claims.First(x => x.Type == "fullPath").Value;
-            var contentType = claims.First(x => x.Type == "contentType").Value;
-
-            if (!System.IO.File.Exists(filePath))
-                throw new FileNotFoundException("Arquivo não encontrado.", filePath);
-
-            return (filePath, contentType, Path.GetFileName(filePath));
-        }
-
-        public async Task<string> GenerateDownloadMediaToken(Media media)
-        {
-            var tokenHandler = new JwtSecurityTokenHandler();
-            var key = Encoding.ASCII.GetBytes(_jwtSettings.SecretKey);
-
-            Claim[] claims = new[]
-            {
-                new Claim("fullPath", $"{media.Path}"),
-                new Claim("contentType", media.Extension)
-            };
-
-            SecurityTokenDescriptor tokenDescriptor = await GenerateToken(tokenHandler, claims);
-            SecurityToken token = tokenHandler.CreateToken(tokenDescriptor);
-            string tokenString = tokenHandler.WriteToken(token);
-
-            return $"{_apiInfo.Host}api/v{_apiInfo.Version[0]}/{"/medias/download?token="}{tokenString}";
-        }
-
-        public async Task<UserTokenDTO> GenerateAccountActivationToken(string username, CancellationToken cancellationToken)
-        {
-
             var tokenHandler = new JwtSecurityTokenHandler();
 
             Claim[] claims = new[]
