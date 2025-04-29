@@ -6,6 +6,6 @@ namespace Giro.Animes.Domain.Interfaces
     {
         bool IsValid { get; }
         IEnumerable<Notification> GetErrors();
-        void Validate(bool isInvalidIf, Func<Notification> ifInvalid, Action? ifValid);
+        void Validate(bool isInvalidIf, Func<Notification> ifInvalid, Action ifValid);
     }
 }

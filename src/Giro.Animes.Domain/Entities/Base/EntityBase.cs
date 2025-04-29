@@ -60,7 +60,7 @@ namespace Giro.Animes.Domain.Entities.Base
         /// <param name="isInvalidIf">Condição que determina se a entidade é inválida</param>
         /// <param name="ifInvalid">Função que retorna um erro de validação se a condição for verdadeira</param>
         /// <param name="ifValid">Ação a ser executada se a condição for falsa</param>
-        public void Validate(bool isInvalidIf, Func<Notification> ifInvalid, Action? ifValid)
+        public void Validate(bool isInvalidIf, Func<Notification> ifInvalid, Action ifValid)
         {
             if (isInvalidIf)
             {

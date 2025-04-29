@@ -27,13 +27,13 @@ namespace Giro.Animes.Domain.Services
         /// </summary>
         /// <param name="account"></param>
         /// <returns></returns>
-        public async Task<EntityResult<Account>> CreateAccountAsync(string username, string email, string password, string confirmPassword, CancellationToken cancellationToken)
+        public async Task<EntityResult<Account>> CreateAccountAsync(string username, string email, string password, string confirmPassword, string[] languages, CancellationToken cancellationToken)
         {
             bool usernameAlreadyExists = await _repository.UsernameAlreadyExists(username, cancellationToken);
             bool emailAlreadyExists = await _repository.EmailAlreadyExists(email, cancellationToken);
 
-            Language interfaceLanguage = await _languageRepository.GetLanguageByCode("en-US");
-            IEnumerable<Language> defaultLanguages = await _languageRepository.GetLanguagesByCodes("en-US");
+            Language interfaceLanguage = await _languageRepository.GetLanguageByCode(languages.FirstOrDefault());
+            IEnumerable<Language> defaultLanguages = await _languageRepository.GetLanguagesByCodes(languages);
             IEnumerable<Permission> permissions = await _permissionRepository.GetAllPermissionsForNewAccounts(cancellationToken);
 
             List<Notification> notifications = new List<Notification>();

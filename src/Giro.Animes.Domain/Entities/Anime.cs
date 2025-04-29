@@ -30,14 +30,14 @@ namespace Giro.Animes.Domain.Entities
         public IEnumerable<AnimeSinopse> Sinopses { get; private set; }
 
         /// <summary>
-        /// Lista de capas do anime 
+        /// Capa de exibição do anime 
         /// </summary>
-        public IEnumerable<Cover> Covers { get; private set; }
+        public Cover Cover { get; private set; }
 
         /// <summary>
         /// Screenshots de resumo para o anime em questão
         /// </summary>
-        public IEnumerable<AnimeScreenshot> Screenshots { get; private set; }
+        public IEnumerable<Screenshot> Screenshots { get; private set; }
 
         /// <summary>
         /// Episódios que o anime possui
@@ -142,14 +142,14 @@ namespace Giro.Animes.Domain.Entities
         /// Construtor com parâmetros
         /// </summary>
         /// <param name="titles"></param>
-        /// <param name="covers"></param>
+        /// <param name="cover"></param>
         /// <param name="authors"></param>
         /// <param name="sinopses"></param>
         /// <param name="status"></param>
-        private Anime(IEnumerable<AnimeTitle> titles, IEnumerable<Cover> covers, IEnumerable<Author> authors, IEnumerable<AnimeSinopse> sinopses, IEnumerable<Genre> genres, Studio studio, AnimeStatus status)
+        private Anime(IEnumerable<AnimeTitle> titles, Cover cover, IEnumerable<Author> authors, IEnumerable<AnimeSinopse> sinopses, IEnumerable<Genre> genres, Studio studio, AnimeStatus status)
         {
             Titles = titles;
-            Covers = covers;
+            Cover = cover;
             Authors = authors;
             Sinopses = sinopses;
             Status = status;
@@ -161,13 +161,13 @@ namespace Giro.Animes.Domain.Entities
         /// Método para criar um novo anime 
         /// </summary>
         /// <param name="titles"></param>
-        /// <param name="covers"></param>
+        /// <param name="cover"></param>
         /// <param name="authors"></param>
         /// <param name="sinopses"></param>
         /// <param name="status"></param>
         /// <returns></returns>
-        public static Anime Create(IEnumerable<AnimeTitle> titles, IEnumerable<Cover> covers, IEnumerable<Author> authors, IEnumerable<AnimeSinopse> sinopses, IEnumerable<Genre> genres, Studio studio, AnimeStatus status)
-            => new(titles, covers, authors, sinopses, genres, studio, status);
+        public static Anime Create(IEnumerable<AnimeTitle> titles, Cover cover, IEnumerable<Author> authors, IEnumerable<AnimeSinopse> sinopses, IEnumerable<Genre> genres, Studio studio, AnimeStatus status)
+            => new(titles, cover, authors, sinopses, genres, studio, status);
 
         #region Behaviors
         public void IncrementView() => ++Views;

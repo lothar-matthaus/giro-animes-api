@@ -18,21 +18,21 @@
         public Logo() { }
 
         /// <summary>
-        /// Construtor com parâmetros. Garanta a construção do objeto no método Create
+        /// Construtor privado com parâmetros. Garante a construção do objeto através do método Create.
         /// </summary>
-        /// <param name="fileName"></param>
-        /// <param name="extension"></param>
-        private Logo(byte[] file, string extension, Studio studio) : base(extension, file)
+        /// <param name="url"></param>
+        /// <param name="studio"></param>
+        private Logo(string url, Studio studio) : base(url)
         {
             Studio = studio;
         }
 
         /// <summary>
-        /// Métoddo que instancia um novo objeto do tipo Logo
+        /// Cria uma instância de Logo com os parâmetros necessários.
         /// </summary>
-        /// <param name="fileName"></param>
-        /// <param name="extension"></param>
+        /// <param name="url"></param>
+        /// <param name="studio"></param>
         /// <returns></returns>
-        public static Logo Create(byte[] file, string extension, Studio studio) => new Logo(file, extension, studio);
+        public static Logo Create(string url, Studio studio) => new Logo(url, studio);
     }
 }

@@ -37,7 +37,7 @@ namespace Giro.Animes.Domain.ValueObjects.Base
         /// <param name="isInvalidIf"></param>
         /// <param name="ifInvalid"></param>
         /// <param name="ifValid"></param>
-        public void Validate(bool isInvalidIf, Func<Notification> ifInvalid, Action? ifValid)
+        public void Validate(bool isInvalidIf, Func<Notification> ifInvalid, Action ifValid)
         {
             if (isInvalidIf)
             {

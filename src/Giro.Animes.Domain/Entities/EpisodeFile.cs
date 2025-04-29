@@ -43,13 +43,12 @@
         /// <summary>
         /// Construtor privado com parâmetros. Garante a construção do objeto através do método Create.
         /// </summary>
-        /// <param name="file"></param>
-        /// <param name="extension"></param>
+        /// <param name="url"></param>
         /// <param name="episode"></param>
         /// <param name="audioLanguage"></param>
         /// <param name="subtitleLanguage"></param>
-        private EpisodeFile(byte[] file, string extension, Episode episode, Language audioLanguage, Language subtitleLanguage)
-            : base(extension, file)
+        private EpisodeFile(string url, Episode episode, Language audioLanguage, Language subtitleLanguage)
+            : base(url)
         {
             Episode = episode;
             AudioLanguage = audioLanguage;
@@ -57,15 +56,14 @@
         }
 
         /// <summary>
-        /// 
+        /// Cria uma nova instância de EpisodeFile com os parâmetros definidos.
         /// </summary>
+        /// <param name="file"></param>
         /// <param name="episode"></param>
-        /// <param name="url"></param>
-        /// <param name="fileName"></param>
         /// <param name="extension"></param>
         /// <param name="audioLanguage"></param>
         /// <param name="episodeLanguage"></param>
         /// <returns></returns>
-        public static EpisodeFile Create(byte[] file, Episode episode, string extension, Language audioLanguage, Language episodeLanguage) => new EpisodeFile(file, extension, episode, audioLanguage, episodeLanguage);
+        public static EpisodeFile Create(string url, Episode episode, string extension, Language audioLanguage, Language episodeLanguage) => new EpisodeFile(url, episode, audioLanguage, episodeLanguage);
     }
 }

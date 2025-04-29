@@ -20,19 +20,21 @@
         }
 
         /// <summary>
-        /// Construtor da classe ProfilePicture a partir do valor da foto e do formato
+        /// Construtor privado com parâmetros. Garante a construção do objeto através do método Create
         /// </summary>
-        /// <param name="extension">Extensão do arquivo </param>
-        private Avatar(User user, string extension, byte[] file = null) : base(extension, file)
+        /// <param name="url"></param>
+        /// <param name="user"></param>
+        private Avatar(string url, User user) : base(url)
         {
             User = user;
         }
 
         /// <summary>
-        /// Cria um objeto de valor ProfilePicture a partir do arquivo e do formato da foto 
-        /// </summary>
-        /// <param name="extension"></param>
+        /// Método de criação do objeto Avatar. 
+        /// </summary> 
+        /// <param name="user"></param>
+        /// <param name="url"></param>
         /// <returns></returns>
-        public static Avatar Create(User user, string extension, byte[] file = null) => new Avatar(user, extension, file);
+        public static Avatar Create(User user, string url) => new Avatar(url, user);
     }
 }

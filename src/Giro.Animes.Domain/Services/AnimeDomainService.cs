@@ -29,7 +29,7 @@ namespace Giro.Animes.Domain.Services
             _studioRepository = studioRepository;
         }
 
-        public async Task<EntityResult<Anime>> CreateAnimeAsync(IEnumerable<AnimeTitle> titles, IEnumerable<AnimeSinopse> sinopses, IEnumerable<Cover> covers, IEnumerable<AnimeScreenshot> screenshots, IEnumerable<long> authors, IEnumerable<long> genres, AnimeStatus status, long studioId, CancellationToken cancellation)
+        public async Task<EntityResult<Anime>> CreateAnimeAsync(IEnumerable<AnimeTitle> titles, IEnumerable<AnimeSinopse> sinopses, Cover cover, IEnumerable<Screenshot> screenshots, IEnumerable<long> authors, IEnumerable<long> genres, AnimeStatus status, long studioId, CancellationToken cancellation)
         {
             IEnumerable<Author> authorsList = await _authorRepository.GetAuthorsByIdsAsync(authors, cancellation);
             IEnumerable<Genre> genresList = await _genreRepository.GetAllByIdsAsync(genres, cancellation);
@@ -51,7 +51,7 @@ namespace Giro.Animes.Domain.Services
                 return EntityResult<Anime>.Create(null, notifications);
             }
 
-            Anime anime = Anime.Create(titles, covers, authorsList, sinopses, genresList, studio, status);
+            Anime anime = Anime.Create(titles, cover, authorsList, sinopses, genresList, studio, status);
 
             await _repository.AddAsync(anime, cancellation);
 
@@ -82,23 +82,18 @@ namespace Giro.Animes.Domain.Services
             return EntityResult<AnimeTitle>.Create(animeTitle, animeTitle.GetErrors());
         }
 
-        public async Task<EntityResult<Cover>> CreateCoverAsync(byte[] cover, string extension, long languageId, CancellationToken cancellationToken)
+        public async Task<EntityResult<Cover>> CreateCoverAsync(string url, CancellationToken cancellationToken)
         {
-            Language language = await _languageRepository.GetLanguageByIdAsync(languageId, cancellationToken);
-
-            if (language is null)
-                return EntityResult<Cover>.Create(null, new List<Notification> { Notification.Create("Cover", "CreateCover", Message.Language.LANGUAGE_NOT_FOUND) });
-
-            Cover animeCover = Cover.Create(cover, extension, language);
+            Cover animeCover = Cover.Create(url);
 
             return EntityResult<Cover>.Create(animeCover, animeCover.GetErrors());
         }
 
-        public async Task<EntityResult<AnimeScreenshot>> CreateScreenshotAsync(byte[] screenshot, string extension, CancellationToken cancellationToken)
+        public Task<EntityResult<Screenshot>> CreateScreenshotAsync(string url, CancellationToken cancellationToken)
         {
-            AnimeScreenshot animeScreenshot = AnimeScreenshot.Create(screenshot, extension);
+            Screenshot animeScreenshot = Screenshot.Create(url);
 
-            return EntityResult<AnimeScreenshot>.Create(animeScreenshot, animeScreenshot.GetErrors());
+            return Task.FromResult(EntityResult<Screenshot>.Create(animeScreenshot, animeScreenshot.GetErrors()));
         }
 
         public async Task<(IEnumerable<Anime>, int)> GetAllPagedAsync(IPagination<AnimeFilter> pagination, CancellationToken cancellationToken)
