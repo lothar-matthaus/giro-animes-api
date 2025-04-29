@@ -39,7 +39,7 @@ namespace Giro.Animes.Infra.Data.Configurations.Types.Content
                 animesGenres.ToTable(Tables.Content.ANIMES_GENRES, Schemas.CONTENT);
             });
 
-            builder.HasMany(ani => ani.Covers).WithOne(cover => cover.Anime).HasForeignKey(title => title.AnimeId).IsRequired(true);
+            builder.HasOne(ani => ani.Cover).WithOne(cover => cover.Anime).HasForeignKey<Cover>(cover => cover.AnimeId).IsRequired(false);
             builder.HasMany(ani => ani.Episodes).WithOne(episode => episode.Anime).HasForeignKey(title => title.AnimeId).IsRequired(false);
 
             builder.Navigation(ani => ani.Titles).AutoInclude();
@@ -47,7 +47,7 @@ namespace Giro.Animes.Infra.Data.Configurations.Types.Content
             builder.Navigation(ani => ani.Screenshots).AutoInclude();
             builder.Navigation(ani => ani.Authors).AutoInclude();
             builder.Navigation(ani => ani.Genres).AutoInclude();
-            builder.Navigation(ani => ani.Covers).AutoInclude();
+            builder.Navigation(ani => ani.Cover).AutoInclude();
             builder.Navigation(ani => ani.Episodes).AutoInclude();
             builder.Navigation(ani => ani.Studio).AutoInclude();
             builder.Navigation(ani => ani.Ratings).AutoInclude();

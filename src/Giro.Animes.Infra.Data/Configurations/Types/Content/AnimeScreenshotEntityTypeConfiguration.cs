@@ -6,9 +6,9 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Giro.Animes.Infra.Data.Configurations.Types.Content
 {
-    internal class AnimeScreenshotEntityTypeConfiguration : ScreenshotEntityTypeConfiguration<AnimeScreenshot>
+    internal class AnimeScreenshotEntityTypeConfiguration : ScreenshotEntityTypeConfiguration<Screenshot>
     {
-        public override void Configure(EntityTypeBuilder<AnimeScreenshot> builder)
+        public override void Configure(EntityTypeBuilder<Screenshot> builder)
         {
             base.Configure(builder);
 
