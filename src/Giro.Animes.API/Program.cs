@@ -8,6 +8,7 @@ using Giro.Animes.Infra.Extensions.IoC.Security;
 using Giro.Animes.Infra.Interfaces.Configs;
 using Giro.Animes.Shared.Extensions.Authorization;
 using Giro.Animes.Shared.Extensions.Swaggger;
+using Giro.Animes.Shared.Extensions.Versioning;
 using Giro.Animes.Shared.Filters;
 using Giro.Animes.Shared.Middleware;
 using Giro.Animes.Shared.Middlewares;
@@ -36,17 +37,7 @@ builder.Services.AddControllers(options =>
     options.JsonSerializerOptions.WriteIndented = true;
 });
 
-builder.Services.AddApiVersioning(options =>
-{
-    IApiInfo apiInfo = new ApiInfo(builder.Configuration);
-
-    if (apiInfo == null)
-        throw new ArgumentNullException("As informações da API não foram encontradas nas variáveis de ambiente.");
-
-    options.DefaultApiVersion = new ApiVersion(apiInfo.Version[0], apiInfo.Version[1]);
-    options.AssumeDefaultVersionWhenUnspecified = true;
-    options.ReportApiVersions = true;
-});
+builder.Services.AddApiVersioningConfig(builder.Configuration);
 
 // Configura o acesso ao contexto HTTP
 builder.Services.AddHttpContextAccessor();
