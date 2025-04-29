@@ -10,11 +10,8 @@ namespace Giro.Animes.Shared.Middleware
 {
     public class ExceptionHandlingMiddleware : IMiddleware
     {
-        private readonly IFileMediaStorageService _fileMediaStorageService;
-
-        public ExceptionHandlingMiddleware(IFileMediaStorageService fileMediaStorageService)
+        public ExceptionHandlingMiddleware()
         {
-            _fileMediaStorageService = fileMediaStorageService;
         }
 
         public async Task InvokeAsync(HttpContext context, RequestDelegate next)
@@ -26,11 +23,10 @@ namespace Giro.Animes.Shared.Middleware
 
             catch (Exception ex)
             {
-                await _fileMediaStorageService.Rollback();
                 switch (ex)
                 {
                     case SecurityTokenException:
-                        await HandleExceptions(context, ex.Message, HttpStatusCode.BadRequest);
+                        await HandleExceptions(context, "O token fornecido está expirado ou não é válido.", HttpStatusCode.BadRequest);
                         break;
                     case DbUpdateException:
                         await HandleExceptions(context, "Ocorreu um erro ao salvar as alterações no banco de dados.", HttpStatusCode.InternalServerError);
