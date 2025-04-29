@@ -3,6 +3,7 @@ using System;
 using Giro.Animes.Infra.Data.Contexts;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Giro.Animes.Infra.Data.Migrations
 {
     [DbContext(typeof(GiroAnimesDbContext))]
-    partial class GiroAnimesDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250427062338_alteração-nome-caminho-tabela-cover")]
+    partial class alteraçãonomecaminhotabelacover
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -89,6 +92,46 @@ namespace Giro.Animes.Infra.Data.Migrations
                     b.HasIndex("StudioId");
 
                     b.ToTable("animes", "content");
+                });
+
+            modelBuilder.Entity("Giro.Animes.Domain.Entities.AnimeScreenshot", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
+
+                    b.Property<long>("AnimeId")
+                        .HasColumnType("bigint");
+
+                    b.Property<DateTime>("CreationDate")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("TIMESTAMP")
+                        .HasDefaultValueSql("CURRENT_TIMESTAMP");
+
+                    b.Property<string>("Extension")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("FileName")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("Path")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<DateTime>("UpdateDate")
+                        .ValueGeneratedOnAddOrUpdate()
+                        .HasColumnType("TIMESTAMP")
+                        .HasDefaultValueSql("CURRENT_TIMESTAMP");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AnimeId");
+
+                    b.ToTable("anime_screenshots", "content");
                 });
 
             modelBuilder.Entity("Giro.Animes.Domain.Entities.AnimeSinopse", b =>
@@ -261,15 +304,22 @@ namespace Giro.Animes.Infra.Data.Migrations
                         .HasColumnType("TIMESTAMP")
                         .HasDefaultValueSql("CURRENT_TIMESTAMP");
 
+                    b.Property<string>("Extension")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("FileName")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("Path")
+                        .IsRequired()
+                        .HasColumnType("text");
+
                     b.Property<DateTime>("UpdateDate")
                         .ValueGeneratedOnAddOrUpdate()
                         .HasColumnType("TIMESTAMP")
                         .HasDefaultValueSql("CURRENT_TIMESTAMP");
-
-                    b.Property<string>("Url")
-                        .IsRequired()
-                        .HasMaxLength(500)
-                        .HasColumnType("character varying(500)");
 
                     b.Property<long>("UserId")
                         .HasColumnType("bigint");
@@ -336,20 +386,31 @@ namespace Giro.Animes.Infra.Data.Migrations
                         .HasColumnType("TIMESTAMP")
                         .HasDefaultValueSql("CURRENT_TIMESTAMP");
 
+                    b.Property<string>("Extension")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("FileName")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<long>("LanguageId")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("Path")
+                        .IsRequired()
+                        .HasColumnType("text");
+
                     b.Property<DateTime>("UpdateDate")
                         .ValueGeneratedOnAddOrUpdate()
                         .HasColumnType("TIMESTAMP")
                         .HasDefaultValueSql("CURRENT_TIMESTAMP");
 
-                    b.Property<string>("Url")
-                        .IsRequired()
-                        .HasMaxLength(500)
-                        .HasColumnType("character varying(500)");
-
                     b.HasKey("Id");
 
-                    b.HasIndex("AnimeId")
-                        .IsUnique();
+                    b.HasIndex("AnimeId");
+
+                    b.HasIndex("LanguageId");
 
                     b.ToTable("covers", "content");
                 });
@@ -499,6 +560,18 @@ namespace Giro.Animes.Infra.Data.Migrations
                     b.Property<long>("EpisodeId")
                         .HasColumnType("bigint");
 
+                    b.Property<string>("Extension")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("FileName")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("Path")
+                        .IsRequired()
+                        .HasColumnType("text");
+
                     b.Property<long>("SubtitleLanguageId")
                         .HasColumnType("bigint");
 
@@ -506,11 +579,6 @@ namespace Giro.Animes.Infra.Data.Migrations
                         .ValueGeneratedOnAddOrUpdate()
                         .HasColumnType("TIMESTAMP")
                         .HasDefaultValueSql("CURRENT_TIMESTAMP");
-
-                    b.Property<string>("Url")
-                        .IsRequired()
-                        .HasMaxLength(500)
-                        .HasColumnType("character varying(500)");
 
                     b.HasKey("Id");
 
@@ -745,6 +813,18 @@ namespace Giro.Animes.Infra.Data.Migrations
                         .HasColumnType("TIMESTAMP")
                         .HasDefaultValueSql("CURRENT_TIMESTAMP");
 
+                    b.Property<string>("Extension")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("FileName")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("Path")
+                        .IsRequired()
+                        .HasColumnType("text");
+
                     b.Property<long>("StudioId")
                         .HasColumnType("bigint");
 
@@ -752,11 +832,6 @@ namespace Giro.Animes.Infra.Data.Migrations
                         .ValueGeneratedOnAddOrUpdate()
                         .HasColumnType("TIMESTAMP")
                         .HasDefaultValueSql("CURRENT_TIMESTAMP");
-
-                    b.Property<string>("Url")
-                        .IsRequired()
-                        .HasMaxLength(500)
-                        .HasColumnType("character varying(500)");
 
                     b.HasKey("Id");
 
@@ -841,39 +916,6 @@ namespace Giro.Animes.Infra.Data.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("ratings", "content");
-                });
-
-            modelBuilder.Entity("Giro.Animes.Domain.Entities.Screenshot", b =>
-                {
-                    b.Property<long>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
-
-                    b.Property<long>("AnimeId")
-                        .HasColumnType("bigint");
-
-                    b.Property<DateTime>("CreationDate")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("TIMESTAMP")
-                        .HasDefaultValueSql("CURRENT_TIMESTAMP");
-
-                    b.Property<DateTime>("UpdateDate")
-                        .ValueGeneratedOnAddOrUpdate()
-                        .HasColumnType("TIMESTAMP")
-                        .HasDefaultValueSql("CURRENT_TIMESTAMP");
-
-                    b.Property<string>("Url")
-                        .IsRequired()
-                        .HasMaxLength(500)
-                        .HasColumnType("character varying(500)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("AnimeId");
-
-                    b.ToTable("anime_screenshots", "content");
                 });
 
             modelBuilder.Entity("Giro.Animes.Domain.Entities.Settings", b =>
@@ -1199,6 +1241,17 @@ namespace Giro.Animes.Infra.Data.Migrations
                     b.Navigation("Studio");
                 });
 
+            modelBuilder.Entity("Giro.Animes.Domain.Entities.AnimeScreenshot", b =>
+                {
+                    b.HasOne("Giro.Animes.Domain.Entities.Anime", "Anime")
+                        .WithMany("Screenshots")
+                        .HasForeignKey("AnimeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Anime");
+                });
+
             modelBuilder.Entity("Giro.Animes.Domain.Entities.AnimeSinopse", b =>
                 {
                     b.HasOne("Giro.Animes.Domain.Entities.Anime", "Anime")
@@ -1270,10 +1323,20 @@ namespace Giro.Animes.Infra.Data.Migrations
             modelBuilder.Entity("Giro.Animes.Domain.Entities.Cover", b =>
                 {
                     b.HasOne("Giro.Animes.Domain.Entities.Anime", "Anime")
-                        .WithOne("Cover")
-                        .HasForeignKey("Giro.Animes.Domain.Entities.Cover", "AnimeId");
+                        .WithMany("Covers")
+                        .HasForeignKey("AnimeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Giro.Animes.Domain.Entities.Language", "Language")
+                        .WithMany("Covers")
+                        .HasForeignKey("LanguageId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Anime");
+
+                    b.Navigation("Language");
                 });
 
             modelBuilder.Entity("Giro.Animes.Domain.Entities.EmailTemplate", b =>
@@ -1437,17 +1500,6 @@ namespace Giro.Animes.Infra.Data.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("Giro.Animes.Domain.Entities.Screenshot", b =>
-                {
-                    b.HasOne("Giro.Animes.Domain.Entities.Anime", "Anime")
-                        .WithMany("Screenshots")
-                        .HasForeignKey("AnimeId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Anime");
-                });
-
             modelBuilder.Entity("Giro.Animes.Domain.Entities.Settings", b =>
                 {
                     b.HasOne("Giro.Animes.Domain.Entities.Account", null)
@@ -1599,7 +1651,7 @@ namespace Giro.Animes.Infra.Data.Migrations
 
             modelBuilder.Entity("Giro.Animes.Domain.Entities.Anime", b =>
                 {
-                    b.Navigation("Cover");
+                    b.Navigation("Covers");
 
                     b.Navigation("Episodes");
 
@@ -1638,6 +1690,8 @@ namespace Giro.Animes.Infra.Data.Migrations
                     b.Navigation("AnimeSinopses");
 
                     b.Navigation("Biographies");
+
+                    b.Navigation("Covers");
 
                     b.Navigation("EpisodeFileAudio");
 
