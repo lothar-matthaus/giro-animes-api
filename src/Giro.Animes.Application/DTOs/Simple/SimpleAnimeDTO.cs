@@ -18,7 +18,12 @@ namespace Giro.Animes.Application.DTOs.Simple
         /// <summary>
         /// Capa do anime.
         /// </summary>
-        public IEnumerable<SimpleCoverDTO> Covers { get; private set; }
+        public SimpleCoverDTO Cover { get; private set; }
+
+        /// <summary>
+        /// Capturas de tela do anime.
+        /// </summary>
+        public IEnumerable<SimpleAnimeScreenshotDTO> Screenshots { get; private set; }
 
         /// <summary>
         /// Gêneros do anime.
@@ -45,18 +50,19 @@ namespace Giro.Animes.Application.DTOs.Simple
         /// </summary>
         /// <param name="titles"></param>
         /// <param name="sinopses"></param>
-        /// <param name="covers"></param>
+        /// <param name="cover"></param>
         /// <param name="genres"></param>
         /// <param name="authors"></param>
         /// <param name="studio"></param>
         /// <param name="status"></param>
         /// <param name="id"></param>
-        private SimpleAnimeDTO(IEnumerable<SimpleAnimeTitleDTO> titles, IEnumerable<SimpleAnimeSinopseDTO> sinopses, IEnumerable<SimpleCoverDTO> covers, IEnumerable<SimpleGenreDTO> genres, IEnumerable<SimpleAuthorDTO> authors, SimpleStudioDTO studio, EnumDTO<AnimeStatus> status, long? id) :
+        private SimpleAnimeDTO(IEnumerable<SimpleAnimeTitleDTO> titles, IEnumerable<SimpleAnimeSinopseDTO> sinopses, SimpleCoverDTO cover, IEnumerable<SimpleAnimeScreenshotDTO> screenshots, IEnumerable<SimpleGenreDTO> genres, IEnumerable<SimpleAuthorDTO> authors, SimpleStudioDTO studio, EnumDTO<AnimeStatus> status, long? id) :
             base(id)
         {
             Titles = titles;
             Sinopses = sinopses;
-            Covers = covers;
+            Cover = cover;
+            Screenshots = screenshots;
             Genres = genres;
             Authors = authors;
             Studio = studio;
@@ -68,16 +74,16 @@ namespace Giro.Animes.Application.DTOs.Simple
         /// </summary>
         /// <param name="titles"></param>
         /// <param name="sinopses"></param>
-        /// <param name="covers"></param>
+        /// <param name="cover"></param>
         /// <param name="genres"></param>
         /// <param name="authors"></param>
         /// <param name="studio"></param>
         /// <param name="status"></param>
         /// <param name="id"></param>
         /// <returns></returns>
-        public static SimpleAnimeDTO Create(IEnumerable<SimpleAnimeTitleDTO> titles, IEnumerable<SimpleAnimeSinopseDTO> sinopses, IEnumerable<SimpleCoverDTO> covers, IEnumerable<SimpleGenreDTO> genres, IEnumerable<SimpleAuthorDTO> authors, SimpleStudioDTO studio, EnumDTO<AnimeStatus> status, long? id)
+        public static SimpleAnimeDTO Create(IEnumerable<SimpleAnimeTitleDTO> titles, IEnumerable<SimpleAnimeSinopseDTO> sinopses, SimpleCoverDTO cover, IEnumerable<SimpleAnimeScreenshotDTO> screenshots, IEnumerable<SimpleGenreDTO> genres, IEnumerable<SimpleAuthorDTO> authors, SimpleStudioDTO studio, EnumDTO<AnimeStatus> status, long? id)
         {
-            return new SimpleAnimeDTO(titles, sinopses, covers, genres, authors, studio, status, id);
+            return new SimpleAnimeDTO(titles, sinopses, cover, screenshots, genres, authors, studio, status, id);
         }
     }
 }

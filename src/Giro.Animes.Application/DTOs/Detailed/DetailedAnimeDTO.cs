@@ -22,7 +22,7 @@ namespace Giro.Animes.Application.DTOs.Detailed
         /// <summary>
         /// Coleção de capas do anime.
         /// </summary>
-        public IEnumerable<SimpleCoverDTO> Covers { get; private set; }
+        public SimpleCoverDTO Cover { get; private set; }
 
         /// <summary>
         /// Coleção de capturas de tela do anime.
@@ -64,7 +64,7 @@ namespace Giro.Animes.Application.DTOs.Detailed
         /// </summary>
         /// <param name="titles"></param>
         /// <param name="sinopses"></param>
-        /// <param name="covers"></param>
+        /// <param name="cover"></param>
         /// <param name="screenshots"></param>
         /// <param name="episodes"></param>
         /// <param name="authors"></param>
@@ -78,7 +78,7 @@ namespace Giro.Animes.Application.DTOs.Detailed
         private DetailedAnimeDTO(
             IEnumerable<SimpleAnimeTitleDTO> titles,
             IEnumerable<SimpleAnimeSinopseDTO> sinopses,
-            IEnumerable<SimpleCoverDTO> covers,
+            SimpleCoverDTO cover,
             IEnumerable<SimpleAnimeScreenshotDTO> screenshots,
             IEnumerable<SimpleEpisodeDTO> episodes,
             IEnumerable<SimpleAuthorDTO> authors,
@@ -91,7 +91,7 @@ namespace Giro.Animes.Application.DTOs.Detailed
         {
             Titles = titles;
             Sinopses = sinopses;
-            Covers = covers;
+            Cover = cover;
             Screenshots = screenshots;
             Episodes = episodes;
             Authors = authors;
@@ -106,7 +106,7 @@ namespace Giro.Animes.Application.DTOs.Detailed
         /// </summary>
         /// <param name="titles"></param>
         /// <param name="sinopses"></param>
-        /// <param name="covers"></param>
+        /// <param name="cover"></param>
         /// <param name="screenshots"></param>
         /// <param name="episodes"></param>
         /// <param name="authors"></param>
@@ -121,7 +121,7 @@ namespace Giro.Animes.Application.DTOs.Detailed
         public static DetailedAnimeDTO Create(
             IEnumerable<SimpleAnimeTitleDTO> titles,
             IEnumerable<SimpleAnimeSinopseDTO> sinopses,
-            IEnumerable<SimpleCoverDTO> covers,
+            SimpleCoverDTO cover,
             IEnumerable<SimpleAnimeScreenshotDTO> screenshots,
             IEnumerable<SimpleEpisodeDTO> episodes,
             IEnumerable<SimpleAuthorDTO> authors,
@@ -131,7 +131,7 @@ namespace Giro.Animes.Application.DTOs.Detailed
             EnumDTO<AnimeStatus> status,
             long? id, DateTime creationDate, DateTime updateDate)
         {
-            return new DetailedAnimeDTO(titles, sinopses, covers, screenshots, episodes, authors, rating, genres, studio, status, id, creationDate, updateDate);
+            return new DetailedAnimeDTO(titles, sinopses, cover, screenshots, episodes, authors, rating, genres, studio, status, id, creationDate, updateDate);
         }
     }
 }

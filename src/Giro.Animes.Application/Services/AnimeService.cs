@@ -21,21 +21,19 @@ namespace Giro.Animes.Application.Services
     internal class AnimeService : ApplicationServiceBase<IAnimeDomainService>, IAnimeService
     {
         private readonly ITokenService _tokenService;
-        private readonly IFileMediaStorageService _storageService;
 
-        public AnimeService(IApplicationUser applicationUser, INotificationService notificationService, ITokenService tokenService, IAnimeDomainService domainService, IFileMediaStorageService storageService) :
+        public AnimeService(IApplicationUser applicationUser, INotificationService notificationService, ITokenService tokenService, IAnimeDomainService domainService) :
             base(applicationUser, notificationService, domainService)
         {
             _tokenService = tokenService;
-            _storageService = storageService;
         }
 
         public async Task<DetailedAnimeDTO> CreateAnimeAsync(AnimeCreateOrUpdateRequest request, CancellationToken cancellationToken)
         {
             IList<AnimeTitle> titles = new List<AnimeTitle>();
             IList<AnimeSinopse> sinopses = new List<AnimeSinopse>();
-            IList<Cover> covers = new List<Cover>();
-            IList<AnimeScreenshot> screenshots = new List<AnimeScreenshot>();
+            IList<Screenshot> screenshots = new List<Screenshot>();
+            Cover cover = null;
 
             // Cria os título de animes
             foreach (AnimeTitleRequest title in request.Titles)
@@ -65,30 +63,22 @@ namespace Giro.Animes.Application.Services
                 sinopses.Add(sinopseResult.Entity);
             }
 
-            // Cria as capas de animes]
-            foreach (CoverRequest cover in request.Covers)
+            // Cria a capa do anime
+            EntityResult<Cover> coverResult = await _domainService.CreateCoverAsync(request.CoverUrl, cancellationToken);
+
+            if (!coverResult.IsValid)
             {
-                byte[] fileBytes = cover.File.ReadAsBytes();
-
-                EntityResult<Cover> coverResult = await _domainService.CreateCoverAsync(fileBytes, cover.Extension, cover.LanguageId, cancellationToken);
-
-                if (!coverResult.IsValid)
-                {
-                    await _notificationService.AddNotification(coverResult.Errors);
-                    continue;
-                }
-
-                covers.Add(coverResult.Entity);
+                await _notificationService.AddNotification(coverResult.Errors);
+            }
+            else
+            {
+                cover = coverResult.Entity;
             }
 
-            // Persiste temporariamente as capas no storage 
-            await _storageService.UploadAsync(covers.ToArray());
-
             // Cria os screenshots de animes
-            foreach (ScreenshotRequest screenshot in request.Screenshots)
+            foreach (string screenshotUrl in request.Screenshots)
             {
-                byte[] fileBytes = screenshot.File.ReadAsBytes();
-                EntityResult<AnimeScreenshot> screenshotResult = await _domainService.CreateScreenshotAsync(fileBytes, screenshot.Extension, cancellationToken);
+                EntityResult<Screenshot> screenshotResult = await _domainService.CreateScreenshotAsync(screenshotUrl, cancellationToken);
 
                 if (!screenshotResult.IsValid)
                 {
@@ -99,10 +89,7 @@ namespace Giro.Animes.Application.Services
                 screenshots.Add(screenshotResult.Entity);
             }
 
-            // Persiste temporariamente os screenshots no storage
-            await _storageService.UploadAsync(screenshots.ToArray());
-
-            EntityResult<Anime> animeResult = await _domainService.CreateAnimeAsync(titles, sinopses, covers, screenshots, request.Authors, request.Genres, AnimeStatus.Unknown, request.StudioId, cancellationToken);
+            EntityResult<Anime> animeResult = await _domainService.CreateAnimeAsync(titles, sinopses, cover, screenshots, request.Authors, request.Genres, AnimeStatus.Ongoing, request.StudioId, cancellationToken);
 
             if (!animeResult.IsValid)
             {
@@ -122,19 +109,6 @@ namespace Giro.Animes.Application.Services
         public async Task<IPagedEnumerable<SimpleAnimeDTO>> GetAllPagedAsync(IPagination<AnimeFilter> pagination, CancellationToken cancellationToken)
         {
             (IEnumerable<Anime> animes, int totalCount) = await _domainService.GetAllPagedAsync(pagination, cancellationToken);
-
-            foreach (Anime anime in animes)
-            {
-                foreach (var cover in anime.Covers ?? Enumerable.Empty<Cover>())
-                {
-                    cover.SetDownloadUrl(await _tokenService.GenerateDownloadMediaToken(cover));
-                }
-
-                foreach (var screenshot in anime.Screenshots ?? Enumerable.Empty<AnimeScreenshot>())
-                {
-                    screenshot.SetDownloadUrl(await _tokenService.GenerateDownloadMediaToken(screenshot));
-                }
-            }
 
             IPagedEnumerable<SimpleAnimeDTO> result = PagedEnumerable<SimpleAnimeDTO>.Create(animes?.MapSimple(), pagination.Page, pagination.RowsPerPage, totalCount);
             return result;

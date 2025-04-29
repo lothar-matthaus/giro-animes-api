@@ -13,25 +13,16 @@ namespace Giro.Animes.Application.DTOs
         public string Url { get; private set; }
 
         /// <summary>
-        /// Nome do arquivo da mídia.
+        /// Construtor protegido para garantir que o objeto só pode ser criado através dos seus derivados.
         /// </summary>
-        public string FileName { get; private set; }
-
-        /// <summary>
-        /// Extensão do arquivo da mídia.
-        /// </summary>
-        public string Extension { get; private set; }
-
-        /// <summary>
-        /// Construtor privado com parâmetros. Garante a construção do objeto através do método Create.
-        /// </summary>
-        /// <param name="media">Instância da entidade Media.</param>
-        protected MediaDTO(long? id, DateTime creationDate, DateTime updateDate, string url, string fileName, string extension) :
+        /// <param name="url"></param>
+        /// <param name="id"></param>
+        /// <param name="creationDate"></param>
+        /// <param name="updateDate"></param>
+        protected MediaDTO(long? id, string url, DateTime creationDate, DateTime updateDate) :
             base(id, creationDate, updateDate)
         {
             Url = url;
-            FileName = fileName;
-            Extension = extension;
         }
     }
 }

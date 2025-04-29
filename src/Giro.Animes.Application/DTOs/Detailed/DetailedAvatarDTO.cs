@@ -20,8 +20,8 @@
         /// <param name="url">URL do avatar.</param>
         /// <param name="fileName">Nome do arquivo do avatar.</param>
         /// <param name="extension">Extensão do arquivo do avatar.</param>
-        private DetailedAvatarDTO(long? id, DateTime creationDate, DateTime updateDate, long userId, string url, string fileName, string extension) :
-            base(id, creationDate, updateDate, url, fileName, extension)
+        private DetailedAvatarDTO(long? id, string url, long userId, DateTime creationDate, DateTime updateDate) :
+            base(id, url, creationDate, updateDate)
         {
             UserId = userId;
         }
@@ -37,7 +37,7 @@
         /// <param name="fileName">Nome do arquivo do avatar.</param>
         /// <param name="extension">Extensão do arquivo do avatar.</param>
         /// <returns>Uma nova instância de AvatarDTO.</returns>
-        public static DetailedAvatarDTO Create(long? id, DateTime creationDate, DateTime updateDate, long userId, string url, string fileName, string extension)
-            => new DetailedAvatarDTO(id, creationDate, updateDate, userId, url, fileName, extension);
+        public static DetailedAvatarDTO Create(long? id, string url, long userId, DateTime creationDate, DateTime updateDate)
+            => new DetailedAvatarDTO(id, url, userId, creationDate, updateDate);
     }
 }

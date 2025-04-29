@@ -17,12 +17,10 @@ namespace Giro.Animes.Application.Mappers
         {
             DetailedAvatarDTO avatarDTO = DetailedAvatarDTO.Create(
                 avatar.Id,
-                avatar.CreationDate,
-                avatar.UpdateDate,
+                avatar.Url,
                 avatar.UserId,
-                avatar.Path,
-                avatar.FileName,
-                avatar.Extension
+                avatar.CreationDate,
+                avatar.UpdateDate
                 );
 
             return avatarDTO;

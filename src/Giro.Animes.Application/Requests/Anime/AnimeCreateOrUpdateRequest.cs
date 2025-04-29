@@ -7,8 +7,8 @@ namespace Giro.Animes.Application.Requests.Anime
         public ICollection<AnimeTitleRequest> Titles { get; set; } = new List<AnimeTitleRequest>();
         public IEnumerable<AnimeSinopseRequest> Sinopses { get; set; } = new List<AnimeSinopseRequest>();
         public IEnumerable<long> Genres { get; set; } = new List<long>();
-        public IEnumerable<CoverRequest> Covers { get; set; } = new List<CoverRequest>();
-        public IEnumerable<ScreenshotRequest> Screenshots { get; set; } = new List<ScreenshotRequest>();
+        public string CoverUrl { get; set; } = string.Empty;
+        public IEnumerable<string> Screenshots { get; set; } = new List<string>();
         public IEnumerable<long> Authors { get; set; } = new List<long>();
         public long StudioId { get; set; }
     }
@@ -23,18 +23,5 @@ namespace Giro.Animes.Application.Requests.Anime
     {
         public string Descrition { get; set; }
         public long LanguageId { get; set; }
-    }
-
-    public class CoverRequest
-    {
-        public IFormFile File { get; set; }
-        public long LanguageId { get; set; }
-        public string Extension => File.ContentType;
-    }
-
-    public class ScreenshotRequest
-    {
-        public IFormFile File { get; set; }
-        public string Extension => File.ContentType;
     }
 }

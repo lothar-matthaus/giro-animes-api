@@ -20,15 +20,15 @@
         /// </summary>
         public DetailedLanguageDTO SubtitleLanguage { get; private set; }
 
-        private DetailedEpisodeFileDTO(long? id, DateTime creationDate, DateTime updateDate, string url, string fileName, string extension, long episodeId, DetailedLanguageDTO audioLanguage, DetailedLanguageDTO subtitleLanguage) :
-            base(id, creationDate, updateDate, url, fileName, extension)
+        private DetailedEpisodeFileDTO(long? id, string url, long episodeId, DetailedLanguageDTO audioLanguage, DetailedLanguageDTO subtitleLanguage, DateTime creationDate, DateTime updateDate) :
+            base(id, url, creationDate, updateDate)
         {
             EpisodeId = episodeId;
             AudioLanguage = audioLanguage;
             SubtitleLanguage = subtitleLanguage;
         }
 
-        public static DetailedEpisodeFileDTO Create(long? id, DateTime creationDate, DateTime updateDate, string url, string fileName, string extension, long episodeId, DetailedLanguageDTO audioLanguage, DetailedLanguageDTO subtitleLanguage)
-            => new DetailedEpisodeFileDTO(id, creationDate, updateDate, url, fileName, extension, episodeId, audioLanguage, subtitleLanguage);
+        public static DetailedEpisodeFileDTO Create(long? id, string url, long episodeId, DetailedLanguageDTO audioLanguage, DetailedLanguageDTO subtitleLanguage, DateTime creationDate, DateTime updateDate)
+            => new DetailedEpisodeFileDTO(id, url, episodeId, audioLanguage, subtitleLanguage, creationDate, updateDate);
     }
 }

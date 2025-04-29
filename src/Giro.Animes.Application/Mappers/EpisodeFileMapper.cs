@@ -9,14 +9,12 @@ namespace Giro.Animes.Application.Mappers
         {
             DetailedEpisodeFileDTO episodeFileDTO = DetailedEpisodeFileDTO.Create(
                 episodeFile.Id,
-                episodeFile.CreationDate,
-                episodeFile.UpdateDate,
-                episodeFile.Path,
-                episodeFile.FileName,
-                episodeFile.Extension,
+                episodeFile.Url,
                 episodeFile.EpisodeId,
                 episodeFile.AudioLanguage.Map(),
-                episodeFile.SubtitleLanguage.Map()
+                episodeFile.SubtitleLanguage.Map(),
+                episodeFile.CreationDate,
+                episodeFile.UpdateDate
             );
 
             return episodeFileDTO;

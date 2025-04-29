@@ -28,7 +28,7 @@ namespace Giro.Animes.Application.DTOs.Simple
         /// <param name="id"></param>
         /// <param name="animeId"></param>
         /// <returns></returns>
-        public static SimpleAnimeScreenshotDTO Create(string url, long? id, long animeId)
+        public static SimpleAnimeScreenshotDTO Create(long? id, string url, long animeId)
         {
             return new SimpleAnimeScreenshotDTO(url, id, animeId);
         }

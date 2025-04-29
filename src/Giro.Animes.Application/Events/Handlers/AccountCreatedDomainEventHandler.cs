@@ -36,7 +36,7 @@ namespace Giro.Animes.Application.Events.Handlers
         public override async Task HandleAsync(AccountCreatedDomainEvent domainEvent)
         {
             _logger.LogInformation($"Gerando o token de confirmação de e-mail para o usuário {domainEvent.Username} ({domainEvent.Email})...");
-            UserTokenDTO userTokenDTO = await _tokenService.GenerateAccountActivationToken(domainEvent.Username, CancellationToken.None);
+            UserTokenDTO userTokenDTO = await _tokenService.GenerateAccountActivationToken(domainEvent.Username);
             
             _logger.LogInformation($"Token de confirmação de e-mail gerado com sucesso para o usuário {domainEvent.Username} ({domainEvent.Email}).");
 

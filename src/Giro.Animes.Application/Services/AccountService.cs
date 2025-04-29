@@ -47,7 +47,7 @@ namespace Giro.Animes.Application.Services
         public async Task CreateAccountAsync(AccountCreateRequest request, CancellationToken cancellationToken)
         {
             // Chama o serviço de domínio para demais validações e persistência
-            EntityResult<Account> resultAccount = await _domainService.CreateAccountAsync(request.Username, request.Email, request.Password, request.ConfirmPassword, cancellationToken);
+            EntityResult<Account> resultAccount = await _domainService.CreateAccountAsync(request.Username, request.Email, request.Password, request.ConfirmPassword, _applicationUser.Languages, cancellationToken);
 
             if (!resultAccount.IsValid)
             {

@@ -14,9 +14,9 @@ namespace Giro.Animes.Application.Mappers
         /// </summary>
         /// <param name="screenshot"></param>
         /// <returns></returns>
-        public static DetailedAnimeScreenshotDTO Map(this AnimeScreenshot screenshot)
+        public static DetailedAnimeScreenshotDTO Map(this Screenshot screenshot)
         {
-            DetailedAnimeScreenshotDTO animeScreenshot = DetailedAnimeScreenshotDTO.Create(screenshot.Id, screenshot.CreationDate, screenshot.UpdateDate, screenshot.AnimeId, screenshot.Path, screenshot.FileName, screenshot.Extension);
+            DetailedAnimeScreenshotDTO animeScreenshot = DetailedAnimeScreenshotDTO.Create(screenshot.Id, screenshot.Url, screenshot.AnimeId, screenshot.CreationDate, screenshot.UpdateDate);
             return animeScreenshot;
         }
 
@@ -25,7 +25,7 @@ namespace Giro.Animes.Application.Mappers
         /// </summary>
         /// <param name="screenshots"></param>
         /// <returns></returns>
-        public static IEnumerable<DetailedAnimeScreenshotDTO> Map(this IEnumerable<AnimeScreenshot> screenshots)
+        public static IEnumerable<DetailedAnimeScreenshotDTO> Map(this IEnumerable<Screenshot> screenshots)
         {
             IEnumerable<DetailedAnimeScreenshotDTO> result = screenshots.Select(Map);
             return result;
@@ -36,9 +36,9 @@ namespace Giro.Animes.Application.Mappers
         /// </summary>
         /// <param name="screenshot"></param>
         /// <returns></returns>
-        public static SimpleAnimeScreenshotDTO MapSimple(this AnimeScreenshot screenshot)
+        public static SimpleAnimeScreenshotDTO MapSimple(this Screenshot screenshot)
         {
-            SimpleAnimeScreenshotDTO animeScreenshot = SimpleAnimeScreenshotDTO.Create(screenshot.Path, screenshot.Id, screenshot.AnimeId);
+            SimpleAnimeScreenshotDTO animeScreenshot = SimpleAnimeScreenshotDTO.Create(screenshot.Id, screenshot.Url, screenshot.AnimeId);
             return animeScreenshot;
         }
 
@@ -47,7 +47,7 @@ namespace Giro.Animes.Application.Mappers
         /// </summary>
         /// <param name="screenshots"></param>
         /// <returns></returns>
-        public static IEnumerable<SimpleAnimeScreenshotDTO> MapSimple(this IEnumerable<AnimeScreenshot> screenshots)
+        public static IEnumerable<SimpleAnimeScreenshotDTO> MapSimple(this IEnumerable<Screenshot> screenshots)
         {
             IEnumerable<SimpleAnimeScreenshotDTO> result = screenshots.Select(MapSimple);
             return result;

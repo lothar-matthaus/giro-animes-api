@@ -9,15 +9,13 @@ namespace Giro.Animes.Application.DTOs.Simple
         /// </summary>
         public long AnimeId { get; private set; }
 
-        public SimpleLanguageDTO Language { get; private set; }
-
         /// <summary>
         /// Construtor privado com parâmetros. Garante a construção do objeto através do método Create.
         /// </summary>
         /// <param name="url"></param>
         /// <param name="animeId"></param>
         /// <param name="id"></param>
-        private SimpleCoverDTO(string url, long animeId, SimpleLanguageDTO language, long? id)
+        private SimpleCoverDTO(long? id, string url, long animeId)
             : base(url, id)
         {
             AnimeId = animeId;
@@ -30,9 +28,9 @@ namespace Giro.Animes.Application.DTOs.Simple
         /// <param name="animeId"></param>
         /// <param name="id"></param>
         /// <returns></returns>
-        public static SimpleCoverDTO Create(string url, long animeId, SimpleLanguageDTO language, long? id)
+        public static SimpleCoverDTO Create(long? id, string url, long animeId)
         {
-            return new SimpleCoverDTO(url, animeId, language, id);
+            return new SimpleCoverDTO(id, url, animeId);
         }
     }
 }

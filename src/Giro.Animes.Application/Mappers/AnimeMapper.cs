@@ -16,7 +16,7 @@ namespace Giro.Animes.Application.Mappers
             DetailedAnimeDTO animeDTO = DetailedAnimeDTO.Create(
                 anime.Titles.MapSimple(),
                 anime.Sinopses?.MapSimple(),
-                anime.Covers.MapSimple(),
+                anime.Cover.MapSimple(),
                 anime.Screenshots?.MapSimple(),
                 anime.Episodes?.MapSimple(),
                 anime.Authors.MapSimple(),
@@ -52,7 +52,8 @@ namespace Giro.Animes.Application.Mappers
             SimpleAnimeDTO simpleAnimeDTO = SimpleAnimeDTO.Create(
                 anime.Titles.MapSimple(),
                 anime.Sinopses?.MapSimple(),
-                anime.Covers.MapSimple(),
+                anime.Cover?.MapSimple(),
+                anime.Screenshots?.MapSimple(),
                 anime.Genres.MapSimple(),
                 anime.Authors.MapSimple(),
                 anime.Studio.MapSimple(),

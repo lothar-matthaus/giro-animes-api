@@ -9,13 +9,10 @@ namespace Giro.Animes.Application.Mappers
         {
             DetailedLogoDTO logoDTO = DetailedLogoDTO.Create(
                 logo.Id,
-                logo.CreationDate,
-                logo.UpdateDate,
+                logo.Url,
                 logo.StudioId,
-                logo.Path,
-                logo.FileName,
-                logo.Extension
-                );
+                logo.CreationDate,
+                logo.UpdateDate);
 
             return logoDTO;
         }
