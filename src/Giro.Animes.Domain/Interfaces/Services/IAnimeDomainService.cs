@@ -12,10 +12,12 @@ namespace Giro.Animes.Domain.Interfaces.Services
         Task<(IEnumerable<Anime>, int)> GetAllPagedAsync(IPagination<AnimeFilter> pagination, CancellationToken cancellationToken);
         Task<Anime> GetByIdAsync(long id, CancellationToken cancellationToken);
         Task<EntityResult<Anime>> IncrementView(long id, CancellationToken cancellationToken);
-        Task<EntityResult<Anime>> CreateAnimeAsync(IEnumerable<AnimeTitle> titles, IEnumerable<AnimeSinopse> sinopses, Cover cover, IEnumerable<Screenshot> screenshots, IEnumerable<long> authors, IEnumerable<long> genres, AnimeStatus status, long studioId, CancellationToken cancellation);
+        Task<EntityResult<Anime>> CreateAnimeAsync(IEnumerable<AnimeTitle> titles, IEnumerable<AnimeSinopse> sinopses, Cover cover, Banner banner, IEnumerable<Screenshot> screenshots, IEnumerable<long> authors, IEnumerable<long> genres, AnimeStatus status, long studioId, CancellationToken cancellation);
+        Task<EntityResult<Anime>> UpdateAnimeAsync(long id, IEnumerable<AnimeTitle> titles, IEnumerable<AnimeSinopse> sinopses, Cover cover, Banner banner, IEnumerable<Screenshot> screenshots, IEnumerable<long> authors, IEnumerable<long> genres, AnimeStatus status, long studioId, CancellationToken cancellation);
         Task<EntityResult<AnimeTitle>> CreateAnimeTitleAsync(string title, long languageId, CancellationToken cancellationToken);
         Task<EntityResult<AnimeSinopse>> CreateAnimeSinopseAsync(string sinopse, long languageId, CancellationToken cancellationToken);
         Task<EntityResult<Cover>> CreateCoverAsync(string url, CancellationToken cancellationToken);
+        Task<EntityResult<Banner>> CreateBannerAsync(string url, CancellationToken cancellationToken);
         Task<EntityResult<Screenshot>> CreateScreenshotAsync(string url, CancellationToken cancellationToken);
     }
 }

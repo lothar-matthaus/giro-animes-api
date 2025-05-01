@@ -14,22 +14,7 @@ namespace Giro.Animes.Domain.Entities
         /// <summary>
         /// Anime ao qual o título pertence
         /// </summary>
-        #region Anime
-        private Anime _anime;
-        public Anime Anime
-        {
-            get { return _anime; }
-            set
-            {
-                Validate(
-                    isInvalidIf: value == null,
-                    ifInvalid: () => Notification.Create(GetType().Name, "Anime", string.Format(Message.Validation.Title.ANIME_REQUIRED, "Anime")),
-                    ifValid: () => _anime = value);
-            }
-        }
-        #endregion
-
-
+        public Anime Anime { get; private set; }
         /// <summary>
         /// Construtor padrão para garantir a construção do objeto pelo EntityFramework
         /// </summary>

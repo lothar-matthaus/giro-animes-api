@@ -38,6 +38,15 @@
             public const string GENRES_NOT_FOUND = "Gêneros não encontrados";
         }
 
+        public static class Anime
+        {
+            public const string ANIME_NOT_FOUND = "Anime não encontrado";
+            public const string ANIMES_NOT_FOUND = "Animes não encontrados";
+            public const string ANIME_ALREADY_EXISTS = "Anime já existe";
+            public const string ANIME_TITLE_ALREADY_EXISTS = "Título do anime já existe";
+            public const string ANIME_SINOPSE_ALREADY_EXISTS = "Sinopse do anime já existe";
+        }
+
         internal static class Validation
         {
             public static class General
@@ -60,6 +69,9 @@
                 public const string GENRE_REQUIRED = "O anime precisa ter ao menos um gênero.";
                 public const string STUDIO_REQUIRED = "O anime precisa ter um estúdio associado.";
                 public const string INVALID_STATUS = "O status do anime é inválido.";
+                public const string DUPLICATED_LANGUAGE = "{0} possuem idiomas duplicados. Só deve haver apenas um idioma para cada.";
+                public const string DUPLICATED_AUTHORS = "Os anime possui autores duplicados.";
+                public const string DUPLICATED_GENRES = "Os anime possui gêneros duplicados.";
             }
 
             public static class Language
@@ -75,11 +87,6 @@
                 public const string INVALID_NAME_LENGHT = "O nome do autor deve conter entre 3 e 50 caracteres";
                 public const string INVALID_PEN_NAME = "O pseudônimo do autor deve conter apenas letras separadas por espaços";
                 public const string INVALID_PEN_NAME_LENGHT = "O pseudônimo do autor deve conter entre 3 e 30 caracteres";
-            }
-            public static class Cover
-            {
-                public const string INVALID_EXTENSION = "A extensão do arquivo de capa informado não é suportado.";
-                public const string INVALID_FILE_NAME_LENGHT = "O nome do arquivo de capa deve conter entre 3 e 100 caracteres";
             }
 
             public static class User
@@ -104,7 +111,7 @@
             {
                 public const string ANIME_REQUIRED = "O anime é obrigatório";
                 public const string LANGUAGE_REQUIRED = "O idioma do título é obrigatório";
-                public const string TITLE_LENGHT = "O título deve conter entre 3 e 100 caracteres";
+                public const string TITLE_LENGHT = "O título em '{0}' deve conter entre 3 e 100 caracteres";
             }
         }
     }

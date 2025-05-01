@@ -39,14 +39,14 @@ namespace Giro.Animes.Domain.Entities
         public ICollection<EpisodeFile> Files { get; private set; }
 
         /// <summary>
-        /// Identificador do anime ao qual o episódio pertence.
+        /// Identificador da temporada ao qual o episódio pertence.
         /// </summary>
-        public long AnimeId { get; private set; }
+        public long SeasonId { get; private set; }
 
         /// <summary>
-        /// Propriedade de navegação para o anime ao qual o episódio pertence.
+        /// Propriedade de navegação para a temporada ao qual o episódio pertence.
         /// </summary>
-        public Anime Anime { get; private set; }
+        public Season Season { get; private set; }
 
         /// <summary>
         /// Idiomas disponíveis para legendas no episódio.
@@ -68,8 +68,6 @@ namespace Giro.Animes.Domain.Entities
         /// <param name="files"></param>
         /// <param name="titles"></param>
         /// <param name="sinopses"></param>
-        /// <param name="subtitleLanguage"></param>
-        /// <param name="audioLanguages"></param>
         /// <param name="number"></param>
         /// <param name="duration"></param>
         /// <param name="airDate"></param>
@@ -81,16 +79,14 @@ namespace Giro.Animes.Domain.Entities
             Files = files;
             Sinopses = sinopses;
             AirDate = airDate;
-            AudioLanguages = Files?.Select(file => file.AudioLanguage).ToList();
-            SubtitleLanaguages = Files?.Select(file => file.SubtitleLanguage).ToList();
+            AudioLanguages = Files?.Select(file => file.AudioLanguage).DistinctBy(lan => lan.Id).ToList();
+            SubtitleLanaguages = Files?.Select(file => file.SubtitleLanguage).DistinctBy(lan => lan.Id).ToList();
         }
 
         /// <summary>
         /// Método estático para criar um objeto Episode com validações de propriedades e retorno do objeto.
         /// </summary>
         /// <param name="files"></param>
-        /// <param name="subtitleLanguage"></param>
-        /// <param name="audioLanguages"></param>
         /// <param name="titles"></param>
         /// <param name="sinopses"></param>
         /// <param name="number"></param>

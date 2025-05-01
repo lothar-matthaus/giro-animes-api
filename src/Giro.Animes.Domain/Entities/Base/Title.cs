@@ -26,7 +26,7 @@ namespace Giro.Animes.Domain.Entities.Base
 
                 Validate(
                     isInvalidIf: !Regex.IsMatch(value, Patterns.Anime.TITLE),
-                    ifInvalid: () => Notification.Create(GetType().Name, "Title", string.Format(Message.Validation.Title.TITLE_LENGHT, value)),
+                    ifInvalid: () => Notification.Create(GetType().Name, "Title", string.Format(Message.Validation.Title.TITLE_LENGHT, Language?.Name)),
                     ifValid: () => _name = value);
             }
         }
@@ -69,8 +69,8 @@ namespace Giro.Animes.Domain.Entities.Base
         /// <param name="language">Idioma do título</param>
         protected Title(string name, Language language)
         {
-            Name = name;
             Language = language;
+            Name = name;
         }
     }
 }
