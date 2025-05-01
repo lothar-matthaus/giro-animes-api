@@ -16,6 +16,11 @@ namespace Giro.Animes.Domain.Entities
         public ICollection<SeasonSinopse> Sinopses { get; private set; }
 
         /// <summary>
+        /// Trailer da temporada.
+        /// </summary>
+        public Trailer Trailer { get; private set; }
+
+        /// <summary>
         /// Episódios da temporada.
         /// </summary>
         public ICollection<Episode> Episodes { get; private set; }
@@ -54,11 +59,12 @@ namespace Giro.Animes.Domain.Entities
         /// <param name="number"></param>
         /// <param name="sinopses"></param>
         /// <param name="episodes"></param>
+        /// <param name="trailer"></param>
         /// <param name="releaseDate"></param>
         /// <param name="status"></param>
         /// <param name="animeId"></param>
         /// <param name="anime"></param>
-        private Season(int number, ICollection<SeasonSinopse> sinopses, ICollection<Episode> episodes, DateTime releaseDate, SeasonStatus status, long animeId, Anime anime)
+        private Season(int number, ICollection<SeasonSinopse> sinopses, Trailer trailer, ICollection<Episode> episodes, DateTime releaseDate, SeasonStatus status, long animeId, Anime anime)
         {
             Number = number;
             Sinopses = sinopses;
@@ -76,13 +82,14 @@ namespace Giro.Animes.Domain.Entities
         /// <param name="sinopses"></param>
         /// <param name="episodes"></param>
         /// <param name="releaseDate"></param>
+        /// <param name="trailer"></param>
         /// <param name="status"></param>
         /// <param name="animeId"></param>
         /// <param name="anime"></param>
         /// <returns></returns>
-        public static Season Create(int number, ICollection<SeasonSinopse> sinopses, ICollection<Episode> episodes, DateTime releaseDate, SeasonStatus status, long animeId, Anime anime)
+        public static Season Create(int number, ICollection<SeasonSinopse> sinopses, Trailer trailer, ICollection<Episode> episodes, DateTime releaseDate, SeasonStatus status, long animeId, Anime anime)
         {
-            return new Season(number, sinopses, episodes, releaseDate, status, animeId, anime);
+            return new Season(number, sinopses, trailer, episodes, releaseDate, status, animeId, anime);
         }
     }
 }
