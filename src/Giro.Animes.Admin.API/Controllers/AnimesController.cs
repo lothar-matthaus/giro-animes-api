@@ -68,7 +68,7 @@ namespace Giro.Animes.API.Controllers
         [ProducesResponseType<NotificationResponse>((int)HttpStatusCode.BadRequest)]
         public async Task<IActionResult> UpdateAnime([FromBody] AnimeUpdateRequest request)
         {
-            return null;
+            throw new NotImplementedException();
         }
     }
 }
