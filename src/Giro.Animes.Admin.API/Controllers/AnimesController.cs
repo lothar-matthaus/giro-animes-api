@@ -56,10 +56,19 @@ namespace Giro.Animes.API.Controllers
         [ProducesResponseType<ErrorResponse>((int)HttpStatusCode.InternalServerError)]
         [ProducesResponseType<NotificationResponse>((int)HttpStatusCode.BadRequest)]
         [Authorize(Policy = Policies.Animes.CAN_CREATE)]
-        public async Task<IActionResult> CreateAnime([FromForm] AnimeCreateOrUpdateRequest request)
+        public async Task<IActionResult> CreateAnime([FromBody] AnimeCreateRequest request)
         {
             DetailedAnimeDTO detailedAnimeDTO = await _applicationService.CreateAnimeAsync(request, HttpContext.RequestAborted);
             return await Ok(detailedAnimeDTO, Messages.Response.Anime.ANIME_CREATED);
+        }
+
+        [HttpPut("{id:long}")]
+        [ProducesResponseType<DetailedAnimeDTO>((int)HttpStatusCode.OK)]
+        [ProducesResponseType<ErrorResponse>((int)HttpStatusCode.InternalServerError)]
+        [ProducesResponseType<NotificationResponse>((int)HttpStatusCode.BadRequest)]
+        public async Task<IActionResult> UpdateAnime([FromBody] AnimeUpdateRequest request)
+        {
+            return null;
         }
     }
 }
