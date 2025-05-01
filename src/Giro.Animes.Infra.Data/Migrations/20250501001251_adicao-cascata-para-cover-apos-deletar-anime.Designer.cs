@@ -3,6 +3,7 @@ using System;
 using Giro.Animes.Infra.Data.Contexts;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Giro.Animes.Infra.Data.Migrations
 {
     [DbContext(typeof(GiroAnimesDbContext))]
-    partial class GiroAnimesDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250501001251_adicao-cascata-para-cover-apos-deletar-anime")]
+    partial class adicaocascataparacoveraposdeletaranime
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -281,39 +284,6 @@ namespace Giro.Animes.Infra.Data.Migrations
                     b.ToTable("avatars", "content");
                 });
 
-            modelBuilder.Entity("Giro.Animes.Domain.Entities.Banner", b =>
-                {
-                    b.Property<long>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
-
-                    b.Property<long>("AnimeId")
-                        .HasColumnType("bigint");
-
-                    b.Property<DateTime>("CreationDate")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("TIMESTAMP")
-                        .HasDefaultValueSql("CURRENT_TIMESTAMP");
-
-                    b.Property<DateTime>("UpdateDate")
-                        .ValueGeneratedOnAddOrUpdate()
-                        .HasColumnType("TIMESTAMP")
-                        .HasDefaultValueSql("CURRENT_TIMESTAMP");
-
-                    b.Property<string>("Url")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("AnimeId")
-                        .IsUnique();
-
-                    b.ToTable("banners", "content");
-                });
-
             modelBuilder.Entity("Giro.Animes.Domain.Entities.Biography", b =>
                 {
                     b.Property<long>("Id")
@@ -481,6 +451,9 @@ namespace Giro.Animes.Infra.Data.Migrations
                     b.Property<DateTime>("AirDate")
                         .HasColumnType("timestamp with time zone");
 
+                    b.Property<long>("AnimeId")
+                        .HasColumnType("bigint");
+
                     b.Property<DateTime>("CreationDate")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("TIMESTAMP")
@@ -496,9 +469,6 @@ namespace Giro.Animes.Infra.Data.Migrations
                         .HasColumnType("integer")
                         .HasDefaultValue(0);
 
-                    b.Property<long>("SeasonId")
-                        .HasColumnType("bigint");
-
                     b.Property<DateTime>("UpdateDate")
                         .ValueGeneratedOnAddOrUpdate()
                         .HasColumnType("TIMESTAMP")
@@ -506,7 +476,7 @@ namespace Giro.Animes.Infra.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("SeasonId");
+                    b.HasIndex("AnimeId");
 
                     b.ToTable("episodes", "content");
                 });
@@ -904,81 +874,6 @@ namespace Giro.Animes.Infra.Data.Migrations
                     b.ToTable("anime_screenshots", "content");
                 });
 
-            modelBuilder.Entity("Giro.Animes.Domain.Entities.Season", b =>
-                {
-                    b.Property<long>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
-
-                    b.Property<long>("AnimeId")
-                        .HasColumnType("bigint");
-
-                    b.Property<DateTime>("CreationDate")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("TIMESTAMP")
-                        .HasDefaultValueSql("CURRENT_TIMESTAMP");
-
-                    b.Property<int>("Number")
-                        .HasColumnType("integer");
-
-                    b.Property<DateTime>("ReleaseDate")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<int>("Status")
-                        .HasColumnType("integer");
-
-                    b.Property<DateTime>("UpdateDate")
-                        .ValueGeneratedOnAddOrUpdate()
-                        .HasColumnType("TIMESTAMP")
-                        .HasDefaultValueSql("CURRENT_TIMESTAMP");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("AnimeId");
-
-                    b.ToTable("seasons", "content");
-                });
-
-            modelBuilder.Entity("Giro.Animes.Domain.Entities.SeasonSinopse", b =>
-                {
-                    b.Property<long>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
-
-                    b.Property<DateTime>("CreationDate")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("TIMESTAMP")
-                        .HasDefaultValueSql("CURRENT_TIMESTAMP");
-
-                    b.Property<long>("LanguageId")
-                        .HasColumnType("bigint");
-
-                    b.Property<long>("SeasonId")
-                        .HasColumnType("bigint");
-
-                    b.Property<string>("Text")
-                        .IsRequired()
-                        .HasColumnType("text")
-                        .HasColumnName("Description");
-
-                    b.Property<DateTime>("UpdateDate")
-                        .ValueGeneratedOnAddOrUpdate()
-                        .HasColumnType("TIMESTAMP")
-                        .HasDefaultValueSql("CURRENT_TIMESTAMP");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("LanguageId");
-
-                    b.HasIndex("SeasonId");
-
-                    b.ToTable("season_sinopses", "content");
-                });
-
             modelBuilder.Entity("Giro.Animes.Domain.Entities.Settings", b =>
                 {
                     b.Property<long>("Id")
@@ -1351,14 +1246,6 @@ namespace Giro.Animes.Infra.Data.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("Giro.Animes.Domain.Entities.Banner", b =>
-                {
-                    b.HasOne("Giro.Animes.Domain.Entities.Anime", null)
-                        .WithOne("Banner")
-                        .HasForeignKey("Giro.Animes.Domain.Entities.Banner", "AnimeId")
-                        .OnDelete(DeleteBehavior.Cascade);
-                });
-
             modelBuilder.Entity("Giro.Animes.Domain.Entities.Biography", b =>
                 {
                     b.HasOne("Giro.Animes.Domain.Entities.Author", "Author")
@@ -1409,13 +1296,11 @@ namespace Giro.Animes.Infra.Data.Migrations
 
             modelBuilder.Entity("Giro.Animes.Domain.Entities.Episode", b =>
                 {
-                    b.HasOne("Giro.Animes.Domain.Entities.Season", "Season")
+                    b.HasOne("Giro.Animes.Domain.Entities.Anime", "Anime")
                         .WithMany("Episodes")
-                        .HasForeignKey("SeasonId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("AnimeId");
 
-                    b.Navigation("Season");
+                    b.Navigation("Anime");
                 });
 
             modelBuilder.Entity("Giro.Animes.Domain.Entities.EpisodeFile", b =>
@@ -1560,35 +1445,6 @@ namespace Giro.Animes.Infra.Data.Migrations
                         .IsRequired();
 
                     b.Navigation("Anime");
-                });
-
-            modelBuilder.Entity("Giro.Animes.Domain.Entities.Season", b =>
-                {
-                    b.HasOne("Giro.Animes.Domain.Entities.Anime", "Anime")
-                        .WithMany("Seasons")
-                        .HasForeignKey("AnimeId")
-                        .OnDelete(DeleteBehavior.Cascade);
-
-                    b.Navigation("Anime");
-                });
-
-            modelBuilder.Entity("Giro.Animes.Domain.Entities.SeasonSinopse", b =>
-                {
-                    b.HasOne("Giro.Animes.Domain.Entities.Language", "Language")
-                        .WithMany()
-                        .HasForeignKey("LanguageId")
-                        .OnDelete(DeleteBehavior.NoAction)
-                        .IsRequired();
-
-                    b.HasOne("Giro.Animes.Domain.Entities.Season", "Season")
-                        .WithMany("Sinopses")
-                        .HasForeignKey("SeasonId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Language");
-
-                    b.Navigation("Season");
                 });
 
             modelBuilder.Entity("Giro.Animes.Domain.Entities.Settings", b =>
@@ -1742,15 +1598,13 @@ namespace Giro.Animes.Infra.Data.Migrations
 
             modelBuilder.Entity("Giro.Animes.Domain.Entities.Anime", b =>
                 {
-                    b.Navigation("Banner");
-
                     b.Navigation("Cover");
+
+                    b.Navigation("Episodes");
 
                     b.Navigation("Ratings");
 
                     b.Navigation("Screenshots");
-
-                    b.Navigation("Seasons");
 
                     b.Navigation("Sinopses");
 
@@ -1795,13 +1649,6 @@ namespace Giro.Animes.Infra.Data.Migrations
                     b.Navigation("GenreDescriptions");
 
                     b.Navigation("GenreTitles");
-                });
-
-            modelBuilder.Entity("Giro.Animes.Domain.Entities.Season", b =>
-                {
-                    b.Navigation("Episodes");
-
-                    b.Navigation("Sinopses");
                 });
 
             modelBuilder.Entity("Giro.Animes.Domain.Entities.Studio", b =>

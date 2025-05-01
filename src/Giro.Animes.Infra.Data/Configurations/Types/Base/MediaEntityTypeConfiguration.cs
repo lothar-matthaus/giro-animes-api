@@ -7,9 +7,7 @@ namespace Giro.Animes.Infra.Data.Configurations.Types.Base
     {
         public override void Configure(EntityTypeBuilder<Derivate> builder)
         {
-
-            builder.Property(media => media.Url).IsRequired().HasMaxLength(500);
-
+            builder.Property(media => media.Url).IsRequired();
             base.Configure(builder);
         }
     }

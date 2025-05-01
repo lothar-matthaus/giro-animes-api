@@ -32,6 +32,10 @@
             public const string RATINGS = "ratings";
             public const string EPISODE_SUBTITLE_LANGUAGES = "episode_subtitle_languages";
             public const string EPISODE_AUDIO_LANGUAGES = "episode_audio_languages";
+            public const string BANNERS = "banners";
+            public const string TRAILERS = "trailers";
+            public const string SEASONS = "seasons";
+            public const string SEASON_SINOPSES = "season_sinopses";
         }
 
         public static class Management

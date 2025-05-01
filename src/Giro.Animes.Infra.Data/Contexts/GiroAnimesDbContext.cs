@@ -58,6 +58,9 @@ namespace Giro.Animes.Infra.Data.Contexts
             modelBuilder.ApplyConfiguration(new PermissionEntityTypeConfiguration());
             modelBuilder.ApplyConfiguration(new EmailTemplateEntityTypeConfiguration());
             modelBuilder.ApplyConfiguration(new EmailTemplateStyleEntityTypeConfiguration());
+            modelBuilder.ApplyConfiguration(new BannerEntityTypeConfiguration());
+            modelBuilder.ApplyConfiguration(new SeasonEntityTypeConfiguration());
+            modelBuilder.ApplyConfiguration(new SeasonSinopseEntityTypeConfiguration());
         }
 
         private void Audit()
