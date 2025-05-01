@@ -3,6 +3,7 @@ using Giro.Animes.Application.Responses;
 using Giro.Animes.Infra.Interfaces.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Tokens;
 using System.Net;
 
@@ -10,8 +11,11 @@ namespace Giro.Animes.Shared.Middleware
 {
     public class ExceptionHandlingMiddleware : IMiddleware
     {
-        public ExceptionHandlingMiddleware()
+        private readonly ILogger<ExceptionHandlingMiddleware> _logger;
+
+        public ExceptionHandlingMiddleware(ILogger<ExceptionHandlingMiddleware> logger)
         {
+            _logger = logger;
         }
 
         public async Task InvokeAsync(HttpContext context, RequestDelegate next)
@@ -23,6 +27,7 @@ namespace Giro.Animes.Shared.Middleware
 
             catch (Exception ex)
             {
+                _logger.LogError(ex, "Ocorreu um erro ao processar a solicitação.");
                 switch (ex)
                 {
                     case SecurityTokenException:
