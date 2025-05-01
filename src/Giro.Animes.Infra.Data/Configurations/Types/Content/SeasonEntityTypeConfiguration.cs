@@ -19,7 +19,9 @@ namespace Giro.Animes.Infra.Data.Configurations.Types.Content
             builder.Property(season => season.Number).IsRequired(true);
             builder.Property(season => season.ReleaseDate).IsRequired(true);
             builder.Property(season => season.Status).IsRequired(true);
-            
+
+            builder.HasOne(season => season.Trailer).WithOne().HasForeignKey<Trailer>(trailer => trailer.SeasonId).IsRequired(false);
+
             builder.HasMany(season => season.Sinopses)
                 .WithOne(seasonSinopse => seasonSinopse.Season)
                 .HasForeignKey(seasonSinopse => seasonSinopse.SeasonId)

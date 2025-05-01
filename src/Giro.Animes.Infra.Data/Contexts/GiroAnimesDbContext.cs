@@ -60,6 +60,7 @@ namespace Giro.Animes.Infra.Data.Contexts
             modelBuilder.ApplyConfiguration(new EmailTemplateStyleEntityTypeConfiguration());
             modelBuilder.ApplyConfiguration(new BannerEntityTypeConfiguration());
             modelBuilder.ApplyConfiguration(new SeasonEntityTypeConfiguration());
+            modelBuilder.ApplyConfiguration(new TrailerEntityTypeConfiguration());
             modelBuilder.ApplyConfiguration(new SeasonSinopseEntityTypeConfiguration());
         }
 
