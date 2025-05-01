@@ -1,5 +1,6 @@
 ﻿using Giro.Animes.Application.DTOs.Base;
 using Giro.Animes.Application.DTOs.Simple;
+using Giro.Animes.Domain.Entities;
 using Giro.Animes.Domain.Enums;
 
 namespace Giro.Animes.Application.DTOs.Detailed
@@ -30,9 +31,9 @@ namespace Giro.Animes.Application.DTOs.Detailed
         public IEnumerable<SimpleAnimeScreenshotDTO> Screenshots { get; private set; }
 
         /// <summary>
-        /// Coleção de episódios do anime.
+        /// Coleção de temporadas do anime
         /// </summary>
-        public IEnumerable<SimpleEpisodeDTO> Episodes { get; private set; }
+        public IEnumerable<SimpleSeasonDTO> Seasons { get; private set; }
 
         /// <summary>
         /// Coleção de autores do anime.
@@ -66,7 +67,7 @@ namespace Giro.Animes.Application.DTOs.Detailed
         /// <param name="sinopses"></param>
         /// <param name="cover"></param>
         /// <param name="screenshots"></param>
-        /// <param name="episodes"></param>
+        /// <param name="seasons"></param>
         /// <param name="authors"></param>
         /// <param name="rating"></param>
         /// <param name="genres"></param>
@@ -80,7 +81,7 @@ namespace Giro.Animes.Application.DTOs.Detailed
             IEnumerable<SimpleAnimeSinopseDTO> sinopses,
             SimpleCoverDTO cover,
             IEnumerable<SimpleAnimeScreenshotDTO> screenshots,
-            IEnumerable<SimpleEpisodeDTO> episodes,
+            IEnumerable<SimpleSeasonDTO> seasons,
             IEnumerable<SimpleAuthorDTO> authors,
             IEnumerable<SimpleRatingDTO> rating,
             IEnumerable<SimpleGenreDTO> genres,
@@ -93,7 +94,7 @@ namespace Giro.Animes.Application.DTOs.Detailed
             Sinopses = sinopses;
             Cover = cover;
             Screenshots = screenshots;
-            Episodes = episodes;
+            Seasons = seasons;
             Authors = authors;
             Rating = rating;
             Genres = genres;
@@ -108,7 +109,7 @@ namespace Giro.Animes.Application.DTOs.Detailed
         /// <param name="sinopses"></param>
         /// <param name="cover"></param>
         /// <param name="screenshots"></param>
-        /// <param name="episodes"></param>
+        /// <param name="seasons"></param>
         /// <param name="authors"></param>
         /// <param name="rating"></param>
         /// <param name="genres"></param>
@@ -123,7 +124,7 @@ namespace Giro.Animes.Application.DTOs.Detailed
             IEnumerable<SimpleAnimeSinopseDTO> sinopses,
             SimpleCoverDTO cover,
             IEnumerable<SimpleAnimeScreenshotDTO> screenshots,
-            IEnumerable<SimpleEpisodeDTO> episodes,
+            IEnumerable<SimpleSeasonDTO> seasons,
             IEnumerable<SimpleAuthorDTO> authors,
             IEnumerable<SimpleRatingDTO> rating,
             IEnumerable<SimpleGenreDTO> genres,
@@ -131,7 +132,7 @@ namespace Giro.Animes.Application.DTOs.Detailed
             EnumDTO<AnimeStatus> status,
             long? id, DateTime creationDate, DateTime updateDate)
         {
-            return new DetailedAnimeDTO(titles, sinopses, cover, screenshots, episodes, authors, rating, genres, studio, status, id, creationDate, updateDate);
+            return new DetailedAnimeDTO(titles, sinopses, cover, screenshots, seasons, authors, rating, genres, studio, status, id, creationDate, updateDate);
         }
     }
 }

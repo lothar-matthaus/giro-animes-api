@@ -1,4 +1,5 @@
 ﻿using Giro.Animes.Application.Custom;
+using Giro.Animes.Application.DTOs;
 using Giro.Animes.Application.DTOs.Detailed;
 using Giro.Animes.Application.DTOs.Simple;
 using Giro.Animes.Application.Extensions;
@@ -9,87 +10,84 @@ using Giro.Animes.Application.Requests.Anime;
 using Giro.Animes.Application.Services.Base;
 using Giro.Animes.Domain.Common.Filters;
 using Giro.Animes.Domain.Entities;
+using Giro.Animes.Domain.Entities.Base;
 using Giro.Animes.Domain.Enums;
 using Giro.Animes.Domain.Interfaces.Pagination;
 using Giro.Animes.Domain.Interfaces.Services;
 using Giro.Animes.Domain.ValueObjects;
 using Giro.Animes.Infra.Interfaces;
 using Giro.Animes.Infra.Interfaces.Services;
+using Org.BouncyCastle.Asn1.Ocsp;
+using System.Threading;
 
 namespace Giro.Animes.Application.Services
 {
+    /// <summary>
+    /// Serviço responsável por gerenciar operações relacionadas a animes.
+    /// </summary>
     internal class AnimeService : ApplicationServiceBase<IAnimeDomainService>, IAnimeService
     {
         private readonly ITokenService _tokenService;
 
+        /// <summary>
+        /// Construtor do AnimeService.
+        /// </summary>
+        /// <param name="applicationUser">O contexto do usuário da aplicação.</param>
+        /// <param name="notificationService">Serviço para lidar com notificações.</param>
+        /// <param name="tokenService">Serviço para lidar com a geração de tokens.</param>
+        /// <param name="domainService">Serviço de domínio para operações de anime.</param>
         public AnimeService(IApplicationUser applicationUser, INotificationService notificationService, ITokenService tokenService, IAnimeDomainService domainService) :
             base(applicationUser, notificationService, domainService)
         {
             _tokenService = tokenService;
         }
 
-        public async Task<DetailedAnimeDTO> CreateAnimeAsync(AnimeCreateOrUpdateRequest request, CancellationToken cancellationToken)
+        private async Task<(IEnumerable<AnimeTitle>, IEnumerable<AnimeSinopse>, IEnumerable<Screenshot>)> AnimeDetailListCreator(IEnumerable<AnimeTitleRequest> titlesRequest, IEnumerable<AnimeSinopseRequest> sinopseRequests, IEnumerable<string> screenshotsRequest, CancellationToken cancellationToken)
         {
             IList<AnimeTitle> titles = new List<AnimeTitle>();
             IList<AnimeSinopse> sinopses = new List<AnimeSinopse>();
             IList<Screenshot> screenshots = new List<Screenshot>();
-            Cover cover = null;
 
-            // Cria os título de animes
-            foreach (AnimeTitleRequest title in request.Titles)
+            // Cria os títulos do anime
+            foreach (AnimeTitleRequest title in titlesRequest)
             {
                 EntityResult<AnimeTitle> titleResult = await _domainService.CreateAnimeTitleAsync(title.Name, title.LanguageId, cancellationToken);
-
-                if (!titleResult.IsValid)
-                {
-                    await _notificationService.AddNotification(titleResult.Errors);
-                    continue;
-                }
-
                 titles.Add(titleResult.Entity);
             }
 
-            // Cria as sinopses de animes
-            foreach (AnimeSinopseRequest sinopse in request.Sinopses)
+            // Cria as sinopses do anime
+            foreach (AnimeSinopseRequest sinopse in sinopseRequests)
             {
                 EntityResult<AnimeSinopse> sinopseResult = await _domainService.CreateAnimeSinopseAsync(sinopse.Descrition, sinopse.LanguageId, cancellationToken);
-
-                if (!sinopseResult.IsValid)
-                {
-                    await _notificationService.AddNotification(sinopseResult.Errors);
-                    continue;
-                }
-
                 sinopses.Add(sinopseResult.Entity);
             }
 
-            // Cria a capa do anime
-            EntityResult<Cover> coverResult = await _domainService.CreateCoverAsync(request.CoverUrl, cancellationToken);
 
-            if (!coverResult.IsValid)
-            {
-                await _notificationService.AddNotification(coverResult.Errors);
-            }
-            else
-            {
-                cover = coverResult.Entity;
-            }
-
-            // Cria os screenshots de animes
-            foreach (string screenshotUrl in request.Screenshots)
+            // Cria as capturas de tela do anime
+            foreach (string screenshotUrl in screenshotsRequest)
             {
                 EntityResult<Screenshot> screenshotResult = await _domainService.CreateScreenshotAsync(screenshotUrl, cancellationToken);
-
-                if (!screenshotResult.IsValid)
-                {
-                    await _notificationService.AddNotification(screenshotResult.Errors);
-                    continue;
-                }
-
                 screenshots.Add(screenshotResult.Entity);
             }
 
-            EntityResult<Anime> animeResult = await _domainService.CreateAnimeAsync(titles, sinopses, cover, screenshots, request.Authors, request.Genres, AnimeStatus.Ongoing, request.StudioId, cancellationToken);
+            // Retorna os títulos, sinopses e capturas de tela criados
+            return (titles, sinopses, screenshots);
+        }
+
+        /// <summary>
+        /// Cria um novo anime com os detalhes fornecidos.
+        /// </summary>
+        /// <param name="request">A requisição contendo os detalhes do anime.</param>
+        /// <param name="cancellationToken">Token para cancelar a operação.</param>
+        /// <returns>Um DTO detalhado do anime criado.</returns>
+        public async Task<DetailedAnimeDTO> CreateAnimeAsync(AnimeCreateRequest request, CancellationToken cancellationToken)
+        {
+            (IEnumerable<AnimeTitle> titles, IEnumerable<AnimeSinopse> sinopses, IEnumerable<Screenshot> screenshots) = await AnimeDetailListCreator(request.Titles, request.Sinopses, request.Screenshots, cancellationToken);
+            
+            EntityResult<Cover> coverResult = await _domainService.CreateCoverAsync(request.CoverUrl, cancellationToken);
+            EntityResult<Banner> bannerResult = await _domainService.CreateBannerAsync(request.BannerUrl, cancellationToken);
+
+            EntityResult<Anime> animeResult = await _domainService.CreateAnimeAsync(titles, sinopses, coverResult.Entity, bannerResult.Entity, screenshots, request.Authors, request.Genres, AnimeStatus.Ongoing, request.StudioId, cancellationToken);
 
             if (!animeResult.IsValid)
             {
@@ -101,11 +99,23 @@ namespace Giro.Animes.Application.Services
         }
 
         /// <summary>
-        /// Método para obter uma lista paginada de animes. 
+        /// Recupera uma lista paginada de animes para a página inicial.
         /// </summary>
         /// <param name="pagination"></param>
         /// <param name="cancellationToken"></param>
         /// <returns></returns>
+        /// <exception cref="NotImplementedException"></exception>
+        public Task<AnimeHomeDTO> GetAllHomePage(IPagination<AnimeFilter> pagination, CancellationToken cancellationToken)
+        {
+            throw new NotImplementedException();
+        }
+
+        /// <summary>
+        /// Recupera uma lista paginada de animes.
+        /// </summary>
+        /// <param name="pagination">Detalhes de paginação e filtros.</param>
+        /// <param name="cancellationToken">Token para cancelar a operação.</param>
+        /// <returns>Uma lista paginada de DTOs simples de animes.</returns>
         public async Task<IPagedEnumerable<SimpleAnimeDTO>> GetAllPagedAsync(IPagination<AnimeFilter> pagination, CancellationToken cancellationToken)
         {
             (IEnumerable<Anime> animes, int totalCount) = await _domainService.GetAllPagedAsync(pagination, cancellationToken);
@@ -115,12 +125,11 @@ namespace Giro.Animes.Application.Services
         }
 
         /// <summary>
-        /// Método para obter um anime pelo seu id.
+        /// Recupera um anime pelo seu ID.
         /// </summary>
-        /// <param name="id"></param>
-        /// <param name="cancellationToken"></param>
-        /// <returns></returns>
-        /// <exception cref="NotImplementedException"></exception>
+        /// <param name="id">O ID do anime.</param>
+        /// <param name="cancellationToken">Token para cancelar a operação.</param>
+        /// <returns>Um DTO detalhado do anime.</returns>
         public async Task<DetailedAnimeDTO> GetByIdAsync(long id, CancellationToken cancellationToken)
         {
             Anime anime = await _domainService.GetByIdAsync(id, cancellationToken);
@@ -128,6 +137,11 @@ namespace Giro.Animes.Application.Services
             return anime?.Map();
         }
 
+        /// <summary>
+        /// Incrementa o contador de visualizações de um anime.
+        /// </summary>
+        /// <param name="id">O ID do anime.</param>
+        /// <param name="cancellationToken">Token para cancelar a operação.</param>
         public async Task IncrementViewAsync(long id, CancellationToken cancellationToken)
         {
             EntityResult<Anime> result = await _domainService.IncrementView(id, cancellationToken);
@@ -136,6 +150,18 @@ namespace Giro.Animes.Application.Services
             {
                 await _notificationService.AddNotification(result.Errors);
             }
+        }
+
+        /// <summary>
+        /// Atualiza os detalhes de um anime existente.
+        /// </summary>
+        /// <param name="request"></param>
+        /// <param name="cancellationToken"></param>
+        /// <returns></returns>
+        /// <exception cref="NotImplementedException"></exception>
+        public Task<DetailedAnimeDTO> UpdateAnimeAsync(AnimeUpdateRequest request, CancellationToken cancellationToken)
+        {
+            throw new NotImplementedException();
         }
     }
 }

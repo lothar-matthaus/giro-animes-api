@@ -2,12 +2,13 @@
 
 namespace Giro.Animes.Application.Requests.Anime
 {
-    public class AnimeCreateOrUpdateRequest
+    public class AnimeCreateRequest
     {
         public ICollection<AnimeTitleRequest> Titles { get; set; } = new List<AnimeTitleRequest>();
         public IEnumerable<AnimeSinopseRequest> Sinopses { get; set; } = new List<AnimeSinopseRequest>();
         public IEnumerable<long> Genres { get; set; } = new List<long>();
         public string CoverUrl { get; set; } = string.Empty;
+        public string BannerUrl { get; set; } = string.Empty;
         public IEnumerable<string> Screenshots { get; set; } = new List<string>();
         public IEnumerable<long> Authors { get; set; } = new List<long>();
         public long StudioId { get; set; }

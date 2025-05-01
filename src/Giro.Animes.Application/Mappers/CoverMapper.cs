@@ -39,7 +39,7 @@ namespace Giro.Animes.Application.Mappers
         public static SimpleCoverDTO MapSimple(this Cover cover)
         {
             SimpleCoverDTO simpleCoverDTO = SimpleCoverDTO.Create(
-                cover.Id.Value,
+                cover.Id ?? 0,
                 cover.Url,
                 cover.AnimeId
             );

@@ -17,13 +17,13 @@ namespace Giro.Animes.Application.Mappers
         public static DetailedEpisodeDTO Map(this Episode episode)
         {
             DetailedEpisodeDTO episodeDTO = DetailedEpisodeDTO.Create(
-                episode.Titles.Map(),
-                episode.Sinopses.Map(),
+                episode.Titles.MapSimple(),
+                episode.Sinopses.MapSimple(),
                 episode.Number,
                 episode.Duration,
                 episode.AirDate,
-                episode.Files.Map(),
-                episode.AnimeId,
+                episode.Files.MapSimple(),
+                episode.SeasonId,
                 episode.Id,
                 episode.CreationDate,
                 episode.UpdateDate
@@ -50,7 +50,7 @@ namespace Giro.Animes.Application.Mappers
         /// <returns></returns>
         public static SimpleEpisodeDTO MapSimple(this Episode episode)
         {
-            SimpleEpisodeDTO simpleEpisodeDTO = SimpleEpisodeDTO.Create(episode.Titles.MapSimple(), episode.AnimeId, episode.Id);
+            SimpleEpisodeDTO simpleEpisodeDTO = SimpleEpisodeDTO.Create(episode.Titles.MapSimple(), episode.SeasonId, episode.Id);
             return simpleEpisodeDTO;
         }
 

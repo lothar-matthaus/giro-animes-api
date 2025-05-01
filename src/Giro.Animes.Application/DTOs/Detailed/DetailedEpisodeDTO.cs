@@ -1,4 +1,6 @@
 ﻿using Giro.Animes.Application.DTOs.Base;
+using Giro.Animes.Application.DTOs.Simple;
+using MimeKit.Cryptography;
 
 namespace Giro.Animes.Application.DTOs.Detailed
 {
@@ -10,12 +12,12 @@ namespace Giro.Animes.Application.DTOs.Detailed
         /// <summary>
         /// Coleção de títulos do episódio.
         /// </summary>
-        public IEnumerable<DetailedEpisodeTitleDTO> Titles { get; private set; }
+        public IEnumerable<SimpleEpisodeTitleDTO> Titles { get; private set; }
 
         /// <summary>
         /// Sinopses do episódio.
         /// </summary>
-        public IEnumerable<DetailedEpisodeSinopseDTO> Sinopses { get; private set; }
+        public IEnumerable<SimpleEpisodeSinopseDTO> Sinopses { get; private set; }
 
         /// <summary>
         /// Número do episódio.
@@ -32,30 +34,59 @@ namespace Giro.Animes.Application.DTOs.Detailed
         /// </summary>
         public DateTime AirDate { get; private set; }
 
-
         /// <summary>
         /// Arquivo de vídeo do episódio em questão.
         /// </summary>
-        public IEnumerable<DetailedEpisodeFileDTO> Files { get; private set; }
+        public IEnumerable<SimpleEpisodeFileDTO> Files { get; private set; }
 
         /// <summary>
-        /// Identificador do anime ao qual o episódio pertence.
+        /// Identificador da temporada ao qual o episódio pertence.
         /// </summary>
-        public long AnimeId { get; private set; }
+        public long SeasonId { get; private set; }
 
-        private DetailedEpisodeDTO(IEnumerable<DetailedEpisodeTitleDTO> titles, IEnumerable<DetailedEpisodeSinopseDTO> animeSinopses, int number, int duration, DateTime airDate, IEnumerable<DetailedEpisodeFileDTO> episodeFiles, long animeId, long? id, DateTime creationDate, DateTime updateDate) :
+        /// <summary>
+        /// Construtor com parâmetros. Garante a construção do objeto através do método Create.
+        /// </summary>
+        /// <param name="titles"></param>
+        /// <param name="sinopses"></param>
+        /// <param name="number"></param>
+        /// <param name="duration"></param>
+        /// <param name="airDate"></param>
+        /// <param name="files"></param>
+        /// <param name="seasonId"></param>
+        /// <param name="id"></param>
+        /// <param name="creationDate"></param>
+        /// <param name="updateDate"></param>
+        private DetailedEpisodeDTO(IEnumerable<SimpleEpisodeTitleDTO> titles, IEnumerable<SimpleEpisodeSinopseDTO> sinopses, int number, int duration, DateTime airDate, IEnumerable<SimpleEpisodeFileDTO> files, long seasonId, long? id, DateTime creationDate, DateTime updateDate) :
             base(id, creationDate, updateDate)
         {
             Titles = titles;
-            Sinopses = animeSinopses;
+            Sinopses = sinopses;
             Number = number;
             Duration = duration;
-            Files = episodeFiles;
-            AnimeId = animeId;
             AirDate = airDate;
+            Files = files;
+            SeasonId = seasonId;
         }
 
-        public static DetailedEpisodeDTO Create(IEnumerable<DetailedEpisodeTitleDTO> titles, IEnumerable<DetailedEpisodeSinopseDTO> animeSinopses, int number, int duration, DateTime airDate, IEnumerable<DetailedEpisodeFileDTO> episodeFiles, long animeId, long? id, DateTime creationDate, DateTime updateDate)
-            => new DetailedEpisodeDTO(titles, animeSinopses, number, duration, airDate, episodeFiles, animeId, id, creationDate, updateDate);
+        /// <summary>
+        /// Cria uma nova instância de DetailedEpisodeDTO com os parâmetros definidos.
+        /// </summary>
+        /// <param name="titles"></param>
+        /// <param name="sinopses"></param>
+        /// <param name="number"></param>
+        /// <param name="duration"></param>
+        /// <param name="airDate"></param>
+        /// <param name="files"></param>
+        /// <param name="seasonId"></param>
+        /// <param name="id"></param>
+        /// <param name="creationDate"></param>
+        /// <param name="updateDate"></param>
+        /// <returns></returns>
+        public static DetailedEpisodeDTO Create(IEnumerable<SimpleEpisodeTitleDTO> titles, IEnumerable<SimpleEpisodeSinopseDTO> sinopses, int number, int duration, DateTime airDate, IEnumerable<SimpleEpisodeFileDTO> files, long seasonId, long? id, DateTime creationDate, DateTime updateDate)
+        {
+            return new DetailedEpisodeDTO(titles, sinopses, number, duration, airDate, files, seasonId, id, creationDate, updateDate);
+
+        }
     }
 }

@@ -1,4 +1,5 @@
-﻿using Giro.Animes.Application.DTOs.Detailed;
+﻿using Giro.Animes.Application.DTOs;
+using Giro.Animes.Application.DTOs.Detailed;
 using Giro.Animes.Application.DTOs.Simple;
 using Giro.Animes.Application.Interfaces.Enumerations;
 using Giro.Animes.Application.Interfaces.Services.Base;
@@ -13,6 +14,8 @@ namespace Giro.Animes.Application.Interfaces.Services
         Task<DetailedAnimeDTO> GetByIdAsync(long id, CancellationToken cancellationToken);
         Task<IPagedEnumerable<SimpleAnimeDTO>> GetAllPagedAsync(IPagination<AnimeFilter> pagination, CancellationToken cancellationToken);
         Task IncrementViewAsync(long id, CancellationToken requestAborted);
-        Task<DetailedAnimeDTO> CreateAnimeAsync(AnimeCreateOrUpdateRequest request, CancellationToken cancellationToken);
+        Task<DetailedAnimeDTO> CreateAnimeAsync(AnimeCreateRequest request, CancellationToken cancellationToken);
+        Task<DetailedAnimeDTO> UpdateAnimeAsync(AnimeUpdateRequest request, CancellationToken cancellationToken);
+        Task<AnimeHomeDTO> GetAllHomePage(IPagination<AnimeFilter> pagination, CancellationToken cancellationToken);
     }
 }
