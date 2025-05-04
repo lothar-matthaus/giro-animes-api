@@ -25,7 +25,7 @@ namespace Giro.Animes.Application.Events.Handlers
         private readonly IEmailService _emailService;
 
         public AccountCreatedDomainEventHandler(ILogger<AccountCreatedDomainEvent> logger, IApiInfo apiInfo, ITokenService tokenService, IEmailTemplateRepository emailTemplateRepository, IEmailService emailService)
-        :base(logger)
+        : base(logger)
         {
             _apiInfo = apiInfo;
             _tokenService = tokenService;
@@ -37,13 +37,13 @@ namespace Giro.Animes.Application.Events.Handlers
         {
             _logger.LogInformation($"Gerando o token de confirmação de e-mail para o usuário {domainEvent.Username} ({domainEvent.Email})...");
             UserTokenDTO userTokenDTO = await _tokenService.GenerateAccountActivationToken(domainEvent.Username);
-            
+
             _logger.LogInformation($"Token de confirmação de e-mail gerado com sucesso para o usuário {domainEvent.Username} ({domainEvent.Email}).");
 
             _logger.LogInformation($"Buscando template de boas-vindas para o usuário {domainEvent.Username} ({domainEvent.Email})...");
             EmailTemplate template = await _templateRepository.GetByType(TemplateType.Welcome, domainEvent.LanguageId, CancellationToken.None);
 
-            if(template is null)
+            if (template is null)
             {
                 _logger.LogError($"Template '{TemplateType.Welcome.ToString()}' de idioma '{domainEvent.LanguageId}'.");
                 return;
@@ -51,8 +51,8 @@ namespace Giro.Animes.Application.Events.Handlers
 
             string bodyFormated = template.Body
                 .Replace("{username}", domainEvent.Username)
-                .Replace("{urlConfirmation}", string.Format("{0}api/v{1}/auth/confirm-email?token={2}", _apiInfo.Host, _apiInfo.Version[0], userTokenDTO.Token))
-                .Replace("{urlConfirmation}", string.Format("{0}api/v{1}/auth/confirm-email?token={2}", _apiInfo.Host, _apiInfo.Version[0], userTokenDTO.Token))
+                .Replace("{urlConfirmation}", string.Format("{0}api/auth/confirm-email?token={1}", _apiInfo.Host, userTokenDTO.Token))
+                .Replace("{urlConfirmation}", string.Format("{0}api/auth/confirm-email?token={1}", _apiInfo.Host, userTokenDTO.Token))
                 .Replace("{templateStyle}", template.Style.Style)
                 .Replace("{currentYear}", DateTime.Now.Year.ToString());
 
