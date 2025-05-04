@@ -7,6 +7,13 @@
 		<UserSecretsId>ae74d1f3-596a-4d0b-8efa-dbbb25a126ad</UserSecretsId>
 		<DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
 		<DockerfileContext>..\..</DockerfileContext>
+		<EnforceCodeStyleInBuild>True</EnforceCodeStyleInBuild>
+		
+		<Version>1.0.0</Version>
+		<AssemblyTitle>Giro Animes API</AssemblyTitle>
+		<Company>Giro Animes</Company>
+		<Description>Api para consumo do site do Giro Animes</Description>
+		<Copyright>Copyright © Giro Animes 2025</Copyright>
 	</PropertyGroup>
 
 	<ItemGroup>

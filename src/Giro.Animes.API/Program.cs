@@ -1,14 +1,10 @@
-using Asp.Versioning;
 using Giro.Animes.Application.Extensions.IoC;
-using Giro.Animes.Infra.Configs;
 using Giro.Animes.Infra.Data.Extensions.IoC;
 using Giro.Animes.Infra.Extensions;
 using Giro.Animes.Infra.Extensions.IoC;
 using Giro.Animes.Infra.Extensions.IoC.Security;
-using Giro.Animes.Infra.Interfaces.Configs;
 using Giro.Animes.Shared.Extensions.Authorization;
 using Giro.Animes.Shared.Extensions.Swaggger;
-using Giro.Animes.Shared.Extensions.Versioning;
 using Giro.Animes.Shared.Filters;
 using Giro.Animes.Shared.Middleware;
 using Giro.Animes.Shared.Middlewares;
@@ -36,8 +32,6 @@ builder.Services.AddControllers(options =>
     options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles;
     options.JsonSerializerOptions.WriteIndented = true;
 });
-
-builder.Services.AddApiVersioningConfig(builder.Configuration);
 
 // Configura o acesso ao contexto HTTP
 builder.Services.AddHttpContextAccessor();
