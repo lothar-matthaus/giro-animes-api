@@ -190,7 +190,6 @@ namespace Giro.Animes.Infra.Services
 
             return userTokenDTO;
         }
-
         public async Task<string> ValidateAccountActivationToken(string token)
         {
             Claim[] claims = await ValidateToken(token);
