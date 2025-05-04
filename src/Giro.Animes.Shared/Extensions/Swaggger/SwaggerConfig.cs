@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.OpenApi.Models;
+using System.Reflection;
 
 namespace Giro.Animes.Shared.Extensions.Swaggger
 {
@@ -16,7 +17,8 @@ namespace Giro.Animes.Shared.Extensions.Swaggger
         /// <returns></returns>
         public static IServiceCollection AddSwaggerConfig(this IServiceCollection services, IConfiguration configuration)
         {
-            IApiInfo apiInfo = new ApiInfo(configuration);
+            Assembly assembly = Assembly.GetCallingAssembly();
+            IApiInfo apiInfo = new ApiInfo(configuration, assembly);
 
             services.AddSwaggerGen(c =>
             {
@@ -25,12 +27,12 @@ namespace Giro.Animes.Shared.Extensions.Swaggger
                     Title = apiInfo.Name,
                     Version = apiInfo.Version,
                     Description = apiInfo.Description,
-                    TermsOfService = new Uri("https://example.com/terms"),
+                    TermsOfService = new Uri("https://giroanimes.com/terms"),
                     Contact = new OpenApiContact
                     {
-                        Name = "Seu Nome",
-                        Email = "seuemail@example.com",
-                        Url = new Uri("https://example.com/contact")
+                        Name = "Lothar Matthaus",
+                        Email = "contato@giroanimes.com",
+                        Url = new Uri("https://giroanimes.com/contato")
                     },
                     License = new OpenApiLicense
                     {

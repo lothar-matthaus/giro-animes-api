@@ -11,7 +11,7 @@ using System.Net;
 namespace Giro.Animes.Shared.Controllers
 {
     [ApiController]
-    [Route("api/v{version:apiVersion}/[controller]/")]
+    [Route("api/[controller]/")]
     [Authorize()]
     public abstract class GiroAnimesBaseController<TApplicationService> : ControllerBase where TApplicationService : IApplicationServiceBase
     {
