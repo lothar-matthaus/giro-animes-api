@@ -5,7 +5,6 @@ using Giro.Animes.Infra.Extensions.IoC;
 using Giro.Animes.Infra.Extensions.IoC.Security;
 using Giro.Animes.Shared.Extensions.Authorization;
 using Giro.Animes.Shared.Extensions.Swaggger;
-using Giro.Animes.Shared.Extensions.Versioning;
 using Giro.Animes.Shared.Filters;
 using Giro.Animes.Shared.Middleware;
 using System.Text.Json.Serialization;
@@ -61,9 +60,6 @@ builder.Services.AddServices();
 builder.Services.AddTransient<ExceptionHandlingMiddleware>();
 #endregion
 
-#region Versioning
-builder.Services.AddApiVersioningConfig(builder.Configuration);
-#endregion
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
