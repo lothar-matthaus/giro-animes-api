@@ -9,7 +9,14 @@ namespace Giro.Animes.Domain.Entities
 {
     public class EmailTemplateStyle : EntityBase
     {
+        /// <summary>
+        /// Descrição do estilo do template de e-mail.
+        /// </summary>
         public string Description { get; private set; }
+
+        /// <summary>
+        /// Estilo do template de e-mail.
+        /// </summary>
         public string Style { get; private set; }
 
         public EmailTemplateStyle() { }
