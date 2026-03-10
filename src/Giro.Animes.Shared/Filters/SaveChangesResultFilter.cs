@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc.Filters;
 
 namespace Giro.Animes.Shared.Filters
 {
-    public class SaveChangesResultFilter : IAsyncResultFilter
+    public class SaveChangesResultFilter : IAsyncActionFilter
     {
         private readonly GiroAnimesDbContext _dbContext;
         private readonly INotificationService _notificationService;
@@ -15,14 +15,17 @@ namespace Giro.Animes.Shared.Filters
             _dbContext = dbContext;
             _notificationService = notificationService;
         }
-        public async Task OnResultExecutionAsync(ResultExecutingContext context, ResultExecutionDelegate next)
-        {
-            if (_dbContext.ChangeTracker.HasChanges() && !_notificationService.HasNotifications())
-            {
-                _dbContext.SaveChanges();
-            }
 
-            await next();
+        public async Task OnActionExecutionAsync(ActionExecutingContext context, ActionExecutionDelegate next)
+        {
+            var executed = await next();
+
+            bool hasException = executed.Exception != null && !executed.ExceptionHandled;
+
+            if (!hasException && !_notificationService.HasNotifications() && _dbContext.ChangeTracker.HasChanges())
+            {
+                await _dbContext.SaveChangesAsync();
+            }
         }
     }
 }
